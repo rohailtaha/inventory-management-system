@@ -1,0 +1,397 @@
+@import 'utility_classes';
+@import 'mixins';
+
+$primary: #1f1f1f;
+$secondary: #484848;
+
+@import './bootstrap/scss/bootstrap';
+
+body {
+  min-height: 100vh;
+  @include position(relative);
+}
+
+body.preload * {
+  animation-duration: 0s !important;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+form label {
+  font-size: 15px;
+}
+
+.header {
+  z-index: 1000;
+}
+
+.table {
+  .action-icon {
+    font-size: 1rem;
+  }
+}
+
+.spinner-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #000000a8;
+  z-index: 1000;
+}
+
+input::placeholder {
+  font-size: 0.85rem;
+}
+
+.form-error {
+  font-size: 0.92rem;
+}
+
+.sidebar {
+  @include position(absolute, 64px, null, 0, 0);
+  z-index: 12;
+  .menu-btn {
+    @include position(absolute, 10px, 10px, null, null);
+    i {
+      color: white;
+      font-size: 30px;
+    }
+  }
+
+  .report-btn {
+    cursor: pointer;
+  }
+
+  .report-types {
+    a {
+      font-size: 0.95rem;
+    }
+  }
+
+  .report-types--open {
+    animation-name: open-report-types;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+  }
+
+  .report-types--close {
+    animation-name: close-report-types;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+
+  .report-arrow {
+    transform: rotate(0deg) translateY(-50%);
+    position: absolute;
+    top: 50%;
+    right: 25px;
+  }
+
+  .report-arrow--right {
+    animation-name: report-arrow-right;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+
+  .report-arrow--down {
+    animation-name: report-arrow-down;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+
+  &__quick-actions {
+    i {
+      font-size: 0.8rem;
+    }
+    li,
+    a {
+      background: transparent;
+    }
+    a {
+      @include font(0.85rem);
+    }
+  }
+
+  .list-group {
+    a,
+    .list-group-item {
+      background-color: lighten($color: $primary, $amount: 6);
+      color: white;
+      &:hover {
+        background-color: lighten($primary, $amount: 3);
+        color: white;
+      }
+    }
+    .active {
+      background-color: darken($color: $primary, $amount: 1) !important;
+    }
+  }
+}
+
+.sidebar-bg {
+  @include position(fixed, 64px, null, 0, 0);
+}
+
+.sidebar-bg--open {
+  width: 200px;
+}
+.sidebar-bg--close {
+  width: 50px;
+}
+
+.sidebar--open {
+  width: 200px;
+  transition: all 0.5s;
+}
+
+.sidebar--close {
+  width: 50px;
+  transition: all 0.5s;
+  padding-top: 6em !important;
+
+  .menu-btn {
+    @include position(absolute, 10px, 0, null, 0);
+    margin: auto;
+  }
+
+  .logo {
+    display: none !important;
+  }
+
+  .list-group {
+    a {
+      span {
+        display: none;
+      }
+    }
+  }
+
+  .sidebar__quick-actions {
+    display: none;
+  }
+}
+
+.main {
+  padding-left: 200px;
+
+  .modal--visible {
+    display: block;
+    background-color: #000000e3;
+  }
+
+  &__content {
+    width: 85%;
+    margin: 0 auto;
+  }
+}
+
+.main--expanded {
+  padding-left: 50px;
+}
+
+.main--login {
+  .main__content {
+    width: 60%;
+    max-width: 500px;
+    @include position(absolute, 50%, 0, 0, 0);
+    transform: translateY(-50%);
+  }
+}
+
+.main__content--dashboard {
+  max-width: 800px;
+  .stats {
+    .grid {
+      @include responsive-grid(200px);
+    }
+    .card {
+      max-width: 300px;
+    }
+  }
+}
+
+.main__content--users {
+  table {
+    min-width: 700px;
+  }
+}
+
+.main__content-customers {
+  table {
+    min-width: 700px;
+  }
+}
+
+.main__content--inventory {
+  table {
+    min-width: 1000px;
+  }
+}
+
+.main__content--categories {
+  .table-container {
+    .card {
+      max-width: 600px;
+    }
+  }
+}
+
+.main__content--add-user,
+.main__content--edit-user {
+  form {
+    max-width: 500px;
+  }
+}
+
+.main__content--add-supplier,
+.main__content--edit-supplier {
+  form {
+    max-width: 500px;
+  }
+}
+
+.main__content--add-purchase,
+.main__content--edit-purchase {
+  table {
+    min-width: 600px;
+  }
+
+  form {
+    max-width: 500px;
+  }
+}
+
+.main__content--add-customer,
+.main__content--edit-customer {
+  form {
+    max-width: 500px;
+  }
+}
+
+.main__content--add-sale,
+.main__content--edit-sale {
+  form {
+    max-width: 500px;
+  }
+  table {
+    min-width: 750px;
+  }
+}
+
+.main__content--add-product,
+.main__content--edit-product {
+  form {
+    max-width: 500px;
+  }
+}
+
+.main__content--sales-report,
+.main__content--purchases-report {
+  .report-header {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .main {
+    padding-left: 50px;
+    &__content {
+      width: 90%;
+    }
+  }
+
+  .main--login {
+    .main__content {
+      width: 90%;
+    }
+  }
+}
+
+@media print {
+  * {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.1rem;
+  }
+  .header {
+    padding-top: 0 !important;
+  }
+  .sidebar {
+    display: none !important;
+  }
+
+  .main__content {
+    width: initial !important;
+    margin: 0 !important;
+  }
+
+  .main--sales-report,
+  .main--purchases-report {
+    padding: 0 !important;
+    .card-body {
+      padding: 0 !important;
+    }
+    form,
+    .btn--print-report {
+      display: none !important;
+    }
+    .report-header {
+      display: block;
+      margin: 1em 0;
+    }
+    .table-container {
+      margin-top: 0 !important;
+    }
+    .sales-h {
+      display: none;
+    }
+  }
+
+  @page {
+    margin: 0mm 10mm 0mm 10mm;
+  }
+}
+
+/**********************
+      KEY FRAMES
+**********************/
+
+@keyframes open-report-types {
+  from {
+    height: 0;
+  }
+  to {
+    height: 80px;
+  }
+}
+
+@keyframes close-report-types {
+  from {
+    height: 80px;
+  }
+  to {
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+@keyframes report-arrow-right {
+  from {
+    transform: rotate(90deg) translateX(-50%);
+  }
+  to {
+    transform: rotate(0deg) translateY(-50%);
+  }
+}
+@keyframes report-arrow-down {
+  to {
+    transform: rotate(90deg) translateX(-50%);
+  }
+}

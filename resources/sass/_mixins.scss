@@ -1,0 +1,132 @@
+@import 'config';
+
+@mixin reset($body-font-size: 1.6rem, $root-font-size: 10px) {
+  *,
+  *::after,
+  *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    font-size: $root-font-size;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+  a {
+    text-decoration: none;
+    display: block;
+    width: fit-content;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  p {
+    line-height: 1.8;
+  }
+
+  input {
+    display: block;
+  }
+
+  button,
+  input[type='submit'] {
+    cursor: pointer;
+  }
+
+  body {
+    font-size: $body-font-size;
+    font-family: $font-family;
+    min-height: 100vh;
+    padding: 0.05px 0;
+  }
+}
+
+@mixin font($size: null, $weight: null, $family: null) {
+  font-size: $size;
+  font-weight: $weight;
+  font-family: $family;
+}
+
+@mixin flex($justify-content: null, $align-items: null, $align-content: null) {
+  display: flex;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  align-content: $align-content;
+}
+
+@mixin grid(
+  $justify-items: null,
+  $align-items: null,
+  $justify-content: null,
+  $align-content: null
+) {
+  display: grid;
+  justify-items: $justify-items;
+  align-items: $align-items;
+  justify-content: $justify-content;
+  align-content: $align-content;
+}
+
+@mixin position(
+  $position,
+  $top: null,
+  $right: null,
+  $bottom: null,
+  $left: null
+) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin responsive-grid(
+  $min-grid-item-width,
+  $gap-Y: null,
+  $gap-X: null
+) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-grid-item-width, 1fr));
+  grid-gap: $gap-Y $gap-X;
+}
+
+@mixin responsive-grid_no-growth(
+  $grid-item-width,
+  $gap-Y: null,
+  $gap-X: null
+) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, $grid-item-width);
+  gap: $gap-Y $gap-X;
+}
+
+@mixin button(
+  $background-color: null,
+  $color: null,
+  $border-radius: null,
+  $paddingY: null,
+  $paddingX: null
+) {
+  background-color: $background-color;
+  border-radius: $border-radius;
+  color: $color;
+  padding-top: $paddingY;
+  padding-bottom: $paddingY;
+  padding-left: $paddingX;
+  padding-right: $paddingX;
+  text-align: center;
+}
+
+@mixin imageHoverEffect($URL, $hoverURL) {
+  background-image: url($URL);
+  &:hover {
+    background-image: url($hoverURL);
+  }
+}
