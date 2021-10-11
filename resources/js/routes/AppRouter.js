@@ -14,7 +14,7 @@ import { userRoles } from '../utils/util_structures';
 import PurchasesRouter from './purchases-routes/PurchasesRouter';
 
 function AppRouter() {
-  const user = useSelector(state => state.user);
+  const user = useSelector(state => state.users.user);
 
   return (
     <Fragment>

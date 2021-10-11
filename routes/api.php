@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,13 +33,18 @@ Route::middleware(['auth'])->group(function() {
   Route::put('/products/{id}', [ProductsController::class, 'update']);
   Route::delete('/products/{id}', [ProductsController::class, 'delete']);
 
-  
-});
+  Route::get('/categories', [CategoriesController::class, 'index']);
+  Route::post('/categories', [CategoriesController::class, 'store']);
+  Route::put('/categories/{id}', [CategoriesController::class, 'update']);
+  Route::delete('/categories/{id}', [CategoriesController::class, 'delete']);
 
-Route::get('/categories', [CategoriesController::class, 'index']);
-Route::post('/categories', [CategoriesController::class, 'store']);
-Route::put('/categories/{id}', [CategoriesController::class, 'update']);
-Route::delete('/categories/{id}', [CategoriesController::class, 'delete']);
+});
+Route::get('/suppliers', [SuppliersController::class, 'index']);
+Route::post('/suppliers', [SuppliersController::class, 'store']);
+Route::put('/suppliers/{id}', [SuppliersController::class, 'update']);
+Route::delete('/suppliers/{id}', [SuppliersController::class, 'delete']);
+
+
 
 
 

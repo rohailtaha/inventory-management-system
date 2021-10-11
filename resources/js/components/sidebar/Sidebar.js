@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { Fragment } from 'react/cjs/react.development';
 import { logout } from '../../actions/authentication/authentication';
 import toggleSidebar from '../../actions/sidebar/toggle-sidebar';
-import { resetUser } from '../../actions/user/user-actions';
+import { reset_user } from '../../actions/users/users-actions';
 import { userRoles } from '../../utils/util_structures';
 
 function Sidebar() {
   const dispatch = useDispatch();
   const sidebarOpen = useSelector(state => state.sidebarOpen);
-  const user = useSelector(state => state.user);
+  const user = useSelector(state => state.users.user);
 
   const handleLogout = event => {
     event.preventDefault();
@@ -18,7 +18,7 @@ function Sidebar() {
       .get('/logout')
       .then(res => {
         dispatch(logout());
-        dispatch(resetUser());
+        dispatch(reset_user());
       })
       .catch(err => console.log(err));
   };
@@ -152,7 +152,7 @@ function Sidebar() {
           </a>
           <a
             onClick={handleLogout}
-            href='/api/logout'
+            href='/logout'
             className='list-group-item list-group-item-primary'
           >
             <i className='fas fa-sign-out-alt me-2'></i> <span> Logout </span>

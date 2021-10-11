@@ -11466,6 +11466,11 @@ input::placeholder {
   width: 85%;
   margin: 0 auto;
 }
+.main__content .add-btn {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
 
 .main--expanded {
   padding-left: 50px;
@@ -11507,6 +11512,11 @@ input::placeholder {
 
 .main__content--categories .table-container .card {
   max-width: 600px;
+}
+
+.edit-category-modal {
+  background: #000000cc;
+  z-index: 100;
 }
 
 .main__content--add-user form,

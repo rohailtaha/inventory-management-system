@@ -7,38 +7,41 @@ import EditCategoryModal from './edit category modal/EditCategoryModal';
 import CategoriesTable from './table/CategoriesTable';
 
 function Categories() {
-
-  const fetched = useSelector(state => state.categories.fetched);
+  const [fetched] = useSelector(state => [
+    state.categories.fetched,
+    state.successMessage,
+  ]);
   const dispatch = useDispatch();
-  const {id} = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    if (!fetched) {
-      dispatch(fetch_categories());
-    }
+    if (!fetched) dispatch(fetch_categories());
   }, [fetched]);
 
   const updateMode = () => id;
 
   return (
     <Fragment>
-      <div className='main__content main__content--categories'>
-        <div className='d-xl-flex align-items-center'>
-          <AddCategoryForm />
-        </div>
+      {updateMode() ? (
+        <EditCategoryModal categoryID={id} />
+      ) : (
+        <div className='main__content main__content--categories'>
+          <div className='d-xl-flex align-items-center'>
+            <AddCategoryForm />
+          </div>
 
-        <section className='mt-5 table-container'>
-          <div className='card'>
-            <div className='card-header fs-2'>Categories</div>
-            <div className='card-body'>
-              <div className='table-responsive'>
-                <CategoriesTable />
+          <section className='mt-5 table-container'>
+            <div className='card'>
+              <div className='card-header fs-2'>Categories</div>
+              <div className='card-body'>
+                <div className='table-responsive'>
+                  <CategoriesTable />
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      </div>
-      {updateMode() && <EditCategoryModal />}
+          </section>
+        </div>
+      )}
     </Fragment>
   );
 }

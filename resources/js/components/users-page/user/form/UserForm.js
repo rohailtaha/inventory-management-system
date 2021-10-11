@@ -1,15 +1,18 @@
-import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Fragment, useState } from 'react/cjs/react.development';
-import { hideError, showError } from '../../../../actions/errors/error-actions';
-import { load, stopLoading } from '../../../../actions/load/load';
-import { show_success_message } from '../../../../actions/success-message.js/success-message-actions';
-import { add_user, update_user } from '../../../../actions/users/users-actions';
+import {
+  hide_success_message,
+} from '../../../../actions/success-message.js/success-message-actions';
+import {
+  hide_error,
+  request_create_user,
+  request_update_user,
+} from '../../../../actions/users/users-actions';
 import FormError from '../../../common/form-error/FormError';
-import Spinner from '../../../common/spinner/Spinner';
 import SuccessModal from '../../../common/success-modal/SuccessModal';
+import { removeExtraSpaces } from '../../../../utils/utility_functions';
 
 function UserForm({ mode }) {
   const [form, setForm] = useState({
@@ -17,15 +20,14 @@ function UserForm({ mode }) {
     password: '',
     email: '',
     phone: '',
-    status: 'Active',
+    active: '1',
   });
 
   const dispatch = useDispatch();
   const { id } = useParams();
-  const [successMessage, error, loading, users] = useSelector(state => [
+  const [successMessage, error, users] = useSelector(state => [
     state.successMessage,
-    state.error,
-    state.loading,
+    state.users.error,
     state.users.list,
   ]);
 
@@ -37,10 +39,15 @@ function UserForm({ mode }) {
         password: '',
         email: user.email,
         phone: user.phone,
-        status: user.status,
+        active: user.active,
       });
     }
   }, []);
+
+  useEffect(() => cleanup, []);
+  useEffect(() => {
+    if (successMessage.show && !updateMode()) resetForm();
+  }, [successMessage.show]);
 
   const updateMode = () => mode === 'UPDATE';
   const getUser = id => users.find(user => user.id === parseInt(id));
@@ -55,57 +62,9 @@ function UserForm({ mode }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(load());
-    const request = updateMode() ? updateUser() : createUser();
-    request
-      .then(res => {
-        dispatch(stopLoading());
-        dispatch(hideError());
-        dispatch(show_success_message('User Saved Sussessfully!'));
-        if (!updateMode()) {
-          resetForm();
-          dispatch(add_user(res.data.user));
-        } else {
-          dispatch(update_user(res.data.user));
-        }
-      })
-      .catch(error => {
-        dispatch(stopLoading());
-        const { data } = error.response;
-        if (data.errors.name) {
-          dispatch(showError(data.errors.name[0]));
-        } else if (data.errors.email) {
-          dispatch(showError(data.errors.email[0]));
-        } else if (data.errors.password) {
-          dispatch(showError(data.errors.password[0]));
-        } else if (data.errors.phone) {
-          dispatch(showError(data.errors.phone[0]));
-        } else if (data.errors.active) {
-          dispatch(showError(data.errors.active[0]));
-        }
-      });
-  };
-
-  const updateUser = () => {
-    const { name, password, email, phone, status } = form;
-    return axios.put(`/api/users/${id}`, {
-      name,
-      email,
-      phone,
-      password,
-      active: status === 'Active' ? 1 : 0,
-    });
-  };
-
-  const createUser = () => {
-    const { name, password, email, phone, status } = form;
-    return axios.post('/api/users', {
-      name,
-      email,
-      phone,
-      password,
-      active: status === 'Active' ? 1 : 0,
-    });
+    updateMode()
+      ? dispatch(request_update_user(dataWithCorrectFormat(), id))
+      : dispatch(request_create_user(dataWithCorrectFormat()));
   };
 
   const resetForm = () => {
@@ -114,9 +73,21 @@ function UserForm({ mode }) {
       password: '',
       email: '',
       phone: '',
-      status: 'Active',
-      error: false,
+      active: '1',
     });
+  };
+
+  const dataWithCorrectFormat = () => ({
+    name: removeExtraSpaces(form.name),
+    email: removeExtraSpaces(form.email),
+    phone: removeExtraSpaces(form.phone),
+    password: form.password,
+    active: parseInt(form.active),
+  });
+
+  const cleanup = () => {
+    dispatch(hide_error());
+    dispatch(hide_success_message());
   };
 
   return (
@@ -198,8 +169,8 @@ function UserForm({ mode }) {
             onChange={handleChange}
             required
           >
-            <option value='Active'>Active</option>
-            <option value='Blocked'>Blocked</option>
+            <option value='1'>Active</option>
+            <option value='0'>Blocked</option>
           </select>
         </div>
         <div className='d-sm-flex mb-3'>
@@ -216,7 +187,6 @@ function UserForm({ mode }) {
         {error.show && <FormError msg={error.msg} />}
       </form>
       {successMessage.show && <SuccessModal msg={successMessage.text} />}
-      {loading && <Spinner />}
     </Fragment>
   );
 }

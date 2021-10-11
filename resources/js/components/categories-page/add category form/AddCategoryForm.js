@@ -1,20 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Fragment } from 'react/cjs/react.development';
-import { create_category } from '../../../actions/categories/categories-actions';
+import {
+  hide_error,
+  request_create_category,
+} from '../../../actions/categories/categories-actions';
 import FormError from '../../common/form-error/FormError';
-import Spinner from '../../common/spinner/Spinner';
 import SuccessModal from '../../common/success-modal/SuccessModal';
+import {removeExtraSpaces} from '../../../utils/utility_functions'
 
 function AddCategoryForm() {
   const [form, setForm] = useState({ name: '' });
   const dispatch = useDispatch();
 
-  const [error, loading, successMessage] = useSelector(state => [
+  const [error, successMessage] = useSelector(state => [
     state.categories.error,
-    state.loading,
     state.successMessage,
   ]);
+
+  useEffect(() => {
+    if (successMessage.show) reset();
+  }, [successMessage.show]);
+
+  useEffect(() => cleanup, []);
+
+  const reset = () => setForm({ name: '' });
 
   const handleChange = event => {
     setForm({
@@ -24,8 +34,16 @@ function AddCategoryForm() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(create_category(form));
+    dispatch(request_create_category(dataWithCorrectFormat()));
   };
+
+  const cleanup = () => {
+    dispatch(hide_error());
+  };
+
+  const dataWithCorrectFormat = () => ({
+    name: removeExtraSpaces(form.name),
+  });
 
   return (
     <Fragment>
@@ -49,7 +67,6 @@ function AddCategoryForm() {
         </div>
         {error.show && <FormError msg={error.msg} />}
       </form>
-      {loading && <Spinner />}
       {successMessage.show && <SuccessModal msg={successMessage.text} />}
     </Fragment>
   );

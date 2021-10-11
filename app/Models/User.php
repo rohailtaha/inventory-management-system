@@ -53,19 +53,23 @@ class User extends Authenticatable
         return false;
     }
 
-    public function get() {
+    public function requiredFields() {
         return [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'status' => $this->active ? 'Active' : 'Blocked', 
+            'active' => $this->active, 
             'role' => $this->roles[0]->name ?? 'None'
         ];
     }
 
-    public function roles()
-    {
+    public function roles() {
         return $this->belongsToMany(Role::class);
     }
+
+    public function shop() {
+        return $this->belongsTo(Shop::class); 
+    }
+
 }

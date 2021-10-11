@@ -4,12 +4,12 @@ import actionTypes from '../action-types';
 import { load, stopLoading } from '../load/load';
 import { show_success_message } from '../success-message.js/success-message-actions';
 
-export function fetch_categories() {
+export function fetch_suppliers() {
   return async dispatch => {
     try {
-      const response = await axios.get('/api/categories');
+      const response = await axios.get('/api/suppliers');
       if (response.data.status === 'OK') {
-        dispatch(set_categories(response.data.categories));
+        dispatch(set_suppliers(response.data.suppliers));
       } else {
         dispatch(show_error(response.data.error.msg));
       }
@@ -19,22 +19,22 @@ export function fetch_categories() {
   };
 }
 
-function set_categories(categories) {
+function set_suppliers(suppliers) {
   return {
-    type: actionTypes.SET_CATEGORIES,
-    payload: categories,
+    type: actionTypes.SET_SUPPLIERS,
+    payload: suppliers,
   };
 }
 
-export function request_create_category(category) {
+export function request_create_supplier(supplier) {
   return async dispatch => {
     try {
       dispatch(load());
-      const response = await axios.post('/api/categories', category);
+      const response = await axios.post('/api/suppliers', supplier);
       if (response.data.status === 'OK') {
-        dispatch(create_category(response.data.category));
+        dispatch(create_supplier(response.data.supplier));
         dispatch(hide_error());
-        dispatch(show_success_message('Category saved successfully.'));
+        dispatch(show_success_message('Supplier saved successfully.'));
       } else {
         dispatch(show_error(response.data.error.msg));
       }
@@ -46,22 +46,22 @@ export function request_create_category(category) {
   };
 }
 
-function create_category(category) {
+function create_supplier(supplier) {
   return {
-    type: actionTypes.CREATE_CATEGORY,
-    payload: category,
+    type: actionTypes.CREATE_SUPPLIER,
+    payload: supplier,
   };
 }
 
-export function request_update_category(category, id) {
+export function request_update_supplier(supplier, id) {
   return async dispatch => {
     try {
       dispatch(load());
-      const response = await axios.put(`/api/categories/${id}`, category);
+      const response = await axios.put(`/api/suppliers/${id}`, supplier);
       if (response.data.status === 'OK') {
-        dispatch(update_category(response.data.category));
+        dispatch(update_supplier(response.data.supplier));
         dispatch(hide_error());
-        dispatch(show_success_message('Category Updated.'));
+        dispatch(show_success_message('Supplier updated.'));
       } else {
         dispatch(show_error(response.data.error.msg));
       }
@@ -73,40 +73,40 @@ export function request_update_category(category, id) {
   };
 }
 
-function update_category(category) {
+function update_supplier(supplier) {
   return {
-    type: actionTypes.UPDATE_CATEGORY,
-    payload: category,
+    type: actionTypes.UPDATE_SUPPLIER,
+    payload: supplier,
   };
 }
 
-export function request_delete_category(id) {
+export function request_delete_supplier(id) {
   return dispatch => {
     axios
-      .delete(`/api/categories/${id}`)
-      .then(response => delete_category(response.data.id))
+      .delete(`/api/suppliers/${id}`)
+      .then(response => delete_supplier(response.data.id))
       .catch(error => dispatch(show_error(error.response.data.error.msg)));
   };
 }
 
-function delete_category(id) {
+function delete_supplier(id) {
   return {
-    type: actionTypes.DELETE_CATEGORY,
+    type: actionTypes.DELETE_SUPPLIER,
     payload: {
-      id
+      id,
     },
   };
 }
 
 function show_error(msg) {
   return {
-    type: actionTypes.SHOW_CATEGORY_ERROR,
+    type: actionTypes.SHOW_SUPPLIER_ERROR,
     payload: new Error(msg),
   };
 }
 
 export function hide_error() {
   return {
-    type: actionTypes.HIDE_CATEGORY_ERROR,
+    type: actionTypes.HIDE_SUPPLIER_ERROR,
   };
 }

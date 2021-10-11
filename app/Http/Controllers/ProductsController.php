@@ -28,7 +28,7 @@ class ProductsController extends Controller
         $validator = Validator::make($request->all(), [
             'barcode' => ['required','min:1','max:255', new UniqueProductBarcode],
             'name' => ['required', 'min:1', 'max:255', new UniqueProductName],
-            'category' => ['required', new CategoryExists],
+            'category' => 'required|exists:categories,name',
             'description' => 'nullable|max:65535',
             'quantity' => 'required|integer|min:0|max:4294967295',
             'alert_quantity' => 'nullable|integer|min:0|max:16777215',
@@ -64,7 +64,7 @@ class ProductsController extends Controller
         $validator = Validator::make($request->all(), [
             'barcode' => ['required','min:1','max:255'],
             'name' => ['required', 'min:1', 'max:255'],
-            'category' => ['required', new CategoryExists],
+            'category' => 'required|exists:categories,name',
             'description' => 'nullable|max:65535',
             'quantity' => 'required|integer|min:0|max:4294967295',
             'alert_quantity' => 'nullable|integer|min:0|max:16777215',

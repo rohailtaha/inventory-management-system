@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { login } from '../../actions/authentication/authentication';
-import { setUser } from '../../actions/user/user-actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react/cjs/react.development';
+import { request_login } from '../../actions/authentication/authentication';
+import { hide_error } from '../../actions/users/users-actions';
 import { removeExtraSpaces } from '../../utils/utility_functions';
 import FormError from '../common/form-error/FormError';
 
@@ -12,8 +12,11 @@ function LoginPage() {
     password: '',
     remember: false,
   });
-  const [error, setError] = useState({ msg: '', show: false });
 
+  const [loading, error] = useSelector(state => [
+    state.loading,
+    state.users.error,
+  ]);
   const dispatch = useDispatch();
 
   const handleChange = event => {
@@ -24,37 +27,23 @@ function LoginPage() {
     }));
   };
 
+  useEffect(() => {
+    return cleanup;
+  }, []);
+
   const handleSubmit = event => {
     event.preventDefault();
-    axios
-      .post('/login', {
-        email: removeExtraSpaces(form.email),
-        password: form.password,
-        remember: form.remember,
-      })
-      .then(res => {
-        dispatch(login());
-        dispatch(setUser(res.data));
-      })
-      .catch(error => {
-        const { data } = error.response;
-        if (data.error) {
-          showError(data.error);
-          return;
-        }
-        if (data.errors.email) {
-          showError(data.errors.email[0]);
-        } else if (data.errors.password) {
-          showError(data.errors.password[0]);
-        }
-      });
+    dispatch(request_login(dataWithCorrectFormat()));
   };
 
-  const showError = msg => {
-    setError({
-      msg,
-      show: true,
-    });
+  const dataWithCorrectFormat = () => ({
+    email: removeExtraSpaces(form.email),
+    password: form.password,
+    remember: form.remember,
+  });
+
+  const cleanup = () => {
+    dispatch(hide_error());
   };
 
   return (

@@ -1,24 +1,36 @@
 import actionTypes from '../../actions/action-types';
 
 const initialState = {
+  user: {},
   list: [],
   fetched: false,
+  error: {
+    show: false,
+    msg: '',
+  },
 };
 
 function usersReducer(state = initialState, action) {
   switch (action.type) {
+    case actionTypes.SET_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
+
+    case actionTypes.RESET_USER:
+      return {
+        ...state,
+        user: {},
+      };
+
     case actionTypes.SET_USERS:
       return {
         ...state,
         list: action.payload,
       };
 
-    case actionTypes.SET_ARE_USERS_FETCHED:
-      return {
-        ...state,
-        fetched: action.payload,
-      };
-    case actionTypes.ADD_USER:
+    case actionTypes.CREATE_USER:
       return {
         ...state,
         list: [action.payload, ...state.list],
@@ -35,6 +47,24 @@ function usersReducer(state = initialState, action) {
       return {
         ...state,
         list: state.list.filter(user => user.id != action.payload),
+      };
+
+    case actionTypes.SHOW_USERS_ERROR:
+      return {
+        ...state,
+        error: {
+          show: true,
+          msg: action.payload.msg,
+        },
+      };
+
+    case actionTypes.HIDE_USERS_ERROR:
+      return {
+        ...state,
+        error: {
+          show: false,
+          msg: '',
+        },
       };
     default:
       return state;

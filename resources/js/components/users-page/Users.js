@@ -1,11 +1,8 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
-  delete_user,
-  setAreUsersFetched,
-  setUsers,
+  fetch_users,
 } from '../../actions/users/users-actions';
 import ConfirmationModal from '../common/confirmation-modal/ConfirmationModal';
 import UsersTable from './table/UsersTable';
@@ -17,23 +14,20 @@ function Users() {
     state.confirmation,
   ]);
 
-
   useEffect(() => {
     if (!fetched) {
-      axios
-        .get('/api/users')
-        .then(res => {
-          dispatch(setUsers(res.data.users));
-          dispatch(setAreUsersFetched(true));
-        })
-        .catch(error => console.log(error));
+      dispatch(fetch_users());
     }
   }, []);
 
   return (
     <div className='main__content main__content--users'>
-      <Link className='btn btn-primary me-5 px-3 py-2' to='/add_user'>
-        <i className='fas fa-plus me-2'></i> New User
+      <Link
+        className='btn btn-primary me-5 px-3 py-2 d-flex align-items-center add-btn '
+        to='/add_user'
+      >
+        <span className='material-icons me-1'> add </span>{' '}
+        <span> Add New User </span>
       </Link>
 
       <section className='mt-5'>

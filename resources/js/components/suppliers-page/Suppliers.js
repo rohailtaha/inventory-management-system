@@ -5,8 +5,8 @@ function Suppliers() {
   return (
     <div className='main__content main__content--suppliers'>
       <div className='d-xl-flex align-items-center'>
-        <Link className='btn btn-primary px-3 py-2' to='/add_supplier'>
-          <i className='fas fa-plus me-2'></i> New Supplier
+        <Link className='btn btn-primary px-3 py-2 d-flex align-items-center add-btn' to='/add_supplier'>
+          <span className='material-icons me-1'> add </span> Add New Supplier
         </Link>
       </div>
 

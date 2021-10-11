@@ -9,18 +9,12 @@ const initialState = {
 
 function userReducer(state = initialState, action) {
   switch (action.type) {
-    case actionTypes.SET_USER:
-      return {
-        ...state,
-        ...action.payload,
-      };
     case actionTypes.SET_USER_ROLE:
       return {
         ...state,
         role: action.payload,
       };
-    case actionTypes.RESET_USER:
-      return initialState;
+
     default:
       return state;
   }
