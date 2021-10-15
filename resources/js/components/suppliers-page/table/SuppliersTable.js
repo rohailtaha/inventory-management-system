@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux';
 import Supplier from './Supplier';
 
 function SuppliersTable() {
+  const suppliers = useSelector(state => state.suppliers.list);
+
   return (
     <table className='table'>
       <thead>
@@ -14,9 +17,10 @@ function SuppliersTable() {
       <tbody>
         {suppliers.map(supplier => (
           <Supplier
+            id={supplier.id}
             name={supplier.name}
             contact={supplier.contact}
-            address={supplier.contact}
+            address={supplier.address}
             key={supplier.id}
           />
         ))}
@@ -24,26 +28,5 @@ function SuppliersTable() {
     </table>
   );
 }
-
-const suppliers = [
-  {
-    id: 1,
-    name: 'supplier 1',
-    contact: '03097685567',
-    address: 'Islamabad, street 5A',
-  },
-  {
-    id: 2,
-    name: 'supplier 2',
-    contact: '03097623567',
-    address: 'Islamabad, street 5A',
-  },
-  {
-    id: 3,
-    name: 'supplier 3',
-    contact: '03097685567',
-    address: 'Islamabad, street 5A',
-  },
-];
 
 export default SuppliersTable;

@@ -13,7 +13,7 @@ function SuppliersRouter() {
       <Route path='/add_supplier'>
         <AddSupplier />
       </Route>
-      <Route path='/edit_supplier'>
+      <Route path='/edit_supplier/:id'>
         <EditSupplier />
       </Route>
     </Fragment>

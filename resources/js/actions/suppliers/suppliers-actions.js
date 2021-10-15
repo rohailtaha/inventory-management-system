@@ -4,7 +4,7 @@ import actionTypes from '../action-types';
 import { load, stopLoading } from '../load/load';
 import { show_success_message } from '../success-message.js/success-message-actions';
 
-export function fetch_suppliers() {
+export function request_fetch_suppliers() {
   return async dispatch => {
     try {
       const response = await axios.get('/api/suppliers');

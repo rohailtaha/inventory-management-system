@@ -13,6 +13,7 @@ class Supplier extends Model
     
     public function requiredFields() {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'contact' => $this->contact,
             'address' => $this->address,

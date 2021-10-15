@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Supplier({ name, contact, address }) {
+function Supplier({ id, name, contact, address }) {
   return (
     <tr>
       <td>{name}</td>
@@ -9,7 +9,7 @@ function Supplier({ name, contact, address }) {
       <td>{address}</td>
       <td>
         <Link
-          to='/edit_supplier'
+          to={`/edit_supplier/${id}`}
           className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'

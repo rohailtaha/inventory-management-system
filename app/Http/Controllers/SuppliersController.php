@@ -6,11 +6,12 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class SuppliersController extends Controller
 {
-        public function index() {
-        $suppliers = auth()->user()->shop()->suppliers()->orderByDesc('created_at')->get();
+    public function index() {
+        $suppliers = auth()->user()->shop->suppliers;
         $suppliers->transform(function($supplier) {
             return $supplier->requiredFields();
         });
@@ -20,9 +21,9 @@ class SuppliersController extends Controller
     public function store(Request $request) {
         
         $validator = Validator::make($request->all(), [
-            'name' => ['required'],
-            'contact' => ['required'],
-            'address' => ['required'],
+            'name' => ['required', 'max:255', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)],
+            'contact' => ['required', 'min:4', 'max:20', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)],
+            'address' => ['required', 'max:255'],
         ]);
 
         if($this->invalid($validator))  return $this->errorResponse($validator);
@@ -40,9 +41,9 @@ class SuppliersController extends Controller
     public function update(Request $request, $id) {
         
         $validator = Validator::make($request->all(), [
-            'name' => ['required'],
-            'contact' => ['required'],
-            'address' => ['required'],
+            'name' => ['required', 'max:255', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)->ignore(Supplier::where('id', $id)->first())],
+            'contact' => ['required', 'min:4', 'max:20', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)->ignore(Supplier::where('id', $id)->first())],
+            'address' => ['required', 'max:255'],
         ]);
 
         if($this->invalid($validator))  return $this->errorResponse($validator);

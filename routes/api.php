@@ -38,11 +38,11 @@ Route::middleware(['auth'])->group(function() {
   Route::put('/categories/{id}', [CategoriesController::class, 'update']);
   Route::delete('/categories/{id}', [CategoriesController::class, 'delete']);
 
+  Route::get('/suppliers', [SuppliersController::class, 'index']);
+  Route::post('/suppliers', [SuppliersController::class, 'store']);
+  Route::put('/suppliers/{id}', [SuppliersController::class, 'update']);
+  Route::delete('/suppliers/{id}', [SuppliersController::class, 'delete']);
 });
-Route::get('/suppliers', [SuppliersController::class, 'index']);
-Route::post('/suppliers', [SuppliersController::class, 'store']);
-Route::put('/suppliers/{id}', [SuppliersController::class, 'update']);
-Route::delete('/suppliers/{id}', [SuppliersController::class, 'delete']);
 
 
 
