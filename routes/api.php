@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UsersController;
@@ -15,13 +16,9 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function () {
 
   Route::get('/users', [UsersController::class, 'index']);
   Route::post('/users', [UsersController::class, 'store']);
@@ -42,11 +39,9 @@ Route::middleware(['auth'])->group(function() {
   Route::post('/suppliers', [SuppliersController::class, 'store']);
   Route::put('/suppliers/{id}', [SuppliersController::class, 'update']);
   Route::delete('/suppliers/{id}', [SuppliersController::class, 'delete']);
+
+  Route::get('/customers', [CustomersController::class, 'index']);
+  Route::post('/customers', [CustomersController::class, 'store']);
+  Route::put('/customers/{id}', [CustomersController::class, 'update']);
+  Route::delete('/customers/{id}', [CustomersController::class, 'delete']);
 });
-
-
-
-
-
-
-

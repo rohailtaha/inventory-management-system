@@ -2,9 +2,119 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
-class CustomersController extends Controller
-{
-    //
+class CustomersController extends Controller {
+  public function index() {
+
+    $customers = auth()->user()->shop->customers;
+
+    $customers->transform(function ($customer) {
+      return $customer->requiredFields();
+    });
+
+    return response(['status' => 'OK', 'customers' => $customers], 200);
+  }
+
+  public function store(Request $request) {
+
+    $validator = Validator::make($request->all(), [
+      'name' => ['required', 'max:255', Rule::unique('customers')->where(
+        'shop_id', auth()->user()->shop_id
+      )],
+      'email' => ['nullable', 'max:255', Rule::unique('customers')->where(
+        'shop_id', auth()->user()->shop_id
+      ),
+      ],
+      'phone' => ['required', 'min:4', 'max:20', Rule::unique('customers')->where(
+        'shop_id', auth()->user()->shop_id
+      ),
+      ],
+      'address' => ['required', 'max:255'],
+    ]);
+
+    if ($this->invalid($validator)) {
+      return $this->errorResponse($validator);
+    }
+
+    $customer = Customer::create(
+      array_merge(
+        ['shop_id' => auth()->user()->shop_id],
+        $request->only('name', 'email', 'phone', 'address')
+      )
+    );
+
+    return response(
+      ['customer' => $customer->requiredFields(), 'status' => 'OK'],
+      200
+    );
+  }
+
+  public function update(Request $request, $id) {
+    $validator = Validator::make($request->all(), [
+      'name' => [
+        'required',
+        'max:255',
+        Rule::unique('customers')
+          ->where('shop_id', auth()->user()->shop_id)
+          ->ignore(Customer::where('id', $id)->first()),
+      ],
+      'phone' => [
+        'required', 'min:4', 'max:20', Rule::unique('customers')->where('shop_id', auth()->user()->shop_id)->ignore(Customer::where(
+          'id',
+          $id
+        )->first()),
+      ],
+      'email' => [
+        'nullable',
+        'max:255',
+        Rule::unique('customers')
+          ->where('shop_id', auth()->user()->shop_id)
+          ->ignore(Customer::where('id', $id)->first()),
+      ],
+      'address' => ['required', 'max:255'],
+    ]);
+
+    if ($this->invalid($validator)) {
+      return $this->errorResponse($validator);
+    }
+
+    Customer::where([
+      'shop_id' => auth()->user()->shop_id,
+      'id' => $id,
+    ])->update($request->only('name', 'email', 'phone', 'address'));
+
+    $customer = Customer::where([
+      'shop_id' => auth()->user()->shop_id,
+      'id' => $id,
+    ])->first();
+
+    return response(
+      ['customer' => $customer->requiredFields(), 'status' => 'OK'],
+      200
+    );
+  }
+
+  public function delete($id) {
+    Customer::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])
+      ->first()
+      ->delete();
+    return response(['id' => $id], 200);
+  }
+
+  private function invalid($validator) {
+    return $validator->stopOnFirstFailure()->fails();
+  }
+
+  private function errorResponse($validator) {
+    $errorMsg = Arr::flatten($validator->errors()->messages())[0];
+    return response(
+      ['error' => ['msg' => $errorMsg], 'status' => 'ERROR'],
+      200
+    );
+  }
 }

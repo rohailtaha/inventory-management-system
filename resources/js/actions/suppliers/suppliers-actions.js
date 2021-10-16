@@ -34,7 +34,7 @@ export function request_create_supplier(supplier) {
       if (response.data.status === 'OK') {
         dispatch(create_supplier(response.data.supplier));
         dispatch(hide_error());
-        dispatch(show_success_message('Supplier saved successfully.'));
+        dispatch(show_success_message('Supplier added.'));
       } else {
         dispatch(show_error(response.data.error.msg));
       }

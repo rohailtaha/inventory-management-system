@@ -9,7 +9,7 @@ function Customer({ id, name, email, phone, address }) {
       <td>{address}</td>
       <td>
         <Link
-          to={`/edit_customer/${id}`}
+          to={`/edit-customer/${id}`}
           className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'

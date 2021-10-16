@@ -34,7 +34,7 @@ export function request_create_customer(customer) {
       if (response.data.status === 'OK') {
         dispatch(create_customer(response.data.customer));
         dispatch(hide_error());
-        dispatch(show_success_message('Customer saved successfully.'));
+        dispatch(show_success_message('Customer added.'));
       } else {
         dispatch(show_error(response.data.error.msg));
       }

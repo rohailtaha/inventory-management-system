@@ -4,7 +4,11 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Fragment, useState } from 'react/cjs/react.development';
 import { hide_success_message } from '../../../../actions/success-message.js/success-message-actions';
-import { hide_error, request_create_supplier, request_update_supplier } from '../../../../actions/suppliers/suppliers-actions';
+import {
+  hide_error,
+  request_create_supplier,
+  request_update_supplier,
+} from '../../../../actions/suppliers/suppliers-actions';
 import { removeExtraSpaces } from '../../../../utils/utility_functions';
 import FormError from '../../../common/form-error/FormError';
 import SuccessModal from '../../../common/success-modal/SuccessModal';
@@ -94,7 +98,7 @@ function SupplierForm({ mode }) {
           </label>
           <input
             type='text'
-            className='form-control'
+            className='form-control form-control-sm'
             id='name'
             name='name'
             value={form.name}
@@ -109,7 +113,7 @@ function SupplierForm({ mode }) {
           </label>
           <input
             type='email'
-            className='form-control'
+            className='form-control form-control-sm'
             id='email'
             name='email'
             value={form.email}
@@ -123,7 +127,7 @@ function SupplierForm({ mode }) {
           </label>
           <input
             type='tel'
-            className='form-control'
+            className='form-control form-control-sm'
             id='contact'
             name='contact'
             value={form.contact}
@@ -138,7 +142,7 @@ function SupplierForm({ mode }) {
           </label>
           <input
             type='text'
-            className='form-control'
+            className='form-control form-control-sm'
             id='address'
             name='address'
             value={form.address}
@@ -148,7 +152,7 @@ function SupplierForm({ mode }) {
           />
         </div>
 
-        <div className='d-sm-flex mb-2'>
+        <div className='d-sm-flex mb-3'>
           <button
             type='submit'
             className='btn btn-primary flex-grow-1 mb-2 mb-sm-0'
