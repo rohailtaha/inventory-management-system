@@ -5,8 +5,11 @@ function Purchases() {
   return (
     <div className='main__content main__content--suppliers'>
       <div className='d-xl-flex align-items-center'>
-        <Link className='btn btn-primary px-3 py-2' to='/add_purchase'>
-          <i className='fas fa-plus me-2'></i> New Purchase
+        <Link
+          className='btn btn-primary px-3 py-2 d-flex align-items-center add-btn'
+          to='/add-purchase'
+        >
+          <span className='material-icons me-1'> add </span> New Purchase
         </Link>
       </div>
 

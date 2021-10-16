@@ -2,9 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Fragment, useState } from 'react/cjs/react.development';
-import {
-  hide_success_message,
-} from '../../../../actions/success-message.js/success-message-actions';
+import { hide_success_message } from '../../../../actions/success-message.js/success-message-actions';
 import {
   hide_error,
   request_create_user,
@@ -13,6 +11,7 @@ import {
 import FormError from '../../../common/form-error/FormError';
 import SuccessModal from '../../../common/success-modal/SuccessModal';
 import { removeExtraSpaces } from '../../../../utils/utility_functions';
+import { userStatus } from '../../../../utils/util_structures';
 
 function UserForm({ mode }) {
   const [form, setForm] = useState({
@@ -39,7 +38,7 @@ function UserForm({ mode }) {
         password: '',
         email: user.email,
         phone: user.phone,
-        active: user.active,
+        active: user.status === userStatus.ACTIVE ? '1' : '0',
       });
     }
   }, []);
@@ -164,8 +163,8 @@ function UserForm({ mode }) {
           <select
             className='form-select form-select-sm'
             id='status'
-            name='status'
-            value={form.status}
+            name='active'
+            value={form.active}
             onChange={handleChange}
             required
           >
@@ -178,7 +177,7 @@ function UserForm({ mode }) {
             type='submit'
             className='btn btn-primary flex-grow-1 mb-2 mb-sm-0'
           >
-            {mode === 'CREATE' ? 'Add' : 'Update'} User
+            {updateMode() ? 'Update' : 'Add'}
           </button>
           <Link to='/users' className='btn btn-danger flex-grow-1 ms-sm-3'>
             Cancel

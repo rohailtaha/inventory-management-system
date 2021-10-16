@@ -10,6 +10,7 @@ import productsReducer from './products/products-reducer';
 import categoriesReducer from './categories-reducer/categories-reducer';
 import suppliersReducer from './suppliers-reducer/suppliers-reducer';
 import customersReducer from './customers-reducer/customers-reducer';
+import purchasesReducer from './purchases-reducer/purchases-reducer';
 
 const allReducers = combineReducers({
   sidebarOpen: sidebarReducer,
@@ -23,6 +24,7 @@ const allReducers = combineReducers({
   categories: categoriesReducer,
   suppliers: suppliersReducer,
   customers: customersReducer,
+  purchases: purchasesReducer,
 });
 
 export default allReducers;

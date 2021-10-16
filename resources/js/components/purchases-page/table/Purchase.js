@@ -24,21 +24,21 @@ function Purchase({
       <td>{supplier}</td>
       <td>
         <Link
-          to='/edit_purchase'
-          className='btn btn-secondary btn-sm me-2 p-1'
+          to={`/edit-purchase/${id}`}
+          className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'
           title='Edit'
         >
-          <i className='fas fa-edit action-icon fw-lighter'></i>
+          <span className='material-icons'>edit</span>
         </Link>
         <button
-          className='btn btn-danger btn-sm p-1'
+          className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'
           title='Delete'
         >
-          <i className='fas fa-trash-alt action-icon fw-lighter'></i>
+          <span className='material-icons text-danger'>delete</span>
         </button>
       </td>
     </tr>

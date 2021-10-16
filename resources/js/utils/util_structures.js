@@ -3,4 +3,9 @@ export const userRoles = {
   EMPLOYEE: 'EMPLOYEE',
 };
 
+export const userStatus = {
+  ACTIVE: 'Active',
+  BLOCKED: 'Blocked',
+};
+
 export const SERVER_ERROR = 'Server Error';
