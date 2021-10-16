@@ -8,64 +8,123 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class SuppliersController extends Controller
-{
-    public function index() {
-        $suppliers = auth()->user()->shop->suppliers;
-        $suppliers->transform(function($supplier) {
-            return $supplier->requiredFields();
-        });
-        return response(['status'=>'OK', 'suppliers' => $suppliers],  200);
+class SuppliersController extends Controller {
+
+  public function index() {
+
+    $suppliers = auth()->user()->shop->suppliers;
+
+    $suppliers->transform(function ($supplier) {
+      return $supplier->requiredFields();
+    });
+
+    return response(['status' => 'OK', 'suppliers' => $suppliers], 200);
+  }
+
+  public function store(Request $request) {
+
+    $validator = Validator::make($request->all(), [
+      'name' => ['required', 'max:255', Rule::unique('suppliers')->where(
+        'shop_id',
+        auth()->user()->shop_id
+      )],
+      'contact' => [
+        'required',
+        'min:4',
+        'max:20',
+        Rule::unique('suppliers')->where(
+          'shop_id',
+          auth()->user()->shop_id
+        ),
+      ],
+      'email' => [
+        'nullable',
+        'max:255',
+        Rule::unique('suppliers')->where(
+          'shop_id',
+          auth()->user()->shop_id
+        ),
+      ],
+      'address' => ['required', 'max:255'],
+    ]);
+
+    if ($this->invalid($validator)) {
+      return $this->errorResponse($validator);
+    }
+    $supplier = Supplier::create(
+      array_merge(
+        ['shop_id' => auth()->user()->shop_id],
+        $request->only('name', 'email', 'contact', 'address')
+      )
+    );
+
+    return response(
+      ['supplier' => $supplier->requiredFields(), 'status' => 'OK'],
+      200
+    );
+  }
+
+  public function update(Request $request, $id) {
+    $validator = Validator::make($request->all(), [
+      'name' => [
+        'required',
+        'max:255',
+        Rule::unique('suppliers')
+          ->where('shop_id', auth()->user()->shop_id)
+          ->ignore(Supplier::where('id', $id)->first()),
+      ],
+      'contact' => [
+        'required', 'min:4', 'max:20', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)->ignore(Supplier::where(
+          'id',
+          $id
+        )->first()),
+      ],
+      'email' => [
+        'nullable',
+        'max:255',
+        Rule::unique('suppliers')
+          ->where('shop_id', auth()->user()->shop_id)
+          ->ignore(Supplier::where('id', $id)->first()),
+      ],
+      'address' => ['required', 'max:255'],
+    ]);
+
+    if ($this->invalid($validator)) {
+      return $this->errorResponse($validator);
     }
 
-    public function store(Request $request) {
-        
-        $validator = Validator::make($request->all(), [
-            'name' => ['required', 'max:255', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)],
-            'contact' => ['required', 'min:4', 'max:20', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)],
-            'email' => ['nullable', 'max:255', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)],
-            'address' => ['required', 'max:255'],
-        ]);
+    Supplier::where([
+      'shop_id' => auth()->user()->shop_id,
+      'id' => $id,
+    ])->update($request->only('name', 'email', 'contact', 'address'));
 
-        if($this->invalid($validator))  return $this->errorResponse($validator);
-        $supplier = Supplier::create(
-            array_merge(['shop_id' => auth()->user()->shop_id,],$request->only('name', 'email', 'contact', 'address'))
-        );
+    $supplier = Supplier::where([
+      'shop_id' => auth()->user()->shop_id,
+      'id' => $id,
+    ])->first();
 
-        return response(['supplier' => $supplier->requiredFields(), 'status' => 'OK'], 200);
-    }
+    return response(
+      ['supplier' => $supplier->requiredFields(), 'status' => 'OK'],
+      200
+    );
+  }
 
-    public function update(Request $request, $id) {
-        
-        $validator = Validator::make($request->all(), [
-            'name' => ['required', 'max:255', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)->ignore(Supplier::where('id', $id)->first())],
-            'contact' => ['required', 'min:4', 'max:20', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)->ignore(Supplier::where('id', $id)->first())],
-            'email' => ['nullable', 'max:255', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)->ignore(Supplier::where('id', $id)->first())],
-            'address' => ['required', 'max:255'],
-        ]);
+  public function delete($id) {
+    Supplier::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])
+      ->first()
+      ->delete();
+    return response(['id' => $id], 200);
+  }
 
-        if($this->invalid($validator))  return $this->errorResponse($validator);
-        
-        Supplier::where([
-            'shop_id' => auth()->user()->shop_id,
-            'id' => $id,
-        ])->update($request->only('name', 'email', 'contact', 'address'));
+  private function invalid($validator) {
+    return $validator->stopOnFirstFailure()->fails();
+  }
 
-        $supplier = Supplier::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->first();
-        return response(['supplier' => $supplier->requiredFields(), 'status' => 'OK'], 200);
-    }
-
-    public function delete($id) {
-        Supplier::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->first()->delete();
-        return response(['id' => $id],200);
-    }
-
-    private function invalid($validator) {
-        return $validator->stopOnFirstFailure()->fails();
-    }
-
-    private function errorResponse($validator) {
-        $errorMsg = Arr::flatten($validator->errors()->messages())[0];
-        return response(['error' => ['msg' => $errorMsg], 'status' => 'ERROR'], 200);
-    }
+  private function errorResponse($validator) {
+    $errorMsg = Arr::flatten($validator->errors()->messages())[0];
+    return response(
+      ['error' => ['msg' => $errorMsg], 'status' => 'ERROR'],
+      200
+    );
+  }
 }
