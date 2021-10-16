@@ -2251,6 +2251,13 @@ var actionTypes = {
   DELETE_SUPPLIER: 'DELETE_SUPPLIER',
   SHOW_SUPPLIER_ERROR: 'SHOW_SUPPLIER_ERROR',
   HIDE_SUPPLIER_ERROR: 'HIDE_SUPPLIER_ERROR',
+  // Customers Actions
+  SET_CUSTOMERS: 'SET_CUSTOMERS',
+  CREATE_CUSTOMER: 'CREATE_CUSTOMER',
+  UPDATE_CUSTOMER: 'UPDATE_CUSTOMER',
+  DELETE_CUSTOMER: 'DELETE_CUSTOMER',
+  SHOW_CUSTOMER_ERROR: 'SHOW_CUSTOMER_ERROR',
+  HIDE_CUSTOMER_ERROR: 'HIDE_CUSTOMER_ERROR',
   SHOW_SUCCESS_MESSAGE: 'SHOW_SUCCESS_MESSAGE',
   HIDE_SUCCESS_MESSAGE: 'HIDE_SUCCESS_MESSAGE',
   SHOW_ERROR: 'SHOW_ERROR',
@@ -4553,7 +4560,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Customer(_ref) {
-  var name = _ref.name,
+  var id = _ref.id,
+      name = _ref.name,
       email = _ref.email,
       phone = _ref.phone,
       address = _ref.address;
@@ -4568,21 +4576,23 @@ function Customer(_ref) {
       children: address
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-        to: "/edit_customer",
-        className: "btn btn-secondary btn-sm me-2 p-1",
+        to: "/edit_customer/".concat(id),
+        className: "btn p-0",
         "data-bs-toggle": "tooltip",
         "data-bs-placement": "right",
         title: "Edit",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
-          className: "fas fa-edit action-icon fw-lighter"
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+          className: "material-icons",
+          children: "edit"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-        className: "btn btn-danger btn-sm p-1",
+        className: "btn p-0",
         "data-bs-toggle": "tooltip",
         "data-bs-placement": "right",
         title: "Delete",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
-          className: "fas fa-trash-alt action-icon fw-lighter"
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+          className: "material-icons text-danger",
+          children: "delete"
         })
       })]
     })]
@@ -8662,6 +8672,7 @@ function SupplierForm(_ref) {
 
   var _useState = (0,react_cjs_react_development__WEBPACK_IMPORTED_MODULE_2__.useState)({
     name: '',
+    email: '',
     contact: '',
     address: ''
   }),
@@ -8684,6 +8695,7 @@ function SupplierForm(_ref) {
       var supplier = getSupplier(id);
       setForm({
         name: supplier.name,
+        email: supplier.email,
         contact: supplier.contact,
         address: supplier.address
       });
@@ -8731,6 +8743,7 @@ function SupplierForm(_ref) {
   var dataWithCorrectFormat = function dataWithCorrectFormat() {
     return {
       name: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_5__.removeExtraSpaces)(form.name),
+      email: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_5__.removeExtraSpaces)(form.email),
       contact: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_5__.removeExtraSpaces)(form.contact),
       address: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_5__.removeExtraSpaces)(form.address)
     };
@@ -8739,6 +8752,7 @@ function SupplierForm(_ref) {
   var resetForm = function resetForm() {
     setForm({
       name: '',
+      email: '',
       contact: '',
       address: ''
     });
@@ -8762,6 +8776,21 @@ function SupplierForm(_ref) {
           value: form.name,
           onChange: handleChange,
           required: true,
+          maxLength: "255"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("label", {
+          htmlFor: "email",
+          className: "form-label fw-bold",
+          children: "Email"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
+          type: "email",
+          className: "form-control",
+          id: "email",
+          name: "email",
+          value: form.email,
+          onChange: handleChange,
           maxLength: "255"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
@@ -8842,11 +8871,14 @@ __webpack_require__.r(__webpack_exports__);
 function Supplier(_ref) {
   var id = _ref.id,
       name = _ref.name,
+      email = _ref.email,
       contact = _ref.contact,
       address = _ref.address;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
       children: name
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+      children: email
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
       children: contact
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
@@ -8912,6 +8944,9 @@ function SuppliersTable() {
           children: "Name"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
+          children: "Email"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          scope: "col",
           children: "Contact"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
@@ -8926,6 +8961,7 @@ function SuppliersTable() {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Supplier__WEBPACK_IMPORTED_MODULE_1__["default"], {
           id: supplier.id,
           name: supplier.name,
+          email: supplier.email,
           contact: supplier.contact,
           address: supplier.address
         }, supplier.id);
@@ -9686,6 +9722,101 @@ function confirmationMessageReducer() {
 
 /***/ }),
 
+/***/ "./resources/js/reducers/customers-reducer/customers-reducer.js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/reducers/customers-reducer/customers-reducer.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_action_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/action-types */ "./resources/js/actions/action-types.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var initialState = {
+  list: [],
+  fetched: false,
+  error: {
+    show: false,
+    msg: ''
+  }
+};
+
+function customersReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].SET_CUSTOMERS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        fetched: true,
+        list: action.payload
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].CREATE_CUSTOMER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        list: [action.payload].concat(_toConsumableArray(state.list))
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_CUSTOMER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        list: state.list.map(function (customer) {
+          return customer.id === action.payload.id ? action.payload : customer;
+        })
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].DELETE_CUSTOMER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        list: state.list.filter(function (customer) {
+          return customer.id != action.payload.id;
+        })
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_CUSTOMER_ERROR:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        error: {
+          show: true,
+          msg: action.payload.message
+        }
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_CUSTOMER_ERROR:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        error: {
+          show: false,
+          msg: ''
+        }
+      });
+
+    default:
+      return state;
+  }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (customersReducer);
+
+/***/ }),
+
 /***/ "./resources/js/reducers/errors-reducer/errors-reducer.js":
 /*!****************************************************************!*\
   !*** ./resources/js/reducers/errors-reducer/errors-reducer.js ***!
@@ -9738,7 +9869,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _authentication_reducer_authentication_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./authentication-reducer/authentication-reducer */ "./resources/js/reducers/authentication-reducer/authentication-reducer.js");
 /* harmony import */ var _sidebar_reducer_sidebar_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sidebar-reducer/sidebar-reducer */ "./resources/js/reducers/sidebar-reducer/sidebar-reducer.js");
 /* harmony import */ var _users_reducer_users_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./users-reducer/users-reducer */ "./resources/js/reducers/users-reducer/users-reducer.js");
@@ -9749,6 +9880,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _products_products_reducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./products/products-reducer */ "./resources/js/reducers/products/products-reducer.js");
 /* harmony import */ var _categories_reducer_categories_reducer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./categories-reducer/categories-reducer */ "./resources/js/reducers/categories-reducer/categories-reducer.js");
 /* harmony import */ var _suppliers_reducer_suppliers_reducer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./suppliers-reducer/suppliers-reducer */ "./resources/js/reducers/suppliers-reducer/suppliers-reducer.js");
+/* harmony import */ var _customers_reducer_customers_reducer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./customers-reducer/customers-reducer */ "./resources/js/reducers/customers-reducer/customers-reducer.js");
 
 
 
@@ -9760,7 +9892,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var allReducers = (0,redux__WEBPACK_IMPORTED_MODULE_10__.combineReducers)({
+
+var allReducers = (0,redux__WEBPACK_IMPORTED_MODULE_11__.combineReducers)({
   sidebarOpen: _sidebar_reducer_sidebar_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   loggedin: _authentication_reducer_authentication_reducer__WEBPACK_IMPORTED_MODULE_0__["default"],
   users: _users_reducer_users_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -9770,7 +9903,8 @@ var allReducers = (0,redux__WEBPACK_IMPORTED_MODULE_10__.combineReducers)({
   confirmation: _confirmation_message_reducer_confirmation_message_reducer__WEBPACK_IMPORTED_MODULE_6__["default"],
   products: _products_products_reducer__WEBPACK_IMPORTED_MODULE_7__["default"],
   categories: _categories_reducer_categories_reducer__WEBPACK_IMPORTED_MODULE_8__["default"],
-  suppliers: _suppliers_reducer_suppliers_reducer__WEBPACK_IMPORTED_MODULE_9__["default"]
+  suppliers: _suppliers_reducer_suppliers_reducer__WEBPACK_IMPORTED_MODULE_9__["default"],
+  customers: _customers_reducer_customers_reducer__WEBPACK_IMPORTED_MODULE_10__["default"]
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (allReducers);
 

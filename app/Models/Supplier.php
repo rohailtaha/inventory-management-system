@@ -9,12 +9,13 @@ class Supplier extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['shop_id', 'name', 'contact', 'address'];
+    protected $fillable = ['shop_id', 'name', 'email', 'contact', 'address'];
     
     public function requiredFields() {
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'email' => $this->email ?? '',
             'contact' => $this->contact,
             'address' => $this->address,
         ];

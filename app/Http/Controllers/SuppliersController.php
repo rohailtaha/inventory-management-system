@@ -23,17 +23,14 @@ class SuppliersController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'max:255', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)],
             'contact' => ['required', 'min:4', 'max:20', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)],
+            'email' => ['nullable', 'max:255', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)],
             'address' => ['required', 'max:255'],
         ]);
 
         if($this->invalid($validator))  return $this->errorResponse($validator);
-        
-        $supplier = Supplier::create([
-            'shop_id' => auth()->user()->shop_id,
-            'name' => $request->name,
-            'contact' => $request->contact,
-            'address' => $request->address,
-        ]);
+        $supplier = Supplier::create(
+            array_merge(['shop_id' => auth()->user()->shop_id,],$request->only('name', 'email', 'contact', 'address'))
+        );
 
         return response(['supplier' => $supplier->requiredFields(), 'status' => 'OK'], 200);
     }
@@ -43,6 +40,7 @@ class SuppliersController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'max:255', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)->ignore(Supplier::where('id', $id)->first())],
             'contact' => ['required', 'min:4', 'max:20', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)->ignore(Supplier::where('id', $id)->first())],
+            'email' => ['nullable', 'max:255', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)->ignore(Supplier::where('id', $id)->first())],
             'address' => ['required', 'max:255'],
         ]);
 
@@ -51,11 +49,7 @@ class SuppliersController extends Controller
         Supplier::where([
             'shop_id' => auth()->user()->shop_id,
             'id' => $id,
-        ])->update([ 
-            'name' => $request->name,
-            'contact' => $request->contact,
-            'address' => $request->address,
-         ]);
+        ])->update($request->only('name', 'email', 'contact', 'address'));
 
         $supplier = Supplier::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->first();
         return response(['supplier' => $supplier->requiredFields(), 'status' => 'OK'], 200);

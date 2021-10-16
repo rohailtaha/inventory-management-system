@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function Customer({ name, email, phone, address }) {
+function Customer({ id, name, email, phone, address }) {
   return (
     <tr>
       <td>{name}</td>
@@ -9,21 +9,21 @@ function Customer({ name, email, phone, address }) {
       <td>{address}</td>
       <td>
         <Link
-          to='/edit_customer'
-          className='btn btn-secondary btn-sm me-2 p-1'
+          to={`/edit_customer/${id}`}
+          className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'
           title='Edit'
         >
-          <i className='fas fa-edit action-icon fw-lighter'></i>
+          <span className='material-icons'>edit</span>
         </Link>
         <button
-          className='btn btn-danger btn-sm p-1'
+          className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'
           title='Delete'
         >
-          <i className='fas fa-trash-alt action-icon fw-lighter'></i>
+          <span className='material-icons text-danger'>delete</span>
         </button>
       </td>
     </tr>

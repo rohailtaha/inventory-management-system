@@ -12,6 +12,7 @@ import SuccessModal from '../../../common/success-modal/SuccessModal';
 function SupplierForm({ mode }) {
   const [form, setForm] = useState({
     name: '',
+    email: '',
     contact: '',
     address: '',
   });
@@ -28,6 +29,7 @@ function SupplierForm({ mode }) {
       const supplier = getSupplier(id);
       setForm({
         name: supplier.name,
+        email: supplier.email,
         contact: supplier.contact,
         address: supplier.address,
       });
@@ -68,6 +70,7 @@ function SupplierForm({ mode }) {
   const dataWithCorrectFormat = () => {
     return {
       name: removeExtraSpaces(form.name),
+      email: removeExtraSpaces(form.email),
       contact: removeExtraSpaces(form.contact),
       address: removeExtraSpaces(form.address),
     };
@@ -76,6 +79,7 @@ function SupplierForm({ mode }) {
   const resetForm = () => {
     setForm({
       name: '',
+      email: '',
       contact: '',
       address: '',
     });
@@ -96,6 +100,20 @@ function SupplierForm({ mode }) {
             value={form.name}
             onChange={handleChange}
             required
+            maxLength='255'
+          />
+        </div>
+        <div className='mb-3'>
+          <label htmlFor='email' className='form-label fw-bold'>
+            Email
+          </label>
+          <input
+            type='email'
+            className='form-control'
+            id='email'
+            name='email'
+            value={form.email}
+            onChange={handleChange}
             maxLength='255'
           />
         </div>

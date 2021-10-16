@@ -9,6 +9,7 @@ import confirmationMessageReducer from './confirmation-message-reducer/confirmat
 import productsReducer from './products/products-reducer';
 import categoriesReducer from './categories-reducer/categories-reducer';
 import suppliersReducer from './suppliers-reducer/suppliers-reducer';
+import customersReducer from './customers-reducer/customers-reducer';
 
 const allReducers = combineReducers({
   sidebarOpen: sidebarReducer,
@@ -21,6 +22,7 @@ const allReducers = combineReducers({
   products: productsReducer,
   categories: categoriesReducer,
   suppliers: suppliersReducer,
+  customers: customersReducer,
 });
 
 export default allReducers;

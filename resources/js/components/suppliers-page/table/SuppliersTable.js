@@ -9,6 +9,7 @@ function SuppliersTable() {
       <thead>
         <tr>
           <th scope='col'>Name</th>
+          <th scope='col'>Email</th>
           <th scope='col'>Contact</th>
           <th scope='col'>Address</th>
           <th scope='col'>Actions</th>
@@ -19,6 +20,7 @@ function SuppliersTable() {
           <Supplier
             id={supplier.id}
             name={supplier.name}
+            email={supplier.email}
             contact={supplier.contact}
             address={supplier.address}
             key={supplier.id}

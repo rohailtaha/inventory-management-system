@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Supplier({ id, name, contact, address }) {
+function Supplier({ id, name, email, contact, address }) {
   return (
     <tr>
       <td>{name}</td>
+      <td>{email}</td>
       <td>{contact}</td>
       <td>{address}</td>
       <td>
