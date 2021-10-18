@@ -6,15 +6,6 @@ import FilterForm from './filter form/FilterForm';
 import InventoryTable from './table/InventoryTable';
 
 function Inventory() {
-
-  const fetched = useSelector(state => state.products.fetched);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if(!fetched) {
-      dispatch(fetch_products());
-    }
-  }, []);
-
   return (
     <div className='main__content main__content--inventory'>
       <div className='d-xl-flex align-items-center'>

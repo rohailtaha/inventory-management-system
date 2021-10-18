@@ -2176,11 +2176,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_sidebar_Sidebar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/sidebar/Sidebar */ "./resources/js/components/sidebar/Sidebar.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _routes_AppRouter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes/AppRouter */ "./resources/js/routes/AppRouter.js");
 /* harmony import */ var _components_header_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/header/Header */ "./resources/js/components/header/Header.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _actions_products_products_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actions/products/products-actions */ "./resources/js/actions/products/products-actions.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 
 
 
@@ -2193,10 +2197,19 @@ function MyApp() {
   var sidebarOpen = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)(function (state) {
     return state.sidebarOpen;
   });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.BrowserRouter, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_header_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_sidebar_Sidebar__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("main", {
+  var fetched = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)(function (state) {
+    return state.products.fetched;
+  });
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)();
+  (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
+    if (!fetched) {
+      dispatch((0,_actions_products_products_actions__WEBPACK_IMPORTED_MODULE_5__.fetch_products)());
+    }
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.BrowserRouter, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_header_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_sidebar_Sidebar__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("main", {
       className: "main ".concat(sidebarOpen ? '' : 'main--expanded', " py-5"),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_routes_AppRouter__WEBPACK_IMPORTED_MODULE_1__["default"], {})
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_routes_AppRouter__WEBPACK_IMPORTED_MODULE_1__["default"], {})
     })]
   });
 }
@@ -2265,6 +2278,8 @@ var actionTypes = {
   DELETE_PURCHASE: 'DELETE_PURCHASE',
   SHOW_PURCHASE_ERROR: 'SHOW_PURCHASE_ERROR',
   HIDE_PURCHASE_ERROR: 'HIDE_PURCHASE_ERROR',
+  ADD_PRODUCT_TO_PURCHASE: 'ADD_PRODUCT_TO_PURCHASE',
+  REMOVE_PRODUCT_FROM_PURCHASE: 'REMOVE_PRODUCT_FROM_PURCHASE',
   SHOW_SUCCESS_MESSAGE: 'SHOW_SUCCESS_MESSAGE',
   HIDE_SUCCESS_MESSAGE: 'HIDE_SUCCESS_MESSAGE',
   SHOW_ERROR: 'SHOW_ERROR',
@@ -3158,6 +3173,245 @@ function hide_error() {
 }
 
 
+
+/***/ }),
+
+/***/ "./resources/js/actions/purchases/purchases-actions.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/actions/purchases/purchases-actions.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "request_fetch_purchases": () => (/* binding */ request_fetch_purchases),
+/* harmony export */   "request_create_purchase": () => (/* binding */ request_create_purchase),
+/* harmony export */   "request_update_purchase": () => (/* binding */ request_update_purchase),
+/* harmony export */   "request_delete_purchase": () => (/* binding */ request_delete_purchase),
+/* harmony export */   "add_product_to_purchase": () => (/* binding */ add_product_to_purchase),
+/* harmony export */   "hide_error": () => (/* binding */ hide_error)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/util_structures */ "./resources/js/utils/util_structures.js");
+/* harmony import */ var _action_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../action-types */ "./resources/js/actions/action-types.js");
+/* harmony import */ var _load_load__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../load/load */ "./resources/js/actions/load/load.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+var SUCCESSFULL_ADD_MSG = 'Purchase added.';
+var SUCCESSFULL_UPDATE_MSG = 'Purchase updated.';
+var SUCCESSFULL_DELETION_MSG = 'Purchase Deleted';
+function request_fetch_purchases() {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return axios.get('/api/purchases');
+
+            case 3:
+              response = _context.sent;
+
+              if (response.data.status === 'OK') {
+                dispatch(set_purchases(response.data.purchases));
+              } else {
+                dispatch(show_error(response.data.error.msg));
+              }
+
+              _context.next = 10;
+              break;
+
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](0);
+              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
+
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0, 7]]);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+}
+
+function set_purchases(purchases) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SET_PURCHASES,
+    payload: purchases
+  };
+}
+
+function request_create_purchase(purchase) {
+  return /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_3__.load)());
+              _context2.next = 4;
+              return axios.post('/api/purchases', purchase);
+
+            case 4:
+              response = _context2.sent;
+
+              if (response.data.status === 'OK') {
+                dispatch(create_purchase(response.data.purchase));
+                dispatch(hide_error());
+                dispatch(show_success_message(SUCCESSFULL_ADD_MSG));
+              } else {
+                dispatch(show_error(response.data.error.msg));
+              }
+
+              _context2.next = 11;
+              break;
+
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](0);
+              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
+
+            case 11:
+              _context2.prev = 11;
+              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_3__.stopLoading)());
+              return _context2.finish(11);
+
+            case 14:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[0, 8, 11, 14]]);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+}
+
+function create_purchase(purchase) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].CREATE_PURCHASE,
+    payload: purchase
+  };
+}
+
+function request_update_purchase(purchase, id) {
+  return /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_3__.load)());
+              _context3.next = 4;
+              return axios.put("/api/purchases/".concat(id), purchase);
+
+            case 4:
+              response = _context3.sent;
+
+              if (response.data.status === 'OK') {
+                dispatch(update_purchase(response.data.purchase));
+                dispatch(hide_error());
+                dispatch(show_success_message(SUCCESSFULL_UPDATE_MSG));
+              } else {
+                dispatch(show_error(response.data.error.msg));
+              }
+
+              _context3.next = 11;
+              break;
+
+            case 8:
+              _context3.prev = 8;
+              _context3.t0 = _context3["catch"](0);
+              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
+
+            case 11:
+              _context3.prev = 11;
+              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_3__.stopLoading)());
+              return _context3.finish(11);
+
+            case 14:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[0, 8, 11, 14]]);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+}
+function request_delete_purchase(id) {
+  return function (dispatch) {
+    axios["delete"]("/api/purchases/".concat(id)).then(function (response) {
+      return delete_purchase(response.data.id);
+    })["catch"](function (error) {
+      return dispatch(show_error(error.response.data.error.msg));
+    });
+  };
+}
+
+function update_purchase(purchase) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].UPDATE_PURCHASE,
+    payload: purchase
+  };
+}
+
+function delete_purchase(id) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].DELETE_PURCHASE,
+    payload: {
+      id: id
+    }
+  };
+}
+
+function add_product_to_purchase(product) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].ADD_PRODUCT_TO_PURCHASE,
+    payload: product
+  };
+}
+
+function show_error(msg) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SHOW_PURCHASE_ERROR,
+    payload: new Error(msg)
+  };
+}
+
+function hide_error() {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].HIDE_PURCHASE_ERROR
+  };
+}
 
 /***/ }),
 
@@ -5367,15 +5621,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Inventory() {
-  var fetched = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.products.fetched;
-  });
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!fetched) {
-      dispatch((0,_actions_products_products_actions__WEBPACK_IMPORTED_MODULE_2__.fetch_products)());
-    }
-  }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "main__content main__content--inventory",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
@@ -6307,39 +6552,52 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _table_PurchasesTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./table/PurchasesTable */ "./resources/js/components/purchases-page/table/PurchasesTable.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/purchases/purchases-actions */ "./resources/js/actions/purchases/purchases-actions.js");
+/* harmony import */ var _table_PurchasesTable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./table/PurchasesTable */ "./resources/js/components/purchases-page/table/PurchasesTable.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
 
 
 
 
 
 function Purchases() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var fetched = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.purchases.fetched;
+  });
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!fetched) dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_2__.request_fetch_purchases)());
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "main__content main__content--suppliers",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "d-xl-flex align-items-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
         className: "btn btn-primary px-3 py-2 d-flex align-items-center add-btn",
         to: "/add-purchase",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
           className: "material-icons me-1",
           children: " add "
         }), " New Purchase"]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("section", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("section", {
       className: "mt-5 table-container",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "card",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "card-header fs-2",
           children: "Purchases"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "card-body",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "table-responsive",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_table_PurchasesTable__WEBPACK_IMPORTED_MODULE_0__["default"], {})
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_table_PurchasesTable__WEBPACK_IMPORTED_MODULE_3__["default"], {})
           })
         })]
       })
@@ -6362,7 +6620,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _added_purchases_table_AddedPurchasesTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../added purchases table/AddedPurchasesTable */ "./resources/js/components/purchases-page/purchase/added purchases table/AddedPurchasesTable.js");
+/* harmony import */ var _products_for_a_purchase_table_ProductsForAPurchaseTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../products-for-a-purchase-table/ProductsForAPurchaseTable */ "./resources/js/components/purchases-page/purchase/products-for-a-purchase-table/ProductsForAPurchaseTable.js");
 /* harmony import */ var _purchase_form_PurchaseForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../purchase form/PurchaseForm */ "./resources/js/components/purchases-page/purchase/purchase form/PurchaseForm.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
@@ -6380,7 +6638,7 @@ function AddPurchase() {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_purchase_form_PurchaseForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
         mode: 'CREATE'
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_added_purchases_table_AddedPurchasesTable__WEBPACK_IMPORTED_MODULE_0__["default"], {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_products_for_a_purchase_table_ProductsForAPurchaseTable__WEBPACK_IMPORTED_MODULE_0__["default"], {})]
   });
 }
 
@@ -6388,10 +6646,47 @@ function AddPurchase() {
 
 /***/ }),
 
-/***/ "./resources/js/components/purchases-page/purchase/added purchases table/AddedPurchase.js":
-/*!************************************************************************************************!*\
-  !*** ./resources/js/components/purchases-page/purchase/added purchases table/AddedPurchase.js ***!
-  \************************************************************************************************/
+/***/ "./resources/js/components/purchases-page/purchase/edit purchase/EditPurchase.js":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/purchases-page/purchase/edit purchase/EditPurchase.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _products_for_a_purchase_table_ProductsForAPurchaseTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../products-for-a-purchase-table/ProductsForAPurchaseTable */ "./resources/js/components/purchases-page/purchase/products-for-a-purchase-table/ProductsForAPurchaseTable.js");
+/* harmony import */ var _purchase_form_PurchaseForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../purchase form/PurchaseForm */ "./resources/js/components/purchases-page/purchase/purchase form/PurchaseForm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+function EditPurchase() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "main__content main__content--edit-purchase",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+      className: "fs-2 mb-5",
+      children: "Edit Purchase"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_purchase_form_PurchaseForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        mode: 'UPDATE'
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_products_for_a_purchase_table_ProductsForAPurchaseTable__WEBPACK_IMPORTED_MODULE_0__["default"], {})]
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditPurchase);
+
+/***/ }),
+
+/***/ "./resources/js/components/purchases-page/purchase/products-for-a-purchase-table/AddedProduct.js":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/purchases-page/purchase/products-for-a-purchase-table/AddedProduct.js ***!
+  \*******************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6403,14 +6698,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function AddedPurchase(_ref) {
-  var product = _ref.product,
+function AddedProduct(_ref) {
+  var name = _ref.name,
       quantity = _ref.quantity,
       purchasePrice = _ref.purchasePrice,
       totalPrice = _ref.totalPrice;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-      children: product
+      children: name
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
       children: purchasePrice
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
@@ -6431,14 +6726,14 @@ function AddedPurchase(_ref) {
   });
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddedPurchase);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddedProduct);
 
 /***/ }),
 
-/***/ "./resources/js/components/purchases-page/purchase/added purchases table/AddedPurchasesTable.js":
-/*!******************************************************************************************************!*\
-  !*** ./resources/js/components/purchases-page/purchase/added purchases table/AddedPurchasesTable.js ***!
-  \******************************************************************************************************/
+/***/ "./resources/js/components/purchases-page/purchase/products-for-a-purchase-table/ProductsForAPurchaseTable.js":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/components/purchases-page/purchase/products-for-a-purchase-table/ProductsForAPurchaseTable.js ***!
+  \********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6446,13 +6741,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _AddedPurchase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddedPurchase */ "./resources/js/components/purchases-page/purchase/added purchases table/AddedPurchase.js");
+/* harmony import */ var _AddedProduct__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddedProduct */ "./resources/js/components/purchases-page/purchase/products-for-a-purchase-table/AddedProduct.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
 
-function AddedPurchasesTable() {
+function ProductsForAPurchaseTable() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "table-container",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
@@ -6479,7 +6774,7 @@ function AddedPurchasesTable() {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
           children: records.map(function (record) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_AddedPurchase__WEBPACK_IMPORTED_MODULE_0__["default"], {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_AddedProduct__WEBPACK_IMPORTED_MODULE_0__["default"], {
               id: record.id,
               product: record.product,
               quantity: record.quantity,
@@ -6506,44 +6801,7 @@ var records = [{
   perItemPrice: 50,
   totalPrice: 1000
 }];
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddedPurchasesTable);
-
-/***/ }),
-
-/***/ "./resources/js/components/purchases-page/purchase/edit purchase/EditPurchase.js":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/components/purchases-page/purchase/edit purchase/EditPurchase.js ***!
-  \***************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _added_purchases_table_AddedPurchasesTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../added purchases table/AddedPurchasesTable */ "./resources/js/components/purchases-page/purchase/added purchases table/AddedPurchasesTable.js");
-/* harmony import */ var _purchase_form_PurchaseForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../purchase form/PurchaseForm */ "./resources/js/components/purchases-page/purchase/purchase form/PurchaseForm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-
-
-
-function EditPurchase() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "main__content main__content--edit-purchase",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
-      className: "fs-2 mb-5",
-      children: "Edit Purchase"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_purchase_form_PurchaseForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        mode: 'UPDATE'
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_added_purchases_table_AddedPurchasesTable__WEBPACK_IMPORTED_MODULE_0__["default"], {})]
-  });
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditPurchase);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductsForAPurchaseTable);
 
 /***/ }),
 
@@ -6558,29 +6816,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _common_supplier_option_SupplierOption__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../common/supplier option/SupplierOption */ "./resources/js/components/common/supplier option/SupplierOption.js");
-/* harmony import */ var _messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./messages/PaymentMismatchModal */ "./resources/js/components/purchases-page/purchase/purchase form/messages/PaymentMismatchModal.js");
-/* harmony import */ var _PurchaseStatusOption__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PurchaseStatusOption */ "./resources/js/components/purchases-page/purchase/purchase form/PurchaseStatusOption.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+/* harmony import */ var _utils_utility_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../utils/utility_functions */ "./resources/js/utils/utility_functions.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _common_supplier_option_SupplierOption__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../common/supplier option/SupplierOption */ "./resources/js/components/common/supplier option/SupplierOption.js");
+/* harmony import */ var _messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./messages/PaymentMismatchModal */ "./resources/js/components/purchases-page/purchase/purchase form/messages/PaymentMismatchModal.js");
+/* harmony import */ var _PurchaseStatusOption__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PurchaseStatusOption */ "./resources/js/components/purchases-page/purchase/purchase form/PurchaseStatusOption.js");
+/* harmony import */ var _actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../actions/purchases/purchases-actions */ "./resources/js/actions/purchases/purchases-actions.js");
+/* harmony import */ var _product_to_purchase_form_ProductToPurchaseForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./product-to-purchase-form/ProductToPurchaseForm */ "./resources/js/components/purchases-page/purchase/purchase form/product-to-purchase-form/ProductToPurchaseForm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -6592,255 +6840,139 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function PurchaseForm(_ref) {
   var mode = _ref.mode;
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    barcode: '',
-    product: '',
-    purchasePrice: '',
-    quantity: '',
-    supplier: '',
-    status: ''
-  }),
-      _useState2 = _slicedToArray(_useState, 2),
-      form = _useState2[0],
-      setForm = _useState2[1];
-
-  var handleChange = function handleChange(event) {
-    var _event$target = event.target,
-        name = _event$target.name,
-        value = _event$target.value;
-    setForm(function (form) {
-      return _objectSpread(_objectSpread({}, form), {}, _defineProperty({}, name, value));
-    });
-  };
-
-  var handleSubmit = function handleSubmit(event) {
-    event.preventDefault();
-  };
-
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
-    className: "mt-4",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "mb-3 d-flex align-items-center",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-        type: "text",
-        className: "form-control form-control-sm w-auto",
-        id: "barcode",
-        placeholder: "Enter Barcode",
-        onChange: handleChange,
-        name: "barcode",
-        value: form.barcode
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-        className: "btn btn-secondary btn-sm ms-3 px-2 py-1 fw-bold",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-          className: "fas fa-plus me-2"
-        }), " Add"]
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "mb-2",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-        htmlFor: "product",
-        className: "form-label fw-bold",
-        children: "Product"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-        type: "text",
-        className: "form-control form-control-sm",
-        id: "product",
-        onChange: handleChange,
-        name: "product",
-        value: form.product,
-        required: true
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "d-md-flex mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "me-md-2 mb-2 mb-md-0",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-          htmlFor: "purchase-price",
-          className: "form-label fw-bold",
-          children: "Per Item Cost"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "input-group input-group-sm",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-            className: "input-group-text",
-            children: "RS"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-            type: "number",
-            className: "form-control",
-            id: "purchase-price",
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_product_to_purchase_form_ProductToPurchaseForm__WEBPACK_IMPORTED_MODULE_7__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("form", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+        type: "submit",
+        className: "btn btn-sm btn-secondary fw-bold",
+        onClick: addProductToPurchase,
+        children: "Add to List"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {
+        className: "my-4"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          className: "mb-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("label", {
+            htmlFor: "supplier",
+            className: "form-label fw-bold",
+            children: "Supplier"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("select", {
+            className: "form-select form-select-sm",
+            id: "supplier",
             onChange: handleChange,
-            name: "purchasePrice",
-            value: form.purchasePrice,
-            required: true
-          })]
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "me-md-2 mb-2 mb-md-0",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-          htmlFor: "quantity",
-          className: "form-label fw-bold",
-          children: "Quantity"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-          type: "number",
-          className: "form-control form-control-sm",
-          id: "quantity",
-          onChange: handleChange,
-          name: "quantity",
-          value: form.quantity,
-          required: true
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-          htmlFor: "total-cost",
-          className: "form-label fw-bold",
-          children: "Total Cost"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "input-group input-group-sm",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-            className: "input-group-text",
-            children: "RS"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-            type: "number",
-            className: "form-control",
-            id: "totalCost",
-            onChange: handleChange,
-            name: "totalCost",
-            value: form.purchasePrice,
+            name: "supplier",
+            value: form.supplier,
             required: true,
-            readOnly: true
+            children: suppliers.map(function (supplier) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_supplier_option_SupplierOption__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                supplier: supplier.name
+              }, supplier.id);
+            })
           })]
-        })]
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-      type: "submit",
-      className: "btn btn-sm btn-secondary fw-bold",
-      children: "Add to List"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("hr", {
-      className: "my-4"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-          htmlFor: "supplier",
-          className: "form-label fw-bold",
-          children: "Supplier"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("select", {
-          className: "form-select form-select-sm",
-          id: "supplier",
-          onChange: handleChange,
-          name: "supplier",
-          value: form.supplier,
-          required: true,
-          children: suppliers.map(function (supplier) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_common_supplier_option_SupplierOption__WEBPACK_IMPORTED_MODULE_1__["default"], {
-              supplier: supplier.name
-            }, supplier.id);
-          })
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-          htmlFor: "status",
-          className: "form-label fw-bold",
-          children: "Purchase Status"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("select", {
-          className: "form-select form-select-sm",
-          id: "status",
-          onChange: handleChange,
-          name: "status",
-          value: form.status,
-          required: true,
-          children: purchaseStatuses.map(function (status) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_PurchaseStatusOption__WEBPACK_IMPORTED_MODULE_3__["default"], {
-              status: status.value
-            }, status.id);
-          })
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "mb-3 d-sm-flex align-items-center",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "flex-grow-1 mb-2 mb-sm-0 me-sm-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-            htmlFor: "net-amount-paid",
-            className: "form-label fw-bold text-nowrap",
-            children: "Net Amount Paid"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "input-group input-group-sm",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-              className: "input-group-text",
-              children: "RS"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-              type: "number",
-              className: "form-control",
-              id: "net-amount-paid",
-              onChange: handleChange,
-              name: "netAmountPaid",
-              value: form.discountedSalePrice,
-              required: true
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          className: "mb-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("label", {
+            htmlFor: "status",
+            className: "form-label fw-bold",
+            children: "Purchase Status"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("select", {
+            className: "form-select form-select-sm",
+            id: "status",
+            onChange: handleChange,
+            name: "status",
+            value: form.status,
+            required: true,
+            children: purchaseStatuses.map(function (status) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_PurchaseStatusOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                status: status.value
+              }, status.id);
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          className: "mb-3 d-sm-flex align-items-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+            className: "flex-grow-1 mb-2 mb-sm-0 me-sm-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("label", {
+              htmlFor: "net-amount-paid",
+              className: "form-label fw-bold text-nowrap",
+              children: "Net Amount Paid"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+              className: "input-group input-group-sm",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+                className: "input-group-text",
+                children: "RS"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
+                type: "number",
+                className: "form-control",
+                id: "net-amount-paid",
+                onChange: handleChange,
+                name: "netAmountPaid",
+                value: form.discountedSalePrice,
+                required: true
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+            className: "flex-grow-1",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("label", {
+              htmlFor: "grand-total",
+              className: "form-label fw-bold text-nowrap",
+              children: "Grand Total"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+              className: "input-group input-group-sm",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+                className: "input-group-text",
+                children: "RS"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
+                type: "number",
+                className: "form-control",
+                id: "grand-total",
+                onChange: handleChange,
+                name: "grandTotal",
+                value: form.discountedSalePrice,
+                required: true,
+                readOnly: true
+              })]
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "flex-grow-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-            htmlFor: "grand-total",
-            className: "form-label fw-bold text-nowrap",
-            children: "Grand Total"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "input-group input-group-sm",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-              className: "input-group-text",
-              children: "RS"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-              type: "number",
-              className: "form-control",
-              id: "grand-total",
-              onChange: handleChange,
-              name: "grandTotal",
-              value: form.discountedSalePrice,
-              required: true,
-              readOnly: true
-            })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          className: "mb-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("label", {
+            htmlFor: "status",
+            className: "form-label fw-bold",
+            children: "Payment Status"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("select", {
+            className: "form-select form-select-sm",
+            id: "status",
+            onChange: handleChange,
+            name: "status",
+            value: form.status,
+            required: true,
+            children: paymentStatuses.map(function (status) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("option", {
+                value: status.value,
+                children: status.value
+              }, status.id);
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          className: "d-sm-flex",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+            type: "submit",
+            className: "btn btn-primary flex-grow-1 mb-2 mb-sm-0",
+            onSubmit: handleSubmit,
+            children: mode === 'CREATE' ? 'Confirm Purchase' : 'Save Changes'
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
+            to: "/purchases",
+            className: "btn btn-danger flex-grow-1 ms-sm-3",
+            children: "Cancel"
           })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "mb-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-          htmlFor: "status",
-          className: "form-label fw-bold",
-          children: "Payment Status"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("select", {
-          className: "form-select form-select-sm",
-          id: "status",
-          onChange: handleChange,
-          name: "status",
-          value: form.status,
-          required: true,
-          children: paymentStatuses.map(function (status) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-              value: status.value,
-              children: status.value
-            }, status.id);
-          })
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "d-sm-flex",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-          type: "submit",
-          className: "btn btn-primary flex-grow-1 mb-2 mb-sm-0",
-          onSubmit: handleSubmit,
-          children: mode === 'CREATE' ? 'Confirm Purchase' : 'Save Changes'
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-          to: "/purchases",
-          className: "btn btn-danger flex-grow-1 ms-sm-3",
-          children: "Cancel"
-        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {
+        className: "my-4"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        grandTotal: 16600,
+        payment: 15000
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("hr", {
-      className: "my-4"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      grandTotal: 16600,
-      payment: 15000
     })]
   });
 }
@@ -6968,6 +7100,209 @@ function PaymentMismatchModal(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/components/purchases-page/purchase/purchase form/product-to-purchase-form/ProductToPurchaseForm.js":
+/*!*************************************************************************************************************************!*\
+  !*** ./resources/js/components/purchases-page/purchase/purchase form/product-to-purchase-form/ProductToPurchaseForm.js ***!
+  \*************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ProductToPurchaseForm)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+function ProductToPurchaseForm() {
+  var _useState = useState({
+    barcode: '',
+    product: '',
+    per_item_cost: '',
+    quantity: '',
+    supplier: '',
+    status: ''
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      form = _useState2[0],
+      setForm = _useState2[1];
+
+  var products = useSelector(function (state) {
+    return state.products.list;
+  });
+  var dispatch = useDispatch();
+
+  var getProduct = function getProduct(barcode) {
+    return products.find(function (product) {
+      return product.barcode === barcode;
+    });
+  };
+
+  var totalProductCost = function totalProductCost() {
+    if (!isEmpty(form.quantity) && !isEmpty(form.per_item_cost)) return (parseInt(form.quantity) * parseFloat(form.per_item_cost)).toFixed(2);
+    return '';
+  };
+
+  var addProductToForm = function addProductToForm() {
+    var product = getProduct(form.barcode);
+
+    if (product) {
+      setForm(function (form) {
+        return _objectSpread(_objectSpread({}, form), {}, {
+          product: product.name,
+          per_item_cost: product.purchase_price.toString(),
+          quantity: '1'
+        });
+      });
+    }
+  };
+
+  var addProductToPurchase = function addProductToPurchase() {
+    dispatch(add_product_to_purchase({
+      product: form.product,
+      per_item_cost: form.per_item_cost,
+      quantity: form.quantity,
+      total_cost: totalProductCost()
+    }));
+  };
+
+  var handleChange = function handleChange(event) {
+    var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+    setForm(function (form) {
+      return _objectSpread(_objectSpread({}, form), {}, _defineProperty({}, name, value));
+    });
+  };
+
+  var handleSubmit = function handleSubmit(event) {
+    event.preventDefault();
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+    className: "mt-4",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "mb-3 d-flex align-items-center",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: "text",
+        className: "form-control form-control-sm w-auto",
+        id: "barcode",
+        placeholder: "Enter Barcode",
+        onChange: handleChange,
+        name: "barcode",
+        value: form.barcode
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
+        className: "btn btn-secondary btn-sm ms-3 px-1 py-1 fw-bold d-flex align-items-center add-btn",
+        onClick: addProductToForm,
+        type: "button",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          className: "material-icons me-1",
+          children: " add "
+        }), " Add"]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "mb-2",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+        htmlFor: "product",
+        className: "form-label fw-bold",
+        children: "Product"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+        type: "text",
+        className: "form-control form-control-sm",
+        id: "product",
+        onChange: handleChange,
+        name: "product",
+        value: form.product,
+        readOnly: true,
+        required: true
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "d-md-flex mb-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "me-md-2 mb-2 mb-md-0",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          htmlFor: "per_item_cost",
+          className: "form-label fw-bold",
+          children: "Per Item Cost"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "input-group input-group-sm",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+            className: "input-group-text",
+            children: "RS"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            type: "number",
+            className: "form-control",
+            id: "per_item_cost",
+            onChange: handleChange,
+            name: "per_item_cost",
+            value: form.per_item_cost,
+            required: true
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "me-md-2 mb-2 mb-md-0",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          htmlFor: "quantity",
+          className: "form-label fw-bold",
+          children: "Quantity"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+          type: "number",
+          className: "form-control form-control-sm",
+          id: "quantity",
+          onChange: handleChange,
+          name: "quantity",
+          value: form.quantity,
+          required: true,
+          min: "1"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          htmlFor: "total-cost",
+          className: "form-label fw-bold",
+          children: "Total Cost"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "input-group input-group-sm",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+            className: "input-group-text",
+            children: "RS"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            type: "number",
+            className: "form-control",
+            id: "totalCost",
+            name: "totalCost",
+            value: totalProductCost(),
+            required: true,
+            readOnly: true
+          })]
+        })]
+      })]
+    })]
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/purchases-page/table/Purchase.js":
 /*!******************************************************************!*\
   !*** ./resources/js/components/purchases-page/table/Purchase.js ***!
@@ -7052,52 +7387,57 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Purchase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Purchase */ "./resources/js/components/purchases-page/table/Purchase.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Purchase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Purchase */ "./resources/js/components/purchases-page/table/Purchase.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
 
 function PurchasesTable() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
+  var purchases = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+    return state.purchases.list;
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
     className: "table",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Date"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Purchase ID"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Purchase Status"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Grand Total (RS)"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Amount Paid (RS)"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Payment Status"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Supplier"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Actions"
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
       children: purchases.map(function (purchase) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_Purchase__WEBPACK_IMPORTED_MODULE_0__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Purchase__WEBPACK_IMPORTED_MODULE_1__["default"], {
           date: purchase.date,
           id: purchase.id,
-          purchaseStatus: purchase.purchaseStatus,
-          totalCost: purchase.totalPrice,
-          amountPaid: purchase.amountPaid,
-          paymentStatus: purchase.paymentStatus,
+          purchaseStatus: purchase.purchase_status,
+          grandTotal: purchase.grand_total,
+          amountPaid: purchase.amount_paid,
+          paymentStatus: purchase.payment_status,
           supplier: purchase.supplier
         }, purchase.id);
       })
@@ -7105,23 +7445,6 @@ function PurchasesTable() {
   });
 }
 
-var purchases = [{
-  id: 1,
-  purchaseStatus: 'Received',
-  totalPrice: 250,
-  amountPaid: 250,
-  paymentStatus: 'UNPAID',
-  supplier: 'supplier 3',
-  date: '21-07-2021'
-}, {
-  id: 2,
-  purchaseStatus: 'Pending',
-  totalPrice: 250,
-  amountPaid: 250,
-  paymentStatus: 'PAID',
-  supplier: 'supplier 3',
-  date: '21-07-2021'
-}];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PurchasesTable);
 
 /***/ }),
@@ -10411,6 +10734,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var initialState = {
   list: [],
+  productsForAPurchase: [],
   fetched: false,
   error: {
     show: false,
@@ -10446,6 +10770,11 @@ function purchasesReducer() {
         list: state.list.filter(function (purchase) {
           return purchase.id != action.payload.id;
         })
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_PRODUCT_TO_PURCHASE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        productsForAPurchase: [action.payload].concat(_toConsumableArray(state.productsForAPurchase))
       });
 
     case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_PURCHASE_ERROR:
@@ -11208,6 +11537,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getSalePrice": () => (/* binding */ getSalePrice),
 /* harmony export */   "getDiscount": () => (/* binding */ getDiscount),
 /* harmony export */   "isEmpty": () => (/* binding */ isEmpty),
+/* harmony export */   "areEmpty": () => (/* binding */ areEmpty),
 /* harmony export */   "removeExtraSpaces": () => (/* binding */ removeExtraSpaces)
 /* harmony export */ });
 function getProfitMargin(purchasePrice, salePrice) {
@@ -11221,6 +11551,12 @@ function getDiscount(amount, discountPercent) {
 }
 function isEmpty(string) {
   return removeExtraSpaces(string) === '';
+}
+function areEmpty() {
+  var values = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  return values.every(function (value) {
+    return isEmpty(value);
+  });
 }
 function removeExtraSpaces(string) {
   return string.split(' ').filter(function (s) {

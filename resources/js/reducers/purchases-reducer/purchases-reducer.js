@@ -2,6 +2,7 @@ import actionTypes from '../../actions/action-types';
 
 const initialState = {
   list: [],
+  productsForAPurchase: [],
   fetched: false,
   error: {
     show: false,
@@ -17,11 +18,13 @@ function purchasesReducer(state = initialState, action) {
         fetched: true,
         list: action.payload,
       };
+
     case actionTypes.CREATE_PURCHASE:
       return {
         ...state,
         list: [action.payload, ...state.list],
       };
+
     case actionTypes.UPDATE_PURCHASE:
       return {
         ...state,
@@ -29,11 +32,19 @@ function purchasesReducer(state = initialState, action) {
           purchase.id === action.payload.id ? action.payload : purchase
         ),
       };
+
     case actionTypes.DELETE_PURCHASE:
       return {
         ...state,
         list: state.list.filter(purchase => purchase.id != action.payload.id),
       };
+
+    case actionTypes.ADD_PRODUCT_TO_PURCHASE:
+      return {
+        ...state,
+        productsForAPurchase: [action.payload, ...state.productsForAPurchase],
+      };
+
     case actionTypes.SHOW_PURCHASE_ERROR:
       return {
         ...state,
@@ -42,6 +53,7 @@ function purchasesReducer(state = initialState, action) {
           msg: action.payload.message,
         },
       };
+
     case actionTypes.HIDE_PURCHASE_ERROR:
       return {
         ...state,
@@ -50,6 +62,7 @@ function purchasesReducer(state = initialState, action) {
           msg: '',
         },
       };
+
     default:
       return state;
   }

@@ -14,6 +14,10 @@ export function isEmpty(string) {
   return removeExtraSpaces(string) === '';
 }
 
+export function areEmpty(values = []) {
+  return values.every(value => isEmpty(value));
+}
+
 export function removeExtraSpaces(string) {
   return string
     .split(' ')

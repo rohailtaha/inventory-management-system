@@ -1,6 +1,6 @@
-import AddedPurchase from './AddedPurchase';
+import AddedProduct from './AddedProduct';
 
-function AddedPurchasesTable() {
+function ProductsForAPurchaseTable() {
   return (
     <div className='table-container'>
       <div className='table-responsive mt-4'>
@@ -16,7 +16,7 @@ function AddedPurchasesTable() {
           </thead>
           <tbody>
             {records.map(record => (
-              <AddedPurchase
+              <AddedProduct
                 key={record.id}
                 id={record.id}
                 product={record.product}
@@ -49,4 +49,4 @@ const records = [
   },
 ];
 
-export default AddedPurchasesTable;
+export default ProductsForAPurchaseTable;

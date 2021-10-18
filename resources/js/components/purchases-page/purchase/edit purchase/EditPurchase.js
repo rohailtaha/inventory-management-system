@@ -1,4 +1,4 @@
-import AddedPurchasesTable from '../added purchases table/AddedPurchasesTable';
+import ProductsForAPurchaseTable from '../products-for-a-purchase-table/ProductsForAPurchaseTable';
 import PurchaseForm from '../purchase form/PurchaseForm';
 
 function EditPurchase() {
@@ -8,7 +8,7 @@ function EditPurchase() {
       <div>
         <PurchaseForm mode={'UPDATE'} />
       </div>
-      <AddedPurchasesTable />
+      <ProductsForAPurchaseTable />
     </div>
   );
 }

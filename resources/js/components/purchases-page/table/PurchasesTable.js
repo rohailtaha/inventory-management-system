@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux';
 import Purchase from './Purchase';
 
 function PurchasesTable() {
+  const purchases = useSelector(state => state.purchases.list);
+
   return (
     <table className='table'>
       <thead>
@@ -21,10 +24,10 @@ function PurchasesTable() {
             key={purchase.id}
             date={purchase.date}
             id={purchase.id}
-            purchaseStatus={purchase.purchaseStatus}
-            totalCost={purchase.totalPrice}
-            amountPaid={purchase.amountPaid}
-            paymentStatus={purchase.paymentStatus}
+            purchaseStatus={purchase.purchase_status}
+            grandTotal={purchase.grand_total}
+            amountPaid={purchase.amount_paid}
+            paymentStatus={purchase.payment_status}
             supplier={purchase.supplier}
           />
         ))}
@@ -32,26 +35,5 @@ function PurchasesTable() {
     </table>
   );
 }
-
-const purchases = [
-  {
-    id: 1,
-    purchaseStatus: 'Received',
-    totalPrice: 250,
-    amountPaid: 250,
-    paymentStatus: 'UNPAID',
-    supplier: 'supplier 3',
-    date: '21-07-2021',
-  },
-  {
-    id: 2,
-    purchaseStatus: 'Pending',
-    totalPrice: 250,
-    amountPaid: 250,
-    paymentStatus: 'PAID',
-    supplier: 'supplier 3',
-    date: '21-07-2021',
-  },
-];
 
 export default PurchasesTable;

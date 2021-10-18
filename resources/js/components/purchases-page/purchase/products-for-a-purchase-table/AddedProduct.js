@@ -1,7 +1,7 @@
-function AddedPurchase({ product, quantity, purchasePrice, totalPrice }) {
+function AddedProduct({ name, quantity, purchasePrice, totalPrice }) {
   return (
     <tr>
-      <td>{product}</td>
+      <td>{name}</td>
       <td>{purchasePrice}</td>
       <td>{quantity}</td>
       <td>{totalPrice}</td>
@@ -19,4 +19,4 @@ function AddedPurchase({ product, quantity, purchasePrice, totalPrice }) {
   );
 }
 
-export default AddedPurchase;
+export default AddedProduct;

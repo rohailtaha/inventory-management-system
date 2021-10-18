@@ -84,6 +84,13 @@ export function request_delete_purchase(id) {
   };
 }
 
+function update_purchase(purchase) {
+  return {
+    type: actionTypes.UPDATE_PURCHASE,
+    payload: purchase,
+  };
+}
+
 function delete_purchase(id) {
   return {
     type: actionTypes.DELETE_PURCHASE,
@@ -93,10 +100,10 @@ function delete_purchase(id) {
   };
 }
 
-function update_purchase(purchase) {
+export function add_product_to_purchase(product) {
   return {
-    type: actionTypes.UPDATE_PURCHASE,
-    payload: purchase,
+    type: actionTypes.ADD_PRODUCT_TO_PURCHASE,
+    payload: product,
   };
 }
 

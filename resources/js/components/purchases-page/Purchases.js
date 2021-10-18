@@ -1,7 +1,17 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { request_fetch_purchases } from '../../actions/purchases/purchases-actions';
 import PurchasesTable from './table/PurchasesTable';
 
 function Purchases() {
+  const dispatch = useDispatch();
+  const fetched = useSelector(state => state.purchases.fetched);
+
+  useEffect(() => {
+    if (!fetched) dispatch(request_fetch_purchases());
+  }, []);
+
   return (
     <div className='main__content main__content--suppliers'>
       <div className='d-xl-flex align-items-center'>
