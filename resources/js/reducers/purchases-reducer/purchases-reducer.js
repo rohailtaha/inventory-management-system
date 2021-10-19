@@ -2,7 +2,11 @@ import actionTypes from '../../actions/action-types';
 
 const initialState = {
   list: [],
-  productsForAPurchase: [],
+  productsToPurchase: [],
+  productsToPurchaseFormError: {
+    show: false,
+    msg: '',
+  },
   fetched: false,
   error: {
     show: false,
@@ -42,7 +46,39 @@ function purchasesReducer(state = initialState, action) {
     case actionTypes.ADD_PRODUCT_TO_PURCHASE:
       return {
         ...state,
-        productsForAPurchase: [action.payload, ...state.productsForAPurchase],
+        productsToPurchase: [action.payload, ...state.productsToPurchase],
+      };
+
+    case actionTypes.DELETE_PRODUCT_FROM_PURCHASE:
+      return {
+        ...state,
+        productsToPurchase: state.productsToPurchase.filter(
+          product => product.id != action.payload.id
+        ),
+      };
+
+    case actionTypes.CLEAR_PRODUCTS_FROM_PURCHASE:
+      return {
+        ...state,
+        productsToPurchase: [],
+      };
+
+    case actionTypes.SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR:
+      return {
+        ...state,
+        productsToPurchaseFormError: {
+          show: true,
+          msg: action.payload.message,
+        },
+      };
+
+    case actionTypes.HIDE_PRODUCTS_TO_PURCHASE_FORM_ERROR:
+      return {
+        ...state,
+        productsToPurchaseFormError: {
+          show: false,
+          msg: '',
+        },
       };
 
     case actionTypes.SHOW_PURCHASE_ERROR:

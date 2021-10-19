@@ -1,6 +1,11 @@
 import AddedProduct from './AddedProduct';
+import { useSelector } from 'react-redux';
 
-function ProductsForAPurchaseTable() {
+export default function ProductsToPurchaseTable() {
+  const productsToPurchase = useSelector(
+    state => state.purchases.productsToPurchase
+  );
+
   return (
     <div className='table-container'>
       <div className='table-responsive mt-4'>
@@ -15,14 +20,14 @@ function ProductsForAPurchaseTable() {
             </tr>
           </thead>
           <tbody>
-            {records.map(record => (
+            {productsToPurchase.map(product => (
               <AddedProduct
-                key={record.id}
-                id={record.id}
-                product={record.product}
-                quantity={record.quantity}
-                purchasePrice={record.perItemPrice}
-                totalPrice={record.totalPrice}
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                quantity={product.quantity}
+                purchasePrice={product.per_item_cost}
+                totalCost={product.total_cost}
               />
             ))}
           </tbody>
@@ -31,22 +36,3 @@ function ProductsForAPurchaseTable() {
     </div>
   );
 }
-
-const records = [
-  {
-    id: 1,
-    product: 'product 1',
-    quantity: 12,
-    perItemPrice: 50,
-    totalPrice: 1000,
-  },
-  {
-    id: 2,
-    product: 'product 2',
-    quantity: 12,
-    perItemPrice: 50,
-    totalPrice: 1000,
-  },
-];
-
-export default ProductsForAPurchaseTable;

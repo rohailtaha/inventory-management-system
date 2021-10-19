@@ -19,7 +19,7 @@ class Purchase extends Model {
       'grand_total' => $this->grand_total,
       'amount_paid' => $this->amount_paid,
       'payment_status' => $this->payment_status,
-      'supplier' => $this->supplier->name,
+      'supplier' => $this->supplier->name ?? '',
       'products' => $this->products,
     ];
 

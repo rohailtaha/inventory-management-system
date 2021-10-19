@@ -9,7 +9,7 @@ export function request_fetch_suppliers() {
     try {
       const response = await axios.get('/api/suppliers');
       if (response.data.status === 'OK') {
-        dispatch(set_suppliers(response.data.suppliers));
+        return dispatch(set_suppliers(response.data.suppliers));
       } else {
         dispatch(show_error(response.data.error.msg));
       }

@@ -1,16 +1,9 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { request_fetch_suppliers } from '../../actions/suppliers/suppliers-actions';
 import SuppliersTable from './table/SuppliersTable';
 
 function Suppliers() {
   const dispatch = useDispatch();
-  const fetched = useSelector(state => state.suppliers.fetched);
-
-  useEffect(() => {
-    if (!fetched) dispatch(request_fetch_suppliers());
-  }, []);
 
   return (
     <div className='main__content main__content--suppliers'>

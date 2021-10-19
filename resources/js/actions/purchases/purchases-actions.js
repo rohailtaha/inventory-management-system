@@ -1,6 +1,7 @@
 import { SERVER_ERROR } from '../../utils/util_structures';
 import actionTypes from '../action-types';
 import { load, stopLoading } from '../load/load';
+import { show_success_message } from '../success-message.js/success-message-actions';
 
 const SUCCESSFULL_ADD_MSG = 'Purchase added.';
 const SUCCESSFULL_UPDATE_MSG = 'Purchase updated.';
@@ -107,7 +108,35 @@ export function add_product_to_purchase(product) {
   };
 }
 
-function show_error(msg) {
+export function delete_product_from_purchase(id) {
+  return {
+    type: actionTypes.DELETE_PRODUCT_FROM_PURCHASE,
+    payload: {
+      id,
+    },
+  };
+}
+
+export function clear_products_from_purchase() {
+  return {
+    type: actionTypes.CLEAR_PRODUCTS_FROM_PURCHASE,
+  };
+}
+
+export function show_products_to_purchase_form_error(msg) {
+  return {
+    type: actionTypes.SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR,
+    payload: new Error(msg),
+  };
+}
+
+export function hide_products_to_purchase_form_error(msg) {
+  return {
+    type: actionTypes.HIDE_PRODUCTS_TO_PURCHASE_FORM_ERROR,
+  };
+}
+
+export function show_error(msg) {
   return {
     type: actionTypes.SHOW_PURCHASE_ERROR,
     payload: new Error(msg),

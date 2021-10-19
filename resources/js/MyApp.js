@@ -5,15 +5,22 @@ import Header from './components/header/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetch_products } from './actions/products/products-actions';
+import { request_fetch_suppliers } from './actions/suppliers/suppliers-actions';
 
 function MyApp() {
-  const sidebarOpen = useSelector(state => state.sidebarOpen);
-  const fetched = useSelector(state => state.products.fetched);
+  const [sidebarOpen, fetchedProducts, fetchedSuppliers] = useSelector(
+    state => [
+      state.sidebarOpen,
+      state.products.fetched,
+      state.suppliers.fetched,
+    ]
+  );
+
   const dispatch = useDispatch();
+
   useEffect(() => {
-    if (!fetched) {
-      dispatch(fetch_products());
-    }
+    dispatch(fetch_products());
+    dispatch(request_fetch_suppliers());
   }, []);
 
   return (
@@ -21,7 +28,7 @@ function MyApp() {
       <Header />
       <Sidebar />
       <main className={`main ${sidebarOpen ? '' : 'main--expanded'} py-5`}>
-        <AppRouter />
+        {fetchedProducts && fetchedSuppliers && <AppRouter />}
       </main>
     </Router>
   );

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class PurchasedProduct extends Pivot {
   use HasFactory;
 
+  protected $table = 'purchased_products';
+
   protected $hidden = ['purchase_id', 'product_id'];
 
   public $incrementing = true;

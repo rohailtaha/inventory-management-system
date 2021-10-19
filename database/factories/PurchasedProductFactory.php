@@ -11,11 +11,11 @@ class PurchasedProductFactory extends Factory {
 
   public function definition() {
     return [
-      'purchase_id' => $this->faker->numberBetween(2, 5),
-      'product_id' => $this->faker->numberBetween(2, 6),
-      'quantity' => $this->faker->numberBetween(1, 10),
-      'per_item_cost' => $this->faker->randomFloat(2, 10, 500),
-      'total_cost' => $this->faker->randomFloat(2, 1000, 50000),
+      'purchase_id' => $this->faker->numberBetween(1, 5),
+      'product_id' => $this->faker->numberBetween(1, 40),
+      'quantity' => 5,
+      'per_item_cost' => 50.00,
+      'total_cost' => 250.00,
     ];
   }
 }

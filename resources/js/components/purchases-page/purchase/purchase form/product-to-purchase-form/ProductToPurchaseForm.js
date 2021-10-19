@@ -1,51 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  isEmpty,
+  removeExtraSpaces,
+} from '../../../../../utils/utility_functions';
+import {
+  add_product_to_purchase,
+  hide_products_to_purchase_form_error,
+  show_products_to_purchase_form_error,
+} from '../../../../../actions/purchases/purchases-actions';
+import FormError from '../../../../common/form-error/FormError';
 
 export default function ProductToPurchaseForm() {
   const [form, setForm] = useState({
+    id: '',
     barcode: '',
-    product: '',
+    name: '',
     per_item_cost: '',
     quantity: '',
-    supplier: '',
-    status: '',
   });
 
-  const products = useSelector(state => state.products.list);
+  const [products, productsToPurchase, error] = useSelector(state => [
+    state.products.list,
+    state.purchases.productsToPurchase,
+    state.purchases.productsToPurchaseFormError,
+  ]);
+
   const dispatch = useDispatch();
 
   const getProduct = barcode =>
     products.find(product => product.barcode === barcode);
 
-  const totalProductCost = () => {
+  const totalCost = () => {
     if (!isEmpty(form.quantity) && !isEmpty(form.per_item_cost))
-      return (parseInt(form.quantity) * parseFloat(form.per_item_cost)).toFixed(
-        2
+      return parseFloat(
+        (parseInt(form.quantity) * parseFloat(form.per_item_cost)).toFixed(2)
       );
     return '';
   };
 
   const addProductToForm = () => {
-    const product = getProduct(form.barcode);
+    const product = getProduct(removeExtraSpaces(form.barcode));
     if (product) {
       setForm(form => ({
         ...form,
-        product: product.name,
+        id: product.id,
+        name: product.name,
         per_item_cost: product.purchase_price.toString(),
         quantity: '1',
       }));
     }
   };
 
-  const addProductToPurchase = () => {
-    dispatch(
-      add_product_to_purchase({
-        product: form.product,
-        per_item_cost: form.per_item_cost,
-        quantity: form.quantity,
-        total_cost: totalProductCost(),
-      })
-    );
-  };
+  const productExists = () => products.some(product => product.id === form.id);
+  const productAlreadyAdded = () =>
+    productsToPurchase.some(product => product.id === form.id);
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -57,10 +66,55 @@ export default function ProductToPurchaseForm() {
 
   const handleSubmit = event => {
     event.preventDefault();
+    const validator = validate();
+    if (validator.error) {
+      dispatch(show_products_to_purchase_form_error(validator.msg));
+    } else {
+      dispatch(add_product_to_purchase(dataWithCorrectFormat()));
+      dispatch(hide_products_to_purchase_form_error());
+      resetForm();
+    }
   };
 
+  const dataWithCorrectFormat = () => ({
+    id: parseInt(form.id),
+    name: removeExtraSpaces(form.name),
+    per_item_cost: parseFloat(form.per_item_cost),
+    quantity: parseInt(form.quantity),
+    total_cost: totalCost(),
+  });
+
+  const validate = () => {
+    const errorObj = {
+      error: true,
+      msg: '',
+    };
+
+    if (!productExists()) {
+      errorObj.msg = 'The product does not exist.';
+      return errorObj;
+    }
+    if (productAlreadyAdded()) {
+      errorObj.msg = 'This product has already been added.';
+      return errorObj;
+    }
+
+    return {
+      success: true,
+    };
+  };
+
+  const resetForm = () =>
+    setForm({
+      id: '',
+      barcode: '',
+      name: '',
+      per_item_cost: '',
+      quantity: '',
+    });
+
   return (
-    <form className='mt-4'>
+    <form className='mt-4' onSubmit={handleSubmit}>
       <div className='mb-3 d-flex align-items-center'>
         <input
           type='text'
@@ -88,8 +142,8 @@ export default function ProductToPurchaseForm() {
           className='form-control form-control-sm'
           id='product'
           onChange={handleChange}
-          name='product'
-          value={form.product}
+          name='name'
+          value={form.name}
           readOnly
           required
         />
@@ -138,13 +192,17 @@ export default function ProductToPurchaseForm() {
               className='form-control'
               id='totalCost'
               name='totalCost'
-              value={totalProductCost()}
+              value={totalCost()}
               required
               readOnly
             />
           </div>
         </div>
       </div>
+      <button type='submit' className='btn btn-sm btn-secondary fw-bold mb-3'>
+        Add to List
+      </button>
+      {error.show && <FormError msg={error.msg} />}
     </form>
   );
 }
