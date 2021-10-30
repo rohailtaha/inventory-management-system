@@ -3,9 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class SoldProduct extends Model
-{
-    use HasFactory;
+class SoldProduct extends Pivot {
+  use HasFactory;
+
+  protected $table = 'sold_products';
+
+  protected $hidden = ['sale_id', 'product_id'];
+
+  public $incrementing = true;
+  public $timestamps = false;
+
 }

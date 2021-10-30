@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetch_products } from './actions/products/products-actions';
 import { request_fetch_suppliers } from './actions/suppliers/suppliers-actions';
+import { request_fetch_customers } from './actions/customers/customers-actions';
 
 function MyApp() {
   const [sidebarOpen, fetchedProducts, fetchedSuppliers] = useSelector(
@@ -21,6 +22,7 @@ function MyApp() {
   useEffect(() => {
     dispatch(fetch_products());
     dispatch(request_fetch_suppliers());
+    dispatch(request_fetch_customers());
   }, []);
 
   return (

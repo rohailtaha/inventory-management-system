@@ -5,13 +5,6 @@ import { request_fetch_customers } from '../../actions/customers/customers-actio
 import CustomersTable from './table/CustomersTable';
 
 function Customers() {
-  const dispatch = useDispatch();
-  const fetched = useSelector(state => state.customers.fetched);
-
-  useEffect(() => {
-    if (!fetched) dispatch(request_fetch_customers());
-  }, []);
-
   return (
     <div className='main__content main__content--customers'>
       <Link

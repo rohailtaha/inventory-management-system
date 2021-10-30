@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\PurchasesController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -52,7 +53,8 @@ Route::middleware(['auth'])->group(function () {
   Route::delete('/purchases/{id}', [PurchasesController::class, 'delete']);
 
   Route::get('/sales', [SalesController::class, 'index']);
-  Route::post('/sales', [SalesController::class, 'store']);
   Route::put('/sales/{id}', [SalesController::class, 'update']);
   Route::delete('/sales/{id}', [SalesController::class, 'delete']);
 });
+
+Route::post('/sales', [SalesController::class, 'store']);

@@ -1,5 +1,5 @@
 import AddedSalesTable from '../added sales table/AddedSalesTable';
-import SaleForm from '../sale form/SaleForm';
+import SaleForm from '../sale-forms/SaleForms';
 
 function EditSale() {
   return (

@@ -29,11 +29,11 @@ class Sale extends Model {
       return [
         'id' => $product['id'],
         'name' => $product['name'],
-        'sale_price' => floatval($product['sale_price']),
+        'per_item_price' => floatval($product['per_item_price']),
         'discount' => floatval($product['discount']),
         'discounted_sale_price' => floatval($product['discounted_sale_price']),
         'quantity' => $product['quantity'],
-        'net_total' => floatval($product['net_total']),
+        'total_price' => floatval($product['total_price']),
       ];
     });
   }
@@ -44,7 +44,7 @@ class Sale extends Model {
 
   public function products() {
     return $this->belongsToMany(Product::class, 'sold_products')->using(SoldProduct::class)
-      ->select('products.id', 'products.name', 'sold_products.sale_price', 'sold_products.discount', 'sold_products.discounted_sale_price', 'sold_products.quantity', 'sold_products.net_total');
+      ->select('products.id', 'products.name', 'sold_products.per_item_price', 'sold_products.discount', 'sold_products.discounted_sale_price', 'sold_products.quantity', 'sold_products.total_price');
   }
 
   public function customer() {

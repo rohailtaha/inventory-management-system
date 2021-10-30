@@ -1,10 +1,7 @@
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SuppliersTable from './table/SuppliersTable';
 
 function Suppliers() {
-  const dispatch = useDispatch();
-
   return (
     <div className='main__content main__content--suppliers'>
       <div className='d-xl-flex align-items-center'>
