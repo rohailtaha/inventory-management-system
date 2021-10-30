@@ -2209,12 +2209,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function MyApp() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)(function (state) {
-    return [state.sidebarOpen, state.products.fetched, state.suppliers.fetched];
+    return [state.sidebarOpen, state.products.fetched, state.suppliers.fetched, state.customers.fetched];
   }),
-      _useSelector2 = _slicedToArray(_useSelector, 3),
+      _useSelector2 = _slicedToArray(_useSelector, 4),
       sidebarOpen = _useSelector2[0],
       fetchedProducts = _useSelector2[1],
-      fetchedSuppliers = _useSelector2[2];
+      fetchedSuppliers = _useSelector2[2],
+      fetchedCustomers = _useSelector2[3];
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
@@ -2225,7 +2226,7 @@ function MyApp() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.BrowserRouter, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_header_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_sidebar_Sidebar__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("main", {
       className: "main ".concat(sidebarOpen ? '' : 'main--expanded', " py-5"),
-      children: fetchedProducts && fetchedSuppliers && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_routes_AppRouter__WEBPACK_IMPORTED_MODULE_1__["default"], {})
+      children: fetchedProducts && fetchedSuppliers && fetchedCustomers && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_routes_AppRouter__WEBPACK_IMPORTED_MODULE_1__["default"], {})
     })]
   });
 }
@@ -7538,6 +7539,8 @@ function ProductToPurchaseForm() {
             onChange: handleChange,
             name: "per_item_cost",
             value: form.per_item_cost,
+            min: "0",
+            step: "0.01",
             required: true
           })]
         })]
@@ -7574,6 +7577,7 @@ function ProductToPurchaseForm() {
             id: "totalCost",
             name: "totalCost",
             value: totalCost(),
+            step: "0.01",
             required: true,
             readOnly: true
           })]
@@ -7850,6 +7854,7 @@ function PurchaseDetailsForm(_ref) {
               name: "grand_total",
               value: grandTotal,
               min: "0",
+              step: "0.01",
               required: true,
               readOnly: true
             })]
@@ -8732,7 +8737,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _added_sales_table_AddedSalesTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../added sales table/AddedSalesTable */ "./resources/js/components/sales-page/sale/added sales table/AddedSalesTable.js");
+/* harmony import */ var _products_to_sale_table_ProductsToSaleTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../products-to-sale-table/ProductsToSaleTable */ "./resources/js/components/sales-page/sale/products-to-sale-table/ProductsToSaleTable.js");
 /* harmony import */ var _sale_forms_SaleForms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../sale-forms/SaleForms */ "./resources/js/components/sales-page/sale/sale-forms/SaleForms.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
@@ -8750,151 +8755,11 @@ function AddSale() {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_sale_forms_SaleForms__WEBPACK_IMPORTED_MODULE_1__["default"], {
         mode: 'CREATE'
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_added_sales_table_AddedSalesTable__WEBPACK_IMPORTED_MODULE_0__["default"], {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_products_to_sale_table_ProductsToSaleTable__WEBPACK_IMPORTED_MODULE_0__["default"], {})]
   });
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddSale);
-
-/***/ }),
-
-/***/ "./resources/js/components/sales-page/sale/added sales table/AddedSale.js":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/sales-page/sale/added sales table/AddedSale.js ***!
-  \********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-
-function AddedSale(_ref) {
-  var product = _ref.product,
-      salePrice = _ref.salePrice,
-      discount = _ref.discount,
-      discountedSalePrice = _ref.discountedSalePrice,
-      quantity = _ref.quantity,
-      netTotal = _ref.netTotal;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-      children: product
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-      children: salePrice
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-      children: discount
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-      children: discountedSalePrice
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-      children: quantity
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-      children: netTotal
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-        className: "btn btn-danger bg-transparent border-0 btn-sm p-",
-        "data-bs-toggle": "tooltip",
-        "data-bs-placement": "right",
-        title: "Delete",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
-          className: "fas fa-minus-circle text-danger fs-5 action-icon"
-        })
-      }), ' ']
-    })]
-  });
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddedSale);
-
-/***/ }),
-
-/***/ "./resources/js/components/sales-page/sale/added sales table/AddedSalesTable.js":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/sales-page/sale/added sales table/AddedSalesTable.js ***!
-  \**************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _AddedSale__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddedSale */ "./resources/js/components/sales-page/sale/added sales table/AddedSale.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-
-
-function AddedSalesTable() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "table-container",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "table-responsive mt-4",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
-        className: "table table-sm",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              scope: "col",
-              children: "Product"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              scope: "col",
-              children: "Sale Price (RS)"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              scope: "col",
-              children: "Discount (%)"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              scope: "col",
-              children: "Discounted Price (RS)"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              scope: "col",
-              children: "Qty"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              scope: "col",
-              children: "Net Total (RS)"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              scope: "col"
-            })]
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
-          children: records.map(function (record) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_AddedSale__WEBPACK_IMPORTED_MODULE_0__["default"], {
-              id: record.id,
-              product: record.product,
-              salePrice: record.salePrice,
-              discount: record.discount,
-              discountedSalePrice: record.discountedSalePrice,
-              quantity: record.quantity,
-              netTotal: record.totalPrice
-            }, record.id);
-          })
-        })]
-      })
-    })
-  });
-}
-
-var records = [{
-  id: 1,
-  product: 'product 1',
-  salePrice: 250,
-  discount: 4,
-  discountedSalePrice: 220,
-  quantity: 12,
-  totalPrice: 1000
-}, {
-  id: 2,
-  product: 'product 2',
-  salePrice: 250,
-  discount: 4,
-  discountedSalePrice: 220,
-  quantity: 12,
-  totalPrice: 1000
-}];
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddedSalesTable);
 
 /***/ }),
 
@@ -8909,7 +8774,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _added_sales_table_AddedSalesTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../added sales table/AddedSalesTable */ "./resources/js/components/sales-page/sale/added sales table/AddedSalesTable.js");
+/* harmony import */ var _products_to_sale_table_ProductsToSaleTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../products-to-sale-table/ProductsToSaleTable */ "./resources/js/components/sales-page/sale/products-to-sale-table/ProductsToSaleTable.js");
 /* harmony import */ var _sale_forms_SaleForms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../sale-forms/SaleForms */ "./resources/js/components/sales-page/sale/sale-forms/SaleForms.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
@@ -8927,11 +8792,137 @@ function EditSale() {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_sale_forms_SaleForms__WEBPACK_IMPORTED_MODULE_1__["default"], {
         mode: 'UPDATE'
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_added_sales_table_AddedSalesTable__WEBPACK_IMPORTED_MODULE_0__["default"], {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_products_to_sale_table_ProductsToSaleTable__WEBPACK_IMPORTED_MODULE_0__["default"], {})]
   });
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditSale);
+
+/***/ }),
+
+/***/ "./resources/js/components/sales-page/sale/products-to-sale-table/AddedProduct.js":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/sales-page/sale/products-to-sale-table/AddedProduct.js ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AddedProduct)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function AddedProduct(_ref) {
+  var id = _ref.id,
+      name = _ref.name,
+      perItemPrice = _ref.perItemPrice,
+      discount = _ref.discount,
+      discountedSalePrice = _ref.discountedSalePrice,
+      quantity = _ref.quantity,
+      totalPrice = _ref.totalPrice;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+      children: name
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+      children: perItemPrice
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+      children: discount
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+      children: discountedSalePrice
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+      children: quantity
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+      children: totalPrice
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+        className: "btn btn-danger bg-transparent border-0 btn-sm p-",
+        "data-bs-toggle": "tooltip",
+        "data-bs-placement": "right",
+        title: "Delete",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+          className: "fas fa-minus-circle text-danger fs-5 action-icon"
+        })
+      }), ' ']
+    })]
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/sales-page/sale/products-to-sale-table/ProductsToSaleTable.js":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/sales-page/sale/products-to-sale-table/ProductsToSaleTable.js ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _AddedProduct__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddedProduct */ "./resources/js/components/sales-page/sale/products-to-sale-table/AddedProduct.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+function ProductsToSaleTable() {
+  var productsToSale = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+    return state.sales.productsToSale;
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    className: "table-container",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "table-responsive mt-4",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
+        className: "table table-sm",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              scope: "col",
+              children: "Product"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              scope: "col",
+              children: "Per Item Price (RS)"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              scope: "col",
+              children: "Discount (%)"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              scope: "col",
+              children: "Discounted Price (RS)"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              scope: "col",
+              children: "Qty"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              scope: "col",
+              children: "Total Price (RS)"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+              scope: "col"
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+          children: productsToSale.map(function (product) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_AddedProduct__WEBPACK_IMPORTED_MODULE_1__["default"], {
+              id: product.id,
+              name: product.name,
+              perItemPrice: product.sale_price,
+              discount: product.discount,
+              discountedSalePrice: product.discounted_sale_Price,
+              quantity: product.quantity,
+              totalPrice: product.total_price
+            }, product.id);
+          })
+        })]
+      })
+    })
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductsToSaleTable);
 
 /***/ }),
 
@@ -9105,7 +9096,7 @@ function ProductToSaleForm() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var discountedSalePrice = function discountedSalePrice() {
-    return parseFloat((0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.getDiscount)(form.per_item_price, form.discount).toFixed(2));
+    return parseFloat((form.per_item_price - (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.discount)(form.per_item_price, form.discount)).toFixed(2));
   };
 
   var getProduct = function getProduct(barcode) {
@@ -9115,6 +9106,7 @@ function ProductToSaleForm() {
   };
 
   var totalPrice = function totalPrice() {
+    console.log(form.quantity, form.discount, form.per_item_price);
     if (!(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.quantity) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.discount) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.per_item_price)) return parseFloat((parseInt(form.quantity) * discountedSalePrice()).toFixed(2));
     return '';
   };
@@ -9139,7 +9131,7 @@ function ProductToSaleForm() {
         return _objectSpread(_objectSpread({}, form), {}, {
           id: product.id,
           name: product.name,
-          per_item_price: product.per_item_price,
+          per_item_price: product.sale_price,
           discount: product.discount,
           quantity: '1'
         });
@@ -9208,7 +9200,7 @@ function ProductToSaleForm() {
     });
   };
 
-  useEffect(function () {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     return cleanup;
   }, []);
 
@@ -9265,11 +9257,13 @@ function ProductToSaleForm() {
             className: "input-group-text",
             children: "RS"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-            type: "text",
+            type: "number",
             className: "form-control",
             id: "per-item-price",
             name: "per_item_price",
-            value: form.per_item_price
+            onChange: handleChange,
+            value: form.per_item_price,
+            step: "0.01"
           })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -9289,7 +9283,8 @@ function ProductToSaleForm() {
             id: "discount",
             onChange: handleChange,
             name: "discount",
-            value: form.discount
+            value: form.discount,
+            step: "0.01"
           })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -9309,6 +9304,7 @@ function ProductToSaleForm() {
             id: "discounted-sale-price",
             name: "discounted_sale_price",
             value: discountedSalePrice(),
+            step: "0.01",
             readOnly: true
           })]
         })]
@@ -9344,6 +9340,7 @@ function ProductToSaleForm() {
           id: "total-price",
           name: "total_price",
           value: totalPrice(),
+          step: "0.01",
           readOnly: true
         })]
       })]
@@ -9569,6 +9566,7 @@ function SaleDetailsForm(_ref) {
           onChange: handleChange,
           name: "grandTotal",
           value: form.discountedSalePrice,
+          step: "0.01",
           readOnly: true,
           required: true
         })]
@@ -9593,6 +9591,7 @@ function SaleDetailsForm(_ref) {
             onChange: handleChange,
             name: "discountedSalePrice",
             value: form.paymentReceived,
+            step: "0.01",
             required: true
           })]
         })]
@@ -9613,12 +9612,13 @@ function SaleDetailsForm(_ref) {
             id: "discounted-sale-price",
             onChange: handleChange,
             name: "discountedSalePrice",
-            value: form.paymentReturned
+            value: form.paymentReturned,
+            step: "0.01"
           })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
-          htmlFor: "discounted-sale-price",
+          htmlFor: "net-payment",
           className: "form-label fw-bold text-nowrap",
           children: "Net Payment"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
@@ -9629,10 +9629,9 @@ function SaleDetailsForm(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
             type: "text",
             className: "form-control",
-            id: "discounted-sale-price",
-            onChange: handleChange,
-            name: "discountedSalePrice",
-            value: form.discountedSalePrice,
+            id: "net-payment",
+            name: "net_payment",
+            step: "0.01",
             readOnly: true,
             required: true
           })]
@@ -12614,7 +12613,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getProfitMargin": () => (/* binding */ getProfitMargin),
 /* harmony export */   "getSalePrice": () => (/* binding */ getSalePrice),
-/* harmony export */   "getDiscount": () => (/* binding */ getDiscount),
+/* harmony export */   "discount": () => (/* binding */ discount),
 /* harmony export */   "isEmpty": () => (/* binding */ isEmpty),
 /* harmony export */   "areEmpty": () => (/* binding */ areEmpty),
 /* harmony export */   "removeExtraSpaces": () => (/* binding */ removeExtraSpaces)
@@ -12625,8 +12624,8 @@ function getProfitMargin(purchasePrice, salePrice) {
 function getSalePrice(purchasePrice, profitMargin) {
   return purchasePrice + profitMargin / 100 * purchasePrice;
 }
-function getDiscount(amount, discountPercent) {
-  return discountPercent / 100 * amount;
+function discount(amount, discountPercent) {
+  return parseFloat((discountPercent / 100 * amount).toFixed(2));
 }
 function isEmpty(string) {
   return removeExtraSpaces(string) === '';

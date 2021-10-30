@@ -6,8 +6,8 @@ export function getSalePrice(purchasePrice, profitMargin) {
   return purchasePrice + (profitMargin / 100) * purchasePrice;
 }
 
-export function getDiscount(amount, discountPercent) {
-  return (discountPercent / 100) * amount;
+export function discount(amount, discountPercent) {
+  return parseFloat(((discountPercent / 100) * amount).toFixed(2));
 }
 
 export function isEmpty(string) {

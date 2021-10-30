@@ -1,19 +1,20 @@
-function AddedSale({
-  product,
-  salePrice,
+export default function AddedProduct({
+  id,
+  name,
+  perItemPrice,
   discount,
   discountedSalePrice,
   quantity,
-  netTotal,
+  totalPrice,
 }) {
   return (
     <tr>
-      <td>{product}</td>
-      <td>{salePrice}</td>
+      <td>{name}</td>
+      <td>{perItemPrice}</td>
       <td>{discount}</td>
       <td>{discountedSalePrice}</td>
       <td>{quantity}</td>
-      <td>{netTotal}</td>
+      <td>{totalPrice}</td>
       <td>
         <button
           className='btn btn-danger bg-transparent border-0 btn-sm p-'
@@ -27,5 +28,3 @@ function AddedSale({
     </tr>
   );
 }
-
-export default AddedSale;

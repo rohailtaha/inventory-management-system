@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   add_product_to_sale,
@@ -6,7 +6,7 @@ import {
   show_products_to_sale_form_error,
 } from '../../../../../actions/sales/sales-actions';
 import {
-  getDiscount,
+  discount,
   isEmpty,
   removeExtraSpaces,
 } from '../../../../../utils/utility_functions';
@@ -31,7 +31,9 @@ export default function ProductToSaleForm() {
 
   const discountedSalePrice = () => {
     return parseFloat(
-      getDiscount(form.per_item_price, form.discount).toFixed(2)
+      (
+        form.per_item_price - discount(form.per_item_price, form.discount)
+      ).toFixed(2)
     );
   };
 
@@ -39,6 +41,7 @@ export default function ProductToSaleForm() {
     products.find(product => product.barcode === barcode);
 
   const totalPrice = () => {
+    console.log(form.quantity, form.discount, form.per_item_price);
     if (
       !isEmpty(form.quantity) &&
       !isEmpty(form.discount) &&
@@ -61,7 +64,7 @@ export default function ProductToSaleForm() {
         ...form,
         id: product.id,
         name: product.name,
-        per_item_price: product.per_item_price,
+        per_item_price: product.sale_price,
         discount: product.discount,
         quantity: '1',
       }));
@@ -172,11 +175,13 @@ export default function ProductToSaleForm() {
           <div className='input-group input-group-sm'>
             <span className='input-group-text'>RS</span>
             <input
-              type='text'
+              type='number'
               className='form-control'
               id='per-item-price'
               name='per_item_price'
+              onChange={handleChange}
               value={form.per_item_price}
+              step='0.01'
             />
           </div>
         </div>
@@ -193,6 +198,7 @@ export default function ProductToSaleForm() {
               onChange={handleChange}
               name='discount'
               value={form.discount}
+              step='0.01'
             />
           </div>
         </div>
@@ -211,6 +217,7 @@ export default function ProductToSaleForm() {
               id='discounted-sale-price'
               name='discounted_sale_price'
               value={discountedSalePrice()}
+              step='0.01'
               readOnly
             />
           </div>
@@ -241,6 +248,7 @@ export default function ProductToSaleForm() {
             id='total-price'
             name='total_price'
             value={totalPrice()}
+            step='0.01'
             readOnly
           />
         </div>

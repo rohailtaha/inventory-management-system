@@ -199,6 +199,7 @@ export default function PurchaseDetailsForm({ mode, grandTotal }) {
                 name='grand_total'
                 value={grandTotal}
                 min='0'
+                step='0.01'
                 required
                 readOnly
               />

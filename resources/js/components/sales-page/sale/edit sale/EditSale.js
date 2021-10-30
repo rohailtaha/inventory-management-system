@@ -1,4 +1,4 @@
-import AddedSalesTable from '../added sales table/AddedSalesTable';
+import ProductsToSaleTable from '../products-to-sale-table/ProductsToSaleTable';
 import SaleForm from '../sale-forms/SaleForms';
 
 function EditSale() {
@@ -9,7 +9,7 @@ function EditSale() {
         <SaleForm mode={'UPDATE'} />
       </div>
 
-      <AddedSalesTable />
+      <ProductsToSaleTable />
     </div>
   );
 }

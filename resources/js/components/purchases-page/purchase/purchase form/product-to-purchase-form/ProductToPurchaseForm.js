@@ -168,6 +168,8 @@ export default function ProductToPurchaseForm() {
               onChange={handleChange}
               name='per_item_cost'
               value={form.per_item_cost}
+              min='0'
+              step='0.01'
               required
             />
           </div>
@@ -199,6 +201,7 @@ export default function ProductToPurchaseForm() {
               id='totalCost'
               name='totalCost'
               value={totalCost()}
+              step='0.01'
               required
               readOnly
             />

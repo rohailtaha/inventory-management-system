@@ -156,6 +156,7 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
             onChange={handleChange}
             name='grandTotal'
             value={form.discountedSalePrice}
+            step='0.01'
             readOnly
             required
           />
@@ -179,6 +180,7 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
               onChange={handleChange}
               name='discountedSalePrice'
               value={form.paymentReceived}
+              step='0.01'
               required
             />
           </div>
@@ -199,12 +201,13 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
               onChange={handleChange}
               name='discountedSalePrice'
               value={form.paymentReturned}
+              step='0.01'
             />
           </div>
         </div>
         <div>
           <label
-            htmlFor='discounted-sale-price'
+            htmlFor='net-payment'
             className='form-label fw-bold text-nowrap'
           >
             Net Payment
@@ -214,10 +217,9 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
             <input
               type='text'
               className='form-control'
-              id='discounted-sale-price'
-              onChange={handleChange}
-              name='discountedSalePrice'
-              value={form.discountedSalePrice}
+              id='net-payment'
+              name='net_payment'
+              step='0.01'
               readOnly
               required
             />

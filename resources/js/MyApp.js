@@ -9,13 +9,13 @@ import { request_fetch_suppliers } from './actions/suppliers/suppliers-actions';
 import { request_fetch_customers } from './actions/customers/customers-actions';
 
 function MyApp() {
-  const [sidebarOpen, fetchedProducts, fetchedSuppliers] = useSelector(
-    state => [
+  const [sidebarOpen, fetchedProducts, fetchedSuppliers, fetchedCustomers] =
+    useSelector(state => [
       state.sidebarOpen,
       state.products.fetched,
       state.suppliers.fetched,
-    ]
-  );
+      state.customers.fetched,
+    ]);
 
   const dispatch = useDispatch();
 
@@ -30,7 +30,9 @@ function MyApp() {
       <Header />
       <Sidebar />
       <main className={`main ${sidebarOpen ? '' : 'main--expanded'} py-5`}>
-        {fetchedProducts && fetchedSuppliers && <AppRouter />}
+        {fetchedProducts && fetchedSuppliers && fetchedCustomers && (
+          <AppRouter />
+        )}
       </main>
     </Router>
   );

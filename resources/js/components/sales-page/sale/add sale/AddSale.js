@@ -1,4 +1,4 @@
-import AddedSalesTable from '../added sales table/AddedSalesTable';
+import ProductsToSaleTable from '../products-to-sale-table/ProductsToSaleTable';
 import SaleForm from '../sale-forms/SaleForms';
 
 function AddSale() {
@@ -8,7 +8,7 @@ function AddSale() {
       <div>
         <SaleForm mode={'CREATE'} />
       </div>
-      <AddedSalesTable />
+      <ProductsToSaleTable />
     </div>
   );
 }
