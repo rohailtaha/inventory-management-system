@@ -50,4 +50,9 @@ Route::middleware(['auth'])->group(function () {
   Route::post('/purchases', [PurchasesController::class, 'store']);
   Route::put('/purchases/{id}', [PurchasesController::class, 'update']);
   Route::delete('/purchases/{id}', [PurchasesController::class, 'delete']);
+
+  Route::get('/sales', [SalesController::class, 'index']);
+  Route::post('/sales', [SalesController::class, 'store']);
+  Route::put('/sales/{id}', [SalesController::class, 'update']);
+  Route::delete('/sales/{id}', [SalesController::class, 'delete']);
 });

@@ -1,14 +1,7 @@
-import { Link } from "react-router-dom";
-import PaymentStatusBadge from "../../common/payment status badge/PaymentStatusBadge";
+import { Link } from 'react-router-dom';
+import PaymentStatusBadge from '../../common/payment status badge/PaymentStatusBadge';
 
-function Sale({
-  date,
-  id,
-  customer,
-  grandTotal,
-  netPayment,
-  paymentStatus,
-}) {
+function Sale({ date, id, customer, grandTotal, netPayment, paymentStatus }) {
   return (
     <tr>
       <td>{date}</td>
@@ -22,20 +15,20 @@ function Sale({
       <td>
         <Link
           to='/edit_sale'
-          className='btn btn-secondary btn-sm me-2 p-1'
+          className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'
           title='Edit'
         >
-          <i className='fas fa-edit action-icon fw-lighter'></i>
+          <span className='material-icons'>edit</span>
         </Link>
         <button
-          className='btn btn-danger btn-sm p-1'
+          className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'
           title='Delete'
         >
-          <i className='fas fa-trash-alt action-icon fw-lighter'></i>
+          <span className='material-icons text-danger'>delete</span>
         </button>
       </td>
     </tr>

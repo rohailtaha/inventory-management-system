@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { request_fetch_sales } from '../../actions/sales/sales-actions';
 import SalesTable from './table/SalesTable';
 
 function Sales() {
+  const dispatch = useDispatch();
+  const fetched = useSelector(state => state.sales.fetched);
+
+  useEffect(() => {
+    if (!fetched) dispatch(request_fetch_sales());
+  }, []);
+
   return (
     <div className='main__content main__content--sales'>
       <div className='d-xl-flex align-items-center'>
-        <Link className='btn btn-primary px-3 py-2' to='/add_sale'>
-          <i className='fas fa-plus me-2'></i> New Sale
+        <Link
+          className='btn btn-primary px-3 py-2 d-flex align-items-center add-btn'
+          to='/add-sale'
+        >
+          <span className='material-icons me-1'> add </span> New Sale
         </Link>
       </div>
 

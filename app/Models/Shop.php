@@ -25,4 +25,8 @@ class Shop extends Model {
   public function purchases() {
     return $this->hasMany(Purchase::class)->orderByDesc('created_at');
   }
+
+  public function sales() {
+    return $this->hasMany(Sale::class)->orderByDesc('created_at');
+  }
 }

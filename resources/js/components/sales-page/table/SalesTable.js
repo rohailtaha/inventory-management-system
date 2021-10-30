@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux';
 import Sale from './Sale';
 
 function SalesTable() {
+  const sales = useSelector(state => state.sales.list);
+
   return (
     <table className='table'>
       <thead>
@@ -18,44 +21,17 @@ function SalesTable() {
         {sales.map(sale => (
           <Sale
             key={sale.id}
+            date={sale.date}
             id={sale.id}
             customer={sale.customer}
-            grandTotal={sale.grandTotal}
-            netPayment={sale.netPayment}
-            paymentStatus={sale.paymentStatus}
-            date={sale.date}
+            grandTotal={sale.grand_total}
+            netPayment={sale.net_payment}
+            paymentStatus={sale.payment_status}
           />
         ))}
       </tbody>
     </table>
   );
 }
-
-const sales = [
-  {
-    id: 1,
-    customer: 'General Customer',
-    grandTotal: 5100,
-    netPayment: 4500,
-    paymentStatus: 'PAID',
-    date: '21-07-2021',
-  },
-  {
-    id: 2,
-    customer: 'General Customer',
-    grandTotal: 5100,
-    netPayment: 4500,
-    paymentStatus: 'PAID',
-    date: '21-07-2021',
-  },
-  {
-    id: 3,
-    customer: 'General Customer',
-    grandTotal: 5100,
-    netPayment: 4500,
-    paymentStatus: 'UNPAID',
-    date: '21-07-2021',
-  },
-];
 
 export default SalesTable;

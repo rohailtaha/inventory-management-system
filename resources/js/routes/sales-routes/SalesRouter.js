@@ -10,10 +10,10 @@ function SalesRouter() {
       <Route path='/sales'>
         <Sales />
       </Route>
-      <Route path='/add_sale'>
+      <Route path='/add-sale'>
         <AddSale />
       </Route>
-      <Route path='/edit_sale'>
+      <Route path='/edit-sale/:id'>
         <EditSale />
       </Route>
     </Fragment>
