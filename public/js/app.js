@@ -2295,6 +2295,7 @@ var actionTypes = (_actionTypes = {
   DELETE_PURCHASE: 'DELETE_PURCHASE',
   SHOW_PURCHASE_ERROR: 'SHOW_PURCHASE_ERROR',
   HIDE_PURCHASE_ERROR: 'HIDE_PURCHASE_ERROR',
+  SET_PRODUCTS_TO_PURCHASE: 'SET_PRODUCTS_TO_PURCHASE',
   ADD_PRODUCT_TO_PURCHASE: 'ADD_PRODUCT_TO_PURCHASE',
   DELETE_PRODUCT_FROM_PURCHASE: 'DELETE_PRODUCT_FROM_PURCHASE',
   CLEAR_PRODUCTS_FROM_PURCHASE: 'CLEAR_PRODUCTS_FROM_PURCHASE',
@@ -3200,6 +3201,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "request_create_purchase": () => (/* binding */ request_create_purchase),
 /* harmony export */   "request_update_purchase": () => (/* binding */ request_update_purchase),
 /* harmony export */   "request_delete_purchase": () => (/* binding */ request_delete_purchase),
+/* harmony export */   "set_products_to_purchase": () => (/* binding */ set_products_to_purchase),
 /* harmony export */   "add_product_to_purchase": () => (/* binding */ add_product_to_purchase),
 /* harmony export */   "delete_product_from_purchase": () => (/* binding */ delete_product_from_purchase),
 /* harmony export */   "clear_products_from_purchase": () => (/* binding */ clear_products_from_purchase),
@@ -3411,6 +3413,12 @@ function delete_purchase(id) {
   };
 }
 
+function set_products_to_purchase(products) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SET_PRODUCTS_TO_PURCHASE,
+    payload: products
+  };
+}
 function add_product_to_purchase(product) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].ADD_PRODUCT_TO_PURCHASE,
@@ -6869,7 +6877,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_success_message_js_success_message_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../actions/success-message.js/success-message-actions */ "./resources/js/actions/success-message.js/success-message-actions.js");
 /* harmony import */ var _product_to_purchase_form_ProductToPurchaseForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./product-to-purchase-form/ProductToPurchaseForm */ "./resources/js/components/purchases-page/purchase/purchase form/product-to-purchase-form/ProductToPurchaseForm.js");
 /* harmony import */ var _purchase_details_form_PurchaseDetailsForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./purchase-details-form/PurchaseDetailsForm */ "./resources/js/components/purchases-page/purchase/purchase form/purchase-details-form/PurchaseDetailsForm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _common_success_modal_SuccessModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../common/success-modal/SuccessModal */ "./resources/js/components/common/success-modal/SuccessModal.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -6882,12 +6904,22 @@ __webpack_require__.r(__webpack_exports__);
 
 function PurchaseForm(_ref) {
   var mode = _ref.mode;
-  var grandTotal = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.purchases.productsToPurchase.reduce(function (previous, current) {
+
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return [state.purchases.productsToPurchase.reduce(function (previous, current) {
       return previous + current.total_cost;
-    }, 0);
-  });
+    }, 0), state.successMessage];
+  }),
+      _useSelector2 = _slicedToArray(_useSelector, 2),
+      grandTotal = _useSelector2[0],
+      successMessage = _useSelector2[1];
+
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+
+  var updateMode = function updateMode() {
+    return mode === 'UPDATE';
+  };
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     return cleanup;
   }, []);
@@ -6898,10 +6930,12 @@ function PurchaseForm(_ref) {
     dispatch((0,_actions_success_message_js_success_message_actions__WEBPACK_IMPORTED_MODULE_3__.hide_success_message)());
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_product_to_purchase_form_ProductToPurchaseForm__WEBPACK_IMPORTED_MODULE_4__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_purchase_details_form_PurchaseDetailsForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_product_to_purchase_form_ProductToPurchaseForm__WEBPACK_IMPORTED_MODULE_4__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_purchase_details_form_PurchaseDetailsForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
       mode: mode,
       grandTotal: grandTotal
+    }), successMessage.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_common_success_modal_SuccessModal__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      msg: successMessage.text
     })]
   });
 }
@@ -7022,6 +7056,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function ProductToPurchaseForm() {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return [state.products.list, state.purchases.productsToPurchase, state.purchases.productsToPurchaseFormError];
+  }),
+      _useSelector2 = _slicedToArray(_useSelector, 3),
+      products = _useSelector2[0],
+      productsToPurchase = _useSelector2[1],
+      error = _useSelector2[2];
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     id: '',
     barcode: '',
@@ -7032,14 +7074,6 @@ function ProductToPurchaseForm() {
       _useState2 = _slicedToArray(_useState, 2),
       form = _useState2[0],
       setForm = _useState2[1];
-
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return [state.products.list, state.purchases.productsToPurchase, state.purchases.productsToPurchaseFormError];
-  }),
-      _useSelector2 = _slicedToArray(_useSelector, 3),
-      products = _useSelector2[0],
-      productsToPurchase = _useSelector2[1],
-      error = _useSelector2[2];
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
@@ -7142,6 +7176,14 @@ function ProductToPurchaseForm() {
       per_item_cost: '',
       quantity: ''
     });
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return cleanup;
+  }, []);
+
+  var cleanup = function cleanup() {
+    dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_3__.hide_products_to_purchase_form_error)());
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
@@ -7267,7 +7309,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ PurchaseDetailsForm)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _common_supplier_option_SupplierOption__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../common/supplier option/SupplierOption */ "./resources/js/components/common/supplier option/SupplierOption.js");
 /* harmony import */ var _PurchaseStatusOption__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PurchaseStatusOption */ "./resources/js/components/purchases-page/purchase/purchase form/purchase-details-form/PurchaseStatusOption.js");
 /* harmony import */ var _messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../messages/PaymentMismatchModal */ "./resources/js/components/purchases-page/purchase/purchase form/messages/PaymentMismatchModal.js");
@@ -7305,17 +7348,22 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function PurchaseDetailsForm(_ref) {
   var mode = _ref.mode,
       grandTotal = _ref.grandTotal;
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_4__.useSelector)(function (state) {
-    return [state.suppliers.list, state.purchases.productsToPurchase, state.purchases.error];
+    return [state.purchases.list, state.purchases.productsToPurchase, state.suppliers.list, state.successMessage, state.purchases.error];
   }),
-      _useSelector2 = _slicedToArray(_useSelector, 3),
-      suppliers = _useSelector2[0],
+      _useSelector2 = _slicedToArray(_useSelector, 5),
+      purchases = _useSelector2[0],
       productsToPurchase = _useSelector2[1],
-      error = _useSelector2[2];
+      suppliers = _useSelector2[2],
+      successMessage = _useSelector2[3],
+      error = _useSelector2[4];
+
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_4__.useDispatch)();
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     supplier: suppliers[0].name,
@@ -7327,11 +7375,31 @@ function PurchaseDetailsForm(_ref) {
       form = _useState2[0],
       setForm = _useState2[1];
 
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_4__.useDispatch)();
-
   var updateMode = function updateMode() {
     return mode === 'UPDATE';
   };
+
+  var _useParams = (0,react_router__WEBPACK_IMPORTED_MODULE_9__.useParams)(),
+      id = _useParams.id;
+
+  var getPurchase = function getPurchase(id) {
+    return purchases.find(function (purchase) {
+      return purchase.id === parseInt(id);
+    });
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (updateMode()) {
+      var purchase = getPurchase(id);
+      setForm({
+        supplier: purchase.supplier,
+        purchase_status: purchase.purchase_status,
+        payment_status: purchase.payment_status,
+        amount_paid: purchase.amount_paid
+      });
+      dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_7__.set_products_to_purchase)(purchase.products));
+    }
+  }, []);
 
   var handleChange = function handleChange(event) {
     return setForm(function (form) {
@@ -7346,8 +7414,7 @@ function PurchaseDetailsForm(_ref) {
     if (validator.error) {
       dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_7__.show_error)(validator.msg));
     } else {
-      dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_7__.hide_error)());
-      dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_7__.request_create_purchase)(dataWithCorrectFormat()));
+      updateMode() ? dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_7__.request_update_purchase)(dataWithCorrectFormat(), id)) : dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_7__.request_create_purchase)(dataWithCorrectFormat()));
     }
   };
 
@@ -7387,6 +7454,21 @@ function PurchaseDetailsForm(_ref) {
     };
   };
 
+  var resetForm = function resetForm() {
+    return setForm({
+      supplier: suppliers[0].name,
+      purchase_status: _utils_util_structures__WEBPACK_IMPORTED_MODULE_5__.purchaseStatus[0].value,
+      payment_status: _utils_util_structures__WEBPACK_IMPORTED_MODULE_5__.paymentStatus[0].value,
+      amount_paid: ''
+    });
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (successMessage.show && !updateMode()) {
+      resetForm();
+      dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_7__.clear_products_from_purchase)());
+    }
+  }, [successMessage.show]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("form", {
     onSubmit: handleSubmit,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {
@@ -7505,7 +7587,7 @@ function PurchaseDetailsForm(_ref) {
           type: "submit",
           className: "btn btn-primary flex-grow-1 mb-2 mb-sm-0",
           children: updateMode() ? 'Save Changes' : 'Confirm Purchase'
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
           to: "/purchases",
           className: "btn btn-danger flex-grow-1 ms-sm-3",
           children: "Cancel"
@@ -7573,7 +7655,7 @@ function Purchase(_ref) {
   var date = _ref.date,
       id = _ref.id,
       purchaseStatus = _ref.purchaseStatus,
-      totalCost = _ref.totalCost,
+      grandTotal = _ref.grandTotal,
       amountPaid = _ref.amountPaid,
       paymentStatus = _ref.paymentStatus,
       supplier = _ref.supplier;
@@ -7585,7 +7667,7 @@ function Purchase(_ref) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
       children: purchaseStatus
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-      children: totalCost
+      children: grandTotal
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
       children: amountPaid
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
@@ -9597,12 +9679,6 @@ function SupplierForm(_ref) {
       });
     }
   }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    return cleanup;
-  }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (successMessage.show && !updateMode()) resetForm();
-  }, [successMessage.show]);
 
   var _useParams = (0,react_router__WEBPACK_IMPORTED_MODULE_9__.useParams)(),
       id = _useParams.id;
@@ -9654,6 +9730,12 @@ function SupplierForm(_ref) {
     });
   };
 
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return cleanup;
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (successMessage.show && !updateMode()) resetForm();
+  }, [successMessage.show]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_cjs_react_development__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("form", {
       className: "mt-4",
@@ -11011,6 +11093,11 @@ function purchasesReducer() {
         list: state.list.filter(function (purchase) {
           return purchase.id != action.payload.id;
         })
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].SET_PRODUCTS_TO_PURCHASE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        productsToPurchase: action.payload
       });
 
     case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_PRODUCT_TO_PURCHASE:

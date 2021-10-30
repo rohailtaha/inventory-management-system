@@ -18,12 +18,12 @@ function SuppliersTable() {
       <tbody>
         {suppliers.map(supplier => (
           <Supplier
+            key={supplier.id}
             id={supplier.id}
             name={supplier.name}
             email={supplier.email}
             contact={supplier.contact}
             address={supplier.address}
-            key={supplier.id}
           />
         ))}
       </tbody>

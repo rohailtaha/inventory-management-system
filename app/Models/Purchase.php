@@ -16,13 +16,25 @@ class Purchase extends Model {
       'date' => $this->created_at->format('d/m/y'),
       'id' => $this->id,
       'purchase_status' => $this->purchase_status,
-      'grand_total' => $this->grand_total,
-      'amount_paid' => $this->amount_paid,
+      'grand_total' => floatval($this->grand_total),
+      'amount_paid' => floatval($this->amount_paid),
       'payment_status' => $this->payment_status,
       'supplier' => $this->supplier->name ?? '',
-      'products' => $this->products,
+      'products' => $this->formatProducts($this->products),
     ];
 
+  }
+
+  public function formatProducts($products) {
+    return $products->map(function ($product) {
+      return [
+        'id' => $product['id'],
+        'name' => $product['name'],
+        'quantity' => $product['quantity'],
+        'per_item_cost' => floatval($product['per_item_cost']),
+        'total_cost' => floatval($product['total_cost']),
+      ];
+    });
   }
 
   public function shop() {
@@ -31,9 +43,7 @@ class Purchase extends Model {
 
   public function products() {
     return $this->belongsToMany(Product::class, 'purchased_products')->using(PurchasedProduct::class)
-      ->as('purchase')
-      ->select('products.id', 'products.name')
-      ->withPivot('quantity', 'per_item_cost', 'total_cost');
+      ->select('products.id', 'products.name', 'purchased_products.quantity', 'purchased_products.per_item_cost', 'purchased_products.total_cost');
   }
 
   public function supplier() {

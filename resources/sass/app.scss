@@ -228,15 +228,21 @@ input::placeholder {
   }
 }
 
-.main__content-customers {
+.main__content--customers {
   table {
-    min-width: 700px;
+    min-width: 1000px;
   }
 }
 
 .main__content--inventory {
   table {
     min-width: 1000px;
+  }
+}
+
+.main__content--suppliers {
+  table {
+    min-width: 700px;
   }
 }
 

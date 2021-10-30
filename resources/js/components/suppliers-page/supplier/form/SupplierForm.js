@@ -40,11 +40,6 @@ function SupplierForm({ mode }) {
     }
   }, []);
 
-  useEffect(() => cleanup, []);
-  useEffect(() => {
-    if (successMessage.show && !updateMode()) resetForm();
-  }, [successMessage.show]);
-
   const { id } = useParams();
 
   const updateMode = () => mode === 'UPDATE';
@@ -88,6 +83,11 @@ function SupplierForm({ mode }) {
       address: '',
     });
   };
+
+  useEffect(() => cleanup, []);
+  useEffect(() => {
+    if (successMessage.show && !updateMode()) resetForm();
+  }, [successMessage.show]);
 
   return (
     <Fragment>

@@ -5,7 +5,7 @@ function Purchase({
   date,
   id,
   purchaseStatus,
-  totalCost,
+  grandTotal,
   amountPaid,
   paymentStatus,
   supplier,
@@ -15,7 +15,7 @@ function Purchase({
       <td>{date}</td>
       <td>{id}</td>
       <td>{purchaseStatus}</td>
-      <td>{totalCost}</td>
+      <td>{grandTotal}</td>
       <td>{amountPaid}</td>
       <td>
         {' '}

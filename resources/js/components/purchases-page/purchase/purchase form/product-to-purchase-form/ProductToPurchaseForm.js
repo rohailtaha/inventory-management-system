@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   isEmpty,
@@ -12,6 +12,12 @@ import {
 import FormError from '../../../../common/form-error/FormError';
 
 export default function ProductToPurchaseForm() {
+  const [products, productsToPurchase, error] = useSelector(state => [
+    state.products.list,
+    state.purchases.productsToPurchase,
+    state.purchases.productsToPurchaseFormError,
+  ]);
+
   const [form, setForm] = useState({
     id: '',
     barcode: '',
@@ -19,12 +25,6 @@ export default function ProductToPurchaseForm() {
     per_item_cost: '',
     quantity: '',
   });
-
-  const [products, productsToPurchase, error] = useSelector(state => [
-    state.products.list,
-    state.purchases.productsToPurchase,
-    state.purchases.productsToPurchaseFormError,
-  ]);
 
   const dispatch = useDispatch();
 
@@ -112,6 +112,12 @@ export default function ProductToPurchaseForm() {
       per_item_cost: '',
       quantity: '',
     });
+
+  useEffect(() => cleanup, []);
+
+  const cleanup = () => {
+    dispatch(hide_products_to_purchase_form_error());
+  };
 
   return (
     <form className='mt-4' onSubmit={handleSubmit}>

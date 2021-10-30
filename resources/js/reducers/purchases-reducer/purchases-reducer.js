@@ -43,6 +43,12 @@ function purchasesReducer(state = initialState, action) {
         list: state.list.filter(purchase => purchase.id != action.payload.id),
       };
 
+    case actionTypes.SET_PRODUCTS_TO_PURCHASE:
+      return {
+        ...state,
+        productsToPurchase: action.payload,
+      };
+
     case actionTypes.ADD_PRODUCT_TO_PURCHASE:
       return {
         ...state,

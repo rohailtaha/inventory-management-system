@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import SupplierOption from '../../../../common/supplier option/SupplierOption';
 import PurchaseStatusOption from './PurchaseStatusOption';
@@ -10,17 +11,24 @@ import {
 } from '../../../../../utils/util_structures';
 import FormError from '../../../../common/form-error/FormError';
 import {
-  hide_error,
+  clear_products_from_purchase,
   request_create_purchase,
+  request_update_purchase,
+  set_products_to_purchase,
   show_error,
 } from '../../../../../actions/purchases/purchases-actions';
 
 export default function PurchaseDetailsForm({ mode, grandTotal }) {
-  const [suppliers, productsToPurchase, error] = useSelector(state => [
-    state.suppliers.list,
-    state.purchases.productsToPurchase,
-    state.purchases.error,
-  ]);
+  const [purchases, productsToPurchase, suppliers, successMessage, error] =
+    useSelector(state => [
+      state.purchases.list,
+      state.purchases.productsToPurchase,
+      state.suppliers.list,
+      state.successMessage,
+      state.purchases.error,
+    ]);
+
+  const dispatch = useDispatch();
 
   const [form, setForm] = useState({
     supplier: suppliers[0].name,
@@ -29,9 +37,25 @@ export default function PurchaseDetailsForm({ mode, grandTotal }) {
     amount_paid: '',
   });
 
-  const dispatch = useDispatch();
-
   const updateMode = () => mode === 'UPDATE';
+
+  const { id } = useParams();
+
+  const getPurchase = id =>
+    purchases.find(purchase => purchase.id === parseInt(id));
+
+  useEffect(() => {
+    if (updateMode()) {
+      const purchase = getPurchase(id);
+      setForm({
+        supplier: purchase.supplier,
+        purchase_status: purchase.purchase_status,
+        payment_status: purchase.payment_status,
+        amount_paid: purchase.amount_paid,
+      });
+      dispatch(set_products_to_purchase(purchase.products));
+    }
+  }, []);
 
   const handleChange = event =>
     setForm(form => ({
@@ -45,8 +69,9 @@ export default function PurchaseDetailsForm({ mode, grandTotal }) {
     if (validator.error) {
       dispatch(show_error(validator.msg));
     } else {
-      dispatch(hide_error());
-      dispatch(request_create_purchase(dataWithCorrectFormat()));
+      updateMode()
+        ? dispatch(request_update_purchase(dataWithCorrectFormat(), id))
+        : dispatch(request_create_purchase(dataWithCorrectFormat()));
     }
   };
 
@@ -77,6 +102,21 @@ export default function PurchaseDetailsForm({ mode, grandTotal }) {
     amount_paid: parseFloat(parseFloat(form.amount_paid).toFixed(2)),
     grand_total: grandTotal,
   });
+
+  const resetForm = () =>
+    setForm({
+      supplier: suppliers[0].name,
+      purchase_status: purchaseStatus[0].value,
+      payment_status: paymentStatus[0].value,
+      amount_paid: '',
+    });
+
+  useEffect(() => {
+    if (successMessage.show && !updateMode()) {
+      resetForm();
+      dispatch(clear_products_from_purchase());
+    }
+  }, [successMessage.show]);
 
   return (
     <form onSubmit={handleSubmit}>

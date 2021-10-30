@@ -101,6 +101,13 @@ function delete_purchase(id) {
   };
 }
 
+export function set_products_to_purchase(products) {
+  return {
+    type: actionTypes.SET_PRODUCTS_TO_PURCHASE,
+    payload: products,
+  };
+}
+
 export function add_product_to_purchase(product) {
   return {
     type: actionTypes.ADD_PRODUCT_TO_PURCHASE,

@@ -47,7 +47,7 @@ class PurchasesController extends Controller {
     }
 
     $purchase = Purchase::create(array_merge(
-      ['shop_id' => 1],
+      ['shop_id' => auth()->user()->shop_id],
       $request->only('purchase_status', 'grand_total', 'amount_paid', 'payment_status', 'supplier_id')
     ));
 
@@ -60,6 +60,58 @@ class PurchasesController extends Controller {
         'total_cost' => $product['total_cost'],
       ]);
     }
+
+    return response(
+      ['purchase' => $purchase->requiredFields(), 'status' => 'OK'],
+      200
+    );
+  }
+
+  public function update(Request $request, $id) {
+
+    $validator = Validator::make($request->all(), [
+      'products' => ['required', new CorrectTotalCostForProducts],
+      'products.*.id' => ['required', 'numeric', 'integer', 'min:0', Rule::exists('products', 'id')
+          ->where('shop_id', auth()->user()->shop_id)],
+      'products.*.per_item_cost' => 'required|numeric|min:0|lte:products.*.total_cost',
+      'products.*.quantity' => 'required|numeric|integer|min:0',
+      'products.*.total_cost' => 'required|numeric|min:0',
+      'supplier_id' => ['required', 'integer', 'min:0', Rule::exists('suppliers', 'id')
+          ->where('shop_id', auth()->user()->shop_id)],
+      'purchase_status' => ['required', Rule::in($this->purchaseStatus)],
+      'payment_status' => ['required', Rule::in($this->paymentStatus)],
+      'amount_paid' => 'required|numeric|min:0',
+      'grand_total' => 'required|numeric|min:0',
+    ]);
+
+    if ($this->invalid($validator)) {
+      return $this->errorResponse($validator);
+    }
+
+    $purchase = Purchase::where([
+      'shop_id' => auth()->user()->shop_id,
+      'id' => $id,
+    ])->update((array_merge(
+      ['shop_id' => auth()->user()->shop_id],
+      $request->only('purchase_status', 'grand_total', 'amount_paid', 'payment_status', 'supplier_id')
+    )));
+
+    PurchasedProduct::where('purchase_id', $id)->delete();
+
+    foreach ($request->products as $product) {
+      PurchasedProduct::create([
+        'purchase_id' => $id,
+        'product_id' => $product['id'],
+        'quantity' => $product['quantity'],
+        'per_item_cost' => $product['per_item_cost'],
+        'total_cost' => $product['total_cost'],
+      ]);
+    }
+
+    $purchase = Purchase::where([
+      'shop_id' => auth()->user()->shop_id,
+      'id' => $id,
+    ])->first();
 
     return response(
       ['purchase' => $purchase->requiredFields(), 'status' => 'OK'],
