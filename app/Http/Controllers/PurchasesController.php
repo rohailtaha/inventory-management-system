@@ -74,7 +74,7 @@ class PurchasesController extends Controller {
       'products.*.id' => ['required', 'numeric', 'integer', 'min:0', Rule::exists('products', 'id')
           ->where('shop_id', auth()->user()->shop_id)],
       'products.*.per_item_cost' => 'required|numeric|min:0|lte:products.*.total_cost',
-      'products.*.quantity' => 'required|numeric|integer|min:0',
+      'products.*.quantity' => 'required|numeric|integer|min:1',
       'products.*.total_cost' => 'required|numeric|min:0',
       'supplier_id' => ['required', 'integer', 'min:0', Rule::exists('suppliers', 'id')
           ->where('shop_id', auth()->user()->shop_id)],

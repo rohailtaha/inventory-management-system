@@ -10,6 +10,7 @@ import {
   isEmpty,
   removeExtraSpaces,
 } from '../../../../../utils/utility_functions';
+import FormError from '../../../../common/form-error/FormError';
 
 export default function ProductToSaleForm() {
   const [products, productsToSale, error] = useSelector(state => [
@@ -29,7 +30,7 @@ export default function ProductToSaleForm() {
 
   const dispatch = useDispatch();
 
-  const discountedSalePrice = () => {
+  const finalSalePrice = () => {
     return parseFloat(
       (
         form.per_item_price - discount(form.per_item_price, form.discount)
@@ -41,7 +42,6 @@ export default function ProductToSaleForm() {
     products.find(product => product.barcode === barcode);
 
   const totalPrice = () => {
-    console.log(form.quantity, form.discount, form.per_item_price);
     if (
       !isEmpty(form.quantity) &&
       !isEmpty(form.discount) &&
@@ -94,7 +94,9 @@ export default function ProductToSaleForm() {
     id: parseInt(form.id),
     name: removeExtraSpaces(form.name),
     per_item_price: parseFloat(form.per_item_price),
+    discount: parseFloat(form.discount),
     quantity: parseInt(form.quantity),
+    final_sale_price: finalSalePrice(),
     total_price: totalPrice(),
   });
 
@@ -165,6 +167,7 @@ export default function ProductToSaleForm() {
           name='product'
           value={form.name}
           readOnly
+          required
         />
       </div>
       <div className='d-md-flex mb-2 align-items-end'>
@@ -182,6 +185,8 @@ export default function ProductToSaleForm() {
               onChange={handleChange}
               value={form.per_item_price}
               step='0.01'
+              min='0'
+              required
             />
           </div>
         </div>
@@ -199,6 +204,8 @@ export default function ProductToSaleForm() {
               name='discount'
               value={form.discount}
               step='0.01'
+              min='0'
+              required
             />
           </div>
         </div>
@@ -215,10 +222,12 @@ export default function ProductToSaleForm() {
               type='text'
               className='form-control'
               id='discounted-sale-price'
-              name='discounted_sale_price'
-              value={discountedSalePrice()}
+              name='final_sale_price'
+              value={finalSalePrice()}
               step='0.01'
+              min='0'
               readOnly
+              required
             />
           </div>
         </div>
@@ -234,6 +243,8 @@ export default function ProductToSaleForm() {
           onChange={handleChange}
           name='quantity'
           value={form.quantity}
+          min='1'
+          required
         />
       </div>
       <div className='mb-3'>
@@ -249,13 +260,16 @@ export default function ProductToSaleForm() {
             name='total_price'
             value={totalPrice()}
             step='0.01'
+            min='0'
             readOnly
+            required
           />
         </div>
       </div>
-      <button type='submit' className='btn btn-sm btn-secondary fw-bold me-3'>
+      <button type='submit' className='btn btn-sm btn-secondary fw-bold mb-3'>
         Add to List
       </button>
+      {error.show && <FormError msg={error.msg} />}
     </form>
   );
 }

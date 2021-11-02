@@ -1,3 +1,6 @@
+import { useDispatch } from 'react-redux';
+import { delete_product_from_sale } from '../../../../actions/sales/sales-actions';
+
 export default function AddedProduct({
   id,
   name,
@@ -7,6 +10,10 @@ export default function AddedProduct({
   quantity,
   totalPrice,
 }) {
+  const dispatch = useDispatch();
+
+  const remove = () => dispatch(delete_product_from_sale(id));
+
   return (
     <tr>
       <td>{name}</td>
@@ -17,13 +24,14 @@ export default function AddedProduct({
       <td>{totalPrice}</td>
       <td>
         <button
-          className='btn btn-danger bg-transparent border-0 btn-sm p-'
+          className='btn text-danger p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'
           title='Delete'
+          onClick={remove}
         >
-          <i className='fas fa-minus-circle text-danger fs-5 action-icon'></i>
-        </button>{' '}
+          <span className='material-icons'>remove_circle</span>
+        </button>
       </td>
     </tr>
   );

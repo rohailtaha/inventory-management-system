@@ -8,8 +8,10 @@ import {
   request_update_sale,
   set_products_to_sale,
 } from '../../../../../actions/sales/sales-actions';
+import { isEmpty } from '../../../../../utils/utility_functions';
 import { paymentStatus } from '../../../../../utils/util_structures';
 import CustomerOption from '../../../../common/customer-option/CustomerOption';
+import FormError from '../../../../common/form-error/FormError';
 
 export default function SaleDetailsForm({ mode, grandTotal }) {
   const [sales, productsToSale, customers, successMessage, error] = useSelector(
@@ -34,10 +36,13 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
   const updateMode = () => mode === 'UPDATE';
 
   const netPayment = () => {
-    const netPayment =
-      parseFloat(parseFloat(form.payment_received).toFixed(2)) -
-      parseFloat(parseFloat(form.payment_returned).toFixed(2));
-    return parseFloat(netPayment.toFixed(2));
+    if (!isEmpty(form.payment_received) && !isEmpty(form.payment_returned)) {
+      const netPayment =
+        parseFloat(parseFloat(form.payment_received).toFixed(2)) -
+        parseFloat(parseFloat(form.payment_returned).toFixed(2));
+      return parseFloat(netPayment.toFixed(2));
+    }
+    return '';
   };
 
   const { id } = useParams();
@@ -92,11 +97,11 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
   const dataWithCorrectFormat = () => ({
     products: productsToSale.map(product => ({
       id: product.id,
-      sale_price: product.sale_price,
+      per_item_price: product.per_item_price,
       discount: product.discount,
-      discounted_sale_price: product.discounted_sale_price,
+      final_sale_price: product.final_sale_price,
       quantity: product.quantity,
-      net_total: product.net_total,
+      total_price: product.total_price,
     })),
     customer_id: customers.find(customer => customer.name === form.customer).id,
     grand_total: grandTotal,
@@ -122,7 +127,7 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
   }, [successMessage.show]);
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className='mb-3'>
         <label htmlFor='customer' className='form-label fw-bold'>
           Customer
@@ -155,7 +160,7 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
             id='grand-total'
             onChange={handleChange}
             name='grandTotal'
-            value={form.discountedSalePrice}
+            value={grandTotal}
             step='0.01'
             readOnly
             required
@@ -166,7 +171,7 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
       <div className='d-md-flex mb-3 align-items-end'>
         <div className='me-md-2 mb-2 mb-md-0'>
           <label
-            htmlFor='discounted-sale-price'
+            htmlFor='payment-received'
             className='form-label fw-bold text-nowrap'
           >
             Payment Received
@@ -176,10 +181,10 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
             <input
               type='number'
               className='form-control'
-              id='discounted-sale-price'
+              id='payment-received'
               onChange={handleChange}
-              name='discountedSalePrice'
-              value={form.paymentReceived}
+              name='payment_received'
+              value={form.payment_received}
               step='0.01'
               required
             />
@@ -187,7 +192,7 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
         </div>
         <div className='me-md-2 mb-2 mb-md-0'>
           <label
-            htmlFor='discounted-sale-price'
+            htmlFor='payment-returned'
             className='form-label fw-bold text-nowrap'
           >
             Returned
@@ -197,10 +202,10 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
             <input
               type='number'
               className='form-control'
-              id='discounted-sale-price'
+              id='payment-returned'
               onChange={handleChange}
-              name='discountedSalePrice'
-              value={form.paymentReturned}
+              name='payment_returned'
+              value={form.payment_returned}
               step='0.01'
             />
           </div>
@@ -219,6 +224,7 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
               className='form-control'
               id='net-payment'
               name='net_payment'
+              value={netPayment()}
               step='0.01'
               readOnly
               required
@@ -228,15 +234,15 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
       </div>
 
       <div className='mb-4'>
-        <label htmlFor='status' className='form-label fw-bold'>
+        <label htmlFor='payment-status' className='form-label fw-bold'>
           Payment Status
         </label>
         <select
           className='form-select form-select-sm'
-          id='status'
+          id='payment-status'
           onChange={handleChange}
-          name='status'
-          value={form.status}
+          name='payment_status'
+          value={form.payment_status}
           required
         >
           {paymentStatus.map(status => (
@@ -247,18 +253,18 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
         </select>
       </div>
 
-      <div className='d-sm-flex'>
+      <div className='d-sm-flex mb-3'>
         <button
           type='submit'
           className='btn btn-primary flex-grow-1 mb-2 mb-sm-0'
-          onSubmit={handleSubmit}
         >
-          {mode === 'CREATE' ? 'Confirm Sale' : 'Save Changes'}
+          {updateMode() ? 'Save Changes' : 'Confirm Sale'}
         </button>
         <Link to='/sales' className='btn btn-danger flex-grow-1 ms-sm-3'>
           Cancel
         </Link>
       </div>
+      {error.show && <FormError msg={error.msg} />}
     </form>
   );
 }

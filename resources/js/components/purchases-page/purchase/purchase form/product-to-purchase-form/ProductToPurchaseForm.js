@@ -202,6 +202,7 @@ export default function ProductToPurchaseForm() {
               name='totalCost'
               value={totalCost()}
               step='0.01'
+              min='0'
               required
               readOnly
             />

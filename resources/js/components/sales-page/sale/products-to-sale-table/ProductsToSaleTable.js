@@ -25,9 +25,9 @@ function ProductsToSaleTable() {
                 key={product.id}
                 id={product.id}
                 name={product.name}
-                perItemPrice={product.sale_price}
+                perItemPrice={product.per_item_price}
                 discount={product.discount}
-                discountedSalePrice={product.discounted_sale_Price}
+                discountedSalePrice={product.discounted_sale_price}
                 quantity={product.quantity}
                 totalPrice={product.total_price}
               />
