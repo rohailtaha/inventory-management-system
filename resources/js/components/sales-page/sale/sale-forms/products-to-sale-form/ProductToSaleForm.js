@@ -48,7 +48,7 @@ export default function ProductToSaleForm() {
       !isEmpty(form.per_item_price)
     )
       return parseFloat(
-        (parseInt(form.quantity) * discountedSalePrice()).toFixed(2)
+        (parseInt(form.quantity) * finalSalePrice()).toFixed(2)
       );
     return '';
   };
@@ -211,17 +211,17 @@ export default function ProductToSaleForm() {
         </div>
         <div className='mb-2 mb-md-0 me-md-2 flex-grow-1'>
           <label
-            htmlFor='discounted-sale-price'
+            htmlFor='final-sale-price'
             className='form-label fw-bold text-nowrap'
           >
-            Discounted Sale Price
+            Final Sale Price
           </label>
           <div className='input-group input-group-sm'>
             <span className='input-group-text'>RS</span>
             <input
               type='text'
               className='form-control'
-              id='discounted-sale-price'
+              id='final-sale-price'
               name='final_sale_price'
               value={finalSalePrice()}
               step='0.01'

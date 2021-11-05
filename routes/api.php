@@ -53,8 +53,7 @@ Route::middleware(['auth'])->group(function () {
   Route::delete('/purchases/{id}', [PurchasesController::class, 'delete']);
 
   Route::get('/sales', [SalesController::class, 'index']);
+  Route::post('/sales', [SalesController::class, 'store']);
   Route::put('/sales/{id}', [SalesController::class, 'update']);
   Route::delete('/sales/{id}', [SalesController::class, 'delete']);
 });
-
-Route::post('/sales', [SalesController::class, 'store']);

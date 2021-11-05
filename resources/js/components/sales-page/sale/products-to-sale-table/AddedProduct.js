@@ -6,7 +6,7 @@ export default function AddedProduct({
   name,
   perItemPrice,
   discount,
-  discountedSalePrice,
+  finalSalePrice,
   quantity,
   totalPrice,
 }) {
@@ -19,7 +19,7 @@ export default function AddedProduct({
       <td>{name}</td>
       <td>{perItemPrice}</td>
       <td>{discount}</td>
-      <td>{discountedSalePrice}</td>
+      <td>{finalSalePrice}</td>
       <td>{quantity}</td>
       <td>{totalPrice}</td>
       <td>

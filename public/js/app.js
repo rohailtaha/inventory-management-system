@@ -8824,7 +8824,7 @@ function AddedProduct(_ref) {
       name = _ref.name,
       perItemPrice = _ref.perItemPrice,
       discount = _ref.discount,
-      discountedSalePrice = _ref.discountedSalePrice,
+      finalSalePrice = _ref.finalSalePrice,
       quantity = _ref.quantity,
       totalPrice = _ref.totalPrice;
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
@@ -8841,7 +8841,7 @@ function AddedProduct(_ref) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
       children: discount
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-      children: discountedSalePrice
+      children: finalSalePrice
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
       children: quantity
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
@@ -8906,7 +8906,7 @@ function ProductsToSaleTable() {
               children: "Discount (%)"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
               scope: "col",
-              children: "Discounted Price (RS)"
+              children: "Final Price (RS)"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
               scope: "col",
               children: "Qty"
@@ -8924,7 +8924,7 @@ function ProductsToSaleTable() {
               name: product.name,
               perItemPrice: product.per_item_price,
               discount: product.discount,
-              discountedSalePrice: product.discounted_sale_price,
+              finalSalePrice: product.final_sale_price,
               quantity: product.quantity,
               totalPrice: product.total_price
             }, product.id);
@@ -8954,10 +8954,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../actions/sales/sales-actions */ "./resources/js/actions/sales/sales-actions.js");
 /* harmony import */ var _actions_success_message_js_success_message_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../actions/success-message.js/success-message-actions */ "./resources/js/actions/success-message.js/success-message-actions.js");
-/* harmony import */ var _messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./messages/PaymentMismatchModal */ "./resources/js/components/sales-page/sale/sale-forms/messages/PaymentMismatchModal.js");
-/* harmony import */ var _products_to_sale_form_ProductToSaleForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./products-to-sale-form/ProductToSaleForm */ "./resources/js/components/sales-page/sale/sale-forms/products-to-sale-form/ProductToSaleForm.js");
-/* harmony import */ var _sale_details_form_SaleDetailsForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./sale-details-form/SaleDetailsForm */ "./resources/js/components/sales-page/sale/sale-forms/sale-details-form/SaleDetailsForm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _common_success_modal_SuccessModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../common/success-modal/SuccessModal */ "./resources/js/components/common/success-modal/SuccessModal.js");
+/* harmony import */ var _messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./messages/PaymentMismatchModal */ "./resources/js/components/sales-page/sale/sale-forms/messages/PaymentMismatchModal.js");
+/* harmony import */ var _products_to_sale_form_ProductToSaleForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./products-to-sale-form/ProductToSaleForm */ "./resources/js/components/sales-page/sale/sale-forms/products-to-sale-form/ProductToSaleForm.js");
+/* harmony import */ var _sale_details_form_SaleDetailsForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./sale-details-form/SaleDetailsForm */ "./resources/js/components/sales-page/sale/sale-forms/sale-details-form/SaleDetailsForm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -8969,6 +8970,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -9003,11 +9005,13 @@ function SaleForm(_ref) {
     dispatch((0,_actions_success_message_js_success_message_actions__WEBPACK_IMPORTED_MODULE_3__.hide_success_message)());
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_products_to_sale_form_ProductToSaleForm__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_sale_details_form_SaleDetailsForm__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_products_to_sale_form_ProductToSaleForm__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_sale_details_form_SaleDetailsForm__WEBPACK_IMPORTED_MODULE_7__["default"], {
       mode: mode,
       grandTotal: grandTotal
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {}), successMessage.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_success_modal_SuccessModal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      msg: successMessage.text
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_5__["default"], {
       grandTotal: grandTotal,
       netPayment: 1100
     })]
@@ -9161,7 +9165,7 @@ function ProductToSaleForm() {
   };
 
   var totalPrice = function totalPrice() {
-    if (!(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.quantity) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.discount) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.per_item_price)) return parseFloat((parseInt(form.quantity) * discountedSalePrice()).toFixed(2));
+    if (!(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.quantity) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.discount) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.per_item_price)) return parseFloat((parseInt(form.quantity) * finalSalePrice()).toFixed(2));
     return '';
   };
 
@@ -9351,9 +9355,9 @@ function ProductToSaleForm() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "mb-2 mb-md-0 me-md-2 flex-grow-1",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
-          htmlFor: "discounted-sale-price",
+          htmlFor: "final-sale-price",
           className: "form-label fw-bold text-nowrap",
-          children: "Discounted Sale Price"
+          children: "Final Sale Price"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "input-group input-group-sm",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
@@ -9362,7 +9366,7 @@ function ProductToSaleForm() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
             type: "text",
             className: "form-control",
-            id: "discounted-sale-price",
+            id: "final-sale-price",
             name: "final_sale_price",
             value: finalSalePrice(),
             step: "0.01",
@@ -9526,10 +9530,10 @@ function SaleDetailsForm(_ref) {
     if (updateMode()) {
       var sale = getSale(id);
       setForm({
-        customer: sale.custmer,
-        payment_status: sale.payment_status,
-        sale_price: sale.sale_price,
-        discount: sale.discount
+        customer: sale.customer,
+        payment_received: sale.payment_received.toString(),
+        payment_returned: sale.payment_returned.toString(),
+        payment_status: sale.payment_status
       });
       dispatch((0,_actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_2__.set_products_to_sale)(sale.products));
     }
@@ -9799,7 +9803,7 @@ function Sale(_ref) {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-        to: "/edit_sale",
+        to: "/edit-sale/".concat(id),
         className: "btn p-0",
         "data-bs-toggle": "tooltip",
         "data-bs-placement": "right",

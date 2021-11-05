@@ -13,7 +13,7 @@ function ProductsToSaleTable() {
               <th scope='col'>Product</th>
               <th scope='col'>Per Item Price (RS)</th>
               <th scope='col'>Discount (%)</th>
-              <th scope='col'>Discounted Price (RS)</th>
+              <th scope='col'>Final Price (RS)</th>
               <th scope='col'>Qty</th>
               <th scope='col'>Total Price (RS)</th>
               <th scope='col'></th>
@@ -27,7 +27,7 @@ function ProductsToSaleTable() {
                 name={product.name}
                 perItemPrice={product.per_item_price}
                 discount={product.discount}
-                discountedSalePrice={product.discounted_sale_price}
+                finalSalePrice={product.final_sale_price}
                 quantity={product.quantity}
                 totalPrice={product.total_price}
               />
