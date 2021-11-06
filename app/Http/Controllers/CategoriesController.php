@@ -56,7 +56,7 @@ class CategoriesController extends Controller {
 
   public function destroy($id) {
     Category::where([['shop_id', auth()->user()->shop_id], ['id', $id]])->first()->delete();
-    return response(['id' => $id], 200);
+    return response(['id' => $id, 'status' => 'OK'], 200);
   }
 
   private function invalid($validator) {

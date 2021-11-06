@@ -7,7 +7,7 @@ import {
 } from '../../../actions/categories/categories-actions';
 import FormError from '../../common/form-error/FormError';
 import SuccessModal from '../../common/success-modal/SuccessModal';
-import {removeExtraSpaces} from '../../../utils/utility_functions'
+import { removeExtraSpaces } from '../../../utils/utility_functions';
 
 function AddCategoryForm() {
   const [form, setForm] = useState({ name: '' });
@@ -67,7 +67,6 @@ function AddCategoryForm() {
         </div>
         {error.show && <FormError msg={error.msg} />}
       </form>
-      {successMessage.show && <SuccessModal msg={successMessage.text} />}
     </Fragment>
   );
 }

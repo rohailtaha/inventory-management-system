@@ -2174,7 +2174,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_sidebar_Sidebar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/sidebar/Sidebar */ "./resources/js/components/sidebar/Sidebar.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _routes_AppRouter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes/AppRouter */ "./resources/js/routes/AppRouter.js");
 /* harmony import */ var _components_header_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/header/Header */ "./resources/js/components/header/Header.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
@@ -2184,7 +2184,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_customers_customers_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./actions/customers/customers-actions */ "./resources/js/actions/customers/customers-actions.js");
 /* harmony import */ var _components_common_delete_confirmation_modal_DeleteConfirmationModal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/common/delete-confirmation-modal/DeleteConfirmationModal */ "./resources/js/components/common/delete-confirmation-modal/DeleteConfirmationModal.js");
 /* harmony import */ var _components_common_success_modal_SuccessModal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/common/success-modal/SuccessModal */ "./resources/js/components/common/success-modal/SuccessModal.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _actions_categories_categories_actions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./actions/categories/categories-actions */ "./resources/js/actions/categories/categories-actions.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2211,29 +2212,33 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function MyApp() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)(function (state) {
-    return [state.sidebarOpen, state.products.fetched, state.suppliers.fetched, state.customers.fetched, state.deleteConfirmation, state.successMessage];
+    return [state.sidebarOpen, state.products.fetched, state.suppliers.fetched, state.customers.fetched, state.categories.fetched, state.deleteConfirmation, state.successMessage];
   }),
-      _useSelector2 = _slicedToArray(_useSelector, 6),
+      _useSelector2 = _slicedToArray(_useSelector, 7),
       sidebarOpen = _useSelector2[0],
       fetchedProducts = _useSelector2[1],
       fetchedSuppliers = _useSelector2[2],
       fetchedCustomers = _useSelector2[3],
-      deleteConfirmation = _useSelector2[4],
-      successMessage = _useSelector2[5];
+      fetchedCategories = _useSelector2[4],
+      deleteConfirmation = _useSelector2[5],
+      successMessage = _useSelector2[6];
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
     dispatch((0,_actions_products_products_actions__WEBPACK_IMPORTED_MODULE_5__.fetch_products)());
     dispatch((0,_actions_suppliers_suppliers_actions__WEBPACK_IMPORTED_MODULE_6__.request_fetch_suppliers)());
     dispatch((0,_actions_customers_customers_actions__WEBPACK_IMPORTED_MODULE_7__.request_fetch_customers)());
+    dispatch((0,_actions_customers_customers_actions__WEBPACK_IMPORTED_MODULE_7__.request_fetch_customers)());
+    dispatch((0,_actions_categories_categories_actions__WEBPACK_IMPORTED_MODULE_10__.fetch_categories)());
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.BrowserRouter, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_header_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_sidebar_Sidebar__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("main", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.BrowserRouter, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_header_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_sidebar_Sidebar__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("main", {
       className: "main ".concat(sidebarOpen ? '' : 'main--expanded', " py-5"),
-      children: fetchedProducts && fetchedSuppliers && fetchedCustomers && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_routes_AppRouter__WEBPACK_IMPORTED_MODULE_1__["default"], {})
-    }), deleteConfirmation.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_delete_confirmation_modal_DeleteConfirmationModal__WEBPACK_IMPORTED_MODULE_8__["default"], {}), successMessage.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_success_modal_SuccessModal__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      children: fetchedProducts && fetchedSuppliers && fetchedCustomers && fetchedCategories && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_routes_AppRouter__WEBPACK_IMPORTED_MODULE_1__["default"], {})
+    }), deleteConfirmation.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_common_delete_confirmation_modal_DeleteConfirmationModal__WEBPACK_IMPORTED_MODULE_8__["default"], {}), successMessage.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_common_success_modal_SuccessModal__WEBPACK_IMPORTED_MODULE_9__["default"], {
       msg: successMessage.text
     })]
   });
@@ -2470,8 +2475,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/util_structures */ "./resources/js/utils/util_structures.js");
 /* harmony import */ var _action_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../action-types */ "./resources/js/actions/action-types.js");
-/* harmony import */ var _load_load__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../load/load */ "./resources/js/actions/load/load.js");
-/* harmony import */ var _success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
+/* harmony import */ var _delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../delete-confirmation/delete-confirmation-actions */ "./resources/js/actions/delete-confirmation/delete-confirmation-actions.js");
+/* harmony import */ var _load_load__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../load/load */ "./resources/js/actions/load/load.js");
+/* harmony import */ var _success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2483,6 +2489,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
+var SUCCESSFULL_CREATE_MSG = 'Category added.';
+var SUCCESSFULL_UPDATE_MSG = 'Category updated.';
+var SUCCESSFULL_DELETE_MSG = 'Category deleted';
 function fetch_categories() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
@@ -2542,7 +2552,7 @@ function request_create_category(category) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
-              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_4__.load)());
+              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_5__.load)());
               _context2.next = 4;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/categories', category);
 
@@ -2552,7 +2562,7 @@ function request_create_category(category) {
               if (response.data.status === 'OK') {
                 dispatch(create_category(response.data.category));
                 dispatch(hide_error());
-                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_5__.show_success_message)('Category saved successfully.'));
+                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_6__.show_success_message)(SUCCESSFULL_CREATE_MSG));
               } else {
                 dispatch(show_error(response.data.error.msg));
               }
@@ -2567,7 +2577,7 @@ function request_create_category(category) {
 
             case 11:
               _context2.prev = 11;
-              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_4__.stopLoading)());
+              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_5__.stopLoading)());
               return _context2.finish(11);
 
             case 14:
@@ -2600,7 +2610,7 @@ function request_update_category(category, id) {
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.prev = 0;
-              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_4__.load)());
+              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_5__.load)());
               _context3.next = 4;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().put("/api/categories/".concat(id), category);
 
@@ -2610,7 +2620,7 @@ function request_update_category(category, id) {
               if (response.data.status === 'OK') {
                 dispatch(update_category(response.data.category));
                 dispatch(hide_error());
-                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_5__.show_success_message)('Category Updated.'));
+                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_6__.show_success_message)(SUCCESSFULL_UPDATE_MSG));
               } else {
                 dispatch(show_error(response.data.error.msg));
               }
@@ -2625,7 +2635,7 @@ function request_update_category(category, id) {
 
             case 11:
               _context3.prev = 11;
-              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_4__.stopLoading)());
+              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_5__.stopLoading)());
               return _context3.finish(11);
 
             case 14:
@@ -2650,13 +2660,54 @@ function update_category(category) {
 }
 
 function request_delete_category(id) {
-  return function (dispatch) {
-    axios__WEBPACK_IMPORTED_MODULE_1___default()["delete"]("/api/categories/".concat(id)).then(function (response) {
-      return delete_category(response.data.id);
-    })["catch"](function (error) {
-      return dispatch(show_error(error.response.data.error.msg));
-    });
-  };
+  return /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              dispatch((0,_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_4__.hide_delete_confirmation)());
+              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_5__.load)());
+              _context4.prev = 2;
+              _context4.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default()["delete"]("/api/categories/".concat(id));
+
+            case 5:
+              response = _context4.sent;
+
+              if (response.data.status === 'OK') {
+                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_6__.show_success_message)(SUCCESSFULL_DELETE_MSG));
+                dispatch(delete_category(response.data.id));
+              } else {
+                console.error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR);
+              }
+
+              _context4.next = 12;
+              break;
+
+            case 9:
+              _context4.prev = 9;
+              _context4.t0 = _context4["catch"](2);
+              console.error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR);
+
+            case 12:
+              _context4.prev = 12;
+              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_5__.stopLoading)());
+              return _context4.finish(12);
+
+            case 15:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[2, 9, 12, 15]]);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
 }
 
 function delete_category(id) {
@@ -3023,7 +3074,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var SUCCESSFULL_CREATE_MSG = 'Product added.';
 var SUCCESSFULL_UPDATE_MSG = 'Product updated.';
-var SUCCESSFULL_DELETE_MSG = 'Product deleted';
+var SUCCESSFULL_DELETE_MSG = 'Product deleted.';
 function fetch_products() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
@@ -4458,13 +4509,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_cjs_react_development__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/cjs/react.development */ "./node_modules/react/cjs/react.development.js");
 /* harmony import */ var _actions_categories_categories_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/categories/categories-actions */ "./resources/js/actions/categories/categories-actions.js");
-/* harmony import */ var _add_category_form_AddCategoryForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./add category form/AddCategoryForm */ "./resources/js/components/categories-page/add category form/AddCategoryForm.js");
-/* harmony import */ var _edit_category_modal_EditCategoryModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./edit category modal/EditCategoryModal */ "./resources/js/components/categories-page/edit category modal/EditCategoryModal.js");
-/* harmony import */ var _table_CategoriesTable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./table/CategoriesTable */ "./resources/js/components/categories-page/table/CategoriesTable.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _actions_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/delete-confirmation/delete-confirmation-actions */ "./resources/js/actions/delete-confirmation/delete-confirmation-actions.js");
+/* harmony import */ var _actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
+/* harmony import */ var _add_category_form_AddCategoryForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./add category form/AddCategoryForm */ "./resources/js/components/categories-page/add category form/AddCategoryForm.js");
+/* harmony import */ var _edit_category_modal_EditCategoryModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./edit category modal/EditCategoryModal */ "./resources/js/components/categories-page/edit category modal/EditCategoryModal.js");
+/* harmony import */ var _table_CategoriesTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./table/CategoriesTable */ "./resources/js/components/categories-page/table/CategoriesTable.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -4487,46 +4540,60 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function Categories() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
-    return [state.categories.fetched, state.successMessage];
+    return [state.categories.fetched, state.deleteConfirmation];
   }),
-      _useSelector2 = _slicedToArray(_useSelector, 1),
-      fetched = _useSelector2[0];
+      _useSelector2 = _slicedToArray(_useSelector, 2),
+      fetched = _useSelector2[0],
+      deleteConfirmation = _useSelector2[1];
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
 
-  var _useParams = (0,react_router__WEBPACK_IMPORTED_MODULE_7__.useParams)(),
+  var _useParams = (0,react_router__WEBPACK_IMPORTED_MODULE_9__.useParams)(),
       id = _useParams.id;
-
-  (0,react_cjs_react_development__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    if (!fetched) dispatch((0,_actions_categories_categories_actions__WEBPACK_IMPORTED_MODULE_2__.fetch_categories)());
-  }, [fetched]);
 
   var updateMode = function updateMode() {
     return id;
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_cjs_react_development__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-    children: updateMode() ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_edit_category_modal_EditCategoryModal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  (0,react_cjs_react_development__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    if (!fetched) dispatch((0,_actions_categories_categories_actions__WEBPACK_IMPORTED_MODULE_2__.fetch_categories)());
+  }, [fetched]);
+  (0,react_cjs_react_development__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    if (deleteConfirmation.confirm) dispatch((0,_actions_categories_categories_actions__WEBPACK_IMPORTED_MODULE_2__.request_delete_category)(deleteConfirmation.deleteID));
+  }, [deleteConfirmation.confirm]);
+  (0,react_cjs_react_development__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    return cleanup;
+  }, []);
+
+  var cleanup = function cleanup() {
+    dispatch((0,_actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_4__.hide_success_message)());
+    dispatch((0,_actions_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_3__.hide_delete_confirmation)());
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_cjs_react_development__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+    children: updateMode() ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_edit_category_modal_EditCategoryModal__WEBPACK_IMPORTED_MODULE_6__["default"], {
       categoryID: id
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "main__content main__content--categories",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
         className: "d-xl-flex align-items-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_add_category_form_AddCategoryForm__WEBPACK_IMPORTED_MODULE_3__["default"], {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("section", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_add_category_form_AddCategoryForm__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("section", {
         className: "mt-5 table-container",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "card",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "card-header fs-2",
             children: "Categories"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "card-body",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "table-responsive",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_table_CategoriesTable__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_table_CategoriesTable__WEBPACK_IMPORTED_MODULE_7__["default"], {})
             })
           })]
         })
@@ -4631,8 +4698,8 @@ function AddCategoryForm() {
     };
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_cjs_react_development__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("form", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_cjs_react_development__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("form", {
       onSubmit: handleSubmit,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "mb-2 d-md-flex align-items-center",
@@ -4655,9 +4722,7 @@ function AddCategoryForm() {
       }), error.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_common_form_error_FormError__WEBPACK_IMPORTED_MODULE_4__["default"], {
         msg: error.msg
       })]
-    }), successMessage.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_common_success_modal_SuccessModal__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      msg: successMessage.text
-    })]
+    })
   });
 }
 
@@ -4886,8 +4951,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions/delete-confirmation/delete-confirmation-actions */ "./resources/js/actions/delete-confirmation/delete-confirmation-actions.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 
 
 
@@ -4895,26 +4964,30 @@ __webpack_require__.r(__webpack_exports__);
 function Category(_ref) {
   var id = _ref.id,
       name = _ref.name;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
       children: name
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
         to: "/edit-category/".concat(id),
         className: "btn p-0 me-1",
         "data-bs-toggle": "tooltip",
         "data-bs-placement": "right",
         title: "Edit",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
           className: "material-icons",
           children: "edit"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+        onClick: function onClick() {
+          return dispatch((0,_actions_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_1__.show_delete_confirmation)(id));
+        },
         className: "btn p-0",
         "data-bs-toggle": "tooltip",
         "data-bs-placement": "right",
         title: "Delete",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
           className: "material-icons text-danger",
           children: "delete"
         })
@@ -6087,14 +6160,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Inventory() {
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return [state.deleteConfirmation];
   }),
       _useSelector2 = _slicedToArray(_useSelector, 1),
       deleteConfirmation = _useSelector2[0];
 
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (deleteConfirmation.confirm) dispatch((0,_actions_products_products_actions__WEBPACK_IMPORTED_MODULE_3__.request_delete_product)(deleteConfirmation.deleteID));
   }, [deleteConfirmation.confirm]);
@@ -6265,7 +6337,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _product_form_ProductForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../product form/ProductForm */ "./resources/js/components/inventory-page/product/product form/ProductForm.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
@@ -6279,13 +6350,6 @@ function EditProduct() {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
       className: "fs-2 mb-3",
       children: "Edit Product"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-      to: "/inventory",
-      className: "btn btn-danger",
-      children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-        className: "fas fa-arrow-left me-1",
-        children: " "
-      }), " Back", ' ']
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_product_form_ProductForm__WEBPACK_IMPORTED_MODULE_0__["default"], {
       mode: 'UPDATE'
     })]
@@ -6335,16 +6399,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_cjs_react_development__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/cjs/react.development */ "./node_modules/react/cjs/react.development.js");
 /* harmony import */ var _actions_products_products_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../actions/products/products-actions */ "./resources/js/actions/products/products-actions.js");
 /* harmony import */ var _utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../utils/utility_functions */ "./resources/js/utils/utility_functions.js");
 /* harmony import */ var _common_form_error_FormError__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../common/form-error/FormError */ "./resources/js/components/common/form-error/FormError.js");
-/* harmony import */ var _common_spinner_Spinner__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../common/spinner/Spinner */ "./resources/js/components/common/spinner/Spinner.js");
-/* harmony import */ var _common_success_modal_SuccessModal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../common/success-modal/SuccessModal */ "./resources/js/components/common/success-modal/SuccessModal.js");
-/* harmony import */ var _product_category_option_Category__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../product category option/Category */ "./resources/js/components/inventory-page/product/product category option/Category.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _product_category_option_Category__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../product category option/Category */ "./resources/js/components/inventory-page/product/product category option/Category.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -6376,38 +6438,36 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-
 function ProductForm(_ref) {
   var mode = _ref.mode;
+
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return [state.products.list, state.categories.list, state.products.error, state.loading, state.successMessage];
+  }),
+      _useSelector2 = _slicedToArray(_useSelector, 5),
+      products = _useSelector2[0],
+      categories = _useSelector2[1],
+      error = _useSelector2[2],
+      loading = _useSelector2[3],
+      successMessage = _useSelector2[4];
 
   var _useState = (0,react_cjs_react_development__WEBPACK_IMPORTED_MODULE_2__.useState)({
     barcode: '',
     name: '',
-    category: 'Home Appliances',
+    category: categories[0].name,
     description: '',
     quantity: '1',
     alert_quantity: '',
     purchase_price: '',
     sale_price: '',
-    discount: '0',
-    final_sale_price: ''
+    discount: '0'
   }),
       _useState2 = _slicedToArray(_useState, 2),
       form = _useState2[0],
       setForm = _useState2[1];
 
-  var _useParams = (0,react_router__WEBPACK_IMPORTED_MODULE_10__.useParams)(),
+  var _useParams = (0,react_router__WEBPACK_IMPORTED_MODULE_8__.useParams)(),
       id = _useParams.id;
-
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return [state.products.list, state.products.error, state.loading, state.successMessage];
-  }),
-      _useSelector2 = _slicedToArray(_useSelector, 4),
-      products = _useSelector2[0],
-      error = _useSelector2[1],
-      loading = _useSelector2[2],
-      successMessage = _useSelector2[3];
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -6418,12 +6478,11 @@ function ProductForm(_ref) {
         name: product.name,
         category: product.category,
         description: product.description,
-        quantity: product.quantity,
-        alert_quantity: product.alert_quantity,
-        purchase_price: product.purchase_price,
-        sale_price: product.sale_price,
-        discount: product.discount,
-        final_sale_price: product.final_sale_price
+        quantity: product.quantity.toString(),
+        alert_quantity: product.alert_quantity.toString(),
+        purchase_price: product.purchase_price.toString(),
+        sale_price: product.sale_price.toString(),
+        discount: product.discount.toString()
       });
     }
   }, []);
@@ -6438,18 +6497,15 @@ function ProductForm(_ref) {
     });
   };
 
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+  var finalSalePrice = function finalSalePrice() {
     if (!(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.isEmpty)(form.sale_price) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.isEmpty)(form.discount)) {
-      setForm(function (form) {
-        return _objectSpread(_objectSpread({}, form), {}, {
-          final_sale_price: (form.sale_price - (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.getDiscount)(form.sale_price, form.discount)).toString()
-        });
-      });
+      var _finalSalePrice = parseFloat(form.sale_price).toFixed(2) - (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.discount)(form.sale_price, form.discount);
+
+      return parseFloat(_finalSalePrice.toFixed(2));
     }
-  }, [form.sale_price, form.discount]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (successMessage.show) resetForm();
-  }, [successMessage.show]);
+
+    return '';
+  };
 
   var handleChange = function handleChange(event) {
     var _event$target = event.target,
@@ -6476,245 +6532,237 @@ function ProductForm(_ref) {
       purchase_price: parseFloat(form.purchase_price),
       sale_price: parseFloat(form.sale_price),
       discount: parseFloat(form.discount),
-      final_sale_price: parseFloat(form.final_sale_price)
+      final_sale_price: parseFloat(finalSalePrice())
     };
   };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (successMessage.show && !updateMode()) resetForm();
+  }, [successMessage.show]);
 
   var resetForm = function resetForm() {
     setForm({
       barcode: '',
       name: '',
-      category: 'Home Appliances',
+      category: categories[0].name,
       description: '',
       quantity: '1',
       alert_quantity: '',
       purchase_price: '',
       sale_price: '',
-      discount: '0',
-      final_sale_price: ''
+      discount: '0'
     });
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("form", {
-      className: "mt-4",
-      onSubmit: handleSubmit,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-          htmlFor: "barcode",
-          className: "form-label fw-bold",
-          children: "Barcode"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
-          type: "text",
-          className: "form-control form-control-sm",
-          id: "barcode",
-          name: "barcode",
-          value: form.barcode,
-          onChange: handleChange,
-          required: true
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-          htmlFor: "name",
-          className: "form-label fw-bold",
-          children: "Name"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
-          type: "text",
-          className: "form-control form-control-sm",
-          id: "name",
-          name: "name",
-          value: form.name,
-          onChange: handleChange,
-          required: true
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-          htmlFor: "category",
-          className: "form-label fw-bold",
-          children: "Category"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("select", {
-          className: "form-select form-select-sm",
-          id: "category",
-          name: "category",
-          value: form.category,
-          onChange: handleChange,
-          required: true,
-          children: categories.map(function (category) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_product_category_option_Category__WEBPACK_IMPORTED_MODULE_8__["default"], {
-              name: category.name
-            }, category.id);
-          })
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "row row-cols-1 g-2 mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-          className: "col mb-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-            htmlFor: "purchase-price",
-            className: "form-label fw-bold",
-            children: "Purchase price"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-            className: "input-group input-group-sm",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-              className: "input-group-text",
-              children: "RS"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
-              type: "number",
-              className: "form-control",
-              id: "purchase-price",
-              name: "purchase_price",
-              value: form.purchase_price,
-              onChange: handleChange,
-              required: true
-            })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-          className: "mb-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-            htmlFor: "sale-price",
-            className: "form-label fw-bold",
-            children: "Sale price"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-            className: "input-group input-group-sm",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-              className: "input-group-text",
-              children: "RS"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
-              type: "number",
-              className: "form-control",
-              id: "sale-price",
-              name: "sale_price",
-              value: form.sale_price,
-              onChange: handleChange,
-              required: true
-            })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-          className: "d-sm-flex flex-row align-items-end col mb-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-            className: "flex-fill me-sm-2 mb-3 mb-sm-0",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-              htmlFor: "discount",
-              className: "form-label fw-bold",
-              children: "Discount"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-              className: "input-group input-group-sm",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-                className: "input-group-text",
-                children: "%"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
-                type: "number",
-                className: "form-control form-control-sm",
-                id: "discount",
-                name: "discount",
-                value: form.discount,
-                onChange: handleChange,
-                required: true
-              })]
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-            className: "flex-fill",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-              htmlFor: "final-sale-price",
-              className: "form-label fw-bold",
-              children: "Final Sale Price"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-              className: "input-group input-group-sm",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-                className: "input-group-text",
-                children: "RS"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
-                type: "number",
-                className: "form-control form-control-sm",
-                id: "final-sale-price",
-                name: "final_sale_price",
-                value: form.final_sale_price,
-                onChange: handleChange,
-                readOnly: true,
-                required: true
-              })]
-            })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-          className: "col d-sm-flex ",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-            className: "flex-grow-1 mb-3 mb-sm-0 me-sm-2",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-              htmlFor: "quantity",
-              className: "form-label fw-bold",
-              children: "Opening Stock"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
-              type: "number",
-              className: "form-control form-control-sm",
-              id: "quantity",
-              name: "quantity",
-              value: form.quantity,
-              onChange: handleChange,
-              required: true
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-            className: "flex-grow-1",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-              htmlFor: "alert_quantity",
-              className: "form-label fw-bold",
-              children: "Alert Quantity"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
-              type: "number",
-              className: "form-control form-control-sm",
-              id: "alert_quantity",
-              name: "alert_quantity",
-              value: form.alert_quantity,
-              onChange: handleChange
-            })]
-          })]
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "flex-grow-1 mb-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-          htmlFor: "description",
-          className: "form-label fw-bold",
-          children: "Description"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("textarea", {
-          className: "form-control",
-          id: "description",
-          name: "description",
-          value: form.description,
-          onChange: handleChange,
-          children: ' '
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "d-sm-flex mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("button", {
-          type: "submit",
-          className: "btn btn-primary flex-grow-1 mb-2 mb-sm-0",
-          children: [mode === 'CREATE' ? 'Add' : 'Update', " Product"]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Link, {
-          to: "/inventory",
-          className: "btn btn-danger flex-grow-1 ms-sm-3",
-          children: "Cancel"
-        })]
-      }), error.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_common_form_error_FormError__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        msg: error.msg
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("form", {
+    className: "mt-4",
+    onSubmit: handleSubmit,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "mb-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+        htmlFor: "barcode",
+        className: "form-label fw-bold",
+        children: "Barcode"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+        type: "text",
+        className: "form-control form-control-sm",
+        id: "barcode",
+        name: "barcode",
+        value: form.barcode,
+        onChange: handleChange,
+        required: true
       })]
-    }), successMessage.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_common_success_modal_SuccessModal__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      msg: successMessage.text
-    }), loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_common_spinner_Spinner__WEBPACK_IMPORTED_MODULE_6__["default"], {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "mb-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+        htmlFor: "name",
+        className: "form-label fw-bold",
+        children: "Name"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+        type: "text",
+        className: "form-control form-control-sm",
+        id: "name",
+        name: "name",
+        value: form.name,
+        onChange: handleChange,
+        required: true
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "mb-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+        htmlFor: "category",
+        className: "form-label fw-bold",
+        children: "Category"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("select", {
+        className: "form-select form-select-sm",
+        id: "category",
+        name: "category",
+        value: form.category,
+        onChange: handleChange,
+        required: true,
+        children: categories.map(function (category) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_product_category_option_Category__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            name: category.name
+          }, category.id);
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "row row-cols-1 g-2 mb-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "col mb-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+          htmlFor: "purchase-price",
+          className: "form-label fw-bold",
+          children: "Purchase price"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "input-group input-group-sm",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+            className: "input-group-text",
+            children: "RS"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            type: "number",
+            className: "form-control",
+            id: "purchase-price",
+            name: "purchase_price",
+            value: form.purchase_price,
+            onChange: handleChange,
+            step: "0.01",
+            required: true
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "mb-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+          htmlFor: "sale-price",
+          className: "form-label fw-bold",
+          children: "Sale price"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "input-group input-group-sm",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+            className: "input-group-text",
+            children: "RS"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            type: "number",
+            className: "form-control",
+            id: "sale-price",
+            name: "sale_price",
+            value: form.sale_price,
+            onChange: handleChange,
+            step: "0.01",
+            required: true
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "d-sm-flex flex-row align-items-end col mb-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "flex-fill me-sm-2 mb-3 mb-sm-0",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+            htmlFor: "discount",
+            className: "form-label fw-bold",
+            children: "Discount"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: "input-group input-group-sm",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+              className: "input-group-text",
+              children: "%"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+              type: "number",
+              className: "form-control form-control-sm",
+              id: "discount",
+              name: "discount",
+              value: form.discount,
+              onChange: handleChange,
+              step: "0.01",
+              required: true
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "flex-fill",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+            htmlFor: "final-sale-price",
+            className: "form-label fw-bold",
+            children: "Final Sale Price"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: "input-group input-group-sm",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+              className: "input-group-text",
+              children: "RS"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+              type: "number",
+              className: "form-control form-control-sm",
+              id: "final-sale-price",
+              value: finalSalePrice(),
+              step: "0.01",
+              readOnly: true,
+              required: true
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "col d-sm-flex ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "flex-grow-1 mb-3 mb-sm-0 me-sm-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+            htmlFor: "quantity",
+            className: "form-label fw-bold",
+            children: "Opening Stock"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            type: "number",
+            className: "form-control form-control-sm",
+            id: "quantity",
+            name: "quantity",
+            value: form.quantity,
+            onChange: handleChange,
+            required: true
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "flex-grow-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+            htmlFor: "alert_quantity",
+            className: "form-label fw-bold",
+            children: "Alert Quantity"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            type: "number",
+            className: "form-control form-control-sm",
+            id: "alert_quantity",
+            name: "alert_quantity",
+            value: form.alert_quantity,
+            min: "0",
+            onChange: handleChange
+          })]
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "flex-grow-1 mb-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+        htmlFor: "description",
+        className: "form-label fw-bold",
+        children: "Description"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("textarea", {
+        className: "form-control",
+        id: "description",
+        name: "description",
+        value: form.description,
+        onChange: handleChange,
+        children: ' '
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "d-sm-flex mb-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+        type: "submit",
+        className: "btn btn-primary flex-grow-1 mb-2 mb-sm-0",
+        children: updateMode() ? 'Update' : 'Add'
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
+        to: "/inventory",
+        className: "btn btn-danger flex-grow-1 ms-sm-3",
+        children: "Cancel"
+      })]
+    }), error.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_common_form_error_FormError__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      msg: error.msg
+    })]
   });
 }
 
-var categories = [{
-  id: 2,
-  name: 'Home Appliances'
-}, {
-  id: 3,
-  name: 'bakery'
-}, {
-  id: 4,
-  name: 'Games & Movies'
-}];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductForm);
 
 /***/ }),

@@ -15,7 +15,7 @@ class ProductsController extends Controller {
     $user = auth()->user();
     $products = Product::where('shop_id', $user->shop_id)->orderByDesc('created_at')->get();
     $products->transform(function ($product) {
-      return $product->get();
+      return $product->requiredFields();
     });
     return response(['status' => 'OK', 'products' => $products], 200);
   }
@@ -35,7 +35,7 @@ class ProductsController extends Controller {
       'final_sale_price' => 'required|numeric|min:0|lte:sale_price',
     ]);
 
-    if ($this->dataInvalid($validator)) {
+    if ($this->invalid($validator)) {
       return $this->errorResponse($validator);
     }
 
@@ -53,7 +53,7 @@ class ProductsController extends Controller {
       'final_sale_price' => $request->final_sale_price,
     ]);
 
-    return response(['product' => $product->get(), 'status' => 'OK'], 200);
+    return response(['product' => $product->requiredFields(), 'status' => 'OK'], 200);
   }
 
   public function update(Request $request, $id) {
@@ -70,7 +70,7 @@ class ProductsController extends Controller {
       'final_sale_price' => 'required|numeric|min:0|lte:sale_price',
     ]);
 
-    if ($this->dataInvalid($validator)) {
+    if ($this->invalid($validator)) {
       return $this->errorResponse($validator);
     }
 
@@ -88,7 +88,7 @@ class ProductsController extends Controller {
       'final_sale_price' => $request->final_sale_price,
     ]);
     $product = Product::where('id', $id)->first();
-    return response(['product' => $product->get(), 'status' => 'OK'], 200);
+    return response(['product' => $product->requiredFields(), 'status' => 'OK'], 200);
   }
 
   public function destroy($id) {
@@ -96,7 +96,7 @@ class ProductsController extends Controller {
     return response(['id' => $id, 'status' => 'OK'], 200);
   }
 
-  private function dataInvalid($validator) {
+  private function invalid($validator) {
     return $validator->stopOnFirstFailure()->fails();
   }
 

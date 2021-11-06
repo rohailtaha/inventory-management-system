@@ -9,6 +9,7 @@ import { request_fetch_suppliers } from './actions/suppliers/suppliers-actions';
 import { request_fetch_customers } from './actions/customers/customers-actions';
 import DeleteConfirmationModal from './components/common/delete-confirmation-modal/DeleteConfirmationModal';
 import SuccessModal from './components/common/success-modal/SuccessModal';
+import { fetch_categories } from './actions/categories/categories-actions';
 
 function MyApp() {
   const [
@@ -16,6 +17,7 @@ function MyApp() {
     fetchedProducts,
     fetchedSuppliers,
     fetchedCustomers,
+    fetchedCategories,
     deleteConfirmation,
     successMessage,
   ] = useSelector(state => [
@@ -23,6 +25,7 @@ function MyApp() {
     state.products.fetched,
     state.suppliers.fetched,
     state.customers.fetched,
+    state.categories.fetched,
     state.deleteConfirmation,
     state.successMessage,
   ]);
@@ -33,6 +36,8 @@ function MyApp() {
     dispatch(fetch_products());
     dispatch(request_fetch_suppliers());
     dispatch(request_fetch_customers());
+    dispatch(request_fetch_customers());
+    dispatch(fetch_categories());
   }, []);
 
   return (
@@ -40,9 +45,10 @@ function MyApp() {
       <Header />
       <Sidebar />
       <main className={`main ${sidebarOpen ? '' : 'main--expanded'} py-5`}>
-        {fetchedProducts && fetchedSuppliers && fetchedCustomers && (
-          <AppRouter />
-        )}
+        {fetchedProducts &&
+          fetchedSuppliers &&
+          fetchedCustomers &&
+          fetchedCategories && <AppRouter />}
       </main>
       {deleteConfirmation.show && <DeleteConfirmationModal />}
       {successMessage.show && <SuccessModal msg={successMessage.text} />}

@@ -1,24 +1,41 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Fragment, useEffect } from 'react/cjs/react.development';
-import { fetch_categories } from '../../actions/categories/categories-actions';
+import {
+  fetch_categories,
+  request_delete_category,
+} from '../../actions/categories/categories-actions';
+import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
+import { hide_success_message } from '../../actions/success-message/success-message-actions';
 import AddCategoryForm from './add category form/AddCategoryForm';
 import EditCategoryModal from './edit category modal/EditCategoryModal';
 import CategoriesTable from './table/CategoriesTable';
 
 function Categories() {
-  const [fetched] = useSelector(state => [
+  const [fetched, deleteConfirmation] = useSelector(state => [
     state.categories.fetched,
-    state.successMessage,
+    state.deleteConfirmation,
   ]);
+
   const dispatch = useDispatch();
   const { id } = useParams();
+  const updateMode = () => id;
 
   useEffect(() => {
     if (!fetched) dispatch(fetch_categories());
   }, [fetched]);
 
-  const updateMode = () => id;
+  useEffect(() => {
+    if (deleteConfirmation.confirm)
+      dispatch(request_delete_category(deleteConfirmation.deleteID));
+  }, [deleteConfirmation.confirm]);
+
+  useEffect(() => cleanup, []);
+
+  const cleanup = () => {
+    dispatch(hide_success_message());
+    dispatch(hide_delete_confirmation());
+  };
 
   return (
     <Fragment>

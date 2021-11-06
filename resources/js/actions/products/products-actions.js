@@ -7,7 +7,7 @@ import { show_success_message } from '../success-message/success-message-actions
 
 const SUCCESSFULL_CREATE_MSG = 'Product added.';
 const SUCCESSFULL_UPDATE_MSG = 'Product updated.';
-const SUCCESSFULL_DELETE_MSG = 'Product deleted';
+const SUCCESSFULL_DELETE_MSG = 'Product deleted.';
 
 export function fetch_products() {
   return async dispatch => {

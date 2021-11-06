@@ -8,8 +8,8 @@ import FilterForm from './filter form/FilterForm';
 import InventoryTable from './table/InventoryTable';
 
 function Inventory() {
-  const dispatch = useDispatch();
   const [deleteConfirmation] = useSelector(state => [state.deleteConfirmation]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (deleteConfirmation.confirm)
