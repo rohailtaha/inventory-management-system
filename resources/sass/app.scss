@@ -179,13 +179,13 @@ input::placeholder {
   }
 }
 
+.modal--visible {
+  display: block;
+  background-color: #000000e3;
+}
+
 .main {
   padding-left: 200px;
-
-  .modal--visible {
-    display: block;
-    background-color: #000000e3;
-  }
 
   &__content {
     width: 85%;

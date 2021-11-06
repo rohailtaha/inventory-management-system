@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Fragment, useState } from 'react/cjs/react.development';
-import { hide_success_message } from '../../../../actions/success-message.js/success-message-actions';
+import { hide_success_message } from '../../../../actions/success-message/success-message-actions';
 import {
   hide_error,
   request_create_supplier,
@@ -11,7 +11,6 @@ import {
 } from '../../../../actions/suppliers/suppliers-actions';
 import { removeExtraSpaces } from '../../../../utils/utility_functions';
 import FormError from '../../../common/form-error/FormError';
-import SuccessModal from '../../../common/success-modal/SuccessModal';
 
 function SupplierForm({ mode }) {
   const [form, setForm] = useState({
@@ -165,7 +164,6 @@ function SupplierForm({ mode }) {
         </div>
         {error.show && <FormError msg={error.msg} />}
       </form>
-      {successMessage.show && <SuccessModal msg={successMessage.text} />}
     </Fragment>
   );
 }

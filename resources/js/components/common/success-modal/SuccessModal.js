@@ -1,8 +1,7 @@
 import { useDispatch } from 'react-redux';
-import { hide_success_message } from '../../../actions/success-message.js/success-message-actions';
+import { hide_success_message } from '../../../actions/success-message/success-message-actions';
 
-function SuccessModal({msg}) {
-
+function SuccessModal({ msg }) {
   const dispatch = useDispatch();
 
   return (

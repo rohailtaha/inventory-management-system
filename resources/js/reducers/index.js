@@ -5,7 +5,7 @@ import usersReducer from './users-reducer/users-reducer';
 import successMessageReducer from './success-message-reducer.js/success-message-reducer';
 import errorsReducer from './errors-reducer/errors-reducer';
 import loadReducer from './load-reducer/load-reducer';
-import confirmationMessageReducer from './confirmation-message-reducer/confirmation-message-reducer';
+import deleteConfirmationReducer from './delete-confirmation-reducer/delete-confirmation-reducer';
 import productsReducer from './products/products-reducer';
 import categoriesReducer from './categories-reducer/categories-reducer';
 import suppliersReducer from './suppliers-reducer/suppliers-reducer';
@@ -20,7 +20,7 @@ const allReducers = combineReducers({
   successMessage: successMessageReducer,
   error: errorsReducer,
   loading: loadReducer,
-  confirmation: confirmationMessageReducer,
+  deleteConfirmation: deleteConfirmationReducer,
   products: productsReducer,
   categories: categoriesReducer,
   suppliers: suppliersReducer,

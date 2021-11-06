@@ -46,7 +46,7 @@ function usersReducer(state = initialState, action) {
     case actionTypes.DELETE_USER:
       return {
         ...state,
-        list: state.list.filter(user => user.id != action.payload),
+        list: state.list.filter(user => user.id != action.payload.id),
       };
 
     case actionTypes.SHOW_USERS_ERROR:

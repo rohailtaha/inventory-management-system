@@ -4,7 +4,7 @@ import {
   clear_products_from_sale,
   hide_error,
 } from '../../../../actions/sales/sales-actions';
-import { hide_success_message } from '../../../../actions/success-message.js/success-message-actions';
+import { hide_success_message } from '../../../../actions/success-message/success-message-actions';
 import SuccessModal from '../../../common/success-modal/SuccessModal';
 import PaymentMismatchModal from './messages/PaymentMismatchModal';
 import ProductToSaleForm from './products-to-sale-form/ProductToSaleForm';

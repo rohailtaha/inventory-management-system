@@ -1,15 +1,10 @@
-import { Fragment } from 'react';
-import { useDispatch } from 'react-redux';
+import { Fragment, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import { delete_user } from '../../../actions/users/users-actions';
+import { show_delete_confirmation } from '../../../actions/delete-confirmation/delete-confirmation-actions';
 
 function User({ name, email, phone, status, id }) {
   const dispatch = useDispatch();
-
-  const remove = () => {
-    dispatch(delete_user(id));
-  };
 
   return (
     <Fragment>
@@ -20,7 +15,7 @@ function User({ name, email, phone, status, id }) {
         <td>{status}</td>
         <td>
           <Link
-            to={`/edit_user/${id}`}
+            to={`/edit-user/${id}`}
             className='btn p-0 me-1'
             data-bs-toggle='tooltip'
             data-bs-placement='right'
@@ -29,7 +24,7 @@ function User({ name, email, phone, status, id }) {
             <span className='material-icons'>edit</span>
           </Link>
           <button
-            onClick={remove}
+            onClick={() => dispatch(show_delete_confirmation(id))}
             className='btn p-0'
             data-bs-toggle='tooltip'
             data-bs-placement='right'

@@ -1,7 +1,7 @@
 import { SERVER_ERROR } from '../../utils/util_structures';
 import actionTypes from '../action-types';
 import { load, stopLoading } from '../load/load';
-import { show_success_message } from '../success-message.js/success-message-actions';
+import { show_success_message } from '../success-message/success-message-actions';
 
 const SUCCESSFULL_ADD_MSG = 'Purchase added.';
 const SUCCESSFULL_UPDATE_MSG = 'Purchase updated.';

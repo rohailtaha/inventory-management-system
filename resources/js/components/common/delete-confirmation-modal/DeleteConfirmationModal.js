@@ -1,41 +1,39 @@
 import { useDispatch } from 'react-redux';
-import { hide_confirmation } from '../../../actions/confirmation-message.js/confirmation-message-actions';
+import {
+  confirm_delete,
+  hide_delete_confirmation,
+} from '../../../actions/delete-confirmation/delete-confirmation-actions';
 
-function ConfirmationModal({ msg, cb = () => null }) {
+export default function DeleteConfirmationModal() {
   const dispatch = useDispatch();
 
-  const hide = () => dispatch(hide_confirmation());
-
-  const confirm = () => {
-    cb();
-    hide();
-  };
+  const hide = () => dispatch(hide_delete_confirmation());
 
   return (
     <div className='modal modal--visible' tabIndex='-1'>
       <div className='modal-dialog modal-dialog-centered'>
         <div className='modal-content'>
-          <div className='modal-header text-white bg-success'>
-            <h5 className='modal-title'>Success</h5>
+          <div className='modal-header text-white bg-danger'>
+            <h5 className='modal-title'>Confirm</h5>
             <button
               type='button'
-              className='btn-close'
+              className='btn-close text-white'
               data-bs-dismiss='modal'
               aria-label='Close'
               onClick={hide}
             ></button>
           </div>
           <div className='modal-body'>
-            <p>{msg}</p>
+            <p>Confirm Deletion?</p>
           </div>
           <div className='modal-footer'>
             <button
               type='button'
               className='btn btn-secondary'
               data-bs-dismiss='modal'
-              onClick={confirm}
+              onClick={() => dispatch(confirm_delete())}
             >
-              Confirm
+              Yes
             </button>
             <button
               type='button'
@@ -43,7 +41,7 @@ function ConfirmationModal({ msg, cb = () => null }) {
               data-bs-dismiss='modal'
               onClick={hide}
             >
-              Close
+              Cancel
             </button>
           </div>
         </div>
@@ -51,5 +49,3 @@ function ConfirmationModal({ msg, cb = () => null }) {
     </div>
   );
 }
-
-export default ConfirmationModal;

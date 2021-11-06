@@ -109,7 +109,7 @@ class SuppliersController extends Controller {
     );
   }
 
-  public function delete($id) {
+  public function destroy($id) {
     Supplier::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])
       ->first()
       ->delete();

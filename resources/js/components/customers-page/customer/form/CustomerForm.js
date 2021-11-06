@@ -8,7 +8,7 @@ import {
   request_create_customer,
   request_update_customer,
 } from '../../../../actions/customers/customers-actions';
-import { hide_success_message } from '../../../../actions/success-message.js/success-message-actions';
+import { hide_success_message } from '../../../../actions/success-message/success-message-actions';
 import { removeExtraSpaces } from '../../../../utils/utility_functions';
 import FormError from '../../../common/form-error/FormError';
 import SuccessModal from '../../../common/success-modal/SuccessModal';

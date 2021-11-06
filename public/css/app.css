@@ -11455,12 +11455,13 @@ input::placeholder {
   display: none;
 }
 
-.main {
-  padding-left: 200px;
-}
-.main .modal--visible {
+.modal--visible {
   display: block;
   background-color: #000000e3;
+}
+
+.main {
+  padding-left: 200px;
 }
 .main__content {
   width: 85%;

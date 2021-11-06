@@ -99,7 +99,7 @@ class CustomersController extends Controller {
     );
   }
 
-  public function delete($id) {
+  public function destroy($id) {
     Customer::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])
       ->first()
       ->delete();

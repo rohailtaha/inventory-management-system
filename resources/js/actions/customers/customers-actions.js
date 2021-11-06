@@ -2,7 +2,7 @@ import axios from 'axios';
 import { SERVER_ERROR } from '../../utils/util_structures';
 import actionTypes from '../action-types';
 import { load, stopLoading } from '../load/load';
-import { show_success_message } from '../success-message.js/success-message-actions';
+import { show_success_message } from '../success-message/success-message-actions';
 
 export function request_fetch_customers() {
   return async dispatch => {

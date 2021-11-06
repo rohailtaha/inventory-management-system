@@ -2,14 +2,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Fragment, useState } from 'react/cjs/react.development';
-import { hide_success_message } from '../../../../actions/success-message.js/success-message-actions';
+import { hide_success_message } from '../../../../actions/success-message/success-message-actions';
 import {
   hide_error,
   request_create_user,
   request_update_user,
 } from '../../../../actions/users/users-actions';
 import FormError from '../../../common/form-error/FormError';
-import SuccessModal from '../../../common/success-modal/SuccessModal';
 import { removeExtraSpaces } from '../../../../utils/utility_functions';
 import { userStatus } from '../../../../utils/util_structures';
 
@@ -185,7 +184,6 @@ function UserForm({ mode }) {
         </div>
         {error.show && <FormError msg={error.msg} />}
       </form>
-      {successMessage.show && <SuccessModal msg={successMessage.text} />}
     </Fragment>
   );
 }

@@ -5,7 +5,7 @@ import {
   clear_products_from_purchase,
   hide_error,
 } from '../../../../actions/purchases/purchases-actions';
-import { hide_success_message } from '../../../../actions/success-message.js/success-message-actions';
+import { hide_success_message } from '../../../../actions/success-message/success-message-actions';
 import ProductToPurchaseForm from './product-to-purchase-form/ProductToPurchaseForm';
 import PurchaseDetailsForm from './purchase-details-form/PurchaseDetailsForm';
 import SuccessModal from '../../../common/success-modal/SuccessModal';

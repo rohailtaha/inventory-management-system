@@ -1,17 +1,19 @@
-import { useEffect} from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
+import { hide_success_message } from '../../actions/success-message/success-message-actions';
 import {
   fetch_users,
+  request_delete_user,
 } from '../../actions/users/users-actions';
-import ConfirmationModal from '../common/confirmation-modal/ConfirmationModal';
 import UsersTable from './table/UsersTable';
 
 function Users() {
   const dispatch = useDispatch();
-  const [fetched, confirmation] = useSelector(state => [
+  const [fetched, deleteConfirmation] = useSelector(state => [
     state.users.fetched,
-    state.confirmation,
+    state.deleteConfirmation,
   ]);
 
   useEffect(() => {
@@ -20,11 +22,23 @@ function Users() {
     }
   }, []);
 
+  useEffect(() => {
+    if (deleteConfirmation.confirm)
+      dispatch(request_delete_user(deleteConfirmation.deleteID));
+  }, [deleteConfirmation.confirm]);
+
+  useEffect(() => cleanup, []);
+
+  const cleanup = () => {
+    dispatch(hide_success_message());
+    dispatch(hide_delete_confirmation());
+  };
+
   return (
     <div className='main__content main__content--users'>
       <Link
         className='btn btn-primary me-5 px-3 py-2 d-flex align-items-center add-btn '
-        to='/add_user'
+        to='/add-user'
       >
         <span className='material-icons me-1'> add </span>{' '}
         <span> Add New User </span>
@@ -40,9 +54,6 @@ function Users() {
           </div>
         </div>
       </section>
-      {confirmation.show && (
-        <ConfirmationModal msg={confirmation.message} cb={remove} />
-      )}
     </div>
   );
 }

@@ -9,7 +9,7 @@ import {
 } from '../../../actions/categories/categories-actions';
 import { removeExtraSpaces } from '../../../utils/utility_functions';
 import FormError from '../../common/form-error/FormError';
-import { hide_success_message } from '../../../actions/success-message.js/success-message-actions';
+import { hide_success_message } from '../../../actions/success-message/success-message-actions';
 
 function EditCategoryModal({ categoryID }) {
   const [categories, successMessage, error] = useSelector(state => [

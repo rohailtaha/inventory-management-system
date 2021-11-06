@@ -1,9 +1,15 @@
 import axios from 'axios';
+import { SERVER_ERROR } from '../../utils/util_structures';
 import actionTypes from '../action-types';
+import { hide_delete_confirmation } from '../delete-confirmation/delete-confirmation-actions';
 import { load, stopLoading } from '../load/load';
-import { show_success_message } from '../success-message.js/success-message-actions';
+import { show_success_message } from '../success-message/success-message-actions';
 
-function fetch_products() {
+const SUCCESSFULL_CREATE_MSG = 'Product added.';
+const SUCCESSFULL_UPDATE_MSG = 'Product updated.';
+const SUCCESSFULL_DELETE_MSG = 'Product deleted';
+
+export function fetch_products() {
   return async dispatch => {
     try {
       const response = await axios.get('/api/products');
@@ -16,12 +22,12 @@ function fetch_products() {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error('There was an error connecting to the server'));
+      dispatch(show_error(SERVER_ERROR));
     }
   };
 }
 
-function create_product(product) {
+export function create_product(product) {
   return async dispatch => {
     try {
       dispatch(load());
@@ -32,19 +38,19 @@ function create_product(product) {
           payload: response.data.product,
         });
         dispatch(hide_error());
-        dispatch(show_success_message('Product saved successfully'))
+        dispatch(show_success_message(SUCCESSFULL_CREATE_MSG));
       } else {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error('There was an error connecting to the server'));
+      dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
-    } 
+    }
   };
 }
 
-function update_product(product, id) {
+export function update_product(product, id) {
   return async dispatch => {
     try {
       dispatch(load());
@@ -55,35 +61,48 @@ function update_product(product, id) {
           payload: response.data.product,
         });
         dispatch(hide_error());
-        dispatch(show_success_message('Product updated.'));
+        dispatch(show_success_message(SUCCESSFULL_UPDATE_MSG));
       } else {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error('There was an error connecting to the server'));
+      dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
-    } 
+    }
+  };
+}
+
+export function request_delete_product(id) {
+  return async dispatch => {
+    dispatch(hide_delete_confirmation());
+    dispatch(load());
+    try {
+      const response = await axios.delete(`/api/products/${id}`);
+      if (response.data.status === 'OK') {
+        dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
+        dispatch(delete_product(response.data.id));
+      } else {
+        console.error(SERVER_ERROR);
+      }
+    } catch (error) {
+      console.error(SERVER_ERROR);
+    } finally {
+      dispatch(stopLoading());
+    }
   };
 }
 
 function delete_product(id) {
-  return dispatch => {
-    axios
-      .delete(`/api/products/${id}`)
-      .then(res =>
-        dispatch({
-          type: actionTypes.DELETE_PRODUCT,
-          payload: {
-            id: res.data.id,
-          },
-        })
-      )
-      .catch(error => dispatch(show_error(error.response.data.error.msg)));
+  return {
+    type: actionTypes.DELETE_PRODUCT,
+    payload: {
+      id,
+    },
   };
 }
 
-function show_error(msg) {
+export function show_error(msg) {
   return {
     type: actionTypes.SHOW_PRODUCTS_ERROR,
     payload: new Error(msg),
@@ -91,10 +110,8 @@ function show_error(msg) {
   };
 }
 
-function hide_error() {
+export function hide_error() {
   return {
     type: actionTypes.HIDE_PRODUCTS_ERROR,
   };
 }
-
-export { fetch_products, create_product, update_product, delete_product };

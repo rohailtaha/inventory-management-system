@@ -65,7 +65,7 @@ function Sidebar() {
           </li>
           <li className='list-group-item bg-transparent py-1'>
             <Link
-              to='/add_product'
+              to='/add-product'
               className='bg-transparent text-decoration-none'
             >
               <i className='fas fa-plus me-2'></i>New Product
