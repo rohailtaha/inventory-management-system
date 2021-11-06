@@ -1,8 +1,13 @@
 import axios from 'axios';
 import { SERVER_ERROR } from '../../utils/util_structures';
 import actionTypes from '../action-types';
+import { hide_delete_confirmation } from '../delete-confirmation/delete-confirmation-actions';
 import { load, stopLoading } from '../load/load';
 import { show_success_message } from '../success-message/success-message-actions';
+
+const SUCCESSFULL_CREATE_MSG = 'Supplier added.';
+const SUCCESSFULL_UPDATE_MSG = 'Supplier updated.';
+const SUCCESSFULL_DELETE_MSG = 'Supplier deleted.';
 
 export function request_fetch_suppliers() {
   return async dispatch => {
@@ -34,7 +39,7 @@ export function request_create_supplier(supplier) {
       if (response.data.status === 'OK') {
         dispatch(create_supplier(response.data.supplier));
         dispatch(hide_error());
-        dispatch(show_success_message('Supplier added.'));
+        dispatch(show_success_message(SUCCESSFULL_CREATE_MSG));
       } else {
         dispatch(show_error(response.data.error.msg));
       }
@@ -61,7 +66,7 @@ export function request_update_supplier(supplier, id) {
       if (response.data.status === 'OK') {
         dispatch(update_supplier(response.data.supplier));
         dispatch(hide_error());
-        dispatch(show_success_message('Supplier updated.'));
+        dispatch(show_success_message(SUCCESSFULL_UPDATE_MSG));
       } else {
         dispatch(show_error(response.data.error.msg));
       }
@@ -81,11 +86,22 @@ function update_supplier(supplier) {
 }
 
 export function request_delete_supplier(id) {
-  return dispatch => {
-    axios
-      .delete(`/api/suppliers/${id}`)
-      .then(response => delete_supplier(response.data.id))
-      .catch(error => dispatch(show_error(error.response.data.error.msg)));
+  return async dispatch => {
+    dispatch(hide_delete_confirmation());
+    dispatch(load());
+    try {
+      const response = await axios.delete(`/api/suppliers/${id}`);
+      if (response.data.status === 'OK') {
+        dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
+        dispatch(delete_supplier(response.data.id));
+      } else {
+        console.error(SERVER_ERROR);
+      }
+    } catch (error) {
+      console.error(SERVER_ERROR);
+    } finally {
+      dispatch(stopLoading());
+    }
   };
 }
 

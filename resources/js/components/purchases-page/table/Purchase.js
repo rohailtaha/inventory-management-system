@@ -1,4 +1,6 @@
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { show_delete_confirmation } from '../../../actions/delete-confirmation/delete-confirmation-actions';
 import PaymentStatusBadge from '../../common/payment status badge/PaymentStatusBadge';
 
 function Purchase({
@@ -10,6 +12,8 @@ function Purchase({
   paymentStatus,
   supplier,
 }) {
+  const dispatch = useDispatch();
+
   return (
     <tr>
       <td>{date}</td>
@@ -33,6 +37,7 @@ function Purchase({
           <span className='material-icons'>edit</span>
         </Link>
         <button
+          onClick={() => dispatch(show_delete_confirmation(id))}
           className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'

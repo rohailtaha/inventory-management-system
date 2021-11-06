@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Fragment, useState } from 'react/cjs/react.development';
+import { useState } from 'react/cjs/react.development';
 import { hide_success_message } from '../../../../actions/success-message/success-message-actions';
 import {
   hide_error,
@@ -89,82 +89,80 @@ function SupplierForm({ mode }) {
   }, [successMessage.show]);
 
   return (
-    <Fragment>
-      <form className='mt-4' onSubmit={handleSubmit}>
-        <div className='mb-3'>
-          <label htmlFor='name' className='form-label fw-bold'>
-            Name
-          </label>
-          <input
-            type='text'
-            className='form-control form-control-sm'
-            id='name'
-            name='name'
-            value={form.name}
-            onChange={handleChange}
-            required
-            maxLength='255'
-          />
-        </div>
-        <div className='mb-3'>
-          <label htmlFor='email' className='form-label fw-bold'>
-            Email
-          </label>
-          <input
-            type='email'
-            className='form-control form-control-sm'
-            id='email'
-            name='email'
-            value={form.email}
-            onChange={handleChange}
-            maxLength='255'
-          />
-        </div>
-        <div className='mb-3'>
-          <label htmlFor='contact' className='form-label fw-bold'>
-            Contact
-          </label>
-          <input
-            type='tel'
-            className='form-control form-control-sm'
-            id='contact'
-            name='contact'
-            value={form.contact}
-            onChange={handleChange}
-            required
-            maxLength='255'
-          />
-        </div>
-        <div className='mb-3'>
-          <label htmlFor='address' className='form-label fw-bold'>
-            Address
-          </label>
-          <input
-            type='text'
-            className='form-control form-control-sm'
-            id='address'
-            name='address'
-            value={form.address}
-            onChange={handleChange}
-            required
-            maxLength='255'
-          />
-        </div>
+    <form className='mt-4' onSubmit={handleSubmit}>
+      <div className='mb-3'>
+        <label htmlFor='name' className='form-label fw-bold'>
+          Name
+        </label>
+        <input
+          type='text'
+          className='form-control form-control-sm'
+          id='name'
+          name='name'
+          value={form.name}
+          onChange={handleChange}
+          required
+          maxLength='255'
+        />
+      </div>
+      <div className='mb-3'>
+        <label htmlFor='email' className='form-label fw-bold'>
+          Email
+        </label>
+        <input
+          type='email'
+          className='form-control form-control-sm'
+          id='email'
+          name='email'
+          value={form.email}
+          onChange={handleChange}
+          maxLength='255'
+        />
+      </div>
+      <div className='mb-3'>
+        <label htmlFor='contact' className='form-label fw-bold'>
+          Contact
+        </label>
+        <input
+          type='tel'
+          className='form-control form-control-sm'
+          id='contact'
+          name='contact'
+          value={form.contact}
+          onChange={handleChange}
+          required
+          maxLength='255'
+        />
+      </div>
+      <div className='mb-3'>
+        <label htmlFor='address' className='form-label fw-bold'>
+          Address
+        </label>
+        <input
+          type='text'
+          className='form-control form-control-sm'
+          id='address'
+          name='address'
+          value={form.address}
+          onChange={handleChange}
+          required
+          maxLength='255'
+        />
+      </div>
 
-        <div className='d-sm-flex mb-3'>
-          <button
-            type='submit'
-            className='btn btn-primary flex-grow-1 mb-2 mb-sm-0'
-          >
-            {updateMode() ? 'Update' : 'Add '}
-          </button>
-          <Link to='/suppliers' className='btn btn-danger flex-grow-1 ms-sm-3'>
-            Cancel
-          </Link>
-        </div>
-        {error.show && <FormError msg={error.msg} />}
-      </form>
-    </Fragment>
+      <div className='d-sm-flex mb-3'>
+        <button
+          type='submit'
+          className='btn btn-primary flex-grow-1 mb-2 mb-sm-0'
+        >
+          {updateMode() ? 'Update' : 'Add '}
+        </button>
+        <Link to='/suppliers' className='btn btn-danger flex-grow-1 ms-sm-3'>
+          Cancel
+        </Link>
+      </div>
+      {error.show && <FormError msg={error.msg} />}
+    </form>
   );
 }
 

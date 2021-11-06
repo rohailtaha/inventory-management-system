@@ -53,7 +53,7 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
     if (updateMode()) {
       const sale = getSale(id);
       setForm({
-        customer: sale.customer,
+        customer: isEmpty(sale.customer) ? customers[0].name : sale.customer,
         payment_received: sale.payment_received.toString(),
         payment_returned: sale.payment_returned.toString(),
         payment_status: sale.payment_status,

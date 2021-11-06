@@ -1,11 +1,12 @@
 import { SERVER_ERROR } from '../../utils/util_structures';
 import actionTypes from '../action-types';
+import { hide_delete_confirmation } from '../delete-confirmation/delete-confirmation-actions';
 import { load, stopLoading } from '../load/load';
 import { show_success_message } from '../success-message/success-message-actions';
 
-const SUCCESSFULL_ADD_MSG = 'Purchase added.';
+const SUCCESSFULL_CREATE_MSG = 'Purchase added.';
 const SUCCESSFULL_UPDATE_MSG = 'Purchase updated.';
-const SUCCESSFULL_DELETION_MSG = 'Purchase Deleted';
+const SUCCESSFULL_DELETE_MSG = 'Purchase Deleted';
 
 export function request_fetch_purchases() {
   return async dispatch => {
@@ -37,7 +38,7 @@ export function request_create_purchase(purchase) {
       if (response.data.status === 'OK') {
         dispatch(create_purchase(response.data.purchase));
         dispatch(hide_error());
-        dispatch(show_success_message(SUCCESSFULL_ADD_MSG));
+        dispatch(show_success_message(SUCCESSFULL_CREATE_MSG));
       } else {
         dispatch(show_error(response.data.error.msg));
       }
@@ -77,18 +78,22 @@ export function request_update_purchase(purchase, id) {
 }
 
 export function request_delete_purchase(id) {
-  return dispatch => {
-    axios
-      .delete(`/api/purchases/${id}`)
-      .then(response => delete_purchase(response.data.id))
-      .catch(error => dispatch(show_error(error.response.data.error.msg)));
-  };
-}
-
-function update_purchase(purchase) {
-  return {
-    type: actionTypes.UPDATE_PURCHASE,
-    payload: purchase,
+  return async dispatch => {
+    dispatch(hide_delete_confirmation());
+    dispatch(load());
+    try {
+      const response = await axios.delete(`/api/purchases/${id}`);
+      if (response.data.status === 'OK') {
+        dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
+        dispatch(delete_purchase(response.data.id));
+      } else {
+        console.error(SERVER_ERROR);
+      }
+    } catch (error) {
+      console.error(SERVER_ERROR);
+    } finally {
+      dispatch(stopLoading());
+    }
   };
 }
 
@@ -98,6 +103,13 @@ function delete_purchase(id) {
     payload: {
       id,
     },
+  };
+}
+
+function update_purchase(purchase) {
+  return {
+    type: actionTypes.UPDATE_PURCHASE,
+    payload: purchase,
   };
 }
 

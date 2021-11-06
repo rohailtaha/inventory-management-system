@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Fragment } from 'react/cjs/react.development';
 import {
   hide_error,
   request_create_category,
 } from '../../../actions/categories/categories-actions';
 import FormError from '../../common/form-error/FormError';
-import SuccessModal from '../../common/success-modal/SuccessModal';
 import { removeExtraSpaces } from '../../../utils/utility_functions';
 
 function AddCategoryForm() {
@@ -46,28 +44,26 @@ function AddCategoryForm() {
   });
 
   return (
-    <Fragment>
-      <form onSubmit={handleSubmit}>
-        <div className='mb-2 d-md-flex align-items-center'>
-          <input
-            type='text'
-            className='form-control w-auto'
-            placeholder='Add new category'
-            name='name'
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
-          <button
-            className='btn btn-primary ms-3 px-2 py-1 d-flex align-items-center'
-            type='submit'
-          >
-            <span className='material-icons me-1'> add </span> Add
-          </button>
-        </div>
-        {error.show && <FormError msg={error.msg} />}
-      </form>
-    </Fragment>
+    <form onSubmit={handleSubmit}>
+      <div className='mb-2 d-md-flex align-items-center'>
+        <input
+          type='text'
+          className='form-control w-auto'
+          placeholder='Add new category'
+          name='name'
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
+        <button
+          className='btn btn-primary ms-3 px-2 py-1 d-flex align-items-center'
+          type='submit'
+        >
+          <span className='material-icons me-1'> add </span> Add
+        </button>
+      </div>
+      {error.show && <FormError msg={error.msg} />}
+    </form>
   );
 }
 

@@ -128,6 +128,11 @@ class SalesController extends Controller {
     );
   }
 
+  public function destroy($id) {
+    Sale::where([['id', $id], ['shop_id', auth()->user()->shop_id]])->first()->delete();
+    return response(['id' => $id, 'status' => 'OK'], 200);
+  }
+
   private function invalid($validator) {
     return $validator->stopOnFirstFailure()->fails();
   }

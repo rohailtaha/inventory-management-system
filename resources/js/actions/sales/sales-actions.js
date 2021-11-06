@@ -1,11 +1,12 @@
 import { SERVER_ERROR } from '../../utils/util_structures';
 import actionTypes from '../action-types';
+import { hide_delete_confirmation } from '../delete-confirmation/delete-confirmation-actions';
 import { load, stopLoading } from '../load/load';
 import { show_success_message } from '../success-message/success-message-actions';
 
-const SUCCESSFULL_ADD_MSG = 'Sale added.';
+const SUCCESSFULL_CREATE_MSG = 'Sale added.';
 const SUCCESSFULL_UPDATE_MSG = 'Sale updated.';
-const SUCCESSFULL_DELETION_MSG = 'Sale Deleted';
+const SUCCESSFULL_DELETE_MSG = 'Sale Deleted';
 
 export function request_fetch_sales() {
   return async dispatch => {
@@ -37,7 +38,7 @@ export function request_create_sale(sale) {
       if (response.data.status === 'OK') {
         dispatch(create_sale(response.data.sale));
         dispatch(hide_error());
-        dispatch(show_success_message(SUCCESSFULL_ADD_MSG));
+        dispatch(show_success_message(SUCCESSFULL_CREATE_MSG));
       } else {
         dispatch(show_error(response.data.error.msg));
       }
@@ -77,18 +78,22 @@ export function request_update_sale(sale, id) {
 }
 
 export function request_delete_sale(id) {
-  return dispatch => {
-    axios
-      .delete(`/api/sales/${id}`)
-      .then(response => delete_sale(response.data.id))
-      .catch(error => dispatch(show_error(error.response.data.error.msg)));
-  };
-}
-
-function update_sale(sale) {
-  return {
-    type: actionTypes.UPDATE_SALE,
-    payload: sale,
+  return async dispatch => {
+    dispatch(hide_delete_confirmation());
+    dispatch(load());
+    try {
+      const response = await axios.delete(`/api/sales/${id}`);
+      if (response.data.status === 'OK') {
+        dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
+        dispatch(delete_sale(response.data.id));
+      } else {
+        console.error(SERVER_ERROR);
+      }
+    } catch (error) {
+      console.error(SERVER_ERROR);
+    } finally {
+      dispatch(stopLoading());
+    }
   };
 }
 
@@ -98,6 +103,13 @@ function delete_sale(id) {
     payload: {
       id,
     },
+  };
+}
+
+function update_sale(sale) {
+  return {
+    type: actionTypes.UPDATE_SALE,
+    payload: sale,
   };
 }
 

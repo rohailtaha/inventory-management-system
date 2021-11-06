@@ -103,17 +103,12 @@ class SuppliersController extends Controller {
       'id' => $id,
     ])->first();
 
-    return response(
-      ['supplier' => $supplier->requiredFields(), 'status' => 'OK'],
-      200
-    );
+    return response(['supplier' => $supplier->requiredFields(), 'status' => 'OK'], 200);
   }
 
   public function destroy($id) {
-    Supplier::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])
-      ->first()
-      ->delete();
-    return response(['id' => $id], 200);
+    Supplier::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->first()->delete();
+    return response(['id' => $id, 'status' => 'OK'], 200);
   }
 
   private function invalid($validator) {
@@ -122,9 +117,6 @@ class SuppliersController extends Controller {
 
   private function errorResponse($validator) {
     $errorMsg = Arr::flatten($validator->errors()->messages())[0];
-    return response(
-      ['error' => ['msg' => $errorMsg], 'status' => 'ERROR'],
-      200
-    );
+    return response(['error' => ['msg' => $errorMsg], 'status' => 'ERROR'], 200);
   }
 }

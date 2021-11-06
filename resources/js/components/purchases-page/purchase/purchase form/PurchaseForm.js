@@ -8,20 +8,16 @@ import {
 import { hide_success_message } from '../../../../actions/success-message/success-message-actions';
 import ProductToPurchaseForm from './product-to-purchase-form/ProductToPurchaseForm';
 import PurchaseDetailsForm from './purchase-details-form/PurchaseDetailsForm';
-import SuccessModal from '../../../common/success-modal/SuccessModal';
 
 function PurchaseForm({ mode }) {
-  const [grandTotal, successMessage] = useSelector(state => [
+  const [grandTotal] = useSelector(state => [
     state.purchases.productsToPurchase.reduce(
       (previous, current) => previous + current.total_cost,
       0
     ),
-    state.successMessage,
   ]);
 
   const dispatch = useDispatch();
-
-  const updateMode = () => mode === 'UPDATE';
 
   useEffect(() => cleanup, []);
 
@@ -35,7 +31,6 @@ function PurchaseForm({ mode }) {
     <Fragment>
       <ProductToPurchaseForm />
       <PurchaseDetailsForm mode={mode} grandTotal={grandTotal} />
-      {successMessage.show && <SuccessModal msg={successMessage.text} />}
     </Fragment>
   );
 }

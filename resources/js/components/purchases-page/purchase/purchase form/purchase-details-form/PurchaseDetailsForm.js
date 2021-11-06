@@ -17,6 +17,7 @@ import {
   set_products_to_purchase,
   show_error,
 } from '../../../../../actions/purchases/purchases-actions';
+import { isEmpty } from '../../../../../utils/utility_functions';
 
 export default function PurchaseDetailsForm({ mode, grandTotal }) {
   const [purchases, productsToPurchase, suppliers, successMessage, error] =
@@ -48,7 +49,9 @@ export default function PurchaseDetailsForm({ mode, grandTotal }) {
     if (updateMode()) {
       const purchase = getPurchase(id);
       setForm({
-        supplier: purchase.supplier,
+        supplier: isEmpty(purchase.supplier)
+          ? suppliers[0].name
+          : purchase.supplier,
         purchase_status: purchase.purchase_status,
         payment_status: purchase.payment_status,
         amount_paid: purchase.amount_paid,

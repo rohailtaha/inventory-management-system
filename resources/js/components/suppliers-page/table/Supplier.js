@@ -1,7 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { show_delete_confirmation } from '../../../actions/delete-confirmation/delete-confirmation-actions';
 
 function Supplier({ id, name, email, contact, address }) {
+  const dispatch = useDispatch();
+
   return (
     <tr>
       <td>{name}</td>
@@ -10,7 +14,7 @@ function Supplier({ id, name, email, contact, address }) {
       <td>{address}</td>
       <td>
         <Link
-          to={`/edit_supplier/${id}`}
+          to={`/edit-supplier/${id}`}
           className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'
@@ -19,6 +23,7 @@ function Supplier({ id, name, email, contact, address }) {
           <span className='material-icons'>edit</span>
         </Link>
         <button
+          onClick={() => dispatch(show_delete_confirmation(id))}
           className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'

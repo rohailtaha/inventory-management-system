@@ -1,10 +1,27 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { request_fetch_customers } from '../../actions/customers/customers-actions';
+import { request_delete_customer } from '../../actions/customers/customers-actions';
+import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
+import { hide_success_message } from '../../actions/success-message/success-message-actions';
 import CustomersTable from './table/CustomersTable';
 
 function Customers() {
+  const [deleteConfirmation] = useSelector(state => [state.deleteConfirmation]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (deleteConfirmation.confirm)
+      dispatch(request_delete_customer(deleteConfirmation.deleteID));
+  }, [deleteConfirmation.confirm]);
+
+  useEffect(() => cleanup, []);
+
+  const cleanup = () => {
+    dispatch(hide_success_message());
+    dispatch(hide_delete_confirmation());
+  };
+
   return (
     <div className='main__content main__content--customers'>
       <Link

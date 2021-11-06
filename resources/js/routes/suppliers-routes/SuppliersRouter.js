@@ -1,8 +1,8 @@
-import { Fragment } from "react";
-import { Route } from "react-router";
-import Suppliers from '../../components/suppliers-page/Suppliers'
-import AddSupplier from '../../components/suppliers-page/supplier/add supplier/AddSupplier'
-import EditSupplier from '../../components/suppliers-page/supplier/edit supplier/EditSupplier'
+import { Fragment } from 'react';
+import { Route } from 'react-router';
+import Suppliers from '../../components/suppliers-page/Suppliers';
+import AddSupplier from '../../components/suppliers-page/supplier/add supplier/AddSupplier';
+import EditSupplier from '../../components/suppliers-page/supplier/edit supplier/EditSupplier';
 
 function SuppliersRouter() {
   return (
@@ -10,10 +10,10 @@ function SuppliersRouter() {
       <Route path='/suppliers'>
         <Suppliers />
       </Route>
-      <Route path='/add_supplier'>
+      <Route path='/add-supplier'>
         <AddSupplier />
       </Route>
-      <Route path='/edit_supplier/:id'>
+      <Route path='/edit-supplier/:id'>
         <EditSupplier />
       </Route>
     </Fragment>

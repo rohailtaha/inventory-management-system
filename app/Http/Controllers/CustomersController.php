@@ -100,10 +100,8 @@ class CustomersController extends Controller {
   }
 
   public function destroy($id) {
-    Customer::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])
-      ->first()
-      ->delete();
-    return response(['id' => $id], 200);
+    Customer::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->first()->delete();
+    return response(['id' => $id, 'status' => 'OK'], 200);
   }
 
   private function invalid($validator) {

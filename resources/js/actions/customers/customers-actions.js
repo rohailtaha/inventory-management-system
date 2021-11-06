@@ -1,8 +1,13 @@
 import axios from 'axios';
 import { SERVER_ERROR } from '../../utils/util_structures';
 import actionTypes from '../action-types';
+import { hide_delete_confirmation } from '../delete-confirmation/delete-confirmation-actions';
 import { load, stopLoading } from '../load/load';
 import { show_success_message } from '../success-message/success-message-actions';
+
+const SUCCESSFULL_CREATE_MSG = 'Customer added.';
+const SUCCESSFULL_UPDATE_MSG = 'Customer updated.';
+const SUCCESSFULL_DELETE_MSG = 'Customer deleted.';
 
 export function request_fetch_customers() {
   return async dispatch => {
@@ -34,7 +39,7 @@ export function request_create_customer(customer) {
       if (response.data.status === 'OK') {
         dispatch(create_customer(response.data.customer));
         dispatch(hide_error());
-        dispatch(show_success_message('Customer added.'));
+        dispatch(show_success_message(SUCCESSFULL_CREATE_MSG));
       } else {
         dispatch(show_error(response.data.error.msg));
       }
@@ -61,7 +66,7 @@ export function request_update_customer(customer, id) {
       if (response.data.status === 'OK') {
         dispatch(update_customer(response.data.customer));
         dispatch(hide_error());
-        dispatch(show_success_message('Customer updated.'));
+        dispatch(show_success_message(SUCCESSFULL_UPDATE_MSG));
       } else {
         dispatch(show_error(response.data.error.msg));
       }
@@ -81,11 +86,22 @@ function update_customer(customer) {
 }
 
 export function request_delete_customer(id) {
-  return dispatch => {
-    axios
-      .delete(`/api/customers/${id}`)
-      .then(response => delete_customer(response.data.id))
-      .catch(error => dispatch(show_error(error.response.data.error.msg)));
+  return async dispatch => {
+    dispatch(hide_delete_confirmation());
+    dispatch(load());
+    try {
+      const response = await axios.delete(`/api/customers/${id}`);
+      if (response.data.status === 'OK') {
+        dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
+        dispatch(delete_customer(response.data.id));
+      } else {
+        console.error(SERVER_ERROR);
+      }
+    } catch (error) {
+      console.error(SERVER_ERROR);
+    } finally {
+      dispatch(stopLoading());
+    }
   };
 }
 
