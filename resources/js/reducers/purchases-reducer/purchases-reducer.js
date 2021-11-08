@@ -12,6 +12,11 @@ const initialState = {
     show: false,
     msg: '',
   },
+  report: {
+    dateRangeType: 'All Time',
+    startDate: '',
+    endDate: '',
+  },
 };
 
 function purchasesReducer(state = initialState, action) {
@@ -102,6 +107,15 @@ function purchasesReducer(state = initialState, action) {
         error: {
           show: false,
           msg: '',
+        },
+      };
+    case actionTypes.SET_PURCHASES_REPORT:
+      return {
+        ...state,
+        report: {
+          dateRangeType: action.payload.dateRangeType,
+          startDate: action.payload.startDate,
+          endDate: action.payload.endDate,
         },
       };
 

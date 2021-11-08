@@ -1,35 +1,64 @@
+import { useSelector } from 'react-redux';
+import { dateRangeTypes } from '../../../../utils/util_structures';
 import Purchase from './Purchase';
 
-function PurchasesReportTable() {
+export default function PurchasesReportTable() {
+  const [purchases, report] = useSelector(state => [
+    state.purchases.list,
+    state.purchases.report,
+  ]);
+
+  const getPurchases = () => {
+    if (report.dateRangeType === dateRangeTypes.ALL_TIME) return purchases;
+    return purchases.filter(
+      purchase =>
+        purchase.date >= report.startDate && purchase.date <= report.endDate
+    );
+  };
+
+  const sumGrandTotal = () =>
+    getPurchases().reduce((prev, current) => prev + current.grand_total, 0);
+
+  const sumAmountPaid = () =>
+    getPurchases().reduce((prev, current) => prev + current.amount_paid, 0);
+
   return (
     <table className='table'>
       <thead>
         <tr>
           <th scope='col'>Date</th>
-          <th scope='col'>Product</th>
-          <th scope='col'>Qty Ordered</th>
-          <th scope='col'>Cost (RS)</th>
           <th scope='col'>Supplier</th>
+          <th scope='col'>Status</th>
+          <th scope='col'>Grand total (RS)</th>
+          <th scope='col'>Paid (RS)</th>
+          <th scope='col'>Payment status</th>
         </tr>
       </thead>
       <tbody>
-        {purchases.map(purchase => (
+        {getPurchases().map(purchase => (
           <Purchase
             key={purchase.id}
             id={purchase.id}
             date={purchase.date}
-            product={purchase.product}
-            quantity={purchase.quantity}
-            cost={purchase.cost}
             supplier={purchase.supplier}
+            purchaseStatus={purchase.purchase_status}
+            grandTotal={purchase.grand_total}
+            amountPaid={purchase.amount_paid}
+            paymentStatus={purchase.payment_status}
           />
         ))}
         <tr>
-          <td></td>
+          <td>
+            {' '}
+            <b> Total: </b>{' '}
+          </td>
           <td></td>
           <td></td>
           <td>
-            <b> Total Cost:</b> {129088}
+            <b> {sumGrandTotal()}</b>
+          </td>
+          <td>
+            <b> {sumAmountPaid()}</b>
           </td>
           <td></td>
         </tr>
@@ -37,23 +66,3 @@ function PurchasesReportTable() {
     </table>
   );
 }
-
-const purchases = [
-  {
-    id: 1,
-    date: '21-03-2021',
-    product: 'Product 1 bal bla',
-    quantity: 100,
-    cost: 10000,
-    supplier: 'supplier 2',
-  },
-  {
-    id: 2,
-    date: '21-03-2021',
-    product: 'Product 2 bal bla',
-    quantity: 400,
-    cost: 20000,
-    supplier: 'supplier 2',
-  },
-];
-export default PurchasesReportTable;

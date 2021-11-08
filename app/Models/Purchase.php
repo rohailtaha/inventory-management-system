@@ -13,7 +13,7 @@ class Purchase extends Model {
 
   public function requiredFields() {
     return [
-      'date' => $this->created_at->format('d/m/y'),
+      'date' => $this->created_at->format('Y-m-d'),
       'id' => $this->id,
       'purchase_status' => $this->purchase_status,
       'grand_total' => floatval($this->grand_total),

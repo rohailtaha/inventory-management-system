@@ -11302,6 +11302,9 @@ form label {
 .table .action-icon {
   font-size: 1rem;
 }
+.table tr {
+  font-size: 14px;
+}
 
 .spinner-container {
   position: fixed;
@@ -11566,6 +11569,14 @@ input::placeholder {
 .main__content--purchases-report .report-header {
   display: none;
 }
+.main__content--sales-report .table,
+.main__content--purchases-report .table {
+  min-width: 700px;
+}
+
+.report-form {
+  max-width: 500px;
+}
 
 @media (max-width: 720px) {
   .main {
@@ -11586,11 +11597,22 @@ input::placeholder {
   }
 
   .header {
-    padding-top: 0 !important;
+    padding: 0 !important;
+  }
+  .header .navbar-brand {
+    margin-left: 0 !important;
+  }
+  .header .store-info {
+    margin-right: 0 !important;
   }
 
-  .sidebar {
+  .sidebar,
+.sidebar-bg {
     display: none !important;
+  }
+
+  .main {
+    padding: 0 !important;
   }
 
   .main__content {
@@ -11598,36 +11620,36 @@ input::placeholder {
     margin: 0 !important;
   }
 
-  .main--sales-report,
-.main--purchases-report {
+  .main__content--sales-report,
+.main__content--purchases-report {
     padding: 0 !important;
   }
-  .main--sales-report .card-body,
-.main--purchases-report .card-body {
+  .main__content--sales-report .card-body,
+.main__content--purchases-report .card-body {
     padding: 0 !important;
   }
-  .main--sales-report form,
-.main--sales-report .btn--print-report,
-.main--purchases-report form,
-.main--purchases-report .btn--print-report {
+  .main__content--sales-report form,
+.main__content--sales-report .btn--print-report,
+.main__content--purchases-report form,
+.main__content--purchases-report .btn--print-report {
     display: none !important;
   }
-  .main--sales-report .report-header,
-.main--purchases-report .report-header {
+  .main__content--sales-report .report-header,
+.main__content--purchases-report .report-header {
     display: block;
     margin: 1em 0;
   }
-  .main--sales-report .table-container,
-.main--purchases-report .table-container {
+  .main__content--sales-report .table-container,
+.main__content--purchases-report .table-container {
     margin-top: 0 !important;
   }
-  .main--sales-report .sales-h,
-.main--purchases-report .sales-h {
+  .main__content--sales-report .sales-h,
+.main__content--purchases-report .sales-h {
     display: none;
   }
 
   @page {
-    margin: 0mm 10mm 0mm 10mm;
+    margin: -10mm 11mm 10mm 11mm;
   }
 }
 /**********************

@@ -19,4 +19,9 @@ export const paymentStatus = [
   { id: 3, value: 'Partial' },
 ];
 
+export const dateRangeTypes = {
+  ALL_TIME: 'All Time',
+  CUSTOM: 'Custom',
+};
+
 export const SERVER_ERROR = 'Server Error';

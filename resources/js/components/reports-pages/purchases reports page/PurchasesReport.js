@@ -3,7 +3,7 @@ import PurchasesReportHeader from './report header/PurchasesReportHeader';
 import PurchasesReportTable from './table/PurchasesReportTable';
 
 function PurchasesReport() {
-  const handleClick = event => {
+  const handleClick = () => {
     window.print();
   };
 
@@ -17,14 +17,14 @@ function PurchasesReport() {
           <div className='card-header fs-2 d-flex justify-content-between align-items-center'>
             <span className='sales-h'> Purchases Report </span>
             <button
+              type='button'
               onClick={handleClick}
-              className='btn bg-transparent border-none btn--print-report'
+              className='btn btn--print-report'
               data-bs-toggle='tooltip'
               data-bs-placement='top'
               title='Print'
             >
-              {' '}
-              <i className='fas fa-print ms-auto fs-4'></i>{' '}
+              <span className='material-icons'>print</span>
             </button>
           </div>
           <div className='card-body'>

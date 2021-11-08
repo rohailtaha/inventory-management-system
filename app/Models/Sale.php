@@ -11,7 +11,7 @@ class Sale extends Model {
 
   public function requiredFields() {
     return [
-      'date' => $this->created_at->format('d/m/y'),
+      'date' => $this->created_at->format('Y-m-d'),
       'id' => $this->id,
       'customer' => $this->customer->name ?? '',
       'grand_total' => floatval($this->grand_total),

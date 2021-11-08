@@ -7,7 +7,7 @@ function Header() {
       <Link className='ms-3 navbar-brand text-light logo' to='/'>
         My Store
       </Link>
-      <div className='me-3'>
+      <div className='me-3 store-info'>
         <div>
           <span>Contact: </span>
           <span>03090100461</span>

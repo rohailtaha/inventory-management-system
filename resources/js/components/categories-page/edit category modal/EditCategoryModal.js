@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import { Fragment } from 'react/cjs/react.development';
 import {
   hide_error,
   request_update_category,
@@ -53,39 +52,37 @@ function EditCategoryModal({ categoryID }) {
   };
 
   return (
-    <Fragment>
-      <div className='modal edit-category-modal d-block' tabIndex='-1'>
-        <div className='modal-dialog modal-dialog-centered'>
-          <div className='modal-content'>
-            <div className='modal-header'>
-              <h5 className='modal-title'>Edit Category</h5>
-              <Link to='/categories' type='button' className='btn-close'></Link>
-            </div>
-            <div className='modal-body'>
-              <input
-                className='form-control mb-2'
-                name='name'
-                value={form.name}
-                onChange={handleChange}
-              />
-              {error.show && <FormError msg={error.msg} />}
-            </div>
-            <div className='modal-footer'>
-              <button
-                type='submit'
-                className='btn btn-primary'
-                onClick={handleSubmit}
-              >
-                Save changes
-              </button>
-              <Link to='/categories' type='button' className='btn btn-danger'>
-                Cancel
-              </Link>
-            </div>
+    <div className='modal edit-category-modal d-block' tabIndex='-1'>
+      <div className='modal-dialog modal-dialog-centered'>
+        <div className='modal-content'>
+          <div className='modal-header'>
+            <h5 className='modal-title'>Edit Category</h5>
+            <Link to='/categories' type='button' className='btn-close'></Link>
+          </div>
+          <div className='modal-body'>
+            <input
+              className='form-control mb-2'
+              name='name'
+              value={form.name}
+              onChange={handleChange}
+            />
+            {error.show && <FormError msg={error.msg} />}
+          </div>
+          <div className='modal-footer'>
+            <button
+              type='submit'
+              className='btn btn-primary'
+              onClick={handleSubmit}
+            >
+              Update
+            </button>
+            <Link to='/categories' type='button' className='btn btn-danger'>
+              Cancel
+            </Link>
           </div>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 }
 

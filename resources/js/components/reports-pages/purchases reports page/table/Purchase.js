@@ -1,11 +1,23 @@
-function Purchase({ date, product, quantity, cost, supplier }) {
+import PaymentStatusBadge from '../../../common/payment status badge/PaymentStatusBadge';
+
+function Purchase({
+  date,
+  supplier,
+  purchaseStatus,
+  grandTotal,
+  amountPaid,
+  paymentStatus,
+}) {
   return (
     <tr>
       <td>{date}</td>
-      <td>{product}</td>
-      <td>{quantity}</td>
-      <td>{cost}</td>
       <td>{supplier}</td>
+      <td>{purchaseStatus}</td>
+      <td>{grandTotal}</td>
+      <td>{amountPaid}</td>
+      <td>
+        <PaymentStatusBadge status={paymentStatus} />
+      </td>
     </tr>
   );
 }

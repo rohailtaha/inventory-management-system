@@ -155,6 +155,13 @@ export function hide_products_to_purchase_form_error(msg) {
   };
 }
 
+export function set_purchases_report(report) {
+  return {
+    type: actionTypes.SET_PURCHASES_REPORT,
+    payload: report,
+  };
+}
+
 export function show_error(msg) {
   return {
     type: actionTypes.SHOW_PURCHASE_ERROR,

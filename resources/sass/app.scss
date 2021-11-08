@@ -35,6 +35,10 @@ form label {
   .action-icon {
     font-size: 1rem;
   }
+
+  tr {
+    font-size: 14px;
+  }
 }
 
 .spinner-container {
@@ -313,6 +317,14 @@ input::placeholder {
   .report-header {
     display: none;
   }
+
+  .table {
+    min-width: 700px;
+  }
+}
+
+.report-form {
+  max-width: 500px;
 }
 
 @media (max-width: 720px) {
@@ -336,10 +348,23 @@ input::placeholder {
     font-size: 1.1rem;
   }
   .header {
-    padding-top: 0 !important;
+    padding: 0 !important;
+
+    .navbar-brand {
+      margin-left: 0 !important;
+    }
+
+    .store-info {
+      margin-right: 0 !important;
+    }
   }
-  .sidebar {
+  .sidebar,
+  .sidebar-bg {
     display: none !important;
+  }
+
+  .main {
+    padding: 0 !important;
   }
 
   .main__content {
@@ -347,8 +372,8 @@ input::placeholder {
     margin: 0 !important;
   }
 
-  .main--sales-report,
-  .main--purchases-report {
+  .main__content--sales-report,
+  .main__content--purchases-report {
     padding: 0 !important;
     .card-body {
       padding: 0 !important;
@@ -370,7 +395,7 @@ input::placeholder {
   }
 
   @page {
-    margin: 0mm 10mm 0mm 10mm;
+    margin: -10mm 11mm 10mm 11mm;
   }
 }
 
