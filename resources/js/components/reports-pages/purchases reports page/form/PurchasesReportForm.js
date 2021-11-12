@@ -46,6 +46,7 @@ function PurchasesReportForm() {
           <option value={dateRangeTypes.CUSTOM}>{dateRangeTypes.CUSTOM}</option>
         </select>
       </div>
+
       {form.dateRangeType === dateRangeTypes.CUSTOM && (
         <div className='d-lg-flex align-items-end mb-3'>
           <div className='flex-grow-1'>

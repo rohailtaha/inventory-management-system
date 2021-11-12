@@ -3,9 +3,7 @@ import PurchasesReportHeader from './report header/PurchasesReportHeader';
 import PurchasesReportTable from './table/PurchasesReportTable';
 
 function PurchasesReport() {
-  const handleClick = () => {
-    window.print();
-  };
+  const handleClick = () => window.print();
 
   return (
     <div className='main__content main__content--purchases-report'>

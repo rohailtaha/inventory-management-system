@@ -3,9 +3,8 @@ import SalesReportHeader from './report header/SalesReportHeader';
 import SalesReportTable from './table/SalesReportTable';
 
 function SalesReport() {
-  const handleClick = event => {
-    window.print();
-  };
+  const handleClick = () => window.print();
+
   return (
     <div className='main__content main__content--sales-report'>
       <SalesReportHeader />
@@ -16,14 +15,14 @@ function SalesReport() {
           <div className='card-header fs-2 d-flex justify-content-between align-items-center'>
             <span className='sales-h'> Sales Report </span>
             <button
+              type='button'
               onClick={handleClick}
-              className='btn bg-transparent border-none btn--print-report'
+              className='btn btn--print-report'
               data-bs-toggle='tooltip'
               data-bs-placement='top'
               title='Print'
             >
-              {' '}
-              <i className='fas fa-print ms-auto fs-4'></i>{' '}
+              <span className='material-icons'>print</span>
             </button>
           </div>
           <div className='card-body'>

@@ -1,108 +1,69 @@
+import { useSelector } from 'react-redux';
+import { dateRangeTypes } from '../../../../utils/util_structures';
 import Sale from './Sale';
 
 function SalesReportTable() {
+  const [sales, report] = useSelector(state => [
+    state.sales.list,
+    state.sales.report,
+  ]);
+
+  const getSales = () => {
+    if (report.dateRangeType === dateRangeTypes.ALL_TIME) return sales;
+    return sales.filter(
+      sale => sale.date >= report.startDate && sale.date <= report.endDate
+    );
+  };
+
+  const sumGrandTotal = () =>
+    getSales().reduce((prev, current) => prev + current.grand_total, 0);
+
+  const sumAmountPaid = () =>
+    getSales().reduce((prev, current) => prev + current.net_payment, 0);
 
   return (
     <table className='table'>
       <thead>
         <tr>
-          <th scope='col'>Product</th>
-          <th scope='col'>Qty Sold</th>
-          <th scope='col'>Amount Collected (RS)</th>
-          <th scope='col'>Sales Profit (RS)</th>
+          <th scope='col'>Date</th>
+          <th scope='col'>ID</th>
+          <th scope='col'>Customer</th>
+          <th scope='col'>Grand total (RS)</th>
+          <th scope='col'>Paid (RS)</th>
+          <th scope='col'>Payment status</th>
+          <th scope='col'></th>
         </tr>
       </thead>
       <tbody>
-        {sales.map(sale => (
+        {getSales().map(sale => (
           <Sale
             key={sale.id}
+            date={sale.date}
             id={sale.id}
-            product={sale.product}
-            quantity={sale.quantity}
-            amount={sale.amount}
-            salesProfit={sale.salesProfit}
+            customer={sale.customer}
+            grandTotal={sale.grand_total}
+            amountPaid={sale.net_payment}
+            paymentStatus={sale.payment_status}
           />
         ))}
         <tr>
-          <td></td>
-          <td></td>
-          <td>
-            <b> Total Income:</b> {129088}
-          </td>
           <td>
             {' '}
-            <b>Total Profit:</b> {1289}
+            <b> Total: </b>{' '}
           </td>
+          <td></td>
+          <td></td>
+          <td>
+            <b> {sumGrandTotal()}</b>
+          </td>
+          <td>
+            <b> {sumAmountPaid()}</b>
+          </td>
+          <td></td>
         </tr>
       </tbody>
     </table>
   );
 }
-
-const sales = [
-  {
-    id: 1,
-    product: 'Product 1 bal bla',
-    quantity: 5100,
-    amount: 999000,
-    salesProfit: 45000,
-  },
-  {
-    id: 2,
-    product: 'Product 2 bal bla',
-    quantity: 5100,
-    amount: 999000,
-    salesProfit: 45000,
-  },
-  {
-    id: 3,
-    product: 'Product 2 bal bla',
-    quantity: 5100,
-    amount: 999000,
-    salesProfit: 45000,
-  },
-  {
-    id: 4,
-    product: 'Product 2 bal bla',
-    quantity: 5100,
-    amount: 999000,
-    salesProfit: 45000,
-  },
-  {
-    id: 5,
-    product: 'Product 2 bal bla',
-    quantity: 5100,
-    amount: 999000,
-    salesProfit: 45000,
-  },
-  {
-    id: 6,
-    product: 'Product 2 bal bla',
-    quantity: 5100,
-    amount: 999000,
-    salesProfit: 45000,
-  },
-  {
-    id: 7,
-    product: 'Product 2 bal bla',
-    quantity: 5100,
-    amount: 999000,
-    salesProfit: 45000,
-  },
-  {
-    id: 8,
-    product: 'Product 2 bal bla',
-    quantity: 5100,
-    amount: 999000,
-    salesProfit: 45000,
-  },
-  {
-    id: 9,
-    product: 'Product 2 bal bla',
-    quantity: 5100,
-    amount: 999000,
-    salesProfit: 45000,
-  },
-];
 
 export default SalesReportTable;

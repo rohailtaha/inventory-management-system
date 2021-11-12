@@ -49,7 +49,7 @@ function Sidebar() {
         <ul className='list-group list-group-flush sidebar__quick-actions mt-4'>
           <li className='list-group-item bg-transparent py-1'>
             <Link
-              to='/add_sale'
+              to='/add-sale'
               className='bg-transparent text-decoration-none'
             >
               <i className='fas fa-plus me-2'></i> New Sale

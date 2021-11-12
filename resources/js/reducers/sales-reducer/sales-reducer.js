@@ -1,4 +1,5 @@
 import actionTypes from '../../actions/action-types';
+import { dateRangeTypes } from '../../utils/util_structures';
 
 const initialState = {
   list: [],
@@ -11,6 +12,11 @@ const initialState = {
   error: {
     show: false,
     msg: '',
+  },
+  report: {
+    dateRangeType: dateRangeTypes.ALL_TIME,
+    startDate: '',
+    endDate: '',
   },
 };
 
@@ -102,6 +108,16 @@ function salesReducer(state = initialState, action) {
         error: {
           show: false,
           msg: '',
+        },
+      };
+
+    case actionTypes.SET_SALES_REPORT:
+      return {
+        ...state,
+        report: {
+          dateRangeType: action.payload.dateRangeType,
+          startDate: action.payload.startDate,
+          endDate: action.payload.endDate,
         },
       };
 
