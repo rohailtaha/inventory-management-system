@@ -1,8 +1,8 @@
 @import 'utility_classes';
 @import 'mixins';
 
-$primary: #1f1f1f;
-$secondary: #484848;
+$primary: #002a60;
+$secondary: #0e3f7c;
 
 @import './bootstrap/scss/bootstrap';
 
@@ -127,10 +127,10 @@ input::placeholder {
   .list-group {
     a,
     .list-group-item {
-      background-color: lighten($color: $primary, $amount: 6);
+      background-color: $secondary;
       color: white;
       &:hover {
-        background-color: lighten($primary, $amount: 3);
+        background-color: darken($secondary, $amount: 6);
         color: white;
       }
     }
@@ -197,6 +197,12 @@ input::placeholder {
 
     .add-btn {
       width: max-content;
+    }
+  }
+
+  .pages {
+    &__list > li {
+      margin: 0 0.15em;
     }
   }
 }

@@ -3,8 +3,19 @@ import { useSelector } from 'react-redux';
 import Product from './Product';
 
 function InventoryTable() {
+  const [products, pagination] = useSelector(state => [
+    state.products.list,
+    state.pagination,
+  ]);
 
-  const products = useSelector(state => state.products.list);
+  const itemsForCurrentPage = () =>
+    products.slice(
+      initialItemIndexForCurrentPage(),
+      initialItemIndexForCurrentPage() + pagination.itemsPerPage
+    );
+
+  const initialItemIndexForCurrentPage = () =>
+    (pagination.currentPage - 1) * pagination.itemsPerPage;
 
   return (
     <table className='table'>
@@ -20,7 +31,7 @@ function InventoryTable() {
         </tr>
       </thead>
       <tbody>
-        {products.map((product) => (
+        {itemsForCurrentPage().map(product => (
           <Product
             key={product.id}
             id={product.id}
@@ -36,6 +47,5 @@ function InventoryTable() {
     </table>
   );
 }
-
 
 export default InventoryTable;

@@ -27,6 +27,7 @@ function usersReducer(state = initialState, action) {
     case actionTypes.SET_USERS:
       return {
         ...state,
+        fetched: true,
         list: action.payload,
       };
 

@@ -89,6 +89,10 @@ const actionTypes = {
 
   LOAD: 'LOAD',
   STOP_LOADING: 'STOP_LOADING',
+
+  // Pagination Actions
+  SET_CURRENT_PAGE: 'SET_CURRENT_PAGE',
+  RESET_PAGINATION: 'RESET_PAGINATION',
 };
 
 export default actionTypes;

@@ -6,15 +6,18 @@ import {
   request_delete_category,
 } from '../../actions/categories/categories-actions';
 import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
+import { reset_pagination } from '../../actions/pagination/pagination-actions';
 import { hide_success_message } from '../../actions/success-message/success-message-actions';
+import Paginaton from '../common/pagination/Pagination';
 import AddCategoryForm from './add category form/AddCategoryForm';
 import EditCategoryModal from './edit category modal/EditCategoryModal';
 import CategoriesTable from './table/CategoriesTable';
 
 function Categories() {
-  const [fetched, deleteConfirmation] = useSelector(state => [
+  const [fetched, deleteConfirmation, categories] = useSelector(state => [
     state.categories.fetched,
     state.deleteConfirmation,
+    state.categories.list,
   ]);
 
   const dispatch = useDispatch();
@@ -35,6 +38,7 @@ function Categories() {
   const cleanup = () => {
     dispatch(hide_success_message());
     dispatch(hide_delete_confirmation());
+    dispatch(reset_pagination());
   };
 
   return (
@@ -57,6 +61,7 @@ function Categories() {
               </div>
             </div>
           </section>
+          {fetched && <Paginaton totalItems={categories.length} />}
         </div>
       )}
     </Fragment>

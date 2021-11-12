@@ -2,24 +2,28 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
+import { reset_pagination } from '../../actions/pagination/pagination-actions';
 import { hide_success_message } from '../../actions/success-message/success-message-actions';
 import {
   fetch_users,
   request_delete_user,
 } from '../../actions/users/users-actions';
+import Paginaton from '../common/pagination/Pagination';
 import UsersTable from './table/UsersTable';
 
 function Users() {
   const dispatch = useDispatch();
-  const [fetched, deleteConfirmation] = useSelector(state => [
+  const [fetched, deleteConfirmation, users] = useSelector(state => [
     state.users.fetched,
     state.deleteConfirmation,
+    state.users.list,
   ]);
 
   useEffect(() => {
-    if (!fetched) {
-      dispatch(fetch_users());
-    }
+    if (!fetched) dispatch(fetch_users());
+    // .then(() =>
+    // dispatch(set_pagination({ totalItems: users.length }))
+    // );
   }, []);
 
   useEffect(() => {
@@ -32,16 +36,17 @@ function Users() {
   const cleanup = () => {
     dispatch(hide_success_message());
     dispatch(hide_delete_confirmation());
+    dispatch(reset_pagination());
   };
 
   return (
     <div className='main__content main__content--users'>
       <Link
-        className='btn btn-primary me-5 px-3 py-2 d-flex align-items-center add-btn '
+        className='btn btn-primary me-5 px-3 py-2 d-flex align-items-center add-btn'
         to='/add-user'
       >
         <span className='material-icons me-1'> add </span>{' '}
-        <span> Add New User </span>
+        <span> New User </span>
       </Link>
 
       <section className='mt-5'>
@@ -54,6 +59,7 @@ function Users() {
           </div>
         </div>
       </section>
+      {fetched && <Paginaton totalItems={users.length} />}
     </div>
   );
 }

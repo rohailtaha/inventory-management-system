@@ -2,8 +2,19 @@ import { useSelector } from 'react-redux';
 import Category from './Category';
 
 function CategoriesTable() {
+  const [categories, pagination] = useSelector(state => [
+    state.categories.list,
+    state.pagination,
+  ]);
 
-  const categories = useSelector(state => state.categories.list);
+  const itemsForCurrentPage = () =>
+    categories.slice(
+      initialItemIndexForCurrentPage(),
+      initialItemIndexForCurrentPage() + pagination.itemsPerPage
+    );
+
+  const initialItemIndexForCurrentPage = () =>
+    (pagination.currentPage - 1) * pagination.itemsPerPage;
 
   return (
     <table className='table'>
@@ -14,13 +25,12 @@ function CategoriesTable() {
         </tr>
       </thead>
       <tbody>
-        {categories.map(category => (
+        {itemsForCurrentPage().map(category => (
           <Category key={category.id} id={category.id} name={category.name} />
         ))}
       </tbody>
     </table>
   );
 }
-
 
 export default CategoriesTable;
