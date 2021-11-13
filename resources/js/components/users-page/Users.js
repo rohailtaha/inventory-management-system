@@ -21,9 +21,6 @@ function Users() {
 
   useEffect(() => {
     if (!fetched) dispatch(fetch_users());
-    // .then(() =>
-    // dispatch(set_pagination({ totalItems: users.length }))
-    // );
   }, []);
 
   useEffect(() => {
@@ -58,8 +55,8 @@ function Users() {
             </div>
           </div>
         </div>
+        {fetched && <Paginaton totalItems={users.length} />}
       </section>
-      {fetched && <Paginaton totalItems={users.length} />}
     </div>
   );
 }

@@ -2,8 +2,19 @@ import { useSelector } from 'react-redux';
 import Purchase from './Purchase';
 
 function PurchasesTable() {
-  const purchases = useSelector(state => state.purchases.list);
+  const [purchases, pagination] = useSelector(state => [
+    state.purchases.list,
+    state.pagination,
+  ]);
 
+  const itemsForCurrentPage = () =>
+    purchases.slice(
+      initialItemIndexForCurrentPage(),
+      initialItemIndexForCurrentPage() + pagination.itemsPerPage
+    );
+
+  const initialItemIndexForCurrentPage = () =>
+    (pagination.currentPage - 1) * pagination.itemsPerPage;
   return (
     <table className='table'>
       <thead>
@@ -19,7 +30,7 @@ function PurchasesTable() {
         </tr>
       </thead>
       <tbody>
-        {purchases.map(purchase => (
+        {itemsForCurrentPage().map(purchase => (
           <Purchase
             key={purchase.id}
             date={purchase.date}

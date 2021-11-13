@@ -4808,9 +4808,9 @@ function Categories() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "d-xl-flex align-items-center",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_add_category_form_AddCategoryForm__WEBPACK_IMPORTED_MODULE_7__["default"], {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("section", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("section", {
         className: "mt-5 table-container",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "card",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
             className: "card-header fs-2",
@@ -4822,9 +4822,9 @@ function Categories() {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_table_CategoriesTable__WEBPACK_IMPORTED_MODULE_9__["default"], {})
             })
           })]
-        })
-      }), fetched && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        totalItems: categories.length
+        }), fetched && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          totalItems: categories.length
+        })]
       })]
     })
   });
@@ -5806,12 +5806,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_customers_customers_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/customers/customers-actions */ "./resources/js/actions/customers/customers-actions.js");
 /* harmony import */ var _actions_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/delete-confirmation/delete-confirmation-actions */ "./resources/js/actions/delete-confirmation/delete-confirmation-actions.js");
-/* harmony import */ var _actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
-/* harmony import */ var _table_CustomersTable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./table/CustomersTable */ "./resources/js/components/customers-page/table/CustomersTable.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _actions_pagination_pagination_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/pagination/pagination-actions */ "./resources/js/actions/pagination/pagination-actions.js");
+/* harmony import */ var _actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
+/* harmony import */ var _common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common/pagination/Pagination */ "./resources/js/components/common/pagination/Pagination.js");
+/* harmony import */ var _table_CustomersTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./table/CustomersTable */ "./resources/js/components/customers-page/table/CustomersTable.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -5834,12 +5836,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function Customers() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return [state.deleteConfirmation];
+    return [state.customers.fetched, state.deleteConfirmation, state.customers.list];
   }),
-      _useSelector2 = _slicedToArray(_useSelector, 1),
-      deleteConfirmation = _useSelector2[0];
+      _useSelector2 = _slicedToArray(_useSelector, 3),
+      fetched = _useSelector2[0],
+      deleteConfirmation = _useSelector2[1],
+      customers = _useSelector2[2];
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -5850,34 +5856,37 @@ function Customers() {
   }, []);
 
   var cleanup = function cleanup() {
-    dispatch((0,_actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_4__.hide_success_message)());
+    dispatch((0,_actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_5__.hide_success_message)());
     dispatch((0,_actions_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_3__.hide_delete_confirmation)());
+    dispatch((0,_actions_pagination_pagination_actions__WEBPACK_IMPORTED_MODULE_4__.reset_pagination)());
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "main__content main__content--customers",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
       className: "btn btn-primary px-3 py-2 d-flex align-items-center add-btn",
       to: "/add-customer",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
         className: "material-icons me-1",
         children: " add "
       }), " New Customer"]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("section", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("section", {
       className: "mt-5",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "card",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "card-header fs-2",
           children: "Customers"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "card-body",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "table-responsive",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_table_CustomersTable__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_table_CustomersTable__WEBPACK_IMPORTED_MODULE_7__["default"], {})
           })
         })]
-      })
+      }), fetched && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        totalItems: customers.length
+      })]
     })]
   });
 }
@@ -6268,15 +6277,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _Customer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Customer */ "./resources/js/components/customers-page/table/Customer.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
 
 
 function CustomersTable() {
-  var customers = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
-    return state.customers.list;
-  });
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+    return [state.customers.list, state.pagination];
+  }),
+      _useSelector2 = _slicedToArray(_useSelector, 2),
+      customers = _useSelector2[0],
+      pagination = _useSelector2[1];
+
+  var itemsForCurrentPage = function itemsForCurrentPage() {
+    return customers.slice(initialItemIndexForCurrentPage(), initialItemIndexForCurrentPage() + pagination.itemsPerPage);
+  };
+
+  var initialItemIndexForCurrentPage = function initialItemIndexForCurrentPage() {
+    return (pagination.currentPage - 1) * pagination.itemsPerPage;
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
     className: "table",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
@@ -6299,7 +6332,7 @@ function CustomersTable() {
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
-      children: customers.map(function (customer) {
+      children: itemsForCurrentPage().map(function (customer) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Customer__WEBPACK_IMPORTED_MODULE_1__["default"], {
           id: customer.id,
           name: customer.name,
@@ -6728,9 +6761,9 @@ function Inventory() {
           children: " New Product "
         }), ' ']
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_filter_form_FilterForm__WEBPACK_IMPORTED_MODULE_7__["default"], {})]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("section", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("section", {
       className: "mt-3",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "card",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
           className: "card-header fs-2",
@@ -6742,9 +6775,9 @@ function Inventory() {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_table_InventoryTable__WEBPACK_IMPORTED_MODULE_8__["default"], {})
           })
         })]
-      })
-    }), fetched && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
-      totalItems: products.length
+      }), fetched && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        totalItems: products.length
+      })]
     })]
   });
 }
@@ -7660,12 +7693,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/delete-confirmation/delete-confirmation-actions */ "./resources/js/actions/delete-confirmation/delete-confirmation-actions.js");
-/* harmony import */ var _actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/purchases/purchases-actions */ "./resources/js/actions/purchases/purchases-actions.js");
-/* harmony import */ var _actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
-/* harmony import */ var _table_PurchasesTable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./table/PurchasesTable */ "./resources/js/components/purchases-page/table/PurchasesTable.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _actions_pagination_pagination_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/pagination/pagination-actions */ "./resources/js/actions/pagination/pagination-actions.js");
+/* harmony import */ var _actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/purchases/purchases-actions */ "./resources/js/actions/purchases/purchases-actions.js");
+/* harmony import */ var _actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
+/* harmony import */ var _common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common/pagination/Pagination */ "./resources/js/components/common/pagination/Pagination.js");
+/* harmony import */ var _table_PurchasesTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./table/PurchasesTable */ "./resources/js/components/purchases-page/table/PurchasesTable.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7688,58 +7723,64 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function Purchases() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return [state.purchases.fetched, state.deleteConfirmation];
+    return [state.purchases.fetched, state.deleteConfirmation, state.purchases.list];
   }),
-      _useSelector2 = _slicedToArray(_useSelector, 2),
+      _useSelector2 = _slicedToArray(_useSelector, 3),
       fetched = _useSelector2[0],
-      deleteConfirmation = _useSelector2[1];
+      deleteConfirmation = _useSelector2[1],
+      purchases = _useSelector2[2];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!fetched) dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_3__.request_fetch_purchases)());
+    if (!fetched) dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_4__.request_fetch_purchases)());
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (deleteConfirmation.confirm) dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_3__.request_delete_purchase)(deleteConfirmation.deleteID));
+    if (deleteConfirmation.confirm) dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_4__.request_delete_purchase)(deleteConfirmation.deleteID));
   }, [deleteConfirmation.confirm]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     return cleanup;
   }, []);
 
   var cleanup = function cleanup() {
-    dispatch((0,_actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_4__.hide_success_message)());
+    dispatch((0,_actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_5__.hide_success_message)());
     dispatch((0,_actions_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_2__.hide_delete_confirmation)());
+    dispatch((0,_actions_pagination_pagination_actions__WEBPACK_IMPORTED_MODULE_3__.reset_pagination)());
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "main__content main__content--suppliers",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "d-xl-flex align-items-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
         className: "btn btn-primary px-3 py-2 d-flex align-items-center add-btn",
         to: "/add-purchase",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           className: "material-icons me-1",
           children: " add "
         }), " New Purchase"]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("section", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("section", {
       className: "mt-5 table-container",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "card",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "card-header fs-2",
           children: "Purchases"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "card-body",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "table-responsive",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_table_PurchasesTable__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_table_PurchasesTable__WEBPACK_IMPORTED_MODULE_7__["default"], {})
           })
         })]
-      })
+      }), fetched && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        totalItems: purchases.length
+      })]
     })]
   });
 }
@@ -8810,15 +8851,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _Purchase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Purchase */ "./resources/js/components/purchases-page/table/Purchase.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
 
 
 function PurchasesTable() {
-  var purchases = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
-    return state.purchases.list;
-  });
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+    return [state.purchases.list, state.pagination];
+  }),
+      _useSelector2 = _slicedToArray(_useSelector, 2),
+      purchases = _useSelector2[0],
+      pagination = _useSelector2[1];
+
+  var itemsForCurrentPage = function itemsForCurrentPage() {
+    return purchases.slice(initialItemIndexForCurrentPage(), initialItemIndexForCurrentPage() + pagination.itemsPerPage);
+  };
+
+  var initialItemIndexForCurrentPage = function initialItemIndexForCurrentPage() {
+    return (pagination.currentPage - 1) * pagination.itemsPerPage;
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
     className: "table",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
@@ -8850,7 +8915,7 @@ function PurchasesTable() {
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
-      children: purchases.map(function (purchase) {
+      children: itemsForCurrentPage().map(function (purchase) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Purchase__WEBPACK_IMPORTED_MODULE_1__["default"], {
           date: purchase.date,
           id: purchase.id,
@@ -8880,10 +8945,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _form_PurchasesReportForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./form/PurchasesReportForm */ "./resources/js/components/reports-pages/purchases reports page/form/PurchasesReportForm.js");
-/* harmony import */ var _report_header_PurchasesReportHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./report header/PurchasesReportHeader */ "./resources/js/components/reports-pages/purchases reports page/report header/PurchasesReportHeader.js");
-/* harmony import */ var _table_PurchasesReportTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./table/PurchasesReportTable */ "./resources/js/components/reports-pages/purchases reports page/table/PurchasesReportTable.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_pagination_pagination_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/pagination/pagination-actions */ "./resources/js/actions/pagination/pagination-actions.js");
+/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/util_structures */ "./resources/js/utils/util_structures.js");
+/* harmony import */ var _common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common/pagination/Pagination */ "./resources/js/components/common/pagination/Pagination.js");
+/* harmony import */ var _form_PurchasesReportForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./form/PurchasesReportForm */ "./resources/js/components/reports-pages/purchases reports page/form/PurchasesReportForm.js");
+/* harmony import */ var _report_header_PurchasesReportHeader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./report header/PurchasesReportHeader */ "./resources/js/components/reports-pages/purchases reports page/report header/PurchasesReportHeader.js");
+/* harmony import */ var _table_PurchasesReportTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./table/PurchasesReportTable */ "./resources/js/components/reports-pages/purchases reports page/table/PurchasesReportTable.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
 
 
 
@@ -8891,41 +8978,70 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function PurchasesReport() {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return [state.purchases.fetched, state.purchases.report, state.purchases.list];
+  }),
+      _useSelector2 = _slicedToArray(_useSelector, 3),
+      fetched = _useSelector2[0],
+      report = _useSelector2[1],
+      purchases = _useSelector2[2];
+
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+
+  var getPurchases = function getPurchases() {
+    if (report.dateRangeType === _utils_util_structures__WEBPACK_IMPORTED_MODULE_3__.dateRangeTypes.ALL_TIME) return purchases;
+    return purchases.filter(function (purchase) {
+      return purchase.date >= report.startDate && purchase.date <= report.endDate;
+    });
+  };
+
   var handleClick = function handleClick() {
     return window.print();
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return cleanup;
+  }, []);
+
+  var cleanup = function cleanup() {
+    dispatch((0,_actions_pagination_pagination_actions__WEBPACK_IMPORTED_MODULE_2__.reset_pagination)());
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "main__content main__content--purchases-report",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_report_header_PurchasesReportHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_form_PurchasesReportForm__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("section", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_report_header_PurchasesReportHeader__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_form_PurchasesReportForm__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("section", {
       className: "mt-5 table-container",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "card",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "card-header fs-2 d-flex justify-content-between align-items-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "sales-h",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            className: "purchases-h",
             children: " Purchases Report "
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
             type: "button",
             onClick: handleClick,
             className: "btn btn--print-report",
             "data-bs-toggle": "tooltip",
             "data-bs-placement": "top",
             title: "Print",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
               className: "material-icons",
               children: "print"
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "card-body",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "table-responsive",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_table_PurchasesReportTable__WEBPACK_IMPORTED_MODULE_2__["default"], {})
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_table_PurchasesReportTable__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              purchases: getPurchases()
+            })
           })
         })]
-      })
+      }), fetched && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        totalItems: getPurchases().length
+      })]
     })]
   });
 }
@@ -9171,9 +9287,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ PurchasesReportTable)
 /* harmony export */ });
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/util_structures */ "./resources/js/utils/util_structures.js");
-/* harmony import */ var _Purchase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Purchase */ "./resources/js/components/reports-pages/purchases reports page/table/Purchase.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Purchase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Purchase */ "./resources/js/components/reports-pages/purchases reports page/table/Purchase.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -9190,61 +9305,68 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+function PurchasesReportTable(_ref) {
+  var purchases = _ref.purchases;
 
-function PurchasesReportTable() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
-    return [state.purchases.list, state.purchases.report];
+    return [state.pagination];
   }),
-      _useSelector2 = _slicedToArray(_useSelector, 2),
-      purchases = _useSelector2[0],
-      report = _useSelector2[1];
+      _useSelector2 = _slicedToArray(_useSelector, 1),
+      _useSelector2$ = _useSelector2[0],
+      currentPage = _useSelector2$.currentPage,
+      itemsPerPage = _useSelector2$.itemsPerPage;
 
-  var getPurchases = function getPurchases() {
-    if (report.dateRangeType === _utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.dateRangeTypes.ALL_TIME) return purchases;
-    return purchases.filter(function (purchase) {
-      return purchase.date >= report.startDate && purchase.date <= report.endDate;
-    });
+  var itemsForCurrentPage = function itemsForCurrentPage() {
+    return purchases.slice(initialItemIndexForCurrentPage(), initialItemIndexForCurrentPage() + itemsPerPage);
+  };
+
+  var initialItemIndexForCurrentPage = function initialItemIndexForCurrentPage() {
+    return (currentPage - 1) * itemsPerPage;
   };
 
   var sumGrandTotal = function sumGrandTotal() {
-    return getPurchases().reduce(function (prev, current) {
+    return purchases.reduce(function (prev, current) {
       return prev + current.grand_total;
     }, 0);
   };
 
   var sumAmountPaid = function sumAmountPaid() {
-    return getPurchases().reduce(function (prev, current) {
+    return purchases.reduce(function (prev, current) {
       return prev + current.amount_paid;
     }, 0);
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+  var lastPage = function lastPage() {
+    return Math.ceil(purchases.length / itemsPerPage) === currentPage;
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
     className: "table",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Date"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Supplier"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Status"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Grand total (RS)"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Paid (RS)"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Payment status"
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tbody", {
-      children: [getPurchases().map(function (purchase) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Purchase__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tbody", {
+      children: [itemsForCurrentPage().map(function (purchase) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Purchase__WEBPACK_IMPORTED_MODULE_1__["default"], {
           id: purchase.id,
           date: purchase.date,
           supplier: purchase.supplier,
@@ -9253,20 +9375,20 @@ function PurchasesReportTable() {
           amountPaid: purchase.amount_paid,
           paymentStatus: purchase.payment_status
         }, purchase.id);
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
-          children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
+      }), lastPage() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
+          children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("b", {
             children: " Total: "
           }), ' ']
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("b", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("b", {
             children: [" ", sumGrandTotal()]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("b", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("b", {
             children: [" ", sumAmountPaid()]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {})]
       })]
     })]
   });
@@ -9285,10 +9407,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _form_SalesReportForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./form/SalesReportForm */ "./resources/js/components/reports-pages/sales reports page/form/SalesReportForm.js");
-/* harmony import */ var _report_header_SalesReportHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./report header/SalesReportHeader */ "./resources/js/components/reports-pages/sales reports page/report header/SalesReportHeader.js");
-/* harmony import */ var _table_SalesReportTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./table/SalesReportTable */ "./resources/js/components/reports-pages/sales reports page/table/SalesReportTable.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_pagination_pagination_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/pagination/pagination-actions */ "./resources/js/actions/pagination/pagination-actions.js");
+/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/util_structures */ "./resources/js/utils/util_structures.js");
+/* harmony import */ var _common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common/pagination/Pagination */ "./resources/js/components/common/pagination/Pagination.js");
+/* harmony import */ var _form_SalesReportForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./form/SalesReportForm */ "./resources/js/components/reports-pages/sales reports page/form/SalesReportForm.js");
+/* harmony import */ var _report_header_SalesReportHeader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./report header/SalesReportHeader */ "./resources/js/components/reports-pages/sales reports page/report header/SalesReportHeader.js");
+/* harmony import */ var _table_SalesReportTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./table/SalesReportTable */ "./resources/js/components/reports-pages/sales reports page/table/SalesReportTable.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
 
 
 
@@ -9296,41 +9440,70 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function SalesReport() {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return [state.sales.fetched, state.sales.report, state.sales.list];
+  }),
+      _useSelector2 = _slicedToArray(_useSelector, 3),
+      fetched = _useSelector2[0],
+      report = _useSelector2[1],
+      sales = _useSelector2[2];
+
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+
+  var getSales = function getSales() {
+    if (report.dateRangeType === _utils_util_structures__WEBPACK_IMPORTED_MODULE_3__.dateRangeTypes.ALL_TIME) return sales;
+    return sales.filter(function (sale) {
+      return sale.date >= report.startDate && sale.date <= report.endDate;
+    });
+  };
+
   var handleClick = function handleClick() {
     return window.print();
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return cleanup;
+  }, []);
+
+  var cleanup = function cleanup() {
+    dispatch((0,_actions_pagination_pagination_actions__WEBPACK_IMPORTED_MODULE_2__.reset_pagination)());
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "main__content main__content--sales-report",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_report_header_SalesReportHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_form_SalesReportForm__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("section", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_report_header_SalesReportHeader__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_form_SalesReportForm__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("section", {
       className: "mt-5 table-container",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "card",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "card-header fs-2 d-flex justify-content-between align-items-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             className: "sales-h",
             children: " Sales Report "
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
             type: "button",
             onClick: handleClick,
             className: "btn btn--print-report",
             "data-bs-toggle": "tooltip",
             "data-bs-placement": "top",
             title: "Print",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
               className: "material-icons",
               children: "print"
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "card-body",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "table-responsive",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_table_SalesReportTable__WEBPACK_IMPORTED_MODULE_2__["default"], {})
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_table_SalesReportTable__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              sales: getSales()
+            })
           })
         })]
-      })
+      }), fetched && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        totalItems: getSales().length
+      })]
     })]
   });
 }
@@ -9574,9 +9747,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/util_structures */ "./resources/js/utils/util_structures.js");
-/* harmony import */ var _Sale__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Sale */ "./resources/js/components/reports-pages/sales reports page/table/Sale.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Sale__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Sale */ "./resources/js/components/reports-pages/sales reports page/table/Sale.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -9594,63 +9766,70 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+function SalesReportTable(_ref) {
+  var sales = _ref.sales;
 
-function SalesReportTable() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
-    return [state.sales.list, state.sales.report];
+    return [state.pagination];
   }),
-      _useSelector2 = _slicedToArray(_useSelector, 2),
-      sales = _useSelector2[0],
-      report = _useSelector2[1];
+      _useSelector2 = _slicedToArray(_useSelector, 1),
+      _useSelector2$ = _useSelector2[0],
+      currentPage = _useSelector2$.currentPage,
+      itemsPerPage = _useSelector2$.itemsPerPage;
 
-  var getSales = function getSales() {
-    if (report.dateRangeType === _utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.dateRangeTypes.ALL_TIME) return sales;
-    return sales.filter(function (sale) {
-      return sale.date >= report.startDate && sale.date <= report.endDate;
-    });
+  var itemsForCurrentPage = function itemsForCurrentPage() {
+    return sales.slice(initialItemIndexForCurrentPage(), initialItemIndexForCurrentPage() + itemsPerPage);
+  };
+
+  var initialItemIndexForCurrentPage = function initialItemIndexForCurrentPage() {
+    return (currentPage - 1) * itemsPerPage;
   };
 
   var sumGrandTotal = function sumGrandTotal() {
-    return getSales().reduce(function (prev, current) {
+    return sales.reduce(function (prev, current) {
       return prev + current.grand_total;
     }, 0);
   };
 
   var sumAmountPaid = function sumAmountPaid() {
-    return getSales().reduce(function (prev, current) {
+    return sales.reduce(function (prev, current) {
       return prev + current.net_payment;
     }, 0);
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+  var lastPage = function lastPage() {
+    return Math.ceil(sales.length / itemsPerPage) === currentPage;
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
     className: "table",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Date"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "ID"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Customer"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Grand total (RS)"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Paid (RS)"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Payment status"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col"
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tbody", {
-      children: [getSales().map(function (sale) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Sale__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tbody", {
+      children: [itemsForCurrentPage().map(function (sale) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Sale__WEBPACK_IMPORTED_MODULE_1__["default"], {
           date: sale.date,
           id: sale.id,
           customer: sale.customer,
@@ -9658,20 +9837,20 @@ function SalesReportTable() {
           amountPaid: sale.net_payment,
           paymentStatus: sale.payment_status
         }, sale.id);
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
-          children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
+      }), lastPage() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
+          children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("b", {
             children: " Total: "
           }), ' ']
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("b", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("b", {
             children: [" ", sumGrandTotal()]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("b", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("b", {
             children: [" ", sumAmountPaid()]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {})]
       })]
     })]
   });
@@ -9694,12 +9873,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/delete-confirmation/delete-confirmation-actions */ "./resources/js/actions/delete-confirmation/delete-confirmation-actions.js");
-/* harmony import */ var _actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/sales/sales-actions */ "./resources/js/actions/sales/sales-actions.js");
-/* harmony import */ var _actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
-/* harmony import */ var _table_SalesTable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./table/SalesTable */ "./resources/js/components/sales-page/table/SalesTable.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _actions_pagination_pagination_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/pagination/pagination-actions */ "./resources/js/actions/pagination/pagination-actions.js");
+/* harmony import */ var _actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/sales/sales-actions */ "./resources/js/actions/sales/sales-actions.js");
+/* harmony import */ var _actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
+/* harmony import */ var _common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common/pagination/Pagination */ "./resources/js/components/common/pagination/Pagination.js");
+/* harmony import */ var _table_SalesTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./table/SalesTable */ "./resources/js/components/sales-page/table/SalesTable.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -9722,58 +9903,64 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function Sales() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return [state.sales.fetched, state.deleteConfirmation];
+    return [state.sales.fetched, state.deleteConfirmation, state.sales.list];
   }),
-      _useSelector2 = _slicedToArray(_useSelector, 2),
+      _useSelector2 = _slicedToArray(_useSelector, 3),
       fetched = _useSelector2[0],
-      deleteConfirmation = _useSelector2[1];
+      deleteConfirmation = _useSelector2[1],
+      sales = _useSelector2[2];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!fetched) dispatch((0,_actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_3__.request_fetch_sales)());
+    if (!fetched) dispatch((0,_actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_4__.request_fetch_sales)());
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (deleteConfirmation.confirm) dispatch((0,_actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_3__.request_delete_sale)(deleteConfirmation.deleteID));
+    if (deleteConfirmation.confirm) dispatch((0,_actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_4__.request_delete_sale)(deleteConfirmation.deleteID));
   }, [deleteConfirmation.confirm]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     return cleanup;
   }, []);
 
   var cleanup = function cleanup() {
-    dispatch((0,_actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_4__.hide_success_message)());
+    dispatch((0,_actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_5__.hide_success_message)());
     dispatch((0,_actions_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_2__.hide_delete_confirmation)());
+    dispatch((0,_actions_pagination_pagination_actions__WEBPACK_IMPORTED_MODULE_3__.reset_pagination)());
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "main__content main__content--sales",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "d-xl-flex align-items-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
         className: "btn btn-primary px-3 py-2 d-flex align-items-center add-btn",
         to: "/add-sale",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           className: "material-icons me-1",
           children: " add "
         }), " New Sale"]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("section", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("section", {
       className: "mt-5 table-container",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "card",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "card-header fs-2",
           children: "Sales"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "card-body",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "table-responsive",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_table_SalesTable__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_table_SalesTable__WEBPACK_IMPORTED_MODULE_7__["default"], {})
           })
         })]
-      })
+      }), fetched && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        totalItems: sales.length
+      })]
     })]
   });
 }
@@ -10902,15 +11089,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _Sale__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Sale */ "./resources/js/components/sales-page/table/Sale.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
 
 
 function SalesTable() {
-  var sales = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
-    return state.sales.list;
-  });
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+    return [state.sales.list, state.pagination];
+  }),
+      _useSelector2 = _slicedToArray(_useSelector, 2),
+      sales = _useSelector2[0],
+      pagination = _useSelector2[1];
+
+  var itemsForCurrentPage = function itemsForCurrentPage() {
+    return sales.slice(initialItemIndexForCurrentPage(), initialItemIndexForCurrentPage() + pagination.itemsPerPage);
+  };
+
+  var initialItemIndexForCurrentPage = function initialItemIndexForCurrentPage() {
+    return (pagination.currentPage - 1) * pagination.itemsPerPage;
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
     className: "table",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
@@ -10939,7 +11150,7 @@ function SalesTable() {
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
-      children: sales.map(function (sale) {
+      children: itemsForCurrentPage().map(function (sale) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Sale__WEBPACK_IMPORTED_MODULE_1__["default"], {
           date: sale.date,
           id: sale.id,
@@ -11134,11 +11345,11 @@ function Sidebar() {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("ul", {
           className: "report-types report-types--open ps-0 mb-0 list-group-flush bg-primary",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
-            to: "/sales_report",
+            to: "/sales-report",
             className: "d-block list-group-item",
             children: "Sales Report"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
-            to: "/purchases_report",
+            to: "/purchases-report",
             className: "d-block list-group-item",
             children: "Purchases Report"
           })]
@@ -11185,12 +11396,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/delete-confirmation/delete-confirmation-actions */ "./resources/js/actions/delete-confirmation/delete-confirmation-actions.js");
-/* harmony import */ var _actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
-/* harmony import */ var _actions_suppliers_suppliers_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/suppliers/suppliers-actions */ "./resources/js/actions/suppliers/suppliers-actions.js");
-/* harmony import */ var _table_SuppliersTable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./table/SuppliersTable */ "./resources/js/components/suppliers-page/table/SuppliersTable.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _actions_pagination_pagination_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/pagination/pagination-actions */ "./resources/js/actions/pagination/pagination-actions.js");
+/* harmony import */ var _actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
+/* harmony import */ var _actions_suppliers_suppliers_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/suppliers/suppliers-actions */ "./resources/js/actions/suppliers/suppliers-actions.js");
+/* harmony import */ var _common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common/pagination/Pagination */ "./resources/js/components/common/pagination/Pagination.js");
+/* harmony import */ var _table_SuppliersTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./table/SuppliersTable */ "./resources/js/components/suppliers-page/table/SuppliersTable.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -11213,53 +11426,60 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function Suppliers() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return [state.deleteConfirmation];
+    return [state.suppliers.fetched, state.deleteConfirmation, state.suppliers.list];
   }),
-      _useSelector2 = _slicedToArray(_useSelector, 1),
-      deleteConfirmation = _useSelector2[0];
+      _useSelector2 = _slicedToArray(_useSelector, 3),
+      fetched = _useSelector2[0],
+      deleteConfirmation = _useSelector2[1],
+      suppliers = _useSelector2[2];
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (deleteConfirmation.confirm) dispatch((0,_actions_suppliers_suppliers_actions__WEBPACK_IMPORTED_MODULE_4__.request_delete_supplier)(deleteConfirmation.deleteID));
+    if (deleteConfirmation.confirm) dispatch((0,_actions_suppliers_suppliers_actions__WEBPACK_IMPORTED_MODULE_5__.request_delete_supplier)(deleteConfirmation.deleteID));
   }, [deleteConfirmation.confirm]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     return cleanup;
   }, []);
 
   var cleanup = function cleanup() {
-    dispatch((0,_actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_3__.hide_success_message)());
+    dispatch((0,_actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_4__.hide_success_message)());
     dispatch((0,_actions_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_2__.hide_delete_confirmation)());
+    dispatch((0,_actions_pagination_pagination_actions__WEBPACK_IMPORTED_MODULE_3__.reset_pagination)());
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "main__content main__content--suppliers",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "d-xl-flex align-items-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
         className: "btn btn-primary px-3 py-2 d-flex align-items-center add-btn",
         to: "/add-supplier",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           className: "material-icons me-1",
           children: " add "
         }), " New Supplier"]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("section", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("section", {
       className: "mt-5 table-container",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "card",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "card-header fs-2",
           children: "Suppliers"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "card-body",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "table-responsive",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_table_SuppliersTable__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_table_SuppliersTable__WEBPACK_IMPORTED_MODULE_7__["default"], {})
           })
         })]
-      })
+      }), fetched && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        totalItems: suppliers.length
+      })]
     })]
   });
 }
@@ -11652,15 +11872,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _Supplier__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Supplier */ "./resources/js/components/suppliers-page/table/Supplier.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
 
 
 function SuppliersTable() {
-  var suppliers = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
-    return state.suppliers.list;
-  });
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+    return [state.suppliers.list, state.pagination];
+  }),
+      _useSelector2 = _slicedToArray(_useSelector, 2),
+      suppliers = _useSelector2[0],
+      pagination = _useSelector2[1];
+
+  var itemsForCurrentPage = function itemsForCurrentPage() {
+    return suppliers.slice(initialItemIndexForCurrentPage(), initialItemIndexForCurrentPage() + pagination.itemsPerPage);
+  };
+
+  var initialItemIndexForCurrentPage = function initialItemIndexForCurrentPage() {
+    return (pagination.currentPage - 1) * pagination.itemsPerPage;
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
     className: "table",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
@@ -11683,7 +11927,7 @@ function SuppliersTable() {
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
-      children: suppliers.map(function (supplier) {
+      children: itemsForCurrentPage().map(function (supplier) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Supplier__WEBPACK_IMPORTED_MODULE_1__["default"], {
           id: supplier.id,
           name: supplier.name,
@@ -11757,9 +12001,7 @@ function Users() {
       users = _useSelector2[2];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!fetched) dispatch((0,_actions_users_users_actions__WEBPACK_IMPORTED_MODULE_5__.fetch_users)()); // .then(() =>
-    // dispatch(set_pagination({ totalItems: users.length }))
-    // );
+    if (!fetched) dispatch((0,_actions_users_users_actions__WEBPACK_IMPORTED_MODULE_5__.fetch_users)());
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (deleteConfirmation.confirm) dispatch((0,_actions_users_users_actions__WEBPACK_IMPORTED_MODULE_5__.request_delete_user)(deleteConfirmation.deleteID));
@@ -11785,9 +12027,9 @@ function Users() {
       }), ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
         children: " New User "
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("section", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("section", {
       className: "mt-5",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "card",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "card-header fs-2",
@@ -11799,9 +12041,9 @@ function Users() {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_table_UsersTable__WEBPACK_IMPORTED_MODULE_7__["default"], {})
           })
         })]
-      })
-    }), fetched && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
-      totalItems: users.length
+      }), fetched && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        totalItems: users.length
+      })]
     })]
   });
 }
@@ -13692,10 +13934,10 @@ __webpack_require__.r(__webpack_exports__);
 function ReportsRouter() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_4__.Route, {
-      path: "/purchases_report",
+      path: "/purchases-report",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_reports_pages_purchases_reports_page_PurchasesReport__WEBPACK_IMPORTED_MODULE_1__["default"], {})
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_4__.Route, {
-      path: "/sales_report",
+      path: "/sales-report",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_reports_pages_sales_reports_page_SalesReport__WEBPACK_IMPORTED_MODULE_2__["default"], {})
     })]
   });

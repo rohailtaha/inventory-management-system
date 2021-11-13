@@ -2,18 +2,21 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
+import { reset_pagination } from '../../actions/pagination/pagination-actions';
 import {
   request_delete_purchase,
   request_fetch_purchases,
 } from '../../actions/purchases/purchases-actions';
 import { hide_success_message } from '../../actions/success-message/success-message-actions';
+import Paginaton from '../common/pagination/Pagination';
 import PurchasesTable from './table/PurchasesTable';
 
 function Purchases() {
   const dispatch = useDispatch();
-  const [fetched, deleteConfirmation] = useSelector(state => [
+  const [fetched, deleteConfirmation, purchases] = useSelector(state => [
     state.purchases.fetched,
     state.deleteConfirmation,
+    state.purchases.list,
   ]);
 
   useEffect(() => {
@@ -30,6 +33,7 @@ function Purchases() {
   const cleanup = () => {
     dispatch(hide_success_message());
     dispatch(hide_delete_confirmation());
+    dispatch(reset_pagination());
   };
 
   return (
@@ -52,6 +56,7 @@ function Purchases() {
             </div>
           </div>
         </div>
+        {fetched && <Paginaton totalItems={purchases.length} />}
       </section>
     </div>
   );

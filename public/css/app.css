@@ -11521,8 +11521,8 @@ input::placeholder {
   min-width: 700px;
 }
 
-.main__content--categories .table-container .card {
-  max-width: 600px;
+.main__content--categories .table-container {
+  max-width: 650px;
 }
 
 .edit-category-modal {
@@ -11621,6 +11621,9 @@ input::placeholder {
   .main__content {
     width: initial !important;
     margin: 0 !important;
+  }
+  .main__content .pages {
+    display: none !important;
   }
 
   .main__content--sales-report,

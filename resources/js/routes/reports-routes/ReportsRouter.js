@@ -6,10 +6,10 @@ import SalesReport from '../../components/reports-pages/sales reports page/Sales
 function ReportsRouter() {
   return (
     <Fragment>
-      <Route path='/purchases_report'>
+      <Route path='/purchases-report'>
         <PurchasesReport />
       </Route>
-      <Route path='/sales_report'>
+      <Route path='/sales-report'>
         <SalesReport />
       </Route>
     </Fragment>

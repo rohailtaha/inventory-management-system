@@ -1,25 +1,26 @@
 import { useSelector } from 'react-redux';
-import { dateRangeTypes } from '../../../../utils/util_structures';
 import Sale from './Sale';
 
-function SalesReportTable() {
-  const [sales, report] = useSelector(state => [
-    state.sales.list,
-    state.sales.report,
+function SalesReportTable({ sales }) {
+  const [{ currentPage, itemsPerPage }] = useSelector(state => [
+    state.pagination,
   ]);
 
-  const getSales = () => {
-    if (report.dateRangeType === dateRangeTypes.ALL_TIME) return sales;
-    return sales.filter(
-      sale => sale.date >= report.startDate && sale.date <= report.endDate
+  const itemsForCurrentPage = () =>
+    sales.slice(
+      initialItemIndexForCurrentPage(),
+      initialItemIndexForCurrentPage() + itemsPerPage
     );
-  };
+
+  const initialItemIndexForCurrentPage = () => (currentPage - 1) * itemsPerPage;
 
   const sumGrandTotal = () =>
-    getSales().reduce((prev, current) => prev + current.grand_total, 0);
+    sales.reduce((prev, current) => prev + current.grand_total, 0);
 
   const sumAmountPaid = () =>
-    getSales().reduce((prev, current) => prev + current.net_payment, 0);
+    sales.reduce((prev, current) => prev + current.net_payment, 0);
+
+  const lastPage = () => Math.ceil(sales.length / itemsPerPage) === currentPage;
 
   return (
     <table className='table'>
@@ -35,7 +36,7 @@ function SalesReportTable() {
         </tr>
       </thead>
       <tbody>
-        {getSales().map(sale => (
+        {itemsForCurrentPage().map(sale => (
           <Sale
             key={sale.id}
             date={sale.date}
@@ -46,21 +47,23 @@ function SalesReportTable() {
             paymentStatus={sale.payment_status}
           />
         ))}
-        <tr>
-          <td>
-            {' '}
-            <b> Total: </b>{' '}
-          </td>
-          <td></td>
-          <td></td>
-          <td>
-            <b> {sumGrandTotal()}</b>
-          </td>
-          <td>
-            <b> {sumAmountPaid()}</b>
-          </td>
-          <td></td>
-        </tr>
+        {lastPage() && (
+          <tr>
+            <td>
+              {' '}
+              <b> Total: </b>{' '}
+            </td>
+            <td></td>
+            <td></td>
+            <td>
+              <b> {sumGrandTotal()}</b>
+            </td>
+            <td>
+              <b> {sumAmountPaid()}</b>
+            </td>
+            <td></td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

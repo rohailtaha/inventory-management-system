@@ -52,8 +52,8 @@ function Inventory() {
             </div>
           </div>
         </div>
+        {fetched && <Paginaton totalItems={products.length} />}
       </section>
-      {fetched && <Paginaton totalItems={products.length} />}
     </div>
   );
 }

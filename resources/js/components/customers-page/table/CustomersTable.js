@@ -2,7 +2,19 @@ import { useSelector } from 'react-redux';
 import Customer from './Customer';
 
 function CustomersTable() {
-  const customers = useSelector(state => state.customers.list);
+  const [customers, pagination] = useSelector(state => [
+    state.customers.list,
+    state.pagination,
+  ]);
+
+  const itemsForCurrentPage = () =>
+    customers.slice(
+      initialItemIndexForCurrentPage(),
+      initialItemIndexForCurrentPage() + pagination.itemsPerPage
+    );
+
+  const initialItemIndexForCurrentPage = () =>
+    (pagination.currentPage - 1) * pagination.itemsPerPage;
 
   return (
     <table className='table'>
@@ -16,7 +28,7 @@ function CustomersTable() {
         </tr>
       </thead>
       <tbody>
-        {customers.map(customer => (
+        {itemsForCurrentPage().map(customer => (
           <Customer
             id={customer.id}
             name={customer.name}

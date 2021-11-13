@@ -60,8 +60,8 @@ function Categories() {
                 </div>
               </div>
             </div>
+            {fetched && <Paginaton totalItems={categories.length} />}
           </section>
-          {fetched && <Paginaton totalItems={categories.length} />}
         </div>
       )}
     </Fragment>

@@ -1,9 +1,35 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { reset_pagination } from '../../../actions/pagination/pagination-actions';
+import { dateRangeTypes } from '../../../utils/util_structures';
+import Paginaton from '../../common/pagination/Pagination';
 import SalesReportForm from './form/SalesReportForm';
 import SalesReportHeader from './report header/SalesReportHeader';
 import SalesReportTable from './table/SalesReportTable';
 
 function SalesReport() {
+  const [fetched, report, sales] = useSelector(state => [
+    state.sales.fetched,
+    state.sales.report,
+    state.sales.list,
+  ]);
+
+  const dispatch = useDispatch();
+
+  const getSales = () => {
+    if (report.dateRangeType === dateRangeTypes.ALL_TIME) return sales;
+    return sales.filter(
+      sale => sale.date >= report.startDate && sale.date <= report.endDate
+    );
+  };
+
   const handleClick = () => window.print();
+
+  useEffect(() => cleanup, []);
+
+  const cleanup = () => {
+    dispatch(reset_pagination());
+  };
 
   return (
     <div className='main__content main__content--sales-report'>
@@ -27,10 +53,11 @@ function SalesReport() {
           </div>
           <div className='card-body'>
             <div className='table-responsive'>
-              <SalesReportTable />
+              <SalesReportTable sales={getSales()} />
             </div>
           </div>
         </div>
+        {fetched && <Paginaton totalItems={getSales().length} />}
       </section>
     </div>
   );

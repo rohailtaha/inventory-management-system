@@ -258,9 +258,7 @@ input::placeholder {
 
 .main__content--categories {
   .table-container {
-    .card {
-      max-width: 600px;
-    }
+    max-width: 650px;
   }
 }
 
@@ -376,6 +374,10 @@ input::placeholder {
   .main__content {
     width: initial !important;
     margin: 0 !important;
+
+    .pages {
+      display: none !important;
+    }
   }
 
   .main__content--sales-report,
