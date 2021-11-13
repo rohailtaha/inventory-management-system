@@ -64,8 +64,7 @@ input::placeholder {
   z-index: 12;
   .menu-btn {
     @include position(absolute, 10px, 10px, null, null);
-    i {
-      color: white;
+    span {
       font-size: 30px;
     }
   }
@@ -112,8 +111,8 @@ input::placeholder {
   }
 
   &__quick-actions {
-    i {
-      font-size: 0.8rem;
+    .add-icon {
+      font-size: 1rem;
     }
     li,
     a {
@@ -121,6 +120,12 @@ input::placeholder {
     }
     a {
       @include font(0.85rem);
+    }
+  }
+
+  &__actions {
+    .material-icons {
+      font-size: 1.2rem;
     }
   }
 
