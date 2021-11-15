@@ -33,7 +33,7 @@ export default function PagesList({ currentPage, totalPages }) {
   const disableNextPageButton = () => currentPage === totalPages;
 
   return (
-    <ul className='pages__list d-flex justify-content-center ps-0'>
+    <ul className='pages__list d-flex justify-content-center align-items-center ps-0 mb-1'>
       <PreviousPageButton
         disabled={disablePreviousPageButton()}
         currentPage={currentPage}

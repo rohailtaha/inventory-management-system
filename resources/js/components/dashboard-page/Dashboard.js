@@ -6,13 +6,9 @@ import HighestSellingProductsTable from './tables/highest selling products/Highe
 function Dashboard() {
   return (
     <div className='main__content main__content--dashboard'>
-      <InventoryStats inStock={1500} underStock={3} />
+      <InventoryStats />
       <hr />
-      <CashFlowStats
-        totalPurchases={121000}
-        totalSales={176000}
-        salesProfit={45000}
-      />
+      <CashFlowStats />
       <hr />
 
       <section className='mt-5'>

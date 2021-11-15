@@ -15,4 +15,19 @@ class SoldProduct extends Pivot {
   public $incrementing = true;
   public $timestamps = false;
 
+  public $afterCommit = true;
+
+  protected static function booted() {
+    static::created(function ($soldProduct) {
+      $product = Product::find($soldProduct->product_id);
+      $product->quantity -= $soldProduct->quantity;
+      $product->save();
+    });
+
+    static::deleting(function ($soldProduct) {
+      $product = Product::find($soldProduct->product_id);
+      $product->quantity += $soldProduct->quantity;
+      $product->save();
+    });
+  }
 }

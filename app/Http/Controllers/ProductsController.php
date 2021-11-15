@@ -20,6 +20,19 @@ class ProductsController extends Controller {
     return response(['status' => 'OK', 'products' => $products], 200);
   }
 
+  public function getProducts(Request $request) {
+    $products = [];
+    foreach ($request->products as $id) {
+      $products[] = Product::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->first();
+    }
+
+    $products = array_map(function ($product) {
+      return $product->requiredFields();
+    }, $products);
+
+    return response(['status' => 'OK', 'products' => $products], 200);
+  }
+
   public function store(Request $request) {
 
     $validator = Validator::make($request->all(), [

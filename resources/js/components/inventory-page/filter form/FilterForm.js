@@ -1,5 +1,29 @@
+import { defaults } from 'lodash';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { set_search_form } from '../../../actions/products/products-actions';
+import ProductCategoryOption from '../../common/product-category-option/ProductCategoryOption';
+
 function FilterForm() {
-  const handleChange = event => {};
+  const [categories] = useSelector(state => [state.categories.list]);
+  const dispatch = useDispatch();
+
+  const defaultState = () => ({
+    product: '',
+    category: 'All',
+  });
+
+  const handleChange = event => {
+    dispatch(
+      set_search_form({
+        [event.target.name]: event.target.value,
+      })
+    );
+  };
+
+  useEffect(() => {
+    dispatch(set_search_form(defaultState()));
+  }, []);
 
   return (
     <form action='' className='mt-5 mt-xl-0'>
@@ -14,13 +38,10 @@ function FilterForm() {
             name='category'
             onChange={handleChange}
           >
-            <option value='All'>All</option>
-            <option value='1'>Kitchenware</option>
-            <option value='2'>Bakery</option>
-            <option value='3'>Home Appliances</option>
-            <option value='3'>Clothing</option>
-            <option value='3'>Movies & Games</option>
-            <option value='3'>Shoes</option>
+            <option value='All'> All </option>;
+            {categories.map(category => (
+              <ProductCategoryOption name={category.name} key={category.id} />
+            ))}
           </select>
         </div>
 
@@ -33,7 +54,7 @@ function FilterForm() {
             type='search'
             className='form-control form-control-sm'
             id='search'
-            name='search'
+            name='product'
             onChange={handleChange}
           />
         </div>

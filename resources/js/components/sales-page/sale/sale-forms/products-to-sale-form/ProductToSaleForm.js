@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   add_product_to_sale,
@@ -10,7 +10,25 @@ import {
   isEmpty,
   removeExtraSpaces,
 } from '../../../../../utils/utility_functions';
+import { ERROR_DURATION } from '../../../../../utils/util_structures';
 import FormError from '../../../../common/form-error/FormError';
+
+const errorMsgs = {
+  PRODUCT_ALREADY_ADDED: 'This product has already been added.',
+  PRODUCT_DOES_NOT_EXIST: 'The product does not exist.',
+  NOT_ENOUGH_STOCK:
+    'Stock quantity of this product is less than quantity ordered.',
+};
+
+const defaultForm = {
+  id: '',
+  barcode: '',
+  name: '',
+  per_item_price: '',
+  discount: '',
+  quantity: '',
+  quantityInStock: '',
+};
 
 export default function ProductToSaleForm() {
   const [products, productsToSale, error] = useSelector(state => [
@@ -19,14 +37,9 @@ export default function ProductToSaleForm() {
     state.sales.productsToSaleFormError,
   ]);
 
-  const [form, setForm] = useState({
-    id: '',
-    barcode: '',
-    name: '',
-    per_item_price: '',
-    discount: '',
-    quantity: '',
-  });
+  const [form, setForm] = useState(defaultForm);
+
+  const barcodeRef = useRef();
 
   const dispatch = useDispatch();
 
@@ -53,20 +66,21 @@ export default function ProductToSaleForm() {
     return '';
   };
 
-  const productExists = () => products.some(product => product.id === form.id);
   const productAlreadyAdded = () =>
-    productsToSale.some(product => product.id === form.id);
+    productsToSale.some(product => product.id === parseInt(form.id));
 
   const addProductToForm = () => {
-    const product = getProduct(removeExtraSpaces(form.barcode));
+    const product = getProduct(removeExtraSpaces(barcodeRef.current.value));
     if (product) {
       setForm(form => ({
         ...form,
-        id: product.id,
+        barcode: product.barcode,
+        id: product.id.toString(),
         name: product.name,
-        per_item_price: product.sale_price,
-        discount: product.discount,
+        per_item_price: product.sale_price.toString(),
+        discount: product.discount.toString(),
         quantity: '1',
+        quantityInStock: product.quantity.toString(),
       }));
     }
   };
@@ -82,7 +96,7 @@ export default function ProductToSaleForm() {
     event.preventDefault();
     const validator = validate();
     if (validator.error) {
-      dispatch(show_products_to_sale_form_error(validator.msg));
+      showError(validator.msg);
     } else {
       dispatch(add_product_to_sale(dataWithCorrectFormat()));
       dispatch(hide_products_to_sale_form_error());
@@ -106,12 +120,16 @@ export default function ProductToSaleForm() {
       msg: '',
     };
 
-    if (!productExists()) {
-      errorObj.msg = 'The product does not exist.';
+    if (!getProduct(form.barcode)) {
+      errorObj.msg = errorMsgs.PRODUCT_DOES_NOT_EXIST;
       return errorObj;
     }
     if (productAlreadyAdded()) {
-      errorObj.msg = 'This product has already been added.';
+      errorObj.msg = errorMsgs.PRODUCT_ALREADY_ADDED;
+      return errorObj;
+    }
+    if (form.quantity > getProduct(form.barcode).quantity) {
+      errorObj.msg = errorMsgs.NOT_ENOUGH_STOCK;
       return errorObj;
     }
 
@@ -120,15 +138,18 @@ export default function ProductToSaleForm() {
     };
   };
 
-  const resetForm = () =>
-    setForm({
-      id: '',
-      barcode: '',
-      name: '',
-      per_item_price: '',
-      discount: '',
-      quantity: '',
-    });
+  const showError = (msg, duration = 0) => {
+    dispatch(show_products_to_sale_form_error(msg));
+    setTimeout(
+      () => dispatch(hide_products_to_sale_form_error()),
+      duration || ERROR_DURATION
+    );
+  };
+
+  const resetForm = () => {
+    barcodeRef.current.value = '';
+    setForm(defaultForm);
+  };
 
   useEffect(() => cleanup, []);
 
@@ -144,16 +165,15 @@ export default function ProductToSaleForm() {
           className='form-control form-control-sm w-auto'
           id='barcode'
           placeholder='Enter Barcode'
-          onChange={handleChange}
+          ref={barcodeRef}
           name='barcode'
-          value={form.barcode}
         />
         <button
           className='btn btn-secondary btn-sm ms-3 px-2 py-1 fw-bold'
           type='button'
           onClick={addProductToForm}
         >
-          <i className='fas fa-plus me-2'></i> Add
+          Add
         </button>
       </div>
       <div className='mb-2'>
@@ -232,20 +252,37 @@ export default function ProductToSaleForm() {
           </div>
         </div>
       </div>
-      <div className='mb-1'>
-        <label htmlFor='quantity' className='form-label fw-bold'>
-          Quantity
-        </label>
-        <input
-          type='number'
-          className='form-control form-control-sm'
-          id='quantity'
-          onChange={handleChange}
-          name='quantity'
-          value={form.quantity}
-          min='1'
-          required
-        />
+
+      <div className='d-md-flex mb-2 align-items-end'>
+        <div className='mb-2 mb-md-0 me-md-2 flex-grow-1'>
+          <label htmlFor='quantity' className='form-label fw-bold'>
+            Quantity
+          </label>
+          <input
+            type='number'
+            className='form-control form-control-sm'
+            id='quantity'
+            onChange={handleChange}
+            name='quantity'
+            value={form.quantity}
+            min='1'
+            required
+          />
+        </div>
+        <div className='mb-2 mb-md-0 me-md-2 flex-grow-1'>
+          <label htmlFor='inStock' className='form-label fw-bold'>
+            In Stock
+          </label>
+          <input
+            type='number'
+            className='form-control form-control-sm'
+            id='inStock'
+            name='inStock'
+            value={form.quantityInStock}
+            required
+            readOnly
+          />
+        </div>
       </div>
       <div className='mb-3'>
         <label htmlFor='total-price' className='form-label fw-bold'>

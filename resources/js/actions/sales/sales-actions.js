@@ -2,11 +2,12 @@ import { SERVER_ERROR } from '../../utils/util_structures';
 import actionTypes from '../action-types';
 import { hide_delete_confirmation } from '../delete-confirmation/delete-confirmation-actions';
 import { load, stopLoading } from '../load/load';
+import { request_fetch_some_products } from '../products/products-actions';
 import { show_success_message } from '../success-message/success-message-actions';
 
 const SUCCESSFULL_CREATE_MSG = 'Sale added.';
 const SUCCESSFULL_UPDATE_MSG = 'Sale updated.';
-const SUCCESSFULL_DELETE_MSG = 'Sale Deleted';
+const SUCCESSFULL_DELETE_MSG = 'Sale Deleted.';
 
 export function request_fetch_sales() {
   return async dispatch => {
@@ -37,6 +38,11 @@ export function request_create_sale(sale) {
       const response = await axios.post('/api/sales', sale);
       if (response.data.status === 'OK') {
         dispatch(create_sale(response.data.sale));
+        dispatch(
+          request_fetch_some_products(
+            response.data.sale.products.map(product => product.id)
+          )
+        );
         dispatch(hide_error());
         dispatch(show_success_message(SUCCESSFULL_CREATE_MSG));
       } else {
@@ -64,6 +70,11 @@ export function request_update_sale(sale, id) {
       const response = await axios.put(`/api/sales/${id}`, sale);
       if (response.data.status === 'OK') {
         dispatch(update_sale(response.data.sale));
+        dispatch(
+          request_fetch_some_products(
+            response.data.sale.products.map(product => product.id)
+          )
+        );
         dispatch(hide_error());
         dispatch(show_success_message(SUCCESSFULL_UPDATE_MSG));
       } else {
@@ -84,13 +95,19 @@ export function request_delete_sale(id) {
     try {
       const response = await axios.delete(`/api/sales/${id}`);
       if (response.data.status === 'OK') {
-        dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
+        dispatch(
+          request_fetch_some_products(
+            response.data.products.map(product => product.id)
+          )
+        );
         dispatch(delete_sale(response.data.id));
+        dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
       } else {
         console.error(SERVER_ERROR);
       }
     } catch (error) {
-      console.error(SERVER_ERROR);
+      console.error(error);
+      // console.error(SERVER_ERROR);
     } finally {
       dispatch(stopLoading());
     }

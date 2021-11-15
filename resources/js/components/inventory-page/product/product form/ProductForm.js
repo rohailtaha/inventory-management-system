@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useState } from 'react/cjs/react.development';
 import {
-  create_product,
-  update_product,
+  request_create_product,
+  request_update_product,
 } from '../../../../actions/products/products-actions';
 import { discount, isEmpty } from '../../../../utils/utility_functions';
 import FormError from '../../../common/form-error/FormError';
-import Category from '../product category option/Category';
+import ProductCategoryOption from '../../../common/product-category-option/ProductCategoryOption';
 
 function ProductForm({ mode }) {
   const [products, categories, error, loading, successMessage] = useSelector(
@@ -28,7 +28,7 @@ function ProductForm({ mode }) {
     name: '',
     category: categories[0].name,
     description: '',
-    quantity: '1',
+    quantity: '0',
     alert_quantity: '',
     purchase_price: '',
     sale_price: '',
@@ -81,8 +81,8 @@ function ProductForm({ mode }) {
   const handleSubmit = event => {
     event.preventDefault();
     updateMode()
-      ? dispatch(update_product(dataWithCorrectFormats(), id))
-      : dispatch(create_product(dataWithCorrectFormats(), id));
+      ? dispatch(request_update_product(dataWithCorrectFormats(), id))
+      : dispatch(request_create_product(dataWithCorrectFormats()));
   };
 
   const dataWithCorrectFormats = () => {
@@ -93,10 +93,10 @@ function ProductForm({ mode }) {
       description: form.description,
       quantity: parseInt(form.quantity),
       alert_quantity: parseInt(form.alert_quantity),
-      purchase_price: parseFloat(form.purchase_price),
-      sale_price: parseFloat(form.sale_price),
-      discount: parseFloat(form.discount),
-      final_sale_price: parseFloat(finalSalePrice()),
+      purchase_price: parseFloat(parseFloat(form.purchase_price).toFixed(2)),
+      sale_price: parseFloat(parseFloat(form.sale_price).toFixed(2)),
+      discount: parseFloat(parseFloat(form.discount).toFixed(2)),
+      final_sale_price: parseFloat(parseFloat(finalSalePrice()).toFixed(2)),
     };
   };
 
@@ -110,7 +110,7 @@ function ProductForm({ mode }) {
       name: '',
       category: categories[0].name,
       description: '',
-      quantity: '1',
+      quantity: '0',
       alert_quantity: '',
       purchase_price: '',
       sale_price: '',
@@ -161,7 +161,7 @@ function ProductForm({ mode }) {
           required
         >
           {categories.map(category => (
-            <Category name={category.name} key={category.id} />
+            <ProductCategoryOption name={category.name} key={category.id} />
           ))}
         </select>
       </div>
@@ -244,7 +244,7 @@ function ProductForm({ mode }) {
         <div className='col d-sm-flex '>
           <div className='flex-grow-1 mb-3 mb-sm-0 me-sm-2'>
             <label htmlFor='quantity' className='form-label fw-bold'>
-              Opening Stock
+              Current Stock
             </label>
             <input
               type='number'

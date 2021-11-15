@@ -2,11 +2,12 @@ import { SERVER_ERROR } from '../../utils/util_structures';
 import actionTypes from '../action-types';
 import { hide_delete_confirmation } from '../delete-confirmation/delete-confirmation-actions';
 import { load, stopLoading } from '../load/load';
+import { request_fetch_some_products } from '../products/products-actions';
 import { show_success_message } from '../success-message/success-message-actions';
 
 const SUCCESSFULL_CREATE_MSG = 'Purchase added.';
 const SUCCESSFULL_UPDATE_MSG = 'Purchase updated.';
-const SUCCESSFULL_DELETE_MSG = 'Purchase Deleted';
+const SUCCESSFULL_DELETE_MSG = 'Purchase Deleted.';
 
 export function request_fetch_purchases() {
   return async dispatch => {
@@ -37,6 +38,11 @@ export function request_create_purchase(purchase) {
       const response = await axios.post('/api/purchases', purchase);
       if (response.data.status === 'OK') {
         dispatch(create_purchase(response.data.purchase));
+        dispatch(
+          request_fetch_some_products(
+            response.data.purchase.products.map(product => product.id)
+          )
+        );
         dispatch(hide_error());
         dispatch(show_success_message(SUCCESSFULL_CREATE_MSG));
       } else {
@@ -64,6 +70,11 @@ export function request_update_purchase(purchase, id) {
       const response = await axios.put(`/api/purchases/${id}`, purchase);
       if (response.data.status === 'OK') {
         dispatch(update_purchase(response.data.purchase));
+        dispatch(
+          request_fetch_some_products(
+            response.data.purchase.products.map(product => product.id)
+          )
+        );
         dispatch(hide_error());
         dispatch(show_success_message(SUCCESSFULL_UPDATE_MSG));
       } else {
@@ -84,8 +95,13 @@ export function request_delete_purchase(id) {
     try {
       const response = await axios.delete(`/api/purchases/${id}`);
       if (response.data.status === 'OK') {
-        dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
+        dispatch(
+          request_fetch_some_products(
+            response.data.products.map(product => product.id)
+          )
+        );
         dispatch(delete_purchase(response.data.id));
+        dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
       } else {
         console.error(SERVER_ERROR);
       }

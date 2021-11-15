@@ -24,4 +24,7 @@ export const dateRangeTypes = {
   CUSTOM: 'Custom',
 };
 
+// 3000 ms => 3s
+export const ERROR_DURATION = 3000;
+
 export const SERVER_ERROR = 'Server Error';

@@ -24,3 +24,13 @@ export function removeExtraSpaces(string) {
     .filter(s => s)
     .join(' ');
 }
+
+export const stringStarts = (parentString, childString) =>
+  removeExtraSpaces(parentString)
+    .toLowerCase()
+    .startsWith(removeExtraSpaces(childString).toLowerCase());
+
+export const stringIncludes = (parentString, childString) =>
+  removeExtraSpaces(parentString)
+    .toLowerCase()
+    .includes(removeExtraSpaces(childString).toLowerCase());

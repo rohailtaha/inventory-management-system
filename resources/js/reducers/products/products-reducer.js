@@ -3,6 +3,10 @@ import actionTypes from '../../actions/action-types';
 const initialState = {
   list: [],
   fetched: false,
+  searchForm: {
+    product: '',
+    category: '',
+  },
   error: {
     show: false,
     msg: '',
@@ -17,11 +21,25 @@ function productsReducer(state = initialState, action) {
         fetched: true,
         list: action.payload,
       };
+
+    case actionTypes.SET_SOME_PRODUCTS:
+      return {
+        ...state,
+        list: state.list.map(product => {
+          const updatedProduct = action.payload.products.find(
+            updatedProduct => product.id === updatedProduct.id
+          );
+          if (updatedProduct) return updatedProduct;
+          return product;
+        }),
+      };
+
     case actionTypes.CREATE_PRODUCT:
       return {
         ...state,
         list: [action.payload, ...state.list],
       };
+
     case actionTypes.UPDATE_PRODUCT:
       return {
         ...state,
@@ -29,11 +47,13 @@ function productsReducer(state = initialState, action) {
           product.id === action.payload.id ? action.payload : product
         ),
       };
+
     case actionTypes.DELETE_PRODUCT:
       return {
         ...state,
         list: state.list.filter(product => product.id != action.payload.id),
       };
+
     case actionTypes.SHOW_PRODUCTS_ERROR:
       return {
         ...state,
@@ -42,12 +62,22 @@ function productsReducer(state = initialState, action) {
           msg: action.payload.message,
         },
       };
+
     case actionTypes.HIDE_PRODUCTS_ERROR:
       return {
         ...state,
         error: {
           show: false,
           msg: '',
+        },
+      };
+
+    case actionTypes.SET_PRODUCTS_SEARCH_FORM:
+      return {
+        ...state,
+        searchForm: {
+          ...state.searchForm,
+          ...action.payload,
         },
       };
     default:

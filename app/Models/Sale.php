@@ -9,6 +9,16 @@ class Sale extends Model {
   use HasFactory;
   protected $fillable = ['shop_id', 'customer_id', 'grand_total', 'payment_received', 'payment_returned', 'net_payment', 'payment_status'];
 
+  protected static function booted() {
+    static::deleting(function ($sale) {
+      foreach ($sale->products as $soldProduct) {
+        $product = Product::find($soldProduct->id);
+        $product->quantity += $soldProduct->quantity;
+        $product->save();
+      }
+    });
+  }
+
   public function requiredFields() {
     return [
       'date' => $this->created_at->format('Y-m-d'),

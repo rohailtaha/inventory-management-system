@@ -11453,10 +11453,11 @@ input::placeholder {
 .sidebar--close .logo {
   display: none !important;
 }
-.sidebar--close .list-group a span {
+.sidebar--close .list-group .option-text {
   display: none;
 }
-.sidebar--close .sidebar__quick-actions {
+.sidebar--close .sidebar__quick-actions,
+.sidebar--close .sidebar__reports {
   display: none;
 }
 
@@ -11479,6 +11480,9 @@ input::placeholder {
 }
 .main .pages__list > li {
   margin: 0 0.15em;
+}
+.main .pages__list > li .btn--change-page .material-icons {
+  font-size: 20.5px;
 }
 
 .main--expanded {

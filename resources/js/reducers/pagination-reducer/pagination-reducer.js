@@ -1,7 +1,7 @@
 import actionTypes from '../../actions/action-types';
 
 const initialState = {
-  itemsPerPage: 2,
+  itemsPerPage: 25,
   currentPage: 1,
 };
 

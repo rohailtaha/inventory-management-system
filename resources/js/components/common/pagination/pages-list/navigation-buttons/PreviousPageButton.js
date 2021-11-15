@@ -9,7 +9,7 @@ export default function PreviousPageButton({ currentPage, disabled }) {
       <button
         className={`page${
           disabled ? '' : ' page--clickable'
-        } btn btn-secondary d-flex px-1 mx-0`}
+        } btn btn-secondary btn-sm d-flex px-1 mx-0 btn--change-page`}
         onClick={() => dispatch(set_current_page(currentPage - 1))}
         disabled={disabled}
         style={{ cursor: `${disabled ? 'auto' : 'pointer'}` }}

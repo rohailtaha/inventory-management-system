@@ -6,8 +6,10 @@ use App\Models\Sale;
 use App\Models\SoldProduct;
 use App\Rules\CorrectNetPayment;
 use App\Rules\CorrectTotalPriceForProducts;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -48,27 +50,26 @@ class SalesController extends Controller {
       return $this->errorResponse($validator);
     }
 
-    $sale = Sale::create(array_merge(
-      ['shop_id' => auth()->user()->shop_id],
-      $request->only('customer_id', 'grand_total', 'payment_received', 'payment_returned', 'net_payment', 'payment_status')
-    ));
+    return DB::transaction(function () use ($request) {
+      $sale = Sale::create(array_merge(
+        ['shop_id' => auth()->user()->shop_id],
+        $request->only('customer_id', 'grand_total', 'payment_received', 'payment_returned', 'net_payment', 'payment_status')
+      ));
 
-    foreach ($request->products as $product) {
-      SoldProduct::create([
-        'sale_id' => $sale['id'],
-        'product_id' => $product['id'],
-        'per_item_price' => $product['per_item_price'],
-        'discount' => $product['discount'],
-        'final_sale_price' => $product['final_sale_price'],
-        'quantity' => $product['quantity'],
-        'total_price' => $product['total_price'],
-      ]);
-    }
+      foreach ($request->products as $product) {
+        SoldProduct::create([
+          'sale_id' => $sale['id'],
+          'product_id' => $product['id'],
+          'per_item_price' => $product['per_item_price'],
+          'discount' => $product['discount'],
+          'final_sale_price' => $product['final_sale_price'],
+          'quantity' => $product['quantity'],
+          'total_price' => $product['total_price'],
+        ]);
+      }
+      return response(['sale' => $sale->requiredFields(), 'status' => 'OK'], 200);
+    });
 
-    return response(
-      ['sale' => $sale->requiredFields(), 'status' => 'OK'],
-      200
-    );
   }
 
   public function update(Request $request, $id) {
@@ -95,42 +96,54 @@ class SalesController extends Controller {
       return $this->errorResponse($validator);
     }
 
-    $sale = Sale::where([
-      'shop_id' => auth()->user()->shop_id,
-      'id' => $id,
-    ])->update((array_merge(
-      ['shop_id' => auth()->user()->shop_id],
-      $request->only('customer_id', 'grand_total', 'payment_received', 'payment_returned', 'net_payment', 'payment_status')
-    )));
+    return DB::transaction(function () use ($request, $id) {
 
-    SoldProduct::where('sale_id', $id)->delete();
+      $sale = Sale::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->firstOrFail();
 
-    foreach ($request->products as $product) {
-      SoldProduct::create([
-        'sale_id' => $id,
-        'product_id' => $product['id'],
-        'per_item_price' => $product['per_item_price'],
-        'discount' => $product['discount'],
-        'final_sale_price' => $product['final_sale_price'],
-        'quantity' => $product['quantity'],
-        'total_price' => $product['total_price'],
-      ]);
-    }
+      // delete products for old sale
+      $soldProducts = SoldProduct::where('sale_id', $id)->get();
+      if ($soldProducts->isEmpty()) {
+        throw new Exception('No products found for this sale.');
+      }
+      $soldProducts->each(function ($row) {
+        $row->delete();
+      });
 
-    $sale = Sale::where([
-      'shop_id' => auth()->user()->shop_id,
-      'id' => $id,
-    ])->first();
+      // update sale
+      $sale->update((array_merge(
+        ['shop_id' => auth()->user()->shop_id],
+        $request->only('customer_id', 'grand_total', 'payment_received', 'payment_returned', 'net_payment', 'payment_status')
+      )));
 
-    return response(
-      ['sale' => $sale->requiredFields(), 'status' => 'OK'],
-      200
-    );
+      // add products for new sale
+      foreach ($request->products as $product) {
+        SoldProduct::create([
+          'sale_id' => $id,
+          'product_id' => $product['id'],
+          'per_item_price' => $product['per_item_price'],
+          'discount' => $product['discount'],
+          'final_sale_price' => $product['final_sale_price'],
+          'quantity' => $product['quantity'],
+          'total_price' => $product['total_price'],
+        ]);
+      }
+
+      return response(['sale' => $sale->fresh()->requiredFields(), 'status' => 'OK'], 200);
+    });
   }
 
   public function destroy($id) {
-    Sale::where([['id', $id], ['shop_id', auth()->user()->shop_id]])->first()->delete();
-    return response(['id' => $id, 'status' => 'OK'], 200);
+    return DB::transaction(function () use ($id) {
+      $sale = Sale::where(['id' => $id, 'shop_id' => auth()->user()->shop_id])->firstOrFail();
+      // get products for sale
+      $products = SoldProduct::select(DB::raw('product_id as id, quantity'))->where('sale_id', $id)->get();
+      if ($products->isEmpty()) {
+        throw new Exception('No products found for this sale.');
+      }
+      $sale->delete();
+      return response(['id' => $id, 'products' => $products, 'status' => 'OK'], 200);
+    });
+
   }
 
   private function invalid($validator) {

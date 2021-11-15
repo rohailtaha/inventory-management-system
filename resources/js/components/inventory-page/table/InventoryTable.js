@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { userRoles } from '../../../utils/util_structures';
 import Product from './Product';
 
-function InventoryTable() {
-  const [products, pagination] = useSelector(state => [
-    state.products.list,
+function InventoryTable({ products }) {
+  const [pagination, userRole] = useSelector(state => [
     state.pagination,
+    state.users.user.role,
   ]);
 
   const itemsForCurrentPage = () =>
@@ -27,7 +28,7 @@ function InventoryTable() {
           <th scope='col'>Quantity</th>
           <th scope='col'>Purchase Price (RS)</th>
           <th scope='col'>Final Sale Price (RS)</th>
-          <th scope='col'>Actions</th>
+          {userRole === userRoles.ADMIN && <th scope='col'>Actions</th>}
         </tr>
       </thead>
       <tbody>

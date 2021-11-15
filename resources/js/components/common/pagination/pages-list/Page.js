@@ -9,7 +9,7 @@ export default function Page({ pageNumber, active }) {
       <button
         className={`page page--clickable${
           active ? ' active-page' : ''
-        } btn btn-secondary mx-0`}
+        } btn btn-sm btn-secondary mx-0`}
         onClick={() => dispatch(set_current_page(pageNumber))}
       >
         {pageNumber}

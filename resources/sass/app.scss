@@ -176,14 +176,13 @@ input::placeholder {
   }
 
   .list-group {
-    a {
-      span {
-        display: none;
-      }
+    .option-text {
+      display: none;
     }
   }
 
-  .sidebar__quick-actions {
+  .sidebar__quick-actions,
+  .sidebar__reports {
     display: none;
   }
 }
@@ -208,6 +207,10 @@ input::placeholder {
   .pages {
     &__list > li {
       margin: 0 0.15em;
+
+      .btn--change-page .material-icons {
+        font-size: 20.5px;
+      }
     }
   }
 }

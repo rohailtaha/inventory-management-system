@@ -5,16 +5,39 @@ import { hide_delete_confirmation } from '../../actions/delete-confirmation/dele
 import { reset_pagination } from '../../actions/pagination/pagination-actions';
 import { request_delete_product } from '../../actions/products/products-actions';
 import { hide_success_message } from '../../actions/success-message/success-message-actions';
+import { stringStarts } from '../../utils/utility_functions';
+import { userRoles } from '../../utils/util_structures';
+import NoResultsMsg from '../common/no-results-msg/NoResultsMsg';
 import Paginaton from '../common/pagination/Pagination';
 import FilterForm from './filter form/FilterForm';
 import InventoryTable from './table/InventoryTable';
 
 function Inventory() {
-  const [fetched, deleteConfirmation, products] = useSelector(state => [
-    state.products.fetched,
-    state.deleteConfirmation,
-    state.products.list,
-  ]);
+  const [fetched, deleteConfirmation, products, searchForm, userRole] =
+    useSelector(state => [
+      state.products.fetched,
+      state.deleteConfirmation,
+      state.products.list,
+      state.products.searchForm,
+      state.users.user.role,
+    ]);
+
+  const filteredProducts = () => {
+    if (searchForm.category === 'All') {
+      return products.filter(
+        product =>
+          stringStarts(product.name, searchForm.product) ||
+          stringStarts(product.barcode, searchForm.product)
+      );
+    }
+    return products.filter(
+      product =>
+        product.category === searchForm.category &&
+        (stringStarts(product.name, searchForm.product) ||
+          stringStarts(product.barcode, searchForm.product))
+    );
+  };
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,13 +56,15 @@ function Inventory() {
   return (
     <div className='main__content main__content--inventory'>
       <div className='d-xl-flex align-items-center'>
-        <Link
-          className='btn btn-primary me-5 px-3 py-2 d-flex align-items-center add-btn'
-          to='/add-product'
-        >
-          <span className='material-icons me-1'> add </span>{' '}
-          <span> New Product </span>{' '}
-        </Link>
+        {userRole === userRoles.ADMIN && (
+          <Link
+            className='btn btn-primary me-5 px-3 py-2 d-flex align-items-center add-btn'
+            to='/add-product'
+          >
+            <span className='material-icons me-1'> add </span>{' '}
+            <span> New Product </span>{' '}
+          </Link>
+        )}
         <FilterForm />
       </div>
 
@@ -48,11 +73,15 @@ function Inventory() {
           <div className='card-header fs-2'>Products</div>
           <div className='card-body'>
             <div className='table-responsive'>
-              <InventoryTable />
+              {filteredProducts().length > 0 ? (
+                <InventoryTable products={filteredProducts()} />
+              ) : (
+                <NoResultsMsg />
+              )}
             </div>
           </div>
         </div>
-        {fetched && <Paginaton totalItems={products.length} />}
+        {fetched && <Paginaton totalItems={filteredProducts().length} />}
       </section>
     </div>
   );

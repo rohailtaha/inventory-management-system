@@ -18,6 +18,7 @@ import {
   show_error,
 } from '../../../../../actions/purchases/purchases-actions';
 import { isEmpty } from '../../../../../utils/utility_functions';
+import { request_fetch_some_products } from '../../../../../actions/products/products-actions';
 
 export default function PurchaseDetailsForm({ mode, grandTotal }) {
   const [purchases, productsToPurchase, suppliers, successMessage, error] =
