@@ -95,19 +95,14 @@ export function request_delete_sale(id) {
     try {
       const response = await axios.delete(`/api/sales/${id}`);
       if (response.data.status === 'OK') {
-        dispatch(
-          request_fetch_some_products(
-            response.data.products.map(product => product.id)
-          )
-        );
+        dispatch(request_fetch_some_products(response.data.products));
         dispatch(delete_sale(response.data.id));
         dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
       } else {
         console.error(SERVER_ERROR);
       }
     } catch (error) {
-      console.error(error);
-      // console.error(SERVER_ERROR);
+      console.error(SERVER_ERROR);
     } finally {
       dispatch(stopLoading());
     }

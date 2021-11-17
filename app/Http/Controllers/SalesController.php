@@ -16,6 +16,10 @@ use Illuminate\Validation\Rule;
 class SalesController extends Controller {
   private $paymentStatus = ['Paid', 'Unpaid', 'Partial'];
 
+  public function __construct() {
+    $this->middleware('shop.confirm:Sale')->except('index', 'store');
+  }
+
   public function index() {
 
     $sales = auth()->user()->shop->sales;
@@ -98,7 +102,7 @@ class SalesController extends Controller {
 
     return DB::transaction(function () use ($request, $id) {
 
-      $sale = Sale::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->firstOrFail();
+      $sale = Sale::findOrFail($id);
 
       // delete products for old sale
       $soldProducts = SoldProduct::where('sale_id', $id)->get();
@@ -134,12 +138,15 @@ class SalesController extends Controller {
 
   public function destroy($id) {
     return DB::transaction(function () use ($id) {
-      $sale = Sale::where(['id' => $id, 'shop_id' => auth()->user()->shop_id])->firstOrFail();
+      $sale = Sale::findOrFail($id);
       // get products for sale
-      $products = SoldProduct::select(DB::raw('product_id as id, quantity'))->where('sale_id', $id)->get();
+      $products = SoldProduct::select('product_id')->where('sale_id', $id)->get();
       if ($products->isEmpty()) {
         throw new Exception('No products found for this sale.');
       }
+      $products->transform(function ($product) {
+        return $product->product_id;
+      });
       $sale->delete();
       return response(['id' => $id, 'products' => $products, 'status' => 'OK'], 200);
     });

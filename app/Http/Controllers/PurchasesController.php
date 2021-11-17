@@ -17,6 +17,10 @@ class PurchasesController extends Controller {
   private $purchaseStatus = ['Received', 'Pending'];
   private $paymentStatus = ['Paid', 'Unpaid', 'Partial'];
 
+  public function __construct() {
+    $this->middleware('shop.confirm:Purchase')->except('index', 'store');
+  }
+
   public function index() {
 
     $purchases = auth()->user()->shop->purchases;
@@ -91,13 +95,14 @@ class PurchasesController extends Controller {
     }
 
     return DB::transaction(function () use ($request, $id) {
-      $purchase = Purchase::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->firstOrFail();
+      $purchase = Purchase::findOrFail($id);
 
       // delete products for old purchase
       $purchasedProducts = PurchasedProduct::where('purchase_id', $id)->get();
       if ($purchasedProducts->isEmpty()) {
         throw new Exception('No products found for this purchase.');
       }
+
       $purchasedProducts->each(function ($row) {
         $row->delete();
       });
@@ -125,11 +130,14 @@ class PurchasesController extends Controller {
 
   public function destroy($id) {
     return DB::transaction(function () use ($id) {
-      $purchase = Purchase::where(['id' => $id, 'shop_id' => auth()->user()->shop_id])->firstOrFail();
-      $products = PurchasedProduct::select(DB::raw('product_id as id, quantity'))->where('purchase_id', $id)->get();
+      $purchase = Purchase::findOrFail($id);
+      $products = PurchasedProduct::select('product_id')->where('purchase_id', $id)->get();
       if ($products->isEmpty()) {
         throw new Exception('No products found for this sale.');
       }
+      $products->transform(function ($product) {
+        return $product->product_id;
+      });
       $purchase->delete();
       return response(['id' => $id, 'products' => $products, 'status' => 'OK'], 200);
     });

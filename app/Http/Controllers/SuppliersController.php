@@ -10,6 +10,11 @@ use Illuminate\Validation\Rule;
 
 class SuppliersController extends Controller {
 
+  public function __construct() {
+    $this->middleware('admin')->except('index');
+    $this->middleware('shop.confirm:Supplier')->except('index', 'store');
+  }
+
   public function index() {
 
     $suppliers = auth()->user()->shop->suppliers;
@@ -51,6 +56,7 @@ class SuppliersController extends Controller {
     if ($this->invalid($validator)) {
       return $this->errorResponse($validator);
     }
+
     $supplier = Supplier::create(
       array_merge(
         ['shop_id' => auth()->user()->shop_id],
@@ -93,21 +99,14 @@ class SuppliersController extends Controller {
       return $this->errorResponse($validator);
     }
 
-    Supplier::where([
-      'shop_id' => auth()->user()->shop_id,
-      'id' => $id,
-    ])->update($request->only('name', 'email', 'contact', 'address'));
+    $supplier = Supplier::find($id);
+    $supplier->update($request->only('name', 'email', 'contact', 'address'));
 
-    $supplier = Supplier::where([
-      'shop_id' => auth()->user()->shop_id,
-      'id' => $id,
-    ])->first();
-
-    return response(['supplier' => $supplier->requiredFields(), 'status' => 'OK'], 200);
+    return response(['supplier' => $supplier->fresh()->requiredFields(), 'status' => 'OK'], 200);
   }
 
   public function destroy($id) {
-    Supplier::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->first()->delete();
+    Supplier::find($id)->delete();
     return response(['id' => $id, 'status' => 'OK'], 200);
   }
 

@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller {
+
+  public function __construct() {
+    $this->middleware('admin');
+    $this->middleware('shop.confirm:User')->except('index', 'store');
+  }
+
   public function index() {
     $users = User::where([['shop_id', auth()->user()->shop_id], ['id', '!=', auth()->user()->id]])->orderByDesc('created_at')->get();
     $users->transform(function ($user) {
@@ -48,6 +54,7 @@ class UsersController extends Controller {
   }
 
   public function update(Request $request, $id) {
+
     $validator = Validator::make($request->all(), [
       'name' => 'min:3|max:255|required',
       'email' => ['email', 'required', 'max:255', new UniqueEmailEdit(['id' => $id])],
@@ -60,7 +67,8 @@ class UsersController extends Controller {
       return $this->errorResponse($validator);
     }
 
-    User::where([['id', $id], ['shop_id', auth()->user()->shop_id]])->update(
+    $user = User::find($id);
+    $user->update(
       [
         'name' => $request->name,
         'email' => $request->email,
@@ -69,12 +77,11 @@ class UsersController extends Controller {
         'active' => $request->active,
       ]
     );
-    $user = User::where('id', $id)->first();
-    return response(['user' => $user->requiredFields(), 'status' => 'OK'], 200);
+    return response(['user' => $user->fresh()->requiredFields(), 'status' => 'OK'], 200);
   }
 
-  public function destroy(Request $request, $id) {
-    User::where([['id', $id], ['shop_id', auth()->user()->shop_id]])->first()->delete();
+  public function destroy($id) {
+    User::find($id)->delete();
     return response(['id' => $id, 'status' => 'OK'], 200);
   }
 

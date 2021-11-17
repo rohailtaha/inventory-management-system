@@ -80,6 +80,16 @@ function productsReducer(state = initialState, action) {
           ...action.payload,
         },
       };
+
+    case actionTypes.RESET_PRODUCTS_SEARCH_FORM:
+      return {
+        ...state,
+        searchForm: {
+          product: '',
+          category: '',
+        },
+      };
+
     default:
       return state;
   }

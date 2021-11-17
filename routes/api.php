@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'active'])->group(function () {
 
   Route::get('/users', [UsersController::class, 'index']);
   Route::post('/users', [UsersController::class, 'store']);
@@ -28,10 +28,10 @@ Route::middleware(['auth'])->group(function () {
   Route::delete('/users/{id}', [UsersController::class, 'destroy']);
 
   Route::get('/products', [ProductsController::class, 'index']);
-  Route::post('/some-products', [ProductsController::class, 'getProducts']);
   Route::post('/products', [ProductsController::class, 'store']);
   Route::put('/products/{id}', [ProductsController::class, 'update']);
   Route::delete('/products/{id}', [ProductsController::class, 'destroy']);
+  Route::post('/some-products', [ProductsController::class, 'getProducts']);
 
   Route::get('/categories', [CategoriesController::class, 'index']);
   Route::post('/categories', [CategoriesController::class, 'store']);
@@ -48,13 +48,13 @@ Route::middleware(['auth'])->group(function () {
   Route::put('/customers/{id}', [CustomersController::class, 'update']);
   Route::delete('/customers/{id}', [CustomersController::class, 'destroy']);
 
-  Route::get('/purchases', [PurchasesController::class, 'index']);
-  Route::post('/purchases', [PurchasesController::class, 'store']);
-  Route::put('/purchases/{id}', [PurchasesController::class, 'update']);
-  Route::delete('/purchases/{id}', [PurchasesController::class, 'destroy']);
-
   Route::get('/sales', [SalesController::class, 'index']);
   Route::post('/sales', [SalesController::class, 'store']);
   Route::put('/sales/{id}', [SalesController::class, 'update']);
   Route::delete('/sales/{id}', [SalesController::class, 'destroy']);
+
+  Route::get('/purchases', [PurchasesController::class, 'index']);
+  Route::post('/purchases', [PurchasesController::class, 'store']);
+  Route::put('/purchases/{id}', [PurchasesController::class, 'update']);
+  Route::delete('/purchases/{id}', [PurchasesController::class, 'destroy']);
 });

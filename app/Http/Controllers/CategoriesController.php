@@ -9,8 +9,14 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 
 class CategoriesController extends Controller {
+
+  public function __construct() {
+    $this->middleware('admin')->except('index');
+    $this->middleware('shop.confirm:Category')->except('index', 'store');
+  }
+
   public function index() {
-    $categories = Category::where('shop_id', auth()->user()->shop_id)->orderByDesc('created_at')->get();
+    $categories = auth()->user()->shop->categories;
     $categories->transform(function ($category) {
       return $category->requiredFields();
     });
@@ -45,17 +51,14 @@ class CategoriesController extends Controller {
       return $this->errorResponse($validator);
     }
 
-    Category::where([
-      'shop_id' => auth()->user()->shop_id,
-      'id' => $id,
-    ])->update(['name' => $request->name]);
+    $category = Category::find($id);
+    $category->update(['name' => $request->name]);
 
-    $category = Category::where([['shop_id', auth()->user()->shop_id], ['id', $id]])->first();
-    return response(['category' => $category->requiredFields(), 'status' => 'OK'], 200);
+    return response(['category' => $category->fresh()->requiredFields(), 'status' => 'OK'], 200);
   }
 
   public function destroy($id) {
-    Category::where([['shop_id', auth()->user()->shop_id], ['id', $id]])->first()->delete();
+    Category::find($id)->delete();
     return response(['id' => $id, 'status' => 'OK'], 200);
   }
 

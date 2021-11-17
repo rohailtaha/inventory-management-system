@@ -134,6 +134,10 @@ export const set_search_form = form => ({
   payload: form,
 });
 
+export const reset_search_form = () => ({
+  type: actionTypes.RESET_PRODUCTS_SEARCH_FORM,
+});
+
 export function show_error(msg) {
   return {
     type: actionTypes.SHOW_PRODUCTS_ERROR,

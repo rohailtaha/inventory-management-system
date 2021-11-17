@@ -11,9 +11,14 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 
 class ProductsController extends Controller {
+
+  public function __construct() {
+    $this->middleware('admin')->except('index', 'getProducts');
+    $this->middleware('shop.confirm:Product')->except('index', 'store', 'getProducts');
+  }
+
   public function index() {
-    $user = auth()->user();
-    $products = Product::where('shop_id', $user->shop_id)->orderByDesc('created_at')->get();
+    $products = Product::where('shop_id', auth()->user()->shop_id)->orderByDesc('created_at')->get();
     $products->transform(function ($product) {
       return $product->requiredFields();
     });
@@ -23,7 +28,7 @@ class ProductsController extends Controller {
   public function getProducts(Request $request) {
     $products = [];
     foreach ($request->products as $id) {
-      $products[] = Product::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->first();
+      $products[] = Product::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->firstOrFail();
     }
 
     $products = array_map(function ($product) {
@@ -56,7 +61,7 @@ class ProductsController extends Controller {
       'shop_id' => auth()->user()->shop_id,
       'barcode' => $request->barcode,
       'name' => $request->name,
-      'category_id' => Category::select('id')->where('name', $request->category)->first()->id,
+      'category_id' => Category::where('name', $request->category)->first()->id,
       'description' => $request->description,
       'quantity' => $request->quantity,
       'alert_quantity' => $request->alert_quantity,
@@ -87,7 +92,8 @@ class ProductsController extends Controller {
       return $this->errorResponse($validator);
     }
 
-    Product::where([['id', $id], ['shop_id', auth()->user()->shop_id]])->update([
+    $product = Product::find($id);
+    $product->update([
       'shop_id' => auth()->user()->shop_id,
       'barcode' => $request->barcode,
       'name' => $request->name,
@@ -100,12 +106,11 @@ class ProductsController extends Controller {
       'discount' => $request->discount,
       'final_sale_price' => $request->final_sale_price,
     ]);
-    $product = Product::where('id', $id)->first();
-    return response(['product' => $product->requiredFields(), 'status' => 'OK'], 200);
+    return response(['product' => $product->fresh()->requiredFields(), 'status' => 'OK'], 200);
   }
 
   public function destroy($id) {
-    Product::where([['id', $id], ['shop_id', auth()->user()->shop_id]])->first()->delete();
+    Product::find($id)->delete();
     return response(['id' => $id, 'status' => 'OK'], 200);
   }
 

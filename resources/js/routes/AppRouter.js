@@ -14,25 +14,26 @@ import { userRoles } from '../utils/util_structures';
 import PurchasesRouter from './purchases-routes/PurchasesRouter';
 
 function AppRouter() {
-  const user = useSelector(state => state.users.user);
+  const userRole = useSelector(state => state.users.user.role);
 
   return (
     <Fragment>
-      <ReportsRouter />
+      {userRole === userRoles.ADMIN && (
+        <Fragment>
+          <UsersRouter />
+          <SuppliersRouter />
+          <CategoriesRouter />
+          <CustomersRouter />
+        </Fragment>
+      )}
 
-      <SuppliersRouter />
+      <ReportsRouter />
 
       <SalesRouter />
 
       <PurchasesRouter />
 
-      <CustomersRouter />
-
-      <CategoriesRouter />
-
       <ProductsRouter />
-
-      {user.role === userRoles.ADMIN && <UsersRouter />}
 
       <Route path='/' exact>
         <Dashboard />

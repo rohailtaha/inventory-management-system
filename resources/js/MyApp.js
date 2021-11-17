@@ -36,7 +36,6 @@ function MyApp() {
     dispatch(fetch_products());
     dispatch(request_fetch_suppliers());
     dispatch(request_fetch_customers());
-    dispatch(request_fetch_customers());
     dispatch(fetch_categories());
   }, []);
 

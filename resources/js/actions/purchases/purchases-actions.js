@@ -95,11 +95,7 @@ export function request_delete_purchase(id) {
     try {
       const response = await axios.delete(`/api/purchases/${id}`);
       if (response.data.status === 'OK') {
-        dispatch(
-          request_fetch_some_products(
-            response.data.products.map(product => product.id)
-          )
-        );
+        dispatch(request_fetch_some_products(response.data.products));
         dispatch(delete_purchase(response.data.id));
         dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
       } else {

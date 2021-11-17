@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class CustomersController extends Controller {
+
+  public function __construct() {
+    $this->middleware('admin')->except('index');
+    $this->middleware('shop.confirm:Customer')->except('index', 'store');
+  }
+
   public function index() {
 
     $customers = auth()->user()->shop->customers;
@@ -48,10 +54,7 @@ class CustomersController extends Controller {
       )
     );
 
-    return response(
-      ['customer' => $customer->requiredFields(), 'status' => 'OK'],
-      200
-    );
+    return response(['customer' => $customer->requiredFields(), 'status' => 'OK'], 200);
   }
 
   public function update(Request $request, $id) {
@@ -83,24 +86,14 @@ class CustomersController extends Controller {
       return $this->errorResponse($validator);
     }
 
-    Customer::where([
-      'shop_id' => auth()->user()->shop_id,
-      'id' => $id,
-    ])->update($request->only('name', 'email', 'phone', 'address'));
+    $customer = Customer::find($id);
+    $customer->update($request->only('name', 'email', 'phone', 'address'));
 
-    $customer = Customer::where([
-      'shop_id' => auth()->user()->shop_id,
-      'id' => $id,
-    ])->first();
-
-    return response(
-      ['customer' => $customer->requiredFields(), 'status' => 'OK'],
-      200
-    );
+    return response(['customer' => $customer->fresh()->requiredFields(), 'status' => 'OK'], 200);
   }
 
   public function destroy($id) {
-    Customer::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->first()->delete();
+    Customer::find($id)->delete();
     return response(['id' => $id, 'status' => 'OK'], 200);
   }
 

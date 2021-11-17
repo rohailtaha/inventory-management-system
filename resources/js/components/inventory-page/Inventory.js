@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { fetch_categories } from '../../actions/categories/categories-actions';
 import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
 import { reset_pagination } from '../../actions/pagination/pagination-actions';
 import { request_delete_product } from '../../actions/products/products-actions';
@@ -13,14 +14,21 @@ import FilterForm from './filter form/FilterForm';
 import InventoryTable from './table/InventoryTable';
 
 function Inventory() {
-  const [fetched, deleteConfirmation, products, searchForm, userRole] =
-    useSelector(state => [
-      state.products.fetched,
-      state.deleteConfirmation,
-      state.products.list,
-      state.products.searchForm,
-      state.users.user.role,
-    ]);
+  const [
+    fetched,
+    fetchedCategories,
+    deleteConfirmation,
+    products,
+    searchForm,
+    userRole,
+  ] = useSelector(state => [
+    state.products.fetched,
+    state.categories.fetched,
+    state.deleteConfirmation,
+    state.products.list,
+    state.products.searchForm,
+    state.users.user.role,
+  ]);
 
   const filteredProducts = () => {
     if (searchForm.category === 'All') {
@@ -39,6 +47,10 @@ function Inventory() {
   };
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!fetchedCategories) dispatch(fetch_categories());
+  }, []);
 
   useEffect(() => {
     if (deleteConfirmation.confirm)
