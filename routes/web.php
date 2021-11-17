@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,21 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::post('/login', [AuthController::class, 'login'])->middleware('guest')->name('login');
+Route::post('/login', [AuthController::class, 'login'])->middleware('guest', 'active.login');
 
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::get('/login_status', function () {
   if (auth()->user()) {
-    $user = auth()->user();
+    $user = User::find(auth()->user()->id);
     return response([
       'loggedin' => true,
-      'user' => [
-        'name' => $user->name,
-        'phone' => $user->phone,
-        'email' => $user->email,
-        'role' => $user->roles[0]->name,
-      ],
+      'user' => $user->requiredFields(),
     ], 200);
   }
   return response(['loggedin' => false], 200);

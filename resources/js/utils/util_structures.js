@@ -1,6 +1,6 @@
 export const userRoles = {
-  ADMIN: 'ADMIN',
-  EMPLOYEE: 'EMPLOYEE',
+  ADMIN: 'Admin',
+  EMPLOYEE: 'Employee',
 };
 
 export const userStatus = {

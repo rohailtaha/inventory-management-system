@@ -20,6 +20,7 @@ function UsersTable() {
     <table className='table'>
       <thead>
         <tr>
+          <th scope='col'>Role</th>
           <th scope='col'>Name</th>
           <th scope='col'>Email</th>
           <th scope='col'>Phone</th>
@@ -31,6 +32,7 @@ function UsersTable() {
         {itemsForCurrentPage().map(user => (
           <User
             id={user.id}
+            role={user.role}
             name={user.name}
             email={user.email}
             phone={user.phone}

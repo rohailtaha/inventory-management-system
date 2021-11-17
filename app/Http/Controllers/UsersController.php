@@ -8,8 +8,10 @@ use App\Rules\UniqueEmailEdit;
 use App\Rules\UniquePhoneEdit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UsersController extends Controller {
 
@@ -29,6 +31,7 @@ class UsersController extends Controller {
   public function store(Request $request) {
 
     $validator = Validator::make($request->all(), [
+      'role' => ['required', Rule::exists('roles', 'name')],
       'name' => 'min:3|max:255|required',
       'email' => 'email|required|max:255|unique:users',
       'password' => 'required|min:5|max:50',
@@ -48,7 +51,8 @@ class UsersController extends Controller {
       'phone' => $request->phone,
       'active' => $request->active,
     ]);
-    $role = Role::select('id')->where('name', 'EMPLOYEE')->first();
+
+    $role = Role::where('name', $request->role)->first();
     $user->roles()->attach($role);
     return response(['user' => $user->requiredFields(), 'status' => 'OK'], 200);
   }
@@ -56,6 +60,7 @@ class UsersController extends Controller {
   public function update(Request $request, $id) {
 
     $validator = Validator::make($request->all(), [
+      'role' => ['required', Rule::exists('roles', 'name')],
       'name' => 'min:3|max:255|required',
       'email' => ['email', 'required', 'max:255', new UniqueEmailEdit(['id' => $id])],
       'password' => 'nullable|max:50|min:6',
@@ -67,7 +72,10 @@ class UsersController extends Controller {
       return $this->errorResponse($validator);
     }
 
-    $user = User::find($id);
+    $user = User::findOrFail($id);
+    // delete old roles of user.
+    DB::delete('delete from role_user where user_id = ?', [$user->id]);
+    // update user
     $user->update(
       [
         'name' => $request->name,
@@ -77,6 +85,9 @@ class UsersController extends Controller {
         'active' => $request->active,
       ]
     );
+    //add new roles of user.
+    $role = Role::where('name', $request->role)->first();
+    $user->roles()->attach($role);
     return response(['user' => $user->fresh()->requiredFields(), 'status' => 'OK'], 200);
   }
 

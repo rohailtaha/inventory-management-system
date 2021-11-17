@@ -1,12 +1,14 @@
+import { SERVER_ERROR } from '../../utils/util_structures';
 import actionTypes from '../action-types';
 import { load, stopLoading } from '../load/load';
 import { set_user, show_error } from '../users/users-actions';
 
 export function request_login(user) {
   return async dispatch => {
+    let response;
     try {
       dispatch(load());
-      const response = await axios.post('/login', user);
+      response = await axios.post('/login', user);
       if (response.data.status === 'OK') {
         dispatch(login());
         dispatch(set_user(response.data.user));
@@ -14,7 +16,9 @@ export function request_login(user) {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error('Server Error'));
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
     } finally {
       return dispatch(stopLoading());
     }

@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { show_delete_confirmation } from '../../../actions/delete-confirmation/delete-confirmation-actions';
 
-function User({ name, email, phone, status, id }) {
+function User({ role, name, email, phone, status, id }) {
   const dispatch = useDispatch();
 
   return (
     <Fragment>
       <tr>
+        <td>{role}</td>
         <td>{name}</td>
         <td>{email}</td>
         <td>{phone}</td>

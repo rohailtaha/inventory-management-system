@@ -10,16 +10,20 @@ import {
 } from '../../../../actions/users/users-actions';
 import FormError from '../../../common/form-error/FormError';
 import { removeExtraSpaces } from '../../../../utils/utility_functions';
-import { userStatus } from '../../../../utils/util_structures';
+import { userRoles, userStatus } from '../../../../utils/util_structures';
+import UserRoleOption from './UserRoleOption';
+
+const defaultForm = {
+  name: '',
+  password: '',
+  email: '',
+  phone: '',
+  active: '1',
+  role: userRoles.ADMIN,
+};
 
 function UserForm({ mode }) {
-  const [form, setForm] = useState({
-    name: '',
-    password: '',
-    email: '',
-    phone: '',
-    active: '1',
-  });
+  const [form, setForm] = useState(defaultForm);
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -38,6 +42,7 @@ function UserForm({ mode }) {
         email: user.email,
         phone: user.phone,
         active: user.status === userStatus.ACTIVE ? '1' : '0',
+        role: user.role,
       });
     }
   }, []);
@@ -50,13 +55,11 @@ function UserForm({ mode }) {
   const updateMode = () => mode === 'UPDATE';
   const getUser = id => users.find(user => user.id === parseInt(id));
 
-  const handleChange = event => {
-    const { name, value } = event.target;
+  const handleChange = event =>
     setForm(form => ({
       ...form,
-      [name]: value,
+      [event.target.name]: event.target.value,
     }));
-  };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -65,15 +68,7 @@ function UserForm({ mode }) {
       : dispatch(request_create_user(dataWithCorrectFormat()));
   };
 
-  const resetForm = () => {
-    setForm({
-      name: '',
-      password: '',
-      email: '',
-      phone: '',
-      active: '1',
-    });
-  };
+  const resetForm = () => setForm(defaultForm);
 
   const dataWithCorrectFormat = () => ({
     name: removeExtraSpaces(form.name),
@@ -81,6 +76,7 @@ function UserForm({ mode }) {
     phone: removeExtraSpaces(form.phone),
     password: form.password,
     active: parseInt(form.active),
+    role: form.role,
   });
 
   const cleanup = () => {
@@ -91,6 +87,23 @@ function UserForm({ mode }) {
   return (
     <Fragment>
       <form className='mt-4' onSubmit={handleSubmit}>
+        <div className='mb-3'>
+          <label htmlFor='role' className='form-label fw-bold'>
+            Role
+          </label>
+          <select
+            className='form-select form-select-sm'
+            id='role'
+            name='role'
+            value={form.role}
+            onChange={handleChange}
+            required
+          >
+            {Object.keys(userRoles).map(key => (
+              <UserRoleOption key={key} option={userRoles[key]} />
+            ))}
+          </select>
+        </div>
         <div className='mb-3'>
           <label htmlFor='name' className='form-label fw-bold'>
             Name

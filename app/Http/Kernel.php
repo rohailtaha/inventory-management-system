@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\EnsureActiveUserIsLoggingIn;
 use App\Http\Middleware\EnsureShopBelongsToUser;
 use App\Http\Middleware\EnsureUserIsActive;
 use App\Http\Middleware\EnsureUserIsAdmin;
@@ -75,6 +76,7 @@ class Kernel extends HttpKernel {
     'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     'admin' => EnsureUserIsAdmin::class,
+    'active.login' => EnsureActiveUserIsLoggingIn::class,
     'active' => EnsureUserIsActive::class,
     'shop.confirm' => EnsureShopBelongsToUser::class,
   ];

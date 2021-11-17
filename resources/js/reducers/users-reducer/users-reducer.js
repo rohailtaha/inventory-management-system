@@ -28,6 +28,7 @@ function usersReducer(state = initialState, action) {
       return {
         ...state,
         fetched: true,
+
         list: action.payload,
       };
 

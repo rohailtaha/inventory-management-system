@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class EnsureUserIsAdmin {
 
   public function handle(Request $request, Closure $next) {
-    if (auth()->user()->roles[0]->name === 'ADMIN') {
+    if (auth()->user()->roles[0]->name === 'Admin') {
       return $next($request);
     }
 
