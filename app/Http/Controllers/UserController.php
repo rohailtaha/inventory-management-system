@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
-class UsersController extends Controller {
+class UserController extends Controller {
 
   public function __construct() {
     $this->middleware('admin')->except('updatePassword');

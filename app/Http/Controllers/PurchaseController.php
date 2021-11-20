@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class PurchasesController extends Controller {
+class PurchaseController extends Controller {
 
   private $purchaseStatus = ['Received', 'Pending'];
   private $paymentStatus = ['Paid', 'Unpaid', 'Partial'];

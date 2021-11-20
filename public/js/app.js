@@ -8092,19 +8092,23 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function LoginPage() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     email: '',
-    password: '',
-    remember: false
+    password: ''
   }),
       _useState2 = _slicedToArray(_useState, 2),
       form = _useState2[0],
       setForm = _useState2[1];
 
+  var rememberRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+
+  var toggleRemember = function toggleRemember() {
+    if (rememberRef.current.hasAttribute('checked')) rememberRef.current.removeAttribute('checked');else rememberRef.current.setAttribute('checked', 'true');
+  };
+
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return [state.loading, state.users.error];
+    return [state.users.error];
   }),
-      _useSelector2 = _slicedToArray(_useSelector, 2),
-      loading = _useSelector2[0],
-      error = _useSelector2[1];
+      _useSelector2 = _slicedToArray(_useSelector, 1),
+      error = _useSelector2[0];
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
@@ -8130,12 +8134,12 @@ function LoginPage() {
     return {
       email: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_5__.removeExtraSpaces)(form.email),
       password: form.password,
-      remember: form.remember
+      remember: rememberRef.current.hasAttribute('checked')
     };
   };
 
   var cleanup = function cleanup() {
-    dispatch((0,_actions_users_users_actions__WEBPACK_IMPORTED_MODULE_4__.hide_error)());
+    return dispatch((0,_actions_users_users_actions__WEBPACK_IMPORTED_MODULE_4__.hide_error)());
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
@@ -8155,7 +8159,7 @@ function LoginPage() {
             children: "Email"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
             type: "email",
-            className: "form-control",
+            className: "form-control form-control-sm",
             id: "email",
             name: "email",
             required: true,
@@ -8171,7 +8175,7 @@ function LoginPage() {
             children: "Password"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
             type: "password",
-            className: "form-control",
+            className: "form-control form-control-sm",
             id: "password",
             name: "password",
             value: form.password,
@@ -8187,9 +8191,9 @@ function LoginPage() {
             type: "checkbox",
             className: "form-check-input",
             id: "remember",
-            name: "remeber",
-            value: form.remember,
-            onChange: handleChange
+            name: "remember",
+            ref: rememberRef,
+            onClick: toggleRemember
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
             className: "form-check-label",
             htmlFor: "remember",
@@ -11740,30 +11744,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Settings)
 /* harmony export */ });
-/* harmony import */ var _settings_forms_AccountForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./settings-forms/AccountForm */ "./resources/js/components/settings-page/settings-forms/AccountForm.js");
-/* harmony import */ var _settings_forms_PasswordForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./settings-forms/PasswordForm */ "./resources/js/components/settings-page/settings-forms/PasswordForm.js");
-/* harmony import */ var _settings_forms_ShopForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./settings-forms/ShopForm */ "./resources/js/components/settings-page/settings-forms/ShopForm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/util_structures */ "./resources/js/utils/util_structures.js");
+/* harmony import */ var _settings_forms_AccountForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./settings-forms/AccountForm */ "./resources/js/components/settings-page/settings-forms/AccountForm.js");
+/* harmony import */ var _settings_forms_PasswordForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./settings-forms/PasswordForm */ "./resources/js/components/settings-page/settings-forms/PasswordForm.js");
+/* harmony import */ var _settings_forms_ShopForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./settings-forms/ShopForm */ "./resources/js/components/settings-page/settings-forms/ShopForm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
 
 
 
 
 
 function Settings() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return [state.users.user.role];
+  }),
+      _useSelector2 = _slicedToArray(_useSelector, 1),
+      userRole = _useSelector2[0];
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
     className: "main__content main__content--settings",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "forms-container",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("section", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
-          className: "mb-3",
-          children: " Account Settings "
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_settings_forms_AccountForm__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_settings_forms_PasswordForm__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("section", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("section", {
+        children: [userRole === _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.userRoles.ADMIN && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+            className: "mb-3",
+            children: " Account Settings "
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_settings_forms_AccountForm__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_settings_forms_PasswordForm__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
+      }), userRole === _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.userRoles.ADMIN && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("section", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
           className: "mb-3",
           children: " Shop Settings "
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_settings_forms_ShopForm__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_settings_forms_ShopForm__WEBPACK_IMPORTED_MODULE_5__["default"], {})]
       })]
     })
   });
@@ -12035,12 +12065,13 @@ function PasswordForm() {
   }, [editable]);
 
   var handleSubmit = function handleSubmit(event) {
-    event.preventDefault(); // if (confirmPasswordMatch()) {
+    event.preventDefault();
 
-    dispatch((0,_actions_users_users_actions__WEBPACK_IMPORTED_MODULE_3__.request_update_password)(dataWithCorrectFormat())); // }
-    //  else {
-    //   dispatch(show_password_form_error(PASSWORD_MISMATCH_ERROR));
-    // }
+    if (confirmPasswordMatch()) {
+      dispatch((0,_actions_users_users_actions__WEBPACK_IMPORTED_MODULE_3__.request_update_password)(dataWithCorrectFormat()));
+    } else {
+      dispatch((0,_actions_users_users_actions__WEBPACK_IMPORTED_MODULE_3__.show_password_form_error)(PASSWORD_MISMATCH_ERROR));
+    }
   };
 
   var dataWithCorrectFormat = function dataWithCorrectFormat() {

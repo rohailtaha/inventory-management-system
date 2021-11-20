@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 
-class ProductsController extends Controller {
+class ProductController extends Controller {
 
   public function __construct() {
     $this->middleware('admin')->except('index', 'getProducts');

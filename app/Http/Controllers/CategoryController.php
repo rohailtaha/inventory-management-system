@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 
-class CategoriesController extends Controller {
+class CategoryController extends Controller {
 
   public function __construct() {
     $this->middleware('admin')->except('index');

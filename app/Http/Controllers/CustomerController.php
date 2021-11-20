@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class CustomersController extends Controller {
+class CustomerController extends Controller {
 
   public function __construct() {
     $this->middleware('admin')->except('index');

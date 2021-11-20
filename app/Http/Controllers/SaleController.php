@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class SalesController extends Controller {
+class SaleController extends Controller {
   private $paymentStatus = ['Paid', 'Unpaid', 'Partial'];
 
   public function __construct() {

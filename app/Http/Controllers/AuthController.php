@@ -21,7 +21,7 @@ class AuthController extends Controller {
       return $this->errorResponse($validator);
     }
 
-    if (!Auth::attempt($request->only(['email', 'password']), true)) {
+    if (!Auth::attempt($request->only(['email', 'password']), $request->remember)) {
       return response(['error' => ['msg' => 'Invalid Login Credentials'], 'status' => 'ERROR'], 200);
     }
 

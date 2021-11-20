@@ -45,12 +45,11 @@ export default function PasswordForm() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    // if (confirmPasswordMatch()) {
-    dispatch(request_update_password(dataWithCorrectFormat()));
-    // }
-    //  else {
-    //   dispatch(show_password_form_error(PASSWORD_MISMATCH_ERROR));
-    // }
+    if (confirmPasswordMatch()) {
+      dispatch(request_update_password(dataWithCorrectFormat()));
+    } else {
+      dispatch(show_password_form_error(PASSWORD_MISMATCH_ERROR));
+    }
   };
 
   const dataWithCorrectFormat = () => ({

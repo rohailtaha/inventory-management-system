@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react/cjs/react.development';
 import { request_login } from '../../actions/authentication/authentication';
@@ -10,13 +10,17 @@ function LoginPage() {
   const [form, setForm] = useState({
     email: '',
     password: '',
-    remember: false,
   });
 
-  const [loading, error] = useSelector(state => [
-    state.loading,
-    state.users.error,
-  ]);
+  const rememberRef = useRef();
+
+  const toggleRemember = () => {
+    if (rememberRef.current.hasAttribute('checked'))
+      rememberRef.current.removeAttribute('checked');
+    else rememberRef.current.setAttribute('checked', 'true');
+  };
+
+  const [error] = useSelector(state => [state.users.error]);
   const dispatch = useDispatch();
 
   const handleChange = event => {
@@ -39,12 +43,10 @@ function LoginPage() {
   const dataWithCorrectFormat = () => ({
     email: removeExtraSpaces(form.email),
     password: form.password,
-    remember: form.remember,
+    remember: rememberRef.current.hasAttribute('checked'),
   });
 
-  const cleanup = () => {
-    dispatch(hide_error());
-  };
+  const cleanup = () => dispatch(hide_error());
 
   return (
     <div className='main--login'>
@@ -57,7 +59,7 @@ function LoginPage() {
             </label>
             <input
               type='email'
-              className='form-control'
+              className='form-control form-control-sm'
               id='email'
               name='email'
               required
@@ -72,7 +74,7 @@ function LoginPage() {
             </label>
             <input
               type='password'
-              className='form-control'
+              className='form-control form-control-sm'
               id='password'
               name='password'
               value={form.password}
@@ -88,9 +90,9 @@ function LoginPage() {
               type='checkbox'
               className='form-check-input'
               id='remember'
-              name='remeber'
-              value={form.remember}
-              onChange={handleChange}
+              name='remember'
+              ref={rememberRef}
+              onClick={toggleRemember}
             />
             <label className='form-check-label' htmlFor='remember'>
               Remember
