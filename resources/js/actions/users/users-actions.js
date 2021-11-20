@@ -8,6 +8,7 @@ import { show_success_message } from '../success-message/success-message-actions
 const SUCCESSFULL_CREATE_MSG = 'User added.';
 const SUCCESSFULL_UPDATE_MSG = 'User updated.';
 const SUCCESSFULL_DELETE_MSG = 'User deleted';
+const SUCCESSFULL_PASSWORD_UPDATE_MSG = 'Password updated.';
 
 export function fetch_users() {
   return async dispatch => {
@@ -69,6 +70,54 @@ export function set_user(user) {
   return {
     type: actionTypes.SET_USER,
     payload: user,
+  };
+}
+
+export function request_update_current_user(user) {
+  return async dispatch => {
+    dispatch(load());
+    try {
+      const response = await axios.put(`/api/user`, user);
+      if (response.data.status === 'OK') {
+        dispatch(hide_error());
+        dispatch(show_success_message(SUCCESSFULL_UPDATE_MSG));
+        dispatch(update_current_user(response.data.user));
+      } else {
+        dispatch(show_error(response.data.error.msg));
+      }
+    } catch (error) {
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
+    } finally {
+      dispatch(stopLoading());
+    }
+  };
+}
+
+export const update_current_user = user => ({
+  type: actionTypes.UPDATE_CURRENT_USER,
+  payload: user,
+});
+
+export function request_update_password(data) {
+  return async dispatch => {
+    dispatch(load());
+    try {
+      const response = await axios.put(`/api/user/update-password`, data);
+      if (response.data.status === 'OK') {
+        dispatch(hide_password_form_error());
+        dispatch(show_success_message(SUCCESSFULL_PASSWORD_UPDATE_MSG));
+      } else {
+        dispatch(show_password_form_error(response.data.error.msg));
+      }
+    } catch (error) {
+      error.response.data.error
+        ? dispatch(show_password_form_error(error.response.data.error.msg))
+        : dispatch(show_password_form_error(SERVER_ERROR));
+    } finally {
+      dispatch(stopLoading());
+    }
   };
 }
 
@@ -137,8 +186,17 @@ export function show_error(msg) {
   };
 }
 
-export function hide_error() {
-  return {
-    type: actionTypes.HIDE_USERS_ERROR,
-  };
-}
+export const show_password_form_error = msg => ({
+  type: actionTypes.SHOW_PASSWORD_FORM_ERROR,
+  payload: {
+    msg,
+  },
+});
+
+export const hide_password_form_error = () => ({
+  type: actionTypes.HIDE_PASSWORD_FORM_ERROR,
+});
+
+export const hide_error = () => ({
+  type: actionTypes.HIDE_USERS_ERROR,
+});

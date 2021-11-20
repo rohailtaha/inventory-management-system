@@ -175,13 +175,13 @@ function Sidebar() {
         </div>
 
         <div className='list-group list-group-flush mt-3 mb-5 sidebar__actions'>
-          <a
-            href='settings.html'
+          <Link
+            to='/settings'
             className='list-group-item list-group-item-primary d-flex align-items-center'
           >
             <span className='material-icons me-2'>settings</span>
             <span className='option-text'> Settings </span>
-          </a>
+          </Link>
           <a
             onClick={handleLogout}
             href='/logout'

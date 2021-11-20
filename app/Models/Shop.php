@@ -9,6 +9,9 @@ class Shop extends Model {
   use HasFactory;
 
   protected $fillable = ['name', 'contact', 'address'];
+  protected $hidden = ['id', 'created_at', 'updated_at'];
+
+  public static $requiredFields = ['name', 'contact', 'address'];
 
   public function users() {
     return $this->hasMany(User::class);

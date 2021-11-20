@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\PurchasesController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -21,10 +22,14 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware(['auth', 'active'])->group(function () {
+  Route::get('/shop', [ShopController::class, 'index']);
+  Route::put('/shop', [ShopController::class, 'update']);
 
   Route::get('/users', [UsersController::class, 'index']);
   Route::post('/users', [UsersController::class, 'store']);
   Route::put('/users/{id}', [UsersController::class, 'update']);
+  Route::put('/user', [UsersController::class, 'updateCurrentUser']);
+  Route::put('/user/update-password', [UsersController::class, 'updatePassword']);
   Route::delete('/users/{id}', [UsersController::class, 'destroy']);
 
   Route::get('/products', [ProductsController::class, 'index']);

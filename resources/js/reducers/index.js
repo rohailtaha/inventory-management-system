@@ -13,10 +13,12 @@ import customersReducer from './customers-reducer/customers-reducer';
 import purchasesReducer from './purchases-reducer/purchases-reducer';
 import salesReducer from './sales-reducer/sales-reducer';
 import paginationReducer from './pagination-reducer/pagination-reducer';
+import shopReducer from './shop-reducer/shop-reducer';
 
 const allReducers = combineReducers({
   sidebarOpen: sidebarReducer,
   loggedin: authenticationReducer,
+  shop: shopReducer,
   users: usersReducer,
   successMessage: successMessageReducer,
   error: errorsReducer,

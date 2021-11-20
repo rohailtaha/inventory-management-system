@@ -24,7 +24,7 @@ a {
 }
 
 form label {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .header {
@@ -332,6 +332,12 @@ input::placeholder {
 
   .table {
     min-width: 700px;
+  }
+}
+
+.main__content--settings {
+  .forms-container {
+    max-width: 600px;
   }
 }
 

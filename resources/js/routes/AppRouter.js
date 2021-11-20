@@ -12,6 +12,7 @@ import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { userRoles } from '../utils/util_structures';
 import PurchasesRouter from './purchases-routes/PurchasesRouter';
+import Settings from '../components/settings-page/Settings';
 
 function AppRouter() {
   const userRole = useSelector(state => state.users.user.role);
@@ -34,6 +35,10 @@ function AppRouter() {
       <PurchasesRouter />
 
       <ProductsRouter />
+
+      <Route path='/settings'>
+        <Settings />
+      </Route>
 
       <Route path='/' exact>
         <Dashboard />

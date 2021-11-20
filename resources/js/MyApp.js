@@ -10,6 +10,7 @@ import { request_fetch_customers } from './actions/customers/customers-actions';
 import DeleteConfirmationModal from './components/common/delete-confirmation-modal/DeleteConfirmationModal';
 import SuccessModal from './components/common/success-modal/SuccessModal';
 import { fetch_categories } from './actions/categories/categories-actions';
+import { request_fetch_shop } from './actions/shop/shop-actions';
 
 function MyApp() {
   const [
@@ -33,6 +34,7 @@ function MyApp() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(request_fetch_shop());
     dispatch(fetch_products());
     dispatch(request_fetch_suppliers());
     dispatch(request_fetch_customers());

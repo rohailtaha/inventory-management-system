@@ -8,11 +8,21 @@ const initialState = {
     show: false,
     msg: '',
   },
+  passwordFormError: {
+    show: false,
+    msg: '',
+  },
 };
 
 function usersReducer(state = initialState, action) {
   switch (action.type) {
     case actionTypes.SET_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
+
+    case actionTypes.UPDATE_CURRENT_USER:
       return {
         ...state,
         user: action.payload,
@@ -64,6 +74,24 @@ function usersReducer(state = initialState, action) {
       return {
         ...state,
         error: {
+          show: false,
+          msg: '',
+        },
+      };
+
+    case actionTypes.SHOW_PASSWORD_FORM_ERROR:
+      return {
+        ...state,
+        passwordFormError: {
+          show: true,
+          msg: action.payload.msg,
+        },
+      };
+
+    case actionTypes.HIDE_PASSWORD_FORM_ERROR:
+      return {
+        ...state,
+        passwordFormError: {
           show: false,
           msg: '',
         },

@@ -146,7 +146,7 @@ function UserForm({ mode }) {
             name='password'
             value={form.password}
             onChange={handleChange}
-            placeholder='Minimum 5 characters long'
+            placeholder='At least 5 characters long'
             {...(mode === 'CREATE' && { required: true })}
             minLength={mode === 'CREATE' ? '5' : '0'}
             maxLength='50'

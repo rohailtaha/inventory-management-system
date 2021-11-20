@@ -11292,7 +11292,7 @@ a {
 }
 
 form label {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .header {
@@ -11581,6 +11581,10 @@ input::placeholder {
 .main__content--sales-report .table,
 .main__content--purchases-report .table {
   min-width: 700px;
+}
+
+.main__content--settings .forms-container {
+  max-width: 600px;
 }
 
 .report-form {

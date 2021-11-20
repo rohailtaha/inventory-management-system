@@ -60,11 +60,6 @@ function SupplierForm({ mode }) {
       : dispatch(request_create_supplier(dataWithCorrectFormat()));
   };
 
-  const cleanup = () => {
-    dispatch(hide_error());
-    dispatch(hide_success_message());
-  };
-
   const dataWithCorrectFormat = () => {
     return {
       name: removeExtraSpaces(form.name),
@@ -84,6 +79,12 @@ function SupplierForm({ mode }) {
   };
 
   useEffect(() => cleanup, []);
+
+  const cleanup = () => {
+    dispatch(hide_error());
+    dispatch(hide_success_message());
+  };
+
   useEffect(() => {
     if (successMessage.show && !updateMode()) resetForm();
   }, [successMessage.show]);
