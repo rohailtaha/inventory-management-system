@@ -307,6 +307,67 @@ input::placeholder {
   }
 }
 
+.main__content--sales,
+.main__content--purchases {
+  table {
+    .material-icons {
+      font-size: 22px;
+    }
+  }
+}
+
+.main__content--sale-invoice {
+  .header-buttons {
+    max-width: 700px;
+  }
+
+  .sale-invoice {
+    max-width: 700px;
+
+    &__payment,
+    &__contact {
+      font-size: 14px;
+    }
+
+    &__payment {
+      table {
+        max-width: 350px;
+      }
+    }
+
+    &__details {
+      font-size: 15px;
+      line-height: 1.5rem;
+    }
+  }
+}
+
+.main__content--purchase-invoice {
+  .header-buttons {
+    max-width: 700px;
+  }
+
+  .purchase-invoice {
+    max-width: 700px;
+
+    &__payment,
+    &__contact {
+      font-size: 14px;
+    }
+
+    &__payment {
+      table {
+        max-width: 350px;
+      }
+    }
+
+    &__details {
+      font-size: 15px;
+      line-height: 1.5rem;
+    }
+  }
+}
+
 .main__content--add-sale,
 .main__content--edit-sale {
   form {

@@ -153,9 +153,7 @@ export default function ProductToSaleForm() {
 
   useEffect(() => cleanup, []);
 
-  const cleanup = () => {
-    dispatch(hide_products_to_sale_form_error());
-  };
+  const cleanup = () => dispatch(hide_products_to_sale_form_error());
 
   return (
     <form className='mt-4' onSubmit={handleSubmit}>

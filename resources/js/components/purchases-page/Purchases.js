@@ -37,7 +37,7 @@ function Purchases() {
   };
 
   return (
-    <div className='main__content main__content--suppliers'>
+    <div className='main__content main__content--purchases'>
       <div className='d-xl-flex align-items-center'>
         <Link
           className='btn btn-primary px-3 py-2 d-flex align-items-center add-btn'

@@ -28,6 +28,15 @@ function Purchase({
       <td>{supplier}</td>
       <td>
         <Link
+          to={`/view-purchase/${id}`}
+          className='btn p-0'
+          data-bs-toggle='tooltip'
+          data-bs-placement='right'
+          title='View'
+        >
+          <span className='material-icons'>visibility</span>
+        </Link>
+        <Link
           to={`/edit-purchase/${id}`}
           className='btn p-0'
           data-bs-toggle='tooltip'

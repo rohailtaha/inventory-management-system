@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sale;
 use App\Models\SoldProduct;
 use App\Rules\CorrectNetPayment;
+use App\Rules\CorrectSaleQuantityForProduct;
 use App\Rules\CorrectTotalPriceForProducts;
 use Exception;
 use Illuminate\Http\Request;
@@ -33,9 +34,10 @@ class SaleController extends Controller {
 
   public function store(Request $request) {
     $validator = Validator::make($request->all(), [
-      'products' => ['required', new CorrectTotalPriceForProducts],
       'products.*.id' => ['required', 'numeric', 'integer', 'min:0', Rule::exists('products', 'id')
           ->where('shop_id', auth()->user()->shop_id)],
+      'products' => ['required', new CorrectTotalPriceForProducts],
+      'products' => ['required', new CorrectSaleQuantityForProduct],
       'products.*.per_item_price' => 'required|numeric|min:0',
       'products.*.discount' => 'required|numeric|min:0',
       'products.*.final_sale_price' => 'required|numeric|min:0|lte:products.*.per_item_price|lte:products.*.total_price',

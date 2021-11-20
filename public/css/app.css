@@ -11560,6 +11560,45 @@ input::placeholder {
   max-width: 500px;
 }
 
+.main__content--sales table .material-icons,
+.main__content--purchases table .material-icons {
+  font-size: 22px;
+}
+
+.main__content--sale-invoice .header-buttons {
+  max-width: 700px;
+}
+.main__content--sale-invoice .sale-invoice {
+  max-width: 700px;
+}
+.main__content--sale-invoice .sale-invoice__payment, .main__content--sale-invoice .sale-invoice__contact {
+  font-size: 14px;
+}
+.main__content--sale-invoice .sale-invoice__payment table {
+  max-width: 350px;
+}
+.main__content--sale-invoice .sale-invoice__details {
+  font-size: 15px;
+  line-height: 1.5rem;
+}
+
+.main__content--purchase-invoice .header-buttons {
+  max-width: 700px;
+}
+.main__content--purchase-invoice .purchase-invoice {
+  max-width: 700px;
+}
+.main__content--purchase-invoice .purchase-invoice__payment, .main__content--purchase-invoice .purchase-invoice__contact {
+  font-size: 14px;
+}
+.main__content--purchase-invoice .purchase-invoice__payment table {
+  max-width: 350px;
+}
+.main__content--purchase-invoice .purchase-invoice__details {
+  font-size: 15px;
+  line-height: 1.5rem;
+}
+
 .main__content--add-sale form,
 .main__content--edit-sale form {
   max-width: 500px;
