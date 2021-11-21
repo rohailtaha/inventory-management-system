@@ -1,12 +1,24 @@
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import Payment from './Payment';
+import Product from './Product';
 
 export default function PurchaseInvoice() {
-  const handleClick = () => {};
+  const [purchases] = useSelector(state => [state.purchases.list]);
+
+  const { id } = useParams();
+
+  const purchase = purchases.find(purchase => purchase.id === parseInt(id));
+
+  const handleClick = () => {
+    document.querySelector('.header').classList.add('no-print');
+    window.print();
+  };
 
   return (
     <div className='main__content main__content--purchase-invoice'>
-      <div className='d-flex justify-content-between mb-4 border-bottom pb-2 header-buttons'>
-        <Link className='btn btn-danger' to='/purchases'>
+      <div className='d-flex mb-4 border-bottom pb-2 header-buttons'>
+        <Link className='btn btn-danger me-5' to='/purchases'>
           Back
         </Link>
         <button
@@ -25,7 +37,7 @@ export default function PurchaseInvoice() {
         <div className='d-flex justify-content-between'>
           <h2 className='fs-2 text-primary'>Purchase Invoice</h2>
           <div>
-            <h3>My Store</h3>
+            <h3 className='mb-0'>My Store</h3>
             <div className='purchase-invoice__contact'>
               {' '}
               <span className='fw-bold'>Phone: </span>{' '}
@@ -38,23 +50,26 @@ export default function PurchaseInvoice() {
           <div>
             {' '}
             <span className='fw-bold'>Status: </span>{' '}
-            <span> {'Received'} </span>{' '}
+            <span> {purchase.purchase_status} </span>{' '}
           </div>
           <div>
             {' '}
-            <span className='fw-bold'>Invoice No: </span>{' '}
-            <span> {1238972} </span>{' '}
+            <span className='fw-bold'>Invoice #</span>
+            <span>{purchase.id}</span>{' '}
           </div>
 
           <div>
             {' '}
             <span className='fw-bold'>Date & Time: </span>{' '}
-            <span> {'20-10-2021 11:44:56'} </span>{' '}
+            <span>
+              {' '}
+              {purchase.date} {purchase.time}{' '}
+            </span>{' '}
           </div>
           <div>
             {' '}
             <span className='fw-bold'>Supplier: </span>{' '}
-            <span> {'David and Sons'} </span>{' '}
+            <span> {purchase.supplier} </span>{' '}
           </div>
         </div>
 
@@ -68,41 +83,23 @@ export default function PurchaseInvoice() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{'test'}</td>
-              <td>{120}</td>
-              <td>{2}</td>
-              <td>{240}</td>
-            </tr>
-            <tr>
-              <td>{'tea'}</td>
-              <td>{120}</td>
-              <td>{3}</td>
-              <td>{360}</td>
-            </tr>
+            {purchase.products.map(product => (
+              <Product
+                key={product.id}
+                name={product.name}
+                perItemCost={product.per_item_cost}
+                quantity={product.quantity}
+                totalCost={product.total_cost}
+              />
+            ))}
           </tbody>
         </table>
 
-        <section className='purchase-invoice__payment'>
-          <h4 className='text-secondary text-decoration-underline'>Payment</h4>
-          <div>
-            {' '}
-            <span className='fw-bold'> Status: </span> <span> {'Paid'} </span>{' '}
-          </div>
-
-          <table className='table table-sm table-bordered mt-3'>
-            <tbody>
-              <tr>
-                <th scope='col'>Grand Total (RS)</th>
-                <td> {420} </td>
-              </tr>
-              <tr>
-                <th scope='col'>Amount Paid (RS)</th>
-                <td> {420} </td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
+        <Payment
+          status={purchase.payment_status}
+          grandTotal={purchase.grand_total}
+          amountPaid={purchase.amount_paid}
+        />
       </div>
     </div>
   );

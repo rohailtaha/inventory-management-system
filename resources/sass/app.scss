@@ -317,12 +317,8 @@ input::placeholder {
 }
 
 .main__content--sale-invoice {
-  .header-buttons {
-    max-width: 700px;
-  }
-
   .sale-invoice {
-    max-width: 700px;
+    max-width: 900px;
 
     &__payment,
     &__contact {
@@ -343,12 +339,8 @@ input::placeholder {
 }
 
 .main__content--purchase-invoice {
-  .header-buttons {
-    max-width: 700px;
-  }
-
   .purchase-invoice {
-    max-width: 700px;
+    max-width: 900px;
 
     &__payment,
     &__contact {
@@ -437,8 +429,11 @@ input::placeholder {
       margin-right: 0 !important;
     }
   }
+
   .sidebar,
-  .sidebar-bg {
+  .sidebar-bg,
+  .header.no-print,
+  .pages {
     display: none !important;
   }
 
@@ -449,10 +444,6 @@ input::placeholder {
   .main__content {
     width: initial !important;
     margin: 0 !important;
-
-    .pages {
-      display: none !important;
-    }
   }
 
   .main__content--sales-report,
@@ -474,6 +465,13 @@ input::placeholder {
     }
     .sales-h {
       display: none;
+    }
+  }
+
+  .main__content--sale-invoice,
+  .main__content--purchase-invoice {
+    .header-buttons {
+      display: none !important;
     }
   }
 

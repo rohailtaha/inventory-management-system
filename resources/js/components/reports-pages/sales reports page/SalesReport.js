@@ -23,7 +23,10 @@ function SalesReport() {
     );
   };
 
-  const handleClick = () => window.print();
+  const handleClick = () => {
+    document.querySelector('.header').classList.remove('no-print');
+    window.print();
+  };
 
   useEffect(() => cleanup, []);
 

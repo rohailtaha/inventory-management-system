@@ -1,12 +1,24 @@
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import Payment from './Payment';
+import Product from './Product';
 
 export default function SaleInvoice() {
-  const handleClick = () => {};
+  const [sales] = useSelector(state => [state.sales.list]);
+
+  const { id } = useParams();
+
+  const sale = sales.find(sale => sale.id === parseInt(id));
+
+  const handleClick = () => {
+    document.querySelector('.header').classList.add('no-print');
+    window.print();
+  };
 
   return (
     <div className='main__content main__content--sale-invoice'>
-      <div className='d-flex justify-content-between mb-4 border-bottom pb-2 header-buttons'>
-        <Link className='btn btn-danger' to='/sales'>
+      <div className='d-flex mb-4 border-bottom pb-2 header-buttons'>
+        <Link className='btn btn-danger me-5' to='/sales'>
           Back
         </Link>
         <button
@@ -25,7 +37,7 @@ export default function SaleInvoice() {
         <div className='d-flex justify-content-between'>
           <h2 className='fs-2 text-primary'>Sale Invoice</h2>
           <div>
-            <h3>My Store</h3>
+            <h3 className='mb-0'>My Store</h3>
             <div className='sale-invoice__contact'>
               {' '}
               <span className='fw-bold'>Phone: </span>{' '}
@@ -37,19 +49,22 @@ export default function SaleInvoice() {
         <div className='sale-invoice__details'>
           <div>
             {' '}
-            <span className='fw-bold'>Invoice No: </span>{' '}
-            <span> {1238972} </span>{' '}
+            <span className='fw-bold'>Invoice #</span>
+            <span>{sale.id}</span>{' '}
           </div>
 
           <div>
             {' '}
             <span className='fw-bold'>Date & Time: </span>{' '}
-            <span> {'20-10-2021 11:44:56'} </span>{' '}
+            <span>
+              {' '}
+              {sale.date} {sale.time}{' '}
+            </span>{' '}
           </div>
           <div>
             {' '}
             <span className='fw-bold'>Customer: </span>{' '}
-            <span> {'Walk-in-customer'} </span>{' '}
+            <span> {sale.customer} </span>{' '}
           </div>
         </div>
 
@@ -65,45 +80,26 @@ export default function SaleInvoice() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{'test'}</td>
-              <td>{120}</td>
-              <td>{2}</td>
-              <td>{110}</td>
-              <td>{2}</td>
-              <td>{220}</td>
-            </tr>
+            {sale.products.map(product => (
+              <Product
+                key={product.id}
+                name={product.name}
+                perItemPrice={product.per_item_price}
+                discount={product.discount}
+                finalSalePrice={product.final_sale_price}
+                quantity={product.quantity}
+                totalPrice={product.total_price}
+              />
+            ))}
           </tbody>
         </table>
-
-        <section className='sale-invoice__payment'>
-          <h4 className='text-secondary text-decoration-underline'>Payment</h4>
-          <div>
-            {' '}
-            <span className='fw-bold'> Status: </span> <span> {'Paid'} </span>{' '}
-          </div>
-
-          <table className='table table-sm table-bordered mt-3'>
-            <tbody>
-              <tr>
-                <th scope='col'>Grand Total (RS)</th>
-                <td> {220} </td>
-              </tr>
-              <tr>
-                <th scope='col'>Received (RS)</th>
-                <td> {230} </td>
-              </tr>
-              <tr>
-                <th scope='col'>Returned (RS)</th>
-                <td> {10} </td>
-              </tr>
-              <tr>
-                <th scope='col'>Net Payment (RS)</th>
-                <td> {220} </td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
+        <Payment
+          status={sale.payment_status}
+          grandTotal={sale.grand_total}
+          paymentReceived={sale.payment_received}
+          paymentReturned={sale.payment_returned}
+          netPayment={sale.net_payment}
+        />
       </div>
     </div>
   );

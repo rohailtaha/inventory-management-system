@@ -11565,11 +11565,8 @@ input::placeholder {
   font-size: 22px;
 }
 
-.main__content--sale-invoice .header-buttons {
-  max-width: 700px;
-}
 .main__content--sale-invoice .sale-invoice {
-  max-width: 700px;
+  max-width: 900px;
 }
 .main__content--sale-invoice .sale-invoice__payment, .main__content--sale-invoice .sale-invoice__contact {
   font-size: 14px;
@@ -11582,11 +11579,8 @@ input::placeholder {
   line-height: 1.5rem;
 }
 
-.main__content--purchase-invoice .header-buttons {
-  max-width: 700px;
-}
 .main__content--purchase-invoice .purchase-invoice {
-  max-width: 700px;
+  max-width: 900px;
 }
 .main__content--purchase-invoice .purchase-invoice__payment, .main__content--purchase-invoice .purchase-invoice__contact {
   font-size: 14px;
@@ -11659,7 +11653,9 @@ input::placeholder {
   }
 
   .sidebar,
-.sidebar-bg {
+.sidebar-bg,
+.header.no-print,
+.pages {
     display: none !important;
   }
 
@@ -11670,9 +11666,6 @@ input::placeholder {
   .main__content {
     width: initial !important;
     margin: 0 !important;
-  }
-  .main__content .pages {
-    display: none !important;
   }
 
   .main__content--sales-report,
@@ -11701,6 +11694,11 @@ input::placeholder {
   .main__content--sales-report .sales-h,
 .main__content--purchases-report .sales-h {
     display: none;
+  }
+
+  .main__content--sale-invoice .header-buttons,
+.main__content--purchase-invoice .header-buttons {
+    display: none !important;
   }
 
   @page {
