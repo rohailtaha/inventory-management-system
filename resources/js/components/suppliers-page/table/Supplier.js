@@ -14,7 +14,7 @@ function Supplier({ id, name, email, contact, address }) {
       <td>{address}</td>
       <td>
         <Link
-          to={`/edit-supplier/${id}`}
+          to={`/suppliers/${id}/edit`}
           className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'

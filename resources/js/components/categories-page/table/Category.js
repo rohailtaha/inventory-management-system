@@ -10,7 +10,7 @@ function Category({ id, name }) {
       <td>{name}</td>
       <td>
         <Link
-          to={`/edit-category/${id}`}
+          to={`/categories/${id}/edit`}
           className='btn p-0 me-1'
           data-bs-toggle='tooltip'
           data-bs-placement='right'

@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-  request_delete_customer,
-  request_fetch_customers,
-} from '../../actions/customers/customers-actions';
+import { request_delete_customer } from '../../actions/customers/customers-actions';
 import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
 import { reset_pagination } from '../../actions/pagination/pagination-actions';
 import { hide_success_message } from '../../actions/success-message/success-message-actions';
@@ -12,16 +9,11 @@ import Paginaton from '../common/pagination/Pagination';
 import CustomersTable from './table/CustomersTable';
 
 function Customers() {
-  const [fetched, deleteConfirmation, customers] = useSelector(state => [
-    state.customers.fetched,
+  const [deleteConfirmation, customers] = useSelector(state => [
     state.deleteConfirmation,
     state.customers.list,
   ]);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!fetched) dispatch(request_fetch_customers());
-  }, []);
 
   useEffect(() => {
     if (deleteConfirmation.confirm)
@@ -40,7 +32,7 @@ function Customers() {
     <div className='main__content main__content--customers'>
       <Link
         className='btn btn-primary px-3 py-2 d-flex align-items-center add-btn'
-        to='/add-customer'
+        to='/customers/add'
       >
         <span className='material-icons me-1'> add </span> New Customer
       </Link>
@@ -54,7 +46,7 @@ function Customers() {
             </div>
           </div>
         </div>
-        {fetched && <Paginaton totalItems={customers.length} />}
+        <Paginaton totalItems={customers.length} />
       </section>
     </div>
   );

@@ -1,10 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Fragment, useEffect } from 'react/cjs/react.development';
-import {
-  fetch_categories,
-  request_delete_category,
-} from '../../actions/categories/categories-actions';
+import { request_delete_category } from '../../actions/categories/categories-actions';
 import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
 import { reset_pagination } from '../../actions/pagination/pagination-actions';
 import { hide_success_message } from '../../actions/success-message/success-message-actions';
@@ -14,7 +11,7 @@ import EditCategoryModal from './edit category modal/EditCategoryModal';
 import CategoriesTable from './table/CategoriesTable';
 
 function Categories() {
-  const [fetched, deleteConfirmation, categories] = useSelector(state => [
+  const [deleteConfirmation, categories] = useSelector(state => [
     state.categories.fetched,
     state.deleteConfirmation,
     state.categories.list,
@@ -23,10 +20,6 @@ function Categories() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const updateMode = () => id;
-
-  useEffect(() => {
-    if (!fetched) dispatch(fetch_categories());
-  }, [fetched]);
 
   useEffect(() => {
     if (deleteConfirmation.confirm)
@@ -60,7 +53,7 @@ function Categories() {
                 </div>
               </div>
             </div>
-            {fetched && <Paginaton totalItems={categories.length} />}
+            <Paginaton totalItems={categories.length} />
           </section>
         </div>
       )}

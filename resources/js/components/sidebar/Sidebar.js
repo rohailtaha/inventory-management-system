@@ -184,11 +184,14 @@ function Sidebar() {
               </div>
             </div>
             <ul className='report-types report-types--close ps-0 mb-0 list-group-flush bg-primary'>
-              <Link to='/sales-report' className='d-block list-group-item ps-4'>
+              <Link
+                to='/reports/sales'
+                className='d-block list-group-item ps-4'
+              >
                 Sales Report
               </Link>
               <Link
-                to='/purchases-report'
+                to='/reports/purchases'
                 className='d-block list-group-item ps-4'
               >
                 Purchases Report

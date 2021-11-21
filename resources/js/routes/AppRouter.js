@@ -24,13 +24,21 @@ function AppRouter() {
           <Route path='/users'>
             <UsersRouter />
           </Route>
-          <SuppliersRouter />
-          <CategoriesRouter />
-          <CustomersRouter />
+          <Route path='/categories'>
+            <CategoriesRouter />
+          </Route>
+          <Route path='/suppliers'>
+            <SuppliersRouter />
+          </Route>
+          <Route path='/customers'>
+            <CustomersRouter />
+          </Route>
         </Fragment>
       )}
 
-      <ReportsRouter />
+      <Route path='/reports'>
+        <ReportsRouter />
+      </Route>
 
       <Route path='/sales'>
         <SalesRouter />
