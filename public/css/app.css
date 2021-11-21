@@ -11356,38 +11356,32 @@ input::placeholder {
 .sidebar .report-types--open {
   -webkit-animation-name: open-report-types;
           animation-name: open-report-types;
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
 }
 .sidebar .report-types--close {
   -webkit-animation-name: close-report-types;
           animation-name: close-report-types;
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
-}
-.sidebar .report-arrow {
-  transform: rotate(0deg) translateY(-50%);
-  position: absolute;
-  top: 50%;
-  right: 25px;
 }
 .sidebar .report-arrow--right {
   -webkit-animation-name: report-arrow-right;
           animation-name: report-arrow-right;
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
 }
 .sidebar .report-arrow--down {
   -webkit-animation-name: report-arrow-down;
           animation-name: report-arrow-down;
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
 }
@@ -11744,27 +11738,27 @@ input::placeholder {
 }
 @-webkit-keyframes report-arrow-right {
   from {
-    transform: rotate(90deg) translateX(-50%);
+    transform: rotate(90deg) translateX(0%);
   }
   to {
-    transform: rotate(0deg) translateY(-50%);
+    transform: rotate(0deg) translateY(0%);
   }
 }
 @keyframes report-arrow-right {
   from {
-    transform: rotate(90deg) translateX(-50%);
+    transform: rotate(90deg) translateX(0%);
   }
   to {
-    transform: rotate(0deg) translateY(-50%);
+    transform: rotate(0deg) translateY(0%);
   }
 }
 @-webkit-keyframes report-arrow-down {
   to {
-    transform: rotate(90deg) translateX(-50%);
+    transform: rotate(90deg) translateX(0%);
   }
 }
 @keyframes report-arrow-down {
   to {
-    transform: rotate(90deg) translateX(-50%);
+    transform: rotate(90deg) translateX(0%);
   }
 }

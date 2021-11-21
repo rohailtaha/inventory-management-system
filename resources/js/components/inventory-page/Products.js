@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import { fetch_categories } from '../../actions/categories/categories-actions';
 import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
 import { reset_pagination } from '../../actions/pagination/pagination-actions';
-import { request_delete_product } from '../../actions/products/products-actions';
+import {
+  fetch_products,
+  request_delete_product,
+} from '../../actions/products/products-actions';
 import { hide_success_message } from '../../actions/success-message/success-message-actions';
 import { stringStarts } from '../../utils/utility_functions';
 import { userRoles } from '../../utils/util_structures';
@@ -13,7 +16,7 @@ import Paginaton from '../common/pagination/Pagination';
 import FilterForm from './filter form/FilterForm';
 import InventoryTable from './table/InventoryTable';
 
-function Inventory() {
+export default function Products() {
   const [
     fetched,
     fetchedCategories,
@@ -50,6 +53,7 @@ function Inventory() {
 
   useEffect(() => {
     if (!fetchedCategories) dispatch(fetch_categories());
+    if (!fetched) dispatch(fetch_products());
   }, []);
 
   useEffect(() => {
@@ -71,7 +75,7 @@ function Inventory() {
         {userRole === userRoles.ADMIN && (
           <Link
             className='btn btn-primary me-5 px-3 py-2 d-flex align-items-center add-btn'
-            to='/add-product'
+            to='/products/add'
           >
             <span className='material-icons me-1'> add </span>{' '}
             <span> New Product </span>{' '}
@@ -98,5 +102,3 @@ function Inventory() {
     </div>
   );
 }
-
-export default Inventory;

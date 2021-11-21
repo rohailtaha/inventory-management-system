@@ -26,7 +26,7 @@ function Product({
       {userRole === userRoles.ADMIN && (
         <td>
           <Link
-            to={`/edit-product/${id}`}
+            to={`/products/${id}/edit`}
             className='btn p-0 me-1'
             data-bs-toggle='tooltip'
             data-bs-placement='right'

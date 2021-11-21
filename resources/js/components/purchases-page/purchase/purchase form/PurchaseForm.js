@@ -10,7 +10,8 @@ import ProductToPurchaseForm from './product-to-purchase-form/ProductToPurchaseF
 import PurchaseDetailsForm from './purchase-details-form/PurchaseDetailsForm';
 
 function PurchaseForm({ mode }) {
-  const [grandTotal] = useSelector(state => [
+  const [fetchedProducts, grandTotal] = useSelector(state => [
+    state.products.fetched,
     state.purchases.productsToPurchase.reduce(
       (previous, current) => previous + current.total_cost,
       0
@@ -18,6 +19,10 @@ function PurchaseForm({ mode }) {
   ]);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!fetchedProducts) dispatch(fetch_products());
+  }, []);
 
   useEffect(() => cleanup, []);
 
@@ -29,8 +34,12 @@ function PurchaseForm({ mode }) {
 
   return (
     <Fragment>
-      <ProductToPurchaseForm />
-      <PurchaseDetailsForm mode={mode} grandTotal={grandTotal} />
+      {fetchedProducts && (
+        <Fragment>
+          <ProductToPurchaseForm />
+          <PurchaseDetailsForm mode={mode} grandTotal={grandTotal} />
+        </Fragment>
+      )}
     </Fragment>
   );
 }

@@ -3,25 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
 import { reset_pagination } from '../../actions/pagination/pagination-actions';
-import {
-  request_delete_sale,
-  request_fetch_sales,
-} from '../../actions/sales/sales-actions';
+import { request_delete_sale } from '../../actions/sales/sales-actions';
 import { hide_success_message } from '../../actions/success-message/success-message-actions';
 import Paginaton from '../common/pagination/Pagination';
 import SalesTable from './table/SalesTable';
 
 function Sales() {
   const dispatch = useDispatch();
-  const [fetched, deleteConfirmation, sales] = useSelector(state => [
-    state.sales.fetched,
+  const [deleteConfirmation, sales] = useSelector(state => [
+    state.customers.fetched,
     state.deleteConfirmation,
     state.sales.list,
   ]);
-
-  useEffect(() => {
-    if (!fetched) dispatch(request_fetch_sales());
-  }, []);
 
   useEffect(() => {
     if (deleteConfirmation.confirm)
@@ -41,7 +34,7 @@ function Sales() {
       <div className='d-xl-flex align-items-center'>
         <Link
           className='btn btn-primary px-3 py-2 d-flex align-items-center add-btn'
-          to='/add-sale'
+          to='/sales/add'
         >
           <span className='material-icons me-1'> add </span> New Sale
         </Link>
@@ -56,7 +49,7 @@ function Sales() {
             </div>
           </div>
         </div>
-        {fetched && <Paginaton totalItems={sales.length} />}
+        <Paginaton totalItems={sales.length} />
       </section>
     </div>
   );

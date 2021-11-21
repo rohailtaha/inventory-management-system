@@ -5,6 +5,7 @@ import { Fragment } from 'react/cjs/react.development';
 import { logout } from '../../actions/authentication/authentication';
 import toggleSidebar from '../../actions/sidebar/toggle-sidebar';
 import { reset_user } from '../../actions/users/users-actions';
+import { toggleClass } from '../../utils/utility_functions';
 import { userRoles } from '../../utils/util_structures';
 
 function Sidebar() {
@@ -13,6 +14,25 @@ function Sidebar() {
     state.sidebarOpen,
     state.users.user,
   ]);
+
+  const toggleReportTypes = () => {
+    const reportTypes = document.querySelector('.report-types');
+    if (reportTypes.classList.contains('report-types--open')) {
+      toggleClass(reportTypes, 'report-types--open', 'report-types--close');
+      toggleClass(
+        document.querySelector('.report-arrow'),
+        'report-arrow--down',
+        'report-arrow--right'
+      );
+    } else {
+      toggleClass(reportTypes, 'report-types--close', 'report-types--open');
+      toggleClass(
+        document.querySelector('.report-arrow'),
+        'report-arrow--right',
+        'report-arrow--down'
+      );
+    }
+  };
 
   const handleLogout = event => {
     event.preventDefault();
@@ -49,7 +69,7 @@ function Sidebar() {
         <ul className='list-group list-group-flush sidebar__quick-actions mt-4'>
           <li className='list-group-item bg-transparent py-1'>
             <Link
-              to='/add-sale'
+              to='/sales/add'
               className='bg-transparent text-decoration-none d-flex align-items-center'
             >
               <span className='material-icons me-1 add-icon'>add</span> New Sale
@@ -57,7 +77,7 @@ function Sidebar() {
           </li>
           <li className='list-group-item bg-transparent py-1'>
             <Link
-              to='/add-purchase'
+              to='/purchases/add'
               className='bg-transparent text-decoration-none d-flex align-items-center'
             >
               <span className='material-icons me-1 add-icon'>add</span>New
@@ -80,7 +100,7 @@ function Sidebar() {
         <div className='list-group list-group-flush mt-3 sidebar__actions'>
           <Link
             to='/'
-            className='list-group-item list-group-item-primary active d-flex align-items-center'
+            className='list-group-item list-group-item-primary d-flex align-items-center'
           >
             <span className='material-icons me-2'>data_usage</span>
             <span className='option-text'> Dashboard </span>
@@ -97,7 +117,7 @@ function Sidebar() {
           )}
 
           <Link
-            to='/inventory'
+            to='/products'
             className='list-group-item list-group-item-primary d-flex align-items-center'
           >
             <span className='material-icons me-2'>inventory</span>
@@ -151,23 +171,26 @@ function Sidebar() {
           )}
 
           <div className='sidebar__reports'>
-            <div className='report-btn list-group-item list-group-item-primary'>
+            <div
+              className='report-btn list-group-item list-group-item-primary'
+              onClick={toggleReportTypes}
+            >
               <div className='relative-container d-flex align-items-center'>
                 <span className='material-icons me-2'>description</span>
                 <span className='option-text'> Reports </span>
-                <span className='material-icons me-2 report-arrow report-arrow--right'>
+                <span className='material-icons ms-3 report-arrow report-arrow--right'>
                   chevron_right
                 </span>
-                {/* <span className='material-icons me-2 report-arrow report-arrow--down'>
-                keyboard_arrow_down
-              </span> */}
               </div>
             </div>
-            <ul className='report-types report-types--open ps-0 mb-0 list-group-flush bg-primary'>
-              <Link to='/sales-report' className='d-block list-group-item'>
+            <ul className='report-types report-types--close ps-0 mb-0 list-group-flush bg-primary'>
+              <Link to='/sales-report' className='d-block list-group-item ps-4'>
                 Sales Report
               </Link>
-              <Link to='/purchases-report' className='d-block list-group-item'>
+              <Link
+                to='/purchases-report'
+                className='d-block list-group-item ps-4'
+              >
                 Purchases Report
               </Link>
             </ul>

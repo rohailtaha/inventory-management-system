@@ -28,7 +28,7 @@ function Purchase({
       <td>{supplier}</td>
       <td>
         <Link
-          to={`/view-purchase/${id}`}
+          to={`/purchases/${id}`}
           className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'
@@ -37,7 +37,7 @@ function Purchase({
           <span className='material-icons'>visibility</span>
         </Link>
         <Link
-          to={`/edit-purchase/${id}`}
+          to={`/purchases/${id}/edit`}
           className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'

@@ -79,34 +79,36 @@ input::placeholder {
     }
   }
 
+  $reportAnimationDuration: 0.5s;
+
   .report-types--open {
     animation-name: open-report-types;
-    animation-duration: 2s;
+    animation-duration: $reportAnimationDuration;
     animation-fill-mode: forwards;
   }
 
   .report-types--close {
     animation-name: close-report-types;
-    animation-duration: 1s;
+    animation-duration: $reportAnimationDuration;
     animation-fill-mode: forwards;
   }
 
   .report-arrow {
-    transform: rotate(0deg) translateY(-50%);
-    position: absolute;
-    top: 50%;
-    right: 25px;
+    // transform: rotate(0deg) translateY(-50%);
+    // position: absolute;
+    // top: 50%;
+    // right: 25px;
   }
 
   .report-arrow--right {
     animation-name: report-arrow-right;
-    animation-duration: 1s;
+    animation-duration: $reportAnimationDuration;
     animation-fill-mode: forwards;
   }
 
   .report-arrow--down {
     animation-name: report-arrow-down;
-    animation-duration: 1s;
+    animation-duration: 0.5s;
     animation-fill-mode: forwards;
   }
 
@@ -505,14 +507,14 @@ input::placeholder {
 
 @keyframes report-arrow-right {
   from {
-    transform: rotate(90deg) translateX(-50%);
+    transform: rotate(90deg) translateX(0%);
   }
   to {
-    transform: rotate(0deg) translateY(-50%);
+    transform: rotate(0deg) translateY(0%);
   }
 }
 @keyframes report-arrow-down {
   to {
-    transform: rotate(90deg) translateX(-50%);
+    transform: rotate(90deg) translateX(0%);
   }
 }

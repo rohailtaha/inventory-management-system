@@ -295,7 +295,7 @@ function ProductForm({ mode }) {
         >
           {updateMode() ? 'Update' : 'Add'}
         </button>
-        <Link to='/inventory' className='btn btn-danger flex-grow-1 ms-sm-3'>
+        <Link to='/products' className='btn btn-danger flex-grow-1 ms-sm-3'>
           Cancel
         </Link>
       </div>

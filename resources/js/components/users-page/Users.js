@@ -13,15 +13,10 @@ import UsersTable from './table/UsersTable';
 
 function Users() {
   const dispatch = useDispatch();
-  const [fetched, deleteConfirmation, users] = useSelector(state => [
-    state.users.fetched,
+  const [deleteConfirmation, users] = useSelector(state => [
     state.deleteConfirmation,
     state.users.list,
   ]);
-
-  useEffect(() => {
-    if (!fetched) dispatch(fetch_users());
-  }, []);
 
   useEffect(() => {
     if (deleteConfirmation.confirm)
@@ -40,7 +35,7 @@ function Users() {
     <div className='main__content main__content--users'>
       <Link
         className='btn btn-primary me-5 px-3 py-2 d-flex align-items-center add-btn'
-        to='/add-user'
+        to='/users/add'
       >
         <span className='material-icons me-1'> add </span>{' '}
         <span> New User </span>
@@ -55,7 +50,7 @@ function Users() {
             </div>
           </div>
         </div>
-        {fetched && <Paginaton totalItems={users.length} />}
+        <Paginaton totalItems={users.length} />
       </section>
     </div>
   );

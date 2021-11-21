@@ -16,7 +16,7 @@ function User({ role, name, email, phone, status, id }) {
         <td>{status}</td>
         <td>
           <Link
-            to={`/edit-user/${id}`}
+            to={`/users/${id}/edit`}
             className='btn p-0 me-1'
             data-bs-toggle='tooltip'
             data-bs-placement='right'

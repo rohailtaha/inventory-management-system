@@ -1,19 +1,22 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function Header() {
+  const [shop] = useSelector(state => [state.shop]);
+
   return (
     <header className='bg-primary text-white py-2 d-flex justify-content-between header relative-container'>
       <Link className='ms-3 navbar-brand text-light logo' to='/'>
-        My Store
+        {shop.name}
       </Link>
       <div className='me-3 store-info'>
         <div>
           <span>Contact: </span>
-          <span>03090100461</span>
+          <span>{shop.contact}</span>
         </div>
         <span>Address: </span>
-        <span>Street 5A, H-12 sector, Lahore</span>
+        <span>{shop.address}</span>
         <div></div>
       </div>
     </header>

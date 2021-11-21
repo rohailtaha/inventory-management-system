@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router';
+import { Route } from 'react-router';
 
 import Dashboard from '../components/dashboard-page/Dashboard';
 import SuppliersRouter from './suppliers-routes/SuppliersRouter';
@@ -21,7 +21,9 @@ function AppRouter() {
     <Fragment>
       {userRole === userRoles.ADMIN && (
         <Fragment>
-          <UsersRouter />
+          <Route path='/users'>
+            <UsersRouter />
+          </Route>
           <SuppliersRouter />
           <CategoriesRouter />
           <CustomersRouter />
@@ -30,11 +32,17 @@ function AppRouter() {
 
       <ReportsRouter />
 
-      <SalesRouter />
+      <Route path='/sales'>
+        <SalesRouter />
+      </Route>
 
-      <PurchasesRouter />
+      <Route path='/purchases'>
+        <PurchasesRouter />
+      </Route>
 
-      <ProductsRouter />
+      <Route path='/products'>
+        <ProductsRouter />
+      </Route>
 
       <Route path='/settings'>
         <Settings />

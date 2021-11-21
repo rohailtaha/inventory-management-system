@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
 import { reset_pagination } from '../../actions/pagination/pagination-actions';
 import { hide_success_message } from '../../actions/success-message/success-message-actions';
-import { request_delete_supplier } from '../../actions/suppliers/suppliers-actions';
+import {
+  request_delete_supplier,
+  request_fetch_suppliers,
+} from '../../actions/suppliers/suppliers-actions';
 import Paginaton from '../common/pagination/Pagination';
 import SuppliersTable from './table/SuppliersTable';
 
@@ -15,6 +18,10 @@ function Suppliers() {
     state.suppliers.list,
   ]);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!fetched) dispatch(request_fetch_suppliers());
+  }, []);
 
   useEffect(() => {
     if (deleteConfirmation.confirm)

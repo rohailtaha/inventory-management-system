@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { request_delete_customer } from '../../actions/customers/customers-actions';
+import {
+  request_delete_customer,
+  request_fetch_customers,
+} from '../../actions/customers/customers-actions';
 import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
 import { reset_pagination } from '../../actions/pagination/pagination-actions';
 import { hide_success_message } from '../../actions/success-message/success-message-actions';
@@ -15,6 +18,10 @@ function Customers() {
     state.customers.list,
   ]);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!fetched) dispatch(request_fetch_customers());
+  }, []);
 
   useEffect(() => {
     if (deleteConfirmation.confirm)

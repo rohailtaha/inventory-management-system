@@ -11,6 +11,7 @@ import SaleDetailsForm from './sale-details-form/SaleDetailsForm';
 
 function SaleForm({ mode }) {
   const [grandTotal] = useSelector(state => [
+    state.products.fetched,
     state.sales.productsToSale.reduce(
       (previous, current) => previous + current.total_price,
       0

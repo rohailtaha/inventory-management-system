@@ -18,7 +18,7 @@ function Sale({ date, id, customer, grandTotal, netPayment, paymentStatus }) {
       </td>
       <td>
         <Link
-          to={`/view-sale/${id}`}
+          to={`/sales/${id}`}
           className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'
@@ -27,7 +27,7 @@ function Sale({ date, id, customer, grandTotal, netPayment, paymentStatus }) {
           <span className='material-icons'>visibility</span>
         </Link>
         <Link
-          to={`/edit-sale/${id}`}
+          to={`/sales/${id}/edit`}
           className='btn p-0'
           data-bs-toggle='tooltip'
           data-bs-placement='right'
