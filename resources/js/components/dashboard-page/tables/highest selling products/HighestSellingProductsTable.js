@@ -1,33 +1,34 @@
+import { useSelector } from 'react-redux';
 import HighestSellingProduct from './HighestSellingProduct';
 
+const RECORDS_LIMIT = 3;
+
 function HighestSellingProductsTable() {
+  const [highestSellingProducts] = useSelector(state => [
+    state.sales.highestSellingProducts,
+  ]);
+
   return (
     <table className='table table-sm'>
       <thead>
         <tr>
           <th scope='col'>Name</th>
           <th scope='col'>Total Sales</th>
-          <th scope='col'>Income</th>
+          <th scope='col'>Income (RS)</th>
         </tr>
       </thead>
       <tbody>
-        {HighestSellingProducts.map((product,index) => (
+        {highestSellingProducts.slice(0, RECORDS_LIMIT).map(product => (
           <HighestSellingProduct
+            key={product.id}
             name={product.name}
-            totalSales={product.totalSales}
+            totalSales={product.total_sales}
             income={product.income}
-            key={index}
           />
         ))}
       </tbody>
     </table>
   );
 }
-
-const HighestSellingProducts = [
-  { name: 'product 1', totalSales: 50, income: 400 },
-  { name: 'product 2', totalSales: 70, income: 450 },
-  { name: 'product 3', totalSales: 20, income: 600 },
-];
 
 export default HighestSellingProductsTable;

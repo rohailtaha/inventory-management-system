@@ -33,7 +33,9 @@ function Dashboard() {
 
       <section className='mt-5'>
         <div className='card'>
-          <div className='card-header'>Highest Selling Products</div>
+          <div className='card-header bg-secondary text-white fw-bold'>
+            Highest Selling Products
+          </div>
           <div className='card-body'>
             <div className='table-responsive'>
               <HighestSellingProductsTable />

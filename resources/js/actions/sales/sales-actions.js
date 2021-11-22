@@ -31,6 +31,26 @@ function set_sales(sales) {
   };
 }
 
+export const request_highest_sales = () => {
+  return async dispatch => {
+    try {
+      const response = await axios.get('/api/sales/highest');
+      if (response.data.status === 'OK') {
+        dispatch(set_highest_sales(response.data.highestSellingProducts));
+      } else {
+        dispatch(show_error(response.data.error.msg));
+      }
+    } catch (error) {
+      dispatch(show_error(SERVER_ERROR));
+    }
+  };
+};
+
+export const set_highest_sales = highestSellingProducts => ({
+  type: actionTypes.SET_HIGHEST_SALES,
+  payload: highestSellingProducts,
+});
+
 export function request_create_sale(sale) {
   return async dispatch => {
     try {
@@ -43,6 +63,7 @@ export function request_create_sale(sale) {
             response.data.sale.products.map(product => product.id)
           )
         );
+        dispatch(request_highest_sales());
         dispatch(hide_error());
         dispatch(show_success_message(SUCCESSFULL_CREATE_MSG));
       } else {
@@ -75,6 +96,7 @@ export function request_update_sale(sale, id) {
             response.data.sale.products.map(product => product.id)
           )
         );
+        dispatch(request_highest_sales());
         dispatch(hide_error());
         dispatch(show_success_message(SUCCESSFULL_UPDATE_MSG));
       } else {
@@ -95,8 +117,9 @@ export function request_delete_sale(id) {
     try {
       const response = await axios.delete(`/api/sales/${id}`);
       if (response.data.status === 'OK') {
-        dispatch(request_fetch_some_products(response.data.products));
         dispatch(delete_sale(response.data.id));
+        dispatch(request_fetch_some_products(response.data.products));
+        dispatch(request_highest_sales());
         dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
       } else {
         console.error(SERVER_ERROR);

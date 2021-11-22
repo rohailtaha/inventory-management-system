@@ -3,7 +3,7 @@ function HighestSellingProduct({ name, totalSales, income }) {
     <tr>
       <td>{name}</td>
       <td>{totalSales}</td>
-      <td>Rs {income}</td>
+      <td>{income}</td>
     </tr>
   );
 }

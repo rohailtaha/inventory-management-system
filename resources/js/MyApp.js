@@ -10,14 +10,7 @@ import { request_fetch_shop } from './actions/shop/shop-actions';
 
 function MyApp() {
   const [sidebarOpen, deleteConfirmation, successMessage] = useSelector(
-    state => [
-      state.sidebarOpen,
-      state.suppliers.fetched,
-      state.customers.fetched,
-      state.categories.fetched,
-      state.deleteConfirmation,
-      state.successMessage,
-    ]
+    state => [state.sidebarOpen, state.deleteConfirmation, state.successMessage]
   );
 
   const dispatch = useDispatch();

@@ -11,7 +11,6 @@ import SalesTable from './table/SalesTable';
 function Sales() {
   const dispatch = useDispatch();
   const [deleteConfirmation, sales] = useSelector(state => [
-    state.customers.fetched,
     state.deleteConfirmation,
     state.sales.list,
   ]);

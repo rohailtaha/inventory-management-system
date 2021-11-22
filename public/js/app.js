@@ -2209,7 +2209,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function MyApp() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)(function (state) {
-    return [state.sidebarOpen, state.suppliers.fetched, state.customers.fetched, state.categories.fetched, state.deleteConfirmation, state.successMessage];
+    return [state.sidebarOpen, state.deleteConfirmation, state.successMessage];
   }),
       _useSelector2 = _slicedToArray(_useSelector, 3),
       sidebarOpen = _useSelector2[0],
@@ -2314,7 +2314,7 @@ var actionTypes = (_actionTypes = {
   DELETE_PRODUCT_FROM_PURCHASE: 'DELETE_PRODUCT_FROM_PURCHASE',
   CLEAR_PRODUCTS_FROM_PURCHASE: 'CLEAR_PRODUCTS_FROM_PURCHASE',
   SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR: 'SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR'
-}, _defineProperty(_actionTypes, "SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR", 'SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR'), _defineProperty(_actionTypes, "HIDE_PRODUCTS_TO_PURCHASE_FORM_ERROR", 'HIDE_PRODUCTS_TO_PURCHASE_FORM_ERROR'), _defineProperty(_actionTypes, "SET_PURCHASES_REPORT", 'SET_PURCHASES_REPORT'), _defineProperty(_actionTypes, "SET_SALES", 'SET_SALES'), _defineProperty(_actionTypes, "CREATE_SALE", 'CREATE_SALE'), _defineProperty(_actionTypes, "UPDATE_SALE", 'UPDATE_SALE'), _defineProperty(_actionTypes, "DELETE_SALE", 'DELETE_SALE'), _defineProperty(_actionTypes, "SHOW_SALE_ERROR", 'SHOW_SALE_ERROR'), _defineProperty(_actionTypes, "HIDE_SALE_ERROR", 'HIDE_SALE_ERROR'), _defineProperty(_actionTypes, "SET_PRODUCTS_TO_SALE", 'SET_PRODUCTS_TO_SALE'), _defineProperty(_actionTypes, "ADD_PRODUCT_TO_SALE", 'ADD_PRODUCT_TO_SALE'), _defineProperty(_actionTypes, "DELETE_PRODUCT_FROM_SALE", 'DELETE_PRODUCT_FROM_SALE'), _defineProperty(_actionTypes, "CLEAR_PRODUCTS_FROM_SALE", 'CLEAR_PRODUCTS_FROM_SALE'), _defineProperty(_actionTypes, "SHOW_PRODUCTS_TO_SALE_FORM_ERROR", 'SHOW_PRODUCTS_TO_SALE_FORM_ERROR'), _defineProperty(_actionTypes, "HIDE_PRODUCTS_TO_SALE_FORM_ERROR", 'HIDE_PRODUCTS_TO_SALE_FORM_ERROR'), _defineProperty(_actionTypes, "SET_SALES_REPORT", 'SET_SALES_REPORT'), _defineProperty(_actionTypes, "SHOW_SUCCESS_MESSAGE", 'SHOW_SUCCESS_MESSAGE'), _defineProperty(_actionTypes, "HIDE_SUCCESS_MESSAGE", 'HIDE_SUCCESS_MESSAGE'), _defineProperty(_actionTypes, "SHOW_ERROR", 'SHOW_ERROR'), _defineProperty(_actionTypes, "HIDE_ERROR", 'HIDE_ERROR'), _defineProperty(_actionTypes, "SHOW_DELETE_CONFIRMATION", 'SHOW_DELETE_CONFIRMATION'), _defineProperty(_actionTypes, "HIDE_DELETE_CONFIRMATION", 'HIDE_DELETE_CONFIRMATION'), _defineProperty(_actionTypes, "CONFIRM_DELETE", 'CONFIRM_DELETE'), _defineProperty(_actionTypes, "RESET_DELETE_CONFIRMATION", 'RESET_DELETE_CONFIRMATION'), _defineProperty(_actionTypes, "LOAD", 'LOAD'), _defineProperty(_actionTypes, "STOP_LOADING", 'STOP_LOADING'), _defineProperty(_actionTypes, "SET_CURRENT_PAGE", 'SET_CURRENT_PAGE'), _defineProperty(_actionTypes, "RESET_PAGINATION", 'RESET_PAGINATION'), _actionTypes);
+}, _defineProperty(_actionTypes, "SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR", 'SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR'), _defineProperty(_actionTypes, "HIDE_PRODUCTS_TO_PURCHASE_FORM_ERROR", 'HIDE_PRODUCTS_TO_PURCHASE_FORM_ERROR'), _defineProperty(_actionTypes, "SET_PURCHASES_REPORT", 'SET_PURCHASES_REPORT'), _defineProperty(_actionTypes, "SET_SALES", 'SET_SALES'), _defineProperty(_actionTypes, "SET_HIGHEST_SALES", 'SET_HIGHEST_SALES'), _defineProperty(_actionTypes, "CREATE_SALE", 'CREATE_SALE'), _defineProperty(_actionTypes, "UPDATE_SALE", 'UPDATE_SALE'), _defineProperty(_actionTypes, "DELETE_SALE", 'DELETE_SALE'), _defineProperty(_actionTypes, "SHOW_SALE_ERROR", 'SHOW_SALE_ERROR'), _defineProperty(_actionTypes, "HIDE_SALE_ERROR", 'HIDE_SALE_ERROR'), _defineProperty(_actionTypes, "SET_PRODUCTS_TO_SALE", 'SET_PRODUCTS_TO_SALE'), _defineProperty(_actionTypes, "ADD_PRODUCT_TO_SALE", 'ADD_PRODUCT_TO_SALE'), _defineProperty(_actionTypes, "DELETE_PRODUCT_FROM_SALE", 'DELETE_PRODUCT_FROM_SALE'), _defineProperty(_actionTypes, "CLEAR_PRODUCTS_FROM_SALE", 'CLEAR_PRODUCTS_FROM_SALE'), _defineProperty(_actionTypes, "SHOW_PRODUCTS_TO_SALE_FORM_ERROR", 'SHOW_PRODUCTS_TO_SALE_FORM_ERROR'), _defineProperty(_actionTypes, "HIDE_PRODUCTS_TO_SALE_FORM_ERROR", 'HIDE_PRODUCTS_TO_SALE_FORM_ERROR'), _defineProperty(_actionTypes, "SET_SALES_REPORT", 'SET_SALES_REPORT'), _defineProperty(_actionTypes, "SHOW_SUCCESS_MESSAGE", 'SHOW_SUCCESS_MESSAGE'), _defineProperty(_actionTypes, "HIDE_SUCCESS_MESSAGE", 'HIDE_SUCCESS_MESSAGE'), _defineProperty(_actionTypes, "SHOW_ERROR", 'SHOW_ERROR'), _defineProperty(_actionTypes, "HIDE_ERROR", 'HIDE_ERROR'), _defineProperty(_actionTypes, "SHOW_DELETE_CONFIRMATION", 'SHOW_DELETE_CONFIRMATION'), _defineProperty(_actionTypes, "HIDE_DELETE_CONFIRMATION", 'HIDE_DELETE_CONFIRMATION'), _defineProperty(_actionTypes, "CONFIRM_DELETE", 'CONFIRM_DELETE'), _defineProperty(_actionTypes, "RESET_DELETE_CONFIRMATION", 'RESET_DELETE_CONFIRMATION'), _defineProperty(_actionTypes, "LOAD", 'LOAD'), _defineProperty(_actionTypes, "STOP_LOADING", 'STOP_LOADING'), _defineProperty(_actionTypes, "SET_CURRENT_PAGE", 'SET_CURRENT_PAGE'), _defineProperty(_actionTypes, "RESET_PAGINATION", 'RESET_PAGINATION'), _actionTypes);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (actionTypes);
 
 /***/ }),
@@ -3796,6 +3796,8 @@ function hide_error() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "request_fetch_sales": () => (/* binding */ request_fetch_sales),
+/* harmony export */   "request_highest_sales": () => (/* binding */ request_highest_sales),
+/* harmony export */   "set_highest_sales": () => (/* binding */ set_highest_sales),
 /* harmony export */   "request_create_sale": () => (/* binding */ request_create_sale),
 /* harmony export */   "request_update_sale": () => (/* binding */ request_update_sale),
 /* harmony export */   "request_delete_sale": () => (/* binding */ request_delete_sale),
@@ -3882,7 +3884,7 @@ function set_sales(sales) {
   };
 }
 
-function request_create_sale(sale) {
+var request_highest_sales = function request_highest_sales() {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
       var response;
@@ -3891,59 +3893,46 @@ function request_create_sale(sale) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
-              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_4__.load)());
-              _context2.next = 4;
-              return axios.post('/api/sales', sale);
+              _context2.next = 3;
+              return axios.get('/api/sales/highest');
 
-            case 4:
+            case 3:
               response = _context2.sent;
 
               if (response.data.status === 'OK') {
-                dispatch(create_sale(response.data.sale));
-                dispatch((0,_products_products_actions__WEBPACK_IMPORTED_MODULE_5__.request_fetch_some_products)(response.data.sale.products.map(function (product) {
-                  return product.id;
-                })));
-                dispatch(hide_error());
-                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_6__.show_success_message)(SUCCESSFULL_CREATE_MSG));
+                dispatch(set_highest_sales(response.data.highestSellingProducts));
               } else {
                 dispatch(show_error(response.data.error.msg));
               }
 
-              _context2.next = 11;
+              _context2.next = 10;
               break;
 
-            case 8:
-              _context2.prev = 8;
+            case 7:
+              _context2.prev = 7;
               _context2.t0 = _context2["catch"](0);
               dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
 
-            case 11:
-              _context2.prev = 11;
-              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_4__.stopLoading)());
-              return _context2.finish(11);
-
-            case 14:
+            case 10:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 8, 11, 14]]);
+      }, _callee2, null, [[0, 7]]);
     }));
 
     return function (_x2) {
       return _ref2.apply(this, arguments);
     };
   }();
-}
-
-function create_sale(sale) {
+};
+var set_highest_sales = function set_highest_sales(highestSellingProducts) {
   return {
-    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].CREATE_SALE,
-    payload: sale
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SET_HIGHEST_SALES,
+    payload: highestSellingProducts
   };
-}
-
-function request_update_sale(sale, id) {
+};
+function request_create_sale(sale) {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch) {
       var response;
@@ -3954,18 +3943,19 @@ function request_update_sale(sale, id) {
               _context3.prev = 0;
               dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_4__.load)());
               _context3.next = 4;
-              return axios.put("/api/sales/".concat(id), sale);
+              return axios.post('/api/sales', sale);
 
             case 4:
               response = _context3.sent;
 
               if (response.data.status === 'OK') {
-                dispatch(update_sale(response.data.sale));
+                dispatch(create_sale(response.data.sale));
                 dispatch((0,_products_products_actions__WEBPACK_IMPORTED_MODULE_5__.request_fetch_some_products)(response.data.sale.products.map(function (product) {
                   return product.id;
                 })));
+                dispatch(request_highest_sales());
                 dispatch(hide_error());
-                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_6__.show_success_message)(SUCCESSFULL_UPDATE_MSG));
+                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_6__.show_success_message)(SUCCESSFULL_CREATE_MSG));
               } else {
                 dispatch(show_error(response.data.error.msg));
               }
@@ -3996,7 +3986,15 @@ function request_update_sale(sale, id) {
     };
   }();
 }
-function request_delete_sale(id) {
+
+function create_sale(sale) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].CREATE_SALE,
+    payload: sale
+  };
+}
+
+function request_update_sale(sale, id) {
   return /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch) {
       var response;
@@ -4004,46 +4002,101 @@ function request_delete_sale(id) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              dispatch((0,_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_3__.hide_delete_confirmation)());
+              _context4.prev = 0;
               dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_4__.load)());
-              _context4.prev = 2;
-              _context4.next = 5;
-              return axios["delete"]("/api/sales/".concat(id));
+              _context4.next = 4;
+              return axios.put("/api/sales/".concat(id), sale);
 
-            case 5:
+            case 4:
               response = _context4.sent;
 
               if (response.data.status === 'OK') {
-                dispatch((0,_products_products_actions__WEBPACK_IMPORTED_MODULE_5__.request_fetch_some_products)(response.data.products));
+                dispatch(update_sale(response.data.sale));
+                dispatch((0,_products_products_actions__WEBPACK_IMPORTED_MODULE_5__.request_fetch_some_products)(response.data.sale.products.map(function (product) {
+                  return product.id;
+                })));
+                dispatch(request_highest_sales());
+                dispatch(hide_error());
+                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_6__.show_success_message)(SUCCESSFULL_UPDATE_MSG));
+              } else {
+                dispatch(show_error(response.data.error.msg));
+              }
+
+              _context4.next = 11;
+              break;
+
+            case 8:
+              _context4.prev = 8;
+              _context4.t0 = _context4["catch"](0);
+              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
+
+            case 11:
+              _context4.prev = 11;
+              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_4__.stopLoading)());
+              return _context4.finish(11);
+
+            case 14:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[0, 8, 11, 14]]);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+}
+function request_delete_sale(id) {
+  return /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(dispatch) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              dispatch((0,_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_3__.hide_delete_confirmation)());
+              dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_4__.load)());
+              _context5.prev = 2;
+              _context5.next = 5;
+              return axios["delete"]("/api/sales/".concat(id));
+
+            case 5:
+              response = _context5.sent;
+
+              if (response.data.status === 'OK') {
                 dispatch(delete_sale(response.data.id));
+                dispatch((0,_products_products_actions__WEBPACK_IMPORTED_MODULE_5__.request_fetch_some_products)(response.data.products));
+                dispatch(request_highest_sales());
                 dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_6__.show_success_message)(SUCCESSFULL_DELETE_MSG));
               } else {
                 console.error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR);
               }
 
-              _context4.next = 12;
+              _context5.next = 12;
               break;
 
             case 9:
-              _context4.prev = 9;
-              _context4.t0 = _context4["catch"](2);
+              _context5.prev = 9;
+              _context5.t0 = _context5["catch"](2);
               console.error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR);
 
             case 12:
-              _context4.prev = 12;
+              _context5.prev = 12;
               dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_4__.stopLoading)());
-              return _context4.finish(12);
+              return _context5.finish(12);
 
             case 15:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4, null, [[2, 9, 12, 15]]);
+      }, _callee5, null, [[2, 9, 12, 15]]);
     }));
 
-    return function (_x4) {
-      return _ref4.apply(this, arguments);
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
     };
   }();
 }
@@ -6835,7 +6888,7 @@ function Dashboard() {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "card",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-          className: "card-header",
+          className: "card-header bg-secondary text-white fw-bold",
           children: "Highest Selling Products"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "card-body",
@@ -7060,8 +7113,8 @@ function HighestSellingProduct(_ref) {
       children: name
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
       children: totalSales
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-      children: ["Rs ", income]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+      children: income
     })]
   });
 }
@@ -7081,53 +7134,61 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _HighestSellingProduct__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HighestSellingProduct */ "./resources/js/components/dashboard-page/tables/highest selling products/HighestSellingProduct.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _HighestSellingProduct__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HighestSellingProduct */ "./resources/js/components/dashboard-page/tables/highest selling products/HighestSellingProduct.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+var RECORDS_LIMIT = 3;
 
 function HighestSellingProductsTable() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+    return [state.sales.highestSellingProducts];
+  }),
+      _useSelector2 = _slicedToArray(_useSelector, 1),
+      highestSellingProducts = _useSelector2[0];
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
     className: "table table-sm",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Name"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
           children: "Total Sales"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
           scope: "col",
-          children: "Income"
+          children: "Income (RS)"
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
-      children: HighestSellingProducts.map(function (product, index) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_HighestSellingProduct__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+      children: highestSellingProducts.slice(0, RECORDS_LIMIT).map(function (product) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_HighestSellingProduct__WEBPACK_IMPORTED_MODULE_1__["default"], {
           name: product.name,
-          totalSales: product.totalSales,
+          totalSales: product.total_sales,
           income: product.income
-        }, index);
+        }, product.id);
       })
     })]
   });
 }
 
-var HighestSellingProducts = [{
-  name: 'product 1',
-  totalSales: 50,
-  income: 400
-}, {
-  name: 'product 2',
-  totalSales: 70,
-  income: 450
-}, {
-  name: 'product 3',
-  totalSales: 20,
-  income: 600
-}];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HighestSellingProductsTable);
 
 /***/ }),
@@ -8593,18 +8654,14 @@ function PurchaseForm(_ref) {
   var mode = _ref.mode;
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return [state.products.fetched, state.purchases.productsToPurchase.reduce(function (previous, current) {
+    return [state.purchases.productsToPurchase.reduce(function (previous, current) {
       return previous + current.total_cost;
     }, 0)];
   }),
-      _useSelector2 = _slicedToArray(_useSelector, 2),
-      fetchedProducts = _useSelector2[0],
-      grandTotal = _useSelector2[1];
+      _useSelector2 = _slicedToArray(_useSelector, 1),
+      grandTotal = _useSelector2[0];
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!fetchedProducts) dispatch(fetch_products());
-  }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     return cleanup;
   }, []);
@@ -8616,7 +8673,7 @@ function PurchaseForm(_ref) {
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: fetchedProducts && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_product_to_purchase_form_ProductToPurchaseForm__WEBPACK_IMPORTED_MODULE_4__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_purchase_details_form_PurchaseDetailsForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
         mode: mode,
         grandTotal: grandTotal
@@ -10768,7 +10825,7 @@ function Sales() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return [state.customers.fetched, state.deleteConfirmation, state.sales.list];
+    return [state.deleteConfirmation, state.sales.list];
   }),
       _useSelector2 = _slicedToArray(_useSelector, 2),
       deleteConfirmation = _useSelector2[0],
@@ -11081,7 +11138,7 @@ function SaleForm(_ref) {
   var mode = _ref.mode;
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return [state.products.fetched, state.sales.productsToSale.reduce(function (previous, current) {
+    return [state.sales.productsToSale.reduce(function (previous, current) {
       return previous + current.total_price;
     }, 0)];
   }),
@@ -15243,6 +15300,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var initialState = {
   list: [],
   productsToSale: [],
+  highestSellingProducts: [],
   productsToSaleFormError: {
     show: false,
     msg: ''
@@ -15267,7 +15325,13 @@ function salesReducer() {
     case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].SET_SALES:
       return _objectSpread(_objectSpread({}, state), {}, {
         fetched: true,
-        list: action.payload
+        list: action.payload.list,
+        highestSellingProducts: action.payload.highestSellingProducts
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].SET_HIGHEST_SALES:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        highestSellingProducts: action.payload
       });
 
     case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].CREATE_SALE:
@@ -16545,7 +16609,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "removeExtraSpaces": () => (/* binding */ removeExtraSpaces),
 /* harmony export */   "stringStarts": () => (/* binding */ stringStarts),
 /* harmony export */   "stringIncludes": () => (/* binding */ stringIncludes),
-/* harmony export */   "toggleClass": () => (/* binding */ toggleClass)
+/* harmony export */   "toggleClass": () => (/* binding */ toggleClass),
+/* harmony export */   "sort": () => (/* binding */ sort)
 /* harmony export */ });
 function getProfitMargin(purchasePrice, salePrice) {
   return (salePrice - purchasePrice) * 100 / purchasePrice;
@@ -16579,6 +16644,22 @@ var stringIncludes = function stringIncludes(parentString, childString) {
 var toggleClass = function toggleClass(element, oldClass, newClass) {
   element.classList.remove(oldClass);
   element.classList.add(newClass);
+};
+var sort = function sort(data, key, order) {
+  var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+  limit = limit ? limit : data.length;
+
+  if (order === 'DESC') {
+    return data.slice(0, limit).sort(function (firstRecord, secondRecord) {
+      return firstRecord[key] >= secondRecord[key] ? -1 : 1;
+    });
+  }
+
+  if (order == 'ASC') {
+    return data.slice(0, limit).sort(function (firstRecord, secondRecord) {
+      return firstRecord[key] <= secondRecord[key] ? -1 : 1;
+    });
+  }
 };
 
 /***/ }),

@@ -54,6 +54,7 @@ Route::middleware(['auth', 'active'])->group(function () {
   Route::delete('/customers/{id}', [CustomerController::class, 'destroy']);
 
   Route::get('/sales', [SaleController::class, 'index']);
+  Route::get('/sales/highest', [SaleController::class, 'highestSales']);
   Route::post('/sales', [SaleController::class, 'store']);
   Route::put('/sales/{id}', [SaleController::class, 'update']);
   Route::delete('/sales/{id}', [SaleController::class, 'destroy']);

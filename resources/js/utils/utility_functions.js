@@ -39,3 +39,21 @@ export const toggleClass = (element, oldClass, newClass) => {
   element.classList.remove(oldClass);
   element.classList.add(newClass);
 };
+
+export const sort = (data, key, order, limit = null) => {
+  limit = limit ? limit : data.length;
+  if (order === 'DESC') {
+    return data
+      .slice(0, limit)
+      .sort((firstRecord, secondRecord) =>
+        firstRecord[key] >= secondRecord[key] ? -1 : 1
+      );
+  }
+  if (order == 'ASC') {
+    return data
+      .slice(0, limit)
+      .sort((firstRecord, secondRecord) =>
+        firstRecord[key] <= secondRecord[key] ? -1 : 1
+      );
+  }
+};

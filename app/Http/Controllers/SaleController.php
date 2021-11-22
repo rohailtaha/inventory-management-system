@@ -18,7 +18,7 @@ class SaleController extends Controller {
   private $paymentStatus = ['Paid', 'Unpaid', 'Partial'];
 
   public function __construct() {
-    $this->middleware('shop.confirm:Sale')->except('index', 'store');
+    $this->middleware('shop.confirm:Sale')->only('update', 'destroy');
   }
 
   public function index() {
@@ -29,7 +29,12 @@ class SaleController extends Controller {
       return $sale->requiredFields();
     });
 
-    return response(['status' => 'OK', 'sales' => $sales], 200);
+    return response(['status' => 'OK',
+      'sales' => [
+        'list' => $sales,
+        'highestSellingProducts' => SoldProduct::highestSales(),
+      ],
+    ], 200);
   }
 
   public function store(Request $request) {
@@ -153,6 +158,10 @@ class SaleController extends Controller {
       return response(['id' => $id, 'products' => $products, 'status' => 'OK'], 200);
     });
 
+  }
+
+  protected static function highestSales() {
+    return response(['status' => 'OK', 'highestSellingProducts' => SoldProduct::highestSales()], 200);
   }
 
   private function invalid($validator) {

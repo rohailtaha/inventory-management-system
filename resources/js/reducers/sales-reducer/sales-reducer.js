@@ -4,6 +4,7 @@ import { dateRangeTypes } from '../../utils/util_structures';
 const initialState = {
   list: [],
   productsToSale: [],
+  highestSellingProducts: [],
   productsToSaleFormError: {
     show: false,
     msg: '',
@@ -26,7 +27,14 @@ function salesReducer(state = initialState, action) {
       return {
         ...state,
         fetched: true,
-        list: action.payload,
+        list: action.payload.list,
+        highestSellingProducts: action.payload.highestSellingProducts,
+      };
+
+    case actionTypes.SET_HIGHEST_SALES:
+      return {
+        ...state,
+        highestSellingProducts: action.payload,
       };
 
     case actionTypes.CREATE_SALE:
