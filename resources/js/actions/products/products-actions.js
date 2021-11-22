@@ -138,6 +138,18 @@ export const reset_search_form = () => ({
   type: actionTypes.RESET_PRODUCTS_SEARCH_FORM,
 });
 
+export const sort_products = (key, order) => ({
+  type: actionTypes.SORT_PRODUCTS,
+  payload: {
+    key,
+    order,
+  },
+});
+
+export const resort_products = () => ({
+  type: actionTypes.RESORT_PRODUCTS,
+});
+
 export function show_error(msg) {
   return {
     type: actionTypes.SHOW_PRODUCTS_ERROR,

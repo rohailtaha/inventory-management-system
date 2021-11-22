@@ -53,18 +53,14 @@ export default function PurchaseInvoice() {
             <span> {purchase.purchase_status} </span>{' '}
           </div>
           <div>
-            {' '}
             <span className='fw-bold'>Invoice #</span>
-            <span>{purchase.id}</span>{' '}
+            <span>{purchase.id}</span>
           </div>
 
           <div>
             {' '}
             <span className='fw-bold'>Date & Time: </span>{' '}
-            <span>
-              {' '}
-              {purchase.date} {purchase.time}{' '}
-            </span>{' '}
+            <span>{purchase.created_at}</span>{' '}
           </div>
           <div>
             {' '}

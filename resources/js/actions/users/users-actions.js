@@ -177,6 +177,18 @@ function delete_user(id) {
   };
 }
 
+export const sort_users = (key, order) => ({
+  type: actionTypes.SORT_USERS,
+  payload: {
+    key,
+    order,
+  },
+});
+
+export const resort_users = () => ({
+  type: actionTypes.RESORT_USERS,
+});
+
 export function show_error(msg) {
   return {
     type: actionTypes.SHOW_USERS_ERROR,

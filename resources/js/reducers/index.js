@@ -18,19 +18,19 @@ import shopReducer from './shop-reducer/shop-reducer';
 const allReducers = combineReducers({
   sidebarOpen: sidebarReducer,
   loggedin: authenticationReducer,
-  shop: shopReducer,
-  users: usersReducer,
+  pagination: paginationReducer,
   successMessage: successMessageReducer,
   error: errorsReducer,
-  loading: loadReducer,
   deleteConfirmation: deleteConfirmationReducer,
+  loading: loadReducer,
+  shop: shopReducer,
+  users: usersReducer,
   products: productsReducer,
   categories: categoriesReducer,
   suppliers: suppliersReducer,
   customers: customersReducer,
   purchases: purchasesReducer,
   sales: salesReducer,
-  pagination: paginationReducer,
 });
 
 export default allReducers;

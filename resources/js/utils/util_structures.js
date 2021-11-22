@@ -24,6 +24,11 @@ export const dateRangeTypes = {
   CUSTOM: 'Custom',
 };
 
+export const orders = {
+  ASC: 'ASC',
+  DESC: 'DESC',
+};
+
 // 3000 ms => 3s
 export const ERROR_DURATION = 3000;
 

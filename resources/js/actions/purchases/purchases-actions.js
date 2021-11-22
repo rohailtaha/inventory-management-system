@@ -174,6 +174,18 @@ export function set_purchases_report(report) {
   };
 }
 
+export const sort_purchases = (key, order) => ({
+  type: actionTypes.SORT_PURCHASES,
+  payload: {
+    key,
+    order,
+  },
+});
+
+export const resort_purchases = () => ({
+  type: actionTypes.RESORT_PURCHASES,
+});
+
 export function show_error(msg) {
   return {
     type: actionTypes.SHOW_PURCHASE_ERROR,

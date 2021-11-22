@@ -93,13 +93,6 @@ input::placeholder {
     animation-fill-mode: forwards;
   }
 
-  .report-arrow {
-    // transform: rotate(0deg) translateY(-50%);
-    // position: absolute;
-    // top: 50%;
-    // right: 25px;
-  }
-
   .report-arrow--right {
     animation-name: report-arrow-right;
     animation-duration: $reportAnimationDuration;
@@ -196,6 +189,15 @@ input::placeholder {
 
 .main {
   padding-left: 200px;
+
+  #sort-arrow--up {
+    transform: rotateZ(180deg);
+  }
+
+  .sort-arrow {
+    line-height: 0.4;
+    display: block;
+  }
 
   &__content {
     width: 85%;
@@ -311,7 +313,9 @@ input::placeholder {
 
 .main__content--sales,
 .main__content--purchases {
-  table {
+  .table {
+    min-width: 750px;
+
     .material-icons {
       font-size: 22px;
     }

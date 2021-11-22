@@ -2254,6 +2254,11 @@ var actionTypes = (_actionTypes = {
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
   TOGGLE_SIDEBAR: 'TOGGLE_SIDEBAR',
+  LOAD: 'LOAD',
+  STOP_LOADING: 'STOP_LOADING',
+  // Pagination Actions
+  SET_CURRENT_PAGE: 'SET_CURRENT_PAGE',
+  RESET_PAGINATION: 'RESET_PAGINATION',
   // Shop Actions
   SET_SHOP: 'SET_SHOP',
   UPDATE_SHOP: 'UPDATE_SHOP',
@@ -2271,6 +2276,8 @@ var actionTypes = (_actionTypes = {
   HIDE_USERS_ERROR: 'HIDE_USERS_ERROR',
   SHOW_PASSWORD_FORM_ERROR: 'SHOW_PASSWORD_FORM_ERROR',
   HIDE_PASSWORD_FORM_ERROR: 'HIDE_PASSWORD_FORM_ERROR',
+  SORT_USERS: 'SORT_USERS',
+  RESORT_USERS: 'RESORT_USERS',
   // Products Actions
   FETCH_PRODUCTS: 'FETCH_PRODUCTS',
   SET_SOME_PRODUCTS: 'SET_SOME_PRODUCTS',
@@ -2281,6 +2288,8 @@ var actionTypes = (_actionTypes = {
   HIDE_PRODUCTS_ERROR: 'HIDE_PRODUCTS_ERROR',
   SET_PRODUCTS_SEARCH_FORM: 'SET_PRODUCTS_SEARCH_FORM',
   RESET_PRODUCTS_SEARCH_FORM: 'RESET_PRODUCTS_SEARCH_FORM',
+  SORT_PRODUCTS: 'SORT_PRODUCTS',
+  RESORT_PRODUCTS: 'RESORT_PRODUCTS',
   // Categories Actions
   SET_CATEGORIES: 'SET_CATEGORIES',
   CREATE_CATEGORY: 'CREATE_CATEGORY',
@@ -2288,6 +2297,8 @@ var actionTypes = (_actionTypes = {
   DELETE_CATEGORY: 'DELETE_CATEGORY',
   SHOW_CATEGORY_ERROR: 'SHOW_CATEGORY_ERROR',
   HIDE_CATEGORY_ERROR: 'HIDE_CATEGORY_ERROR',
+  SORT_CATEGRIES: 'SORT_CATEGRIES',
+  RESORT_CATEGRIES: 'RESORT_CATEGRIES',
   // Suppliers Actions
   SET_SUPPLIERS: 'SET_SUPPLIERS',
   CREATE_SUPPLIER: 'CREATE_SUPPLIER',
@@ -2295,6 +2306,8 @@ var actionTypes = (_actionTypes = {
   DELETE_SUPPLIER: 'DELETE_SUPPLIER',
   SHOW_SUPPLIER_ERROR: 'SHOW_SUPPLIER_ERROR',
   HIDE_SUPPLIER_ERROR: 'HIDE_SUPPLIER_ERROR',
+  SORT_SUPPLIERS: 'SORT_SUPPLIERS',
+  RESORT_SUPPLIERS: 'RESORT_SUPPLIERS',
   // Customers Actions
   SET_CUSTOMERS: 'SET_CUSTOMERS',
   CREATE_CUSTOMER: 'CREATE_CUSTOMER',
@@ -2302,6 +2315,8 @@ var actionTypes = (_actionTypes = {
   DELETE_CUSTOMER: 'DELETE_CUSTOMER',
   SHOW_CUSTOMER_ERROR: 'SHOW_CUSTOMER_ERROR',
   HIDE_CUSTOMER_ERROR: 'HIDE_CUSTOMER_ERROR',
+  SORT_CUSTOMERS: 'SORT_CUSTOMERS',
+  RESORT_CUSTOMERS: 'RESORT_CUSTOMERS',
   // Purchases Actions
   SET_PURCHASES: 'SET_PURCHASES',
   CREATE_PURCHASE: 'CREATE_PURCHASE',
@@ -2314,7 +2329,7 @@ var actionTypes = (_actionTypes = {
   DELETE_PRODUCT_FROM_PURCHASE: 'DELETE_PRODUCT_FROM_PURCHASE',
   CLEAR_PRODUCTS_FROM_PURCHASE: 'CLEAR_PRODUCTS_FROM_PURCHASE',
   SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR: 'SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR'
-}, _defineProperty(_actionTypes, "SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR", 'SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR'), _defineProperty(_actionTypes, "HIDE_PRODUCTS_TO_PURCHASE_FORM_ERROR", 'HIDE_PRODUCTS_TO_PURCHASE_FORM_ERROR'), _defineProperty(_actionTypes, "SET_PURCHASES_REPORT", 'SET_PURCHASES_REPORT'), _defineProperty(_actionTypes, "SET_SALES", 'SET_SALES'), _defineProperty(_actionTypes, "SET_HIGHEST_SALES", 'SET_HIGHEST_SALES'), _defineProperty(_actionTypes, "CREATE_SALE", 'CREATE_SALE'), _defineProperty(_actionTypes, "UPDATE_SALE", 'UPDATE_SALE'), _defineProperty(_actionTypes, "DELETE_SALE", 'DELETE_SALE'), _defineProperty(_actionTypes, "SHOW_SALE_ERROR", 'SHOW_SALE_ERROR'), _defineProperty(_actionTypes, "HIDE_SALE_ERROR", 'HIDE_SALE_ERROR'), _defineProperty(_actionTypes, "SET_PRODUCTS_TO_SALE", 'SET_PRODUCTS_TO_SALE'), _defineProperty(_actionTypes, "ADD_PRODUCT_TO_SALE", 'ADD_PRODUCT_TO_SALE'), _defineProperty(_actionTypes, "DELETE_PRODUCT_FROM_SALE", 'DELETE_PRODUCT_FROM_SALE'), _defineProperty(_actionTypes, "CLEAR_PRODUCTS_FROM_SALE", 'CLEAR_PRODUCTS_FROM_SALE'), _defineProperty(_actionTypes, "SHOW_PRODUCTS_TO_SALE_FORM_ERROR", 'SHOW_PRODUCTS_TO_SALE_FORM_ERROR'), _defineProperty(_actionTypes, "HIDE_PRODUCTS_TO_SALE_FORM_ERROR", 'HIDE_PRODUCTS_TO_SALE_FORM_ERROR'), _defineProperty(_actionTypes, "SET_SALES_REPORT", 'SET_SALES_REPORT'), _defineProperty(_actionTypes, "SHOW_SUCCESS_MESSAGE", 'SHOW_SUCCESS_MESSAGE'), _defineProperty(_actionTypes, "HIDE_SUCCESS_MESSAGE", 'HIDE_SUCCESS_MESSAGE'), _defineProperty(_actionTypes, "SHOW_ERROR", 'SHOW_ERROR'), _defineProperty(_actionTypes, "HIDE_ERROR", 'HIDE_ERROR'), _defineProperty(_actionTypes, "SHOW_DELETE_CONFIRMATION", 'SHOW_DELETE_CONFIRMATION'), _defineProperty(_actionTypes, "HIDE_DELETE_CONFIRMATION", 'HIDE_DELETE_CONFIRMATION'), _defineProperty(_actionTypes, "CONFIRM_DELETE", 'CONFIRM_DELETE'), _defineProperty(_actionTypes, "RESET_DELETE_CONFIRMATION", 'RESET_DELETE_CONFIRMATION'), _defineProperty(_actionTypes, "LOAD", 'LOAD'), _defineProperty(_actionTypes, "STOP_LOADING", 'STOP_LOADING'), _defineProperty(_actionTypes, "SET_CURRENT_PAGE", 'SET_CURRENT_PAGE'), _defineProperty(_actionTypes, "RESET_PAGINATION", 'RESET_PAGINATION'), _actionTypes);
+}, _defineProperty(_actionTypes, "SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR", 'SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR'), _defineProperty(_actionTypes, "HIDE_PRODUCTS_TO_PURCHASE_FORM_ERROR", 'HIDE_PRODUCTS_TO_PURCHASE_FORM_ERROR'), _defineProperty(_actionTypes, "SET_PURCHASES_REPORT", 'SET_PURCHASES_REPORT'), _defineProperty(_actionTypes, "SORT_PURCHASES", 'SORT_PURCHASES'), _defineProperty(_actionTypes, "RESORT_PURCHASES", 'RESORT_PURCHASES'), _defineProperty(_actionTypes, "SET_SALES", 'SET_SALES'), _defineProperty(_actionTypes, "SET_HIGHEST_SALES", 'SET_HIGHEST_SALES'), _defineProperty(_actionTypes, "CREATE_SALE", 'CREATE_SALE'), _defineProperty(_actionTypes, "UPDATE_SALE", 'UPDATE_SALE'), _defineProperty(_actionTypes, "DELETE_SALE", 'DELETE_SALE'), _defineProperty(_actionTypes, "SHOW_SALE_ERROR", 'SHOW_SALE_ERROR'), _defineProperty(_actionTypes, "HIDE_SALE_ERROR", 'HIDE_SALE_ERROR'), _defineProperty(_actionTypes, "SET_PRODUCTS_TO_SALE", 'SET_PRODUCTS_TO_SALE'), _defineProperty(_actionTypes, "ADD_PRODUCT_TO_SALE", 'ADD_PRODUCT_TO_SALE'), _defineProperty(_actionTypes, "DELETE_PRODUCT_FROM_SALE", 'DELETE_PRODUCT_FROM_SALE'), _defineProperty(_actionTypes, "CLEAR_PRODUCTS_FROM_SALE", 'CLEAR_PRODUCTS_FROM_SALE'), _defineProperty(_actionTypes, "SHOW_PRODUCTS_TO_SALE_FORM_ERROR", 'SHOW_PRODUCTS_TO_SALE_FORM_ERROR'), _defineProperty(_actionTypes, "HIDE_PRODUCTS_TO_SALE_FORM_ERROR", 'HIDE_PRODUCTS_TO_SALE_FORM_ERROR'), _defineProperty(_actionTypes, "SET_SALES_REPORT", 'SET_SALES_REPORT'), _defineProperty(_actionTypes, "SORT_SALES", 'SORT_SALES'), _defineProperty(_actionTypes, "RESORT_SALES", 'RESORT_SALES'), _defineProperty(_actionTypes, "SHOW_SUCCESS_MESSAGE", 'SHOW_SUCCESS_MESSAGE'), _defineProperty(_actionTypes, "HIDE_SUCCESS_MESSAGE", 'HIDE_SUCCESS_MESSAGE'), _defineProperty(_actionTypes, "SHOW_ERROR", 'SHOW_ERROR'), _defineProperty(_actionTypes, "HIDE_ERROR", 'HIDE_ERROR'), _defineProperty(_actionTypes, "SHOW_DELETE_CONFIRMATION", 'SHOW_DELETE_CONFIRMATION'), _defineProperty(_actionTypes, "HIDE_DELETE_CONFIRMATION", 'HIDE_DELETE_CONFIRMATION'), _defineProperty(_actionTypes, "CONFIRM_DELETE", 'CONFIRM_DELETE'), _defineProperty(_actionTypes, "RESET_DELETE_CONFIRMATION", 'RESET_DELETE_CONFIRMATION'), _actionTypes);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (actionTypes);
 
 /***/ }),
@@ -2466,6 +2481,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "request_create_category": () => (/* binding */ request_create_category),
 /* harmony export */   "request_update_category": () => (/* binding */ request_update_category),
 /* harmony export */   "request_delete_category": () => (/* binding */ request_delete_category),
+/* harmony export */   "sort_categories": () => (/* binding */ sort_categories),
+/* harmony export */   "resort_categories": () => (/* binding */ resort_categories),
 /* harmony export */   "hide_error": () => (/* binding */ hide_error)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
@@ -2717,6 +2734,21 @@ function delete_category(id) {
     }
   };
 }
+
+var sort_categories = function sort_categories(key, order) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].SORT_CATEGRIES,
+    payload: {
+      key: key,
+      order: order
+    }
+  };
+};
+var resort_categories = function resort_categories() {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].RESORT_CATEGRIES
+  };
+};
 
 function show_error(msg) {
   return {
@@ -3126,6 +3158,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "request_delete_product": () => (/* binding */ request_delete_product),
 /* harmony export */   "set_search_form": () => (/* binding */ set_search_form),
 /* harmony export */   "reset_search_form": () => (/* binding */ reset_search_form),
+/* harmony export */   "sort_products": () => (/* binding */ sort_products),
+/* harmony export */   "resort_products": () => (/* binding */ resort_products),
 /* harmony export */   "show_error": () => (/* binding */ show_error),
 /* harmony export */   "hide_error": () => (/* binding */ hide_error)
 /* harmony export */ });
@@ -3437,6 +3471,20 @@ var reset_search_form = function reset_search_form() {
     type: _action_types__WEBPACK_IMPORTED_MODULE_4__["default"].RESET_PRODUCTS_SEARCH_FORM
   };
 };
+var sort_products = function sort_products(key, order) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_4__["default"].SORT_PRODUCTS,
+    payload: {
+      key: key,
+      order: order
+    }
+  };
+};
+var resort_products = function resort_products() {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_4__["default"].RESORT_PRODUCTS
+  };
+};
 function show_error(msg) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_4__["default"].SHOW_PRODUCTS_ERROR,
@@ -3472,6 +3520,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "show_products_to_purchase_form_error": () => (/* binding */ show_products_to_purchase_form_error),
 /* harmony export */   "hide_products_to_purchase_form_error": () => (/* binding */ hide_products_to_purchase_form_error),
 /* harmony export */   "set_purchases_report": () => (/* binding */ set_purchases_report),
+/* harmony export */   "sort_purchases": () => (/* binding */ sort_purchases),
+/* harmony export */   "resort_purchases": () => (/* binding */ resort_purchases),
 /* harmony export */   "show_error": () => (/* binding */ show_error),
 /* harmony export */   "hide_error": () => (/* binding */ hide_error)
 /* harmony export */ });
@@ -3772,6 +3822,20 @@ function set_purchases_report(report) {
     payload: report
   };
 }
+var sort_purchases = function sort_purchases(key, order) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SORT_PURCHASES,
+    payload: {
+      key: key,
+      order: order
+    }
+  };
+};
+var resort_purchases = function resort_purchases() {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].RESORT_PURCHASES
+  };
+};
 function show_error(msg) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SHOW_PURCHASE_ERROR,
@@ -3808,6 +3872,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "show_products_to_sale_form_error": () => (/* binding */ show_products_to_sale_form_error),
 /* harmony export */   "hide_products_to_sale_form_error": () => (/* binding */ hide_products_to_sale_form_error),
 /* harmony export */   "set_sales_report": () => (/* binding */ set_sales_report),
+/* harmony export */   "sort_sales": () => (/* binding */ sort_sales),
+/* harmony export */   "resort_sales": () => (/* binding */ resort_sales),
 /* harmony export */   "show_error": () => (/* binding */ show_error),
 /* harmony export */   "hide_error": () => (/* binding */ hide_error)
 /* harmony export */ });
@@ -4159,6 +4225,20 @@ function set_sales_report(report) {
     payload: report
   };
 }
+var sort_sales = function sort_sales(key, order) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SORT_SALES,
+    payload: {
+      key: key,
+      order: order
+    }
+  };
+};
+var resort_sales = function resort_sales() {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].RESORT_SALES
+  };
+};
 function show_error(msg) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SHOW_SALE_ERROR,
@@ -4689,6 +4769,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "reset_user": () => (/* binding */ reset_user),
 /* harmony export */   "setUsers": () => (/* binding */ setUsers),
 /* harmony export */   "request_delete_user": () => (/* binding */ request_delete_user),
+/* harmony export */   "sort_users": () => (/* binding */ sort_users),
+/* harmony export */   "resort_users": () => (/* binding */ resort_users),
 /* harmony export */   "show_error": () => (/* binding */ show_error),
 /* harmony export */   "show_password_form_error": () => (/* binding */ show_password_form_error),
 /* harmony export */   "hide_password_form_error": () => (/* binding */ hide_password_form_error),
@@ -5059,6 +5141,20 @@ function delete_user(id) {
   };
 }
 
+var sort_users = function sort_users(key, order) {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].SORT_USERS,
+    payload: {
+      key: key,
+      order: order
+    }
+  };
+};
+var resort_users = function resort_users() {
+  return {
+    type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].RESORT_USERS
+  };
+};
 function show_error(msg) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].SHOW_USERS_ERROR,
@@ -5540,9 +5636,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _Category__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Category */ "./resources/js/components/categories-page/table/Category.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_categories_categories_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/categories/categories-actions */ "./resources/js/actions/categories/categories-actions.js");
+/* harmony import */ var _common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../common/sort-arrows/SortArrows */ "./resources/js/components/common/sort-arrows/SortArrows.js");
+/* harmony import */ var _Category__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Category */ "./resources/js/components/categories-page/table/Category.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -5560,13 +5659,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
 function CategoriesTable() {
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return [state.categories.list, state.pagination];
   }),
       _useSelector2 = _slicedToArray(_useSelector, 2),
       categories = _useSelector2[0],
       pagination = _useSelector2[1];
+
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var itemsForCurrentPage = function itemsForCurrentPage() {
     return categories.slice(initialItemIndexForCurrentPage(), initialItemIndexForCurrentPage() + pagination.itemsPerPage);
@@ -5576,21 +5680,36 @@ function CategoriesTable() {
     return (pagination.currentPage - 1) * pagination.itemsPerPage;
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
+  var sort = function sort(key, order) {
+    return dispatch((0,_actions_categories_categories_actions__WEBPACK_IMPORTED_MODULE_2__.sort_categories)(key, order));
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return cleanup;
+  }, []);
+
+  var cleanup = function cleanup() {
+    return dispatch((0,_actions_categories_categories_actions__WEBPACK_IMPORTED_MODULE_2__.resort_categories)());
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
     className: "table",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
           scope: "col",
-          children: "Name"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Name", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            aKey: "name",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
           scope: "col",
           children: "Actions"
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
       children: itemsForCurrentPage().map(function (category) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Category__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Category__WEBPACK_IMPORTED_MODULE_4__["default"], {
           id: category.id,
           name: category.name
         }, category.id);
@@ -6138,6 +6257,67 @@ function Category(_ref) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Category);
+
+/***/ }),
+
+/***/ "./resources/js/components/common/sort-arrows/SortArrows.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/common/sort-arrows/SortArrows.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SortArrows)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/util_structures */ "./resources/js/utils/util_structures.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+function SortArrows(_ref) {
+  var sort = _ref.sort,
+      aKey = _ref.aKey;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.orders.ASC),
+      _useState2 = _slicedToArray(_useState, 2),
+      sortOrder = _useState2[0],
+      setSortOrder = _useState2[1];
+
+  var handleClick = function handleClick() {
+    sort(aKey, sortOrder);
+    sortOrder === _utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.orders.ASC ? setSortOrder(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.orders.DESC) : setSortOrder(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.orders.ASC);
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
+    className: "p-0 bg-transparent border-0",
+    onClick: handleClick,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "material-icons sort-arrow",
+      id: "sort-arrow--up",
+      children: "arrow_drop_down"
+    }), ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "material-icons sort-arrow",
+      id: "sort-arrow--down",
+      children: "arrow_drop_down"
+    }), ' ']
+  });
+}
 
 /***/ }),
 
@@ -7284,7 +7464,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_no_results_msg_NoResultsMsg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../common/no-results-msg/NoResultsMsg */ "./resources/js/components/common/no-results-msg/NoResultsMsg.js");
 /* harmony import */ var _common_pagination_Pagination__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../common/pagination/Pagination */ "./resources/js/components/common/pagination/Pagination.js");
 /* harmony import */ var _filter_form_FilterForm__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./filter form/FilterForm */ "./resources/js/components/inventory-page/filter form/FilterForm.js");
-/* harmony import */ var _table_InventoryTable__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./table/InventoryTable */ "./resources/js/components/inventory-page/table/InventoryTable.js");
+/* harmony import */ var _table_ProductsTable__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./table/ProductsTable */ "./resources/js/components/inventory-page/table/ProductsTable.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -7381,7 +7561,7 @@ function Products() {
           className: "card-body",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
             className: "table-responsive",
-            children: filteredProducts().length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_table_InventoryTable__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: filteredProducts().length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_table_ProductsTable__WEBPACK_IMPORTED_MODULE_12__["default"], {
               products: filteredProducts()
             }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_common_no_results_msg_NoResultsMsg__WEBPACK_IMPORTED_MODULE_9__["default"], {})
           })
@@ -7954,106 +8134,6 @@ function ProductForm(_ref) {
 
 /***/ }),
 
-/***/ "./resources/js/components/inventory-page/table/InventoryTable.js":
-/*!************************************************************************!*\
-  !*** ./resources/js/components/inventory-page/table/InventoryTable.js ***!
-  \************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/util_structures */ "./resources/js/utils/util_structures.js");
-/* harmony import */ var _Product__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Product */ "./resources/js/components/inventory-page/table/Product.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-
-
-
-
-function InventoryTable(_ref) {
-  var products = _ref.products;
-
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return [state.pagination, state.users.user.role];
-  }),
-      _useSelector2 = _slicedToArray(_useSelector, 2),
-      pagination = _useSelector2[0],
-      userRole = _useSelector2[1];
-
-  var itemsForCurrentPage = function itemsForCurrentPage() {
-    return products.slice(initialItemIndexForCurrentPage(), initialItemIndexForCurrentPage() + pagination.itemsPerPage);
-  };
-
-  var initialItemIndexForCurrentPage = function initialItemIndexForCurrentPage() {
-    return (pagination.currentPage - 1) * pagination.itemsPerPage;
-  };
-
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-    className: "table",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-          scope: "col",
-          children: "Barcode"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-          scope: "col",
-          children: "Name"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-          scope: "col",
-          children: "Category"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-          scope: "col",
-          children: "Quantity"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-          scope: "col",
-          children: "Purchase Price (RS)"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-          scope: "col",
-          children: "Final Sale Price (RS)"
-        }), userRole === _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.userRoles.ADMIN && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-          scope: "col",
-          children: "Actions"
-        })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
-      children: itemsForCurrentPage().map(function (product) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Product__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          id: product.id,
-          barcode: product.barcode,
-          name: product.name,
-          category: product.category,
-          quantity: product.quantity,
-          purchasePrice: product.purchase_price,
-          finalSalePrice: product.final_sale_price
-        }, product.id);
-      })
-    })]
-  });
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (InventoryTable);
-
-/***/ }),
-
 /***/ "./resources/js/components/inventory-page/table/Product.js":
 /*!*****************************************************************!*\
   !*** ./resources/js/components/inventory-page/table/Product.js ***!
@@ -8131,6 +8211,139 @@ function Product(_ref) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Product);
+
+/***/ }),
+
+/***/ "./resources/js/components/inventory-page/table/ProductsTable.js":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/inventory-page/table/ProductsTable.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ProductsTable)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_products_products_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/products/products-actions */ "./resources/js/actions/products/products-actions.js");
+/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/util_structures */ "./resources/js/utils/util_structures.js");
+/* harmony import */ var _common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common/sort-arrows/SortArrows */ "./resources/js/components/common/sort-arrows/SortArrows.js");
+/* harmony import */ var _Product__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Product */ "./resources/js/components/inventory-page/table/Product.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+function ProductsTable(_ref) {
+  var products = _ref.products;
+
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return [state.pagination, state.users.user.role];
+  }),
+      _useSelector2 = _slicedToArray(_useSelector, 2),
+      pagination = _useSelector2[0],
+      userRole = _useSelector2[1];
+
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+
+  var itemsForCurrentPage = function itemsForCurrentPage() {
+    return products.slice(initialItemIndexForCurrentPage(), initialItemIndexForCurrentPage() + pagination.itemsPerPage);
+  };
+
+  var initialItemIndexForCurrentPage = function initialItemIndexForCurrentPage() {
+    return (pagination.currentPage - 1) * pagination.itemsPerPage;
+  };
+
+  var sort = function sort(key, order) {
+    return dispatch((0,_actions_products_products_actions__WEBPACK_IMPORTED_MODULE_2__.sort_products)(key, order));
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return cleanup;
+  }, []);
+
+  var cleanup = function cleanup() {
+    return dispatch((0,_actions_products_products_actions__WEBPACK_IMPORTED_MODULE_2__.resort_products)());
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("table", {
+    className: "table",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("thead", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
+          scope: "col",
+          children: ["Barcode", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "barcode",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
+          scope: "col",
+          children: ["Name", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "name",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
+          scope: "col",
+          children: ["Category", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "category",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
+          scope: "col",
+          children: ["Quantity", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "quantity",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
+          scope: "col",
+          children: ["Purchase Price (RS)", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "purchase_price",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
+          scope: "col",
+          children: ["Final Sale Price (RS)", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "final_sale_price",
+            sort: sort
+          })]
+        }), userRole === _utils_util_structures__WEBPACK_IMPORTED_MODULE_3__.userRoles.ADMIN && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
+          scope: "col",
+          children: "Actions"
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tbody", {
+      children: itemsForCurrentPage().map(function (product) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Product__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          id: product.id,
+          barcode: product.barcode,
+          name: product.name,
+          category: product.category,
+          quantity: product.quantity,
+          purchasePrice: product.purchase_price,
+          finalSalePrice: product.final_sale_price
+        }, product.id);
+      })
+    })]
+  });
+}
 
 /***/ }),
 
@@ -9582,18 +9795,18 @@ function PurchaseInvoice() {
             children: [" ", purchase.purchase_status, " "]
           }), ' ']
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "fw-bold",
             children: "Invoice #"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             children: purchase.id
-          }), ' ']
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "fw-bold",
             children: "Date & Time: "
-          }), ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
-            children: [' ', purchase.date, " ", purchase.time, ' ']
+          }), ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            children: purchase.created_at
           }), ' ']
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
@@ -9745,9 +9958,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _Purchase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Purchase */ "./resources/js/components/purchases-page/table/Purchase.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/purchases/purchases-actions */ "./resources/js/actions/purchases/purchases-actions.js");
+/* harmony import */ var _utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/utility_functions */ "./resources/js/utils/utility_functions.js");
+/* harmony import */ var _common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common/sort-arrows/SortArrows */ "./resources/js/components/common/sort-arrows/SortArrows.js");
+/* harmony import */ var _Purchase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Purchase */ "./resources/js/components/purchases-page/table/Purchase.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -9765,13 +9982,19 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
+
 function PurchasesTable() {
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return [state.purchases.list, state.pagination];
   }),
       _useSelector2 = _slicedToArray(_useSelector, 2),
       purchases = _useSelector2[0],
       pagination = _useSelector2[1];
+
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var itemsForCurrentPage = function itemsForCurrentPage() {
     return purchases.slice(initialItemIndexForCurrentPage(), initialItemIndexForCurrentPage() + pagination.itemsPerPage);
@@ -9781,40 +10004,73 @@ function PurchasesTable() {
     return (pagination.currentPage - 1) * pagination.itemsPerPage;
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
+  var sort = function sort(key, order) {
+    return dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_2__.sort_purchases)(key, order));
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return cleanup;
+  }, []);
+
+  var cleanup = function cleanup() {
+    return dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_2__.resort_purchases)());
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("table", {
     className: "table",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("thead", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
           scope: "col",
-          children: "Date"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Date ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "created_at",
+            sort: sort
+          }), ' ']
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
           scope: "col",
-          children: "Purchase ID"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Purchase ID", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "id",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
           scope: "col",
-          children: "Purchase Status"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Purchase Status", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "purchase_status",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
           scope: "col",
-          children: "Grand Total (RS)"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Grand Total (RS)", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "grand_total",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
           scope: "col",
-          children: "Amount Paid (RS)"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Amount Paid (RS)", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "amount_paid",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
           scope: "col",
-          children: "Payment Status"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Payment Status", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "payment_status",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
           scope: "col",
-          children: "Supplier"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Supplier", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "supplier",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
           scope: "col",
           children: "Actions"
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tbody", {
       children: itemsForCurrentPage().map(function (purchase) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Purchase__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          date: purchase.date,
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Purchase__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          date: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.getDate)(purchase.created_at),
           id: purchase.id,
           purchaseStatus: purchase.purchase_status,
           grandTotal: purchase.grand_total,
@@ -12140,37 +12396,37 @@ function SaleInvoice() {
             children: "My Store"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "sale-invoice__contact",
-            children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
               className: "fw-bold",
               children: "Phone: "
-            }), ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
               children: [" ", '03090877685', " "]
-            }), ' ']
+            })]
           })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "sale-invoice__details",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "fw-bold",
             children: "Invoice #"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             children: sale.id
-          }), ' ']
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "fw-bold",
             children: "Date & Time: "
-          }), ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
-            children: [' ', sale.date, " ", sale.time, ' ']
-          }), ' ']
+          }), ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            children: sale.created_at
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "fw-bold",
             children: "Customer: "
           }), ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
             children: [" ", sale.customer, " "]
-          }), ' ']
+          })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
         className: "table table-sm table-bordered mt-4",
@@ -12321,9 +12577,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _Sale__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Sale */ "./resources/js/components/sales-page/table/Sale.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/sales/sales-actions */ "./resources/js/actions/sales/sales-actions.js");
+/* harmony import */ var _utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/utility_functions */ "./resources/js/utils/utility_functions.js");
+/* harmony import */ var _common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common/sort-arrows/SortArrows */ "./resources/js/components/common/sort-arrows/SortArrows.js");
+/* harmony import */ var _Sale__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Sale */ "./resources/js/components/sales-page/table/Sale.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -12341,13 +12601,19 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
+
 function SalesTable() {
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return [state.sales.list, state.pagination];
   }),
       _useSelector2 = _slicedToArray(_useSelector, 2),
       sales = _useSelector2[0],
       pagination = _useSelector2[1];
+
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var itemsForCurrentPage = function itemsForCurrentPage() {
     return sales.slice(initialItemIndexForCurrentPage(), initialItemIndexForCurrentPage() + pagination.itemsPerPage);
@@ -12357,37 +12623,67 @@ function SalesTable() {
     return (pagination.currentPage - 1) * pagination.itemsPerPage;
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
+  var sort = function sort(key, order) {
+    return dispatch((0,_actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_2__.sort_sales)(key, order));
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return cleanup;
+  }, []);
+
+  var cleanup = function cleanup() {
+    return dispatch((0,_actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_2__.resort_sales)());
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("table", {
     className: "table",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("thead", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
           scope: "col",
-          children: "Date"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Date ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "created_at",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
           scope: "col",
-          children: "Sale ID"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Sale ID ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "id",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
           scope: "col",
-          children: "Customer"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Customer", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "customer",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
           scope: "col",
-          children: "Grand Total (RS)"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Grand Total (RS)", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "grand_total",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
           scope: "col",
-          children: "Net Payment (RS)"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Net Payment (RS)", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "net_payment",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
           scope: "col",
-          children: "Payment Status"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Payment Status", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            aKey: "payment_status",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
           scope: "col",
           children: "Actions"
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tbody", {
       children: itemsForCurrentPage().map(function (sale) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Sale__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          date: sale.date,
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Sale__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          date: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.getDate)(sale.created_at),
           id: sale.id,
           customer: sale.customer,
           grandTotal: sale.grand_total,
@@ -14074,9 +14370,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./User */ "./resources/js/components/users-page/table/User.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_users_users_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/users/users-actions */ "./resources/js/actions/users/users-actions.js");
+/* harmony import */ var _common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../common/sort-arrows/SortArrows */ "./resources/js/components/common/sort-arrows/SortArrows.js");
+/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./User */ "./resources/js/components/users-page/table/User.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -14094,13 +14393,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
 function UsersTable() {
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return [state.users.list, state.pagination];
   }),
       _useSelector2 = _slicedToArray(_useSelector, 2),
       users = _useSelector2[0],
       pagination = _useSelector2[1];
+
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var itemsForCurrentPage = function itemsForCurrentPage() {
     return users.slice(initialItemIndexForCurrentPage(), initialItemIndexForCurrentPage() + pagination.itemsPerPage);
@@ -14110,33 +14414,60 @@ function UsersTable() {
     return (pagination.currentPage - 1) * pagination.itemsPerPage;
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
+  var sort = function sort(key, order) {
+    return dispatch((0,_actions_users_users_actions__WEBPACK_IMPORTED_MODULE_2__.sort_users)(key, order));
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return cleanup;
+  }, []);
+
+  var cleanup = function cleanup() {
+    return dispatch((0,_actions_users_users_actions__WEBPACK_IMPORTED_MODULE_2__.resort_users)());
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
     className: "table",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
           scope: "col",
-          children: "Role"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Role", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            aKey: "role",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
           scope: "col",
-          children: "Name"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Name ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            aKey: "name",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
           scope: "col",
-          children: "Email"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Email ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            aKey: "email",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
           scope: "col",
-          children: "Phone"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Phone ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            aKey: "phone",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
           scope: "col",
-          children: "Status"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+          children: ["Status ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            aKey: "status",
+            sort: sort
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
           scope: "col",
           children: "Actions"
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
       children: itemsForCurrentPage().map(function (user) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_User__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_User__WEBPACK_IMPORTED_MODULE_4__["default"], {
           id: user.id,
           role: user.role,
           name: user.name,
@@ -14576,6 +14907,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_action_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/action-types */ "./resources/js/actions/action-types.js");
+/* harmony import */ var _utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/utility_functions */ "./resources/js/utils/utility_functions.js");
+/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/util_structures */ "./resources/js/utils/util_structures.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -14593,6 +14926,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 var initialState = {
@@ -14648,6 +14983,16 @@ function categoriesReducer() {
           show: false,
           msg: ''
         }
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].SORT_CATEGRIES:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        list: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__.sort)(state.list, action.payload.key, action.payload.order)
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].RESORT_CATEGRIES:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        list: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__.sort)(state.list, 'created_at', _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.orders.DESC)
       });
 
     default:
@@ -14891,19 +15236,19 @@ __webpack_require__.r(__webpack_exports__);
 var allReducers = (0,redux__WEBPACK_IMPORTED_MODULE_15__.combineReducers)({
   sidebarOpen: _sidebar_reducer_sidebar_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   loggedin: _authentication_reducer_authentication_reducer__WEBPACK_IMPORTED_MODULE_0__["default"],
-  shop: _shop_reducer_shop_reducer__WEBPACK_IMPORTED_MODULE_14__["default"],
-  users: _users_reducer_users_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  pagination: _pagination_reducer_pagination_reducer__WEBPACK_IMPORTED_MODULE_13__["default"],
   successMessage: _success_message_reducer_js_success_message_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
   error: _errors_reducer_errors_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
-  loading: _load_reducer_load_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
   deleteConfirmation: _delete_confirmation_reducer_delete_confirmation_reducer__WEBPACK_IMPORTED_MODULE_6__["default"],
+  loading: _load_reducer_load_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
+  shop: _shop_reducer_shop_reducer__WEBPACK_IMPORTED_MODULE_14__["default"],
+  users: _users_reducer_users_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
   products: _products_products_reducer__WEBPACK_IMPORTED_MODULE_7__["default"],
   categories: _categories_reducer_categories_reducer__WEBPACK_IMPORTED_MODULE_8__["default"],
   suppliers: _suppliers_reducer_suppliers_reducer__WEBPACK_IMPORTED_MODULE_9__["default"],
   customers: _customers_reducer_customers_reducer__WEBPACK_IMPORTED_MODULE_10__["default"],
   purchases: _purchases_reducer_purchases_reducer__WEBPACK_IMPORTED_MODULE_11__["default"],
-  sales: _sales_reducer_sales_reducer__WEBPACK_IMPORTED_MODULE_12__["default"],
-  pagination: _pagination_reducer_pagination_reducer__WEBPACK_IMPORTED_MODULE_13__["default"]
+  sales: _sales_reducer_sales_reducer__WEBPACK_IMPORTED_MODULE_12__["default"]
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (allReducers);
 
@@ -14999,6 +15344,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_action_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/action-types */ "./resources/js/actions/action-types.js");
+/* harmony import */ var _utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/utility_functions */ "./resources/js/utils/utility_functions.js");
+/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/util_structures */ "./resources/js/utils/util_structures.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -15016,6 +15363,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 var initialState = {
@@ -15101,6 +15450,16 @@ function productsReducer() {
         }
       });
 
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].SORT_PRODUCTS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        list: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__.sort)(state.list, action.payload.key, action.payload.order)
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].RESORT_PRODUCTS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        list: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__.sort)(state.list, 'created_at', _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.orders.DESC)
+      });
+
     default:
       return state;
   }
@@ -15122,7 +15481,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_action_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/action-types */ "./resources/js/actions/action-types.js");
-/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/util_structures */ "./resources/js/utils/util_structures.js");
+/* harmony import */ var _utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/utility_functions */ "./resources/js/utils/utility_functions.js");
+/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/util_structures */ "./resources/js/utils/util_structures.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -15143,6 +15503,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var initialState = {
   list: [],
   productsToPurchase: [],
@@ -15156,7 +15517,7 @@ var initialState = {
     msg: ''
   },
   report: {
-    dateRangeType: _utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.dateRangeTypes.ALL_TIME,
+    dateRangeType: _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.dateRangeTypes.ALL_TIME,
     startDate: '',
     endDate: ''
   }
@@ -15255,6 +15616,16 @@ function purchasesReducer() {
         }
       });
 
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].SORT_PURCHASES:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        list: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__.sort)(state.list, action.payload.key, action.payload.order)
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].RESORT_PURCHASES:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        list: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__.sort)(state.list, 'created_at', _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.orders.DESC)
+      });
+
     default:
       return state;
   }
@@ -15276,7 +15647,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_action_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/action-types */ "./resources/js/actions/action-types.js");
-/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/util_structures */ "./resources/js/utils/util_structures.js");
+/* harmony import */ var _utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/utility_functions */ "./resources/js/utils/utility_functions.js");
+/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/util_structures */ "./resources/js/utils/util_structures.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -15297,6 +15669,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var initialState = {
   list: [],
   productsToSale: [],
@@ -15311,7 +15684,7 @@ var initialState = {
     msg: ''
   },
   report: {
-    dateRangeType: _utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.dateRangeTypes.ALL_TIME,
+    dateRangeType: _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.dateRangeTypes.ALL_TIME,
     startDate: '',
     endDate: ''
   }
@@ -15414,6 +15787,16 @@ function salesReducer() {
           startDate: action.payload.startDate,
           endDate: action.payload.endDate
         }
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].SORT_SALES:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        list: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__.sort)(state.list, action.payload.key, action.payload.order)
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].RESORT_SALES:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        list: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__.sort)(state.list, 'created_at', _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.orders.DESC)
       });
 
     default:
@@ -15670,6 +16053,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_action_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/action-types */ "./resources/js/actions/action-types.js");
+/* harmony import */ var _utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/utility_functions */ "./resources/js/utils/utility_functions.js");
+/* harmony import */ var _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/util_structures */ "./resources/js/utils/util_structures.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -15687,6 +16072,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 var initialState = {
@@ -15778,6 +16165,16 @@ function usersReducer() {
           show: false,
           msg: ''
         }
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].SORT_USERS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        list: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__.sort)(state.list, action.payload.key, action.payload.order)
+      });
+
+    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__["default"].RESORT_USERS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        list: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__.sort)(state.list, 'created_at', _utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.orders.DESC)
       });
 
     default:
@@ -16554,6 +16951,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "purchaseStatus": () => (/* binding */ purchaseStatus),
 /* harmony export */   "paymentStatus": () => (/* binding */ paymentStatus),
 /* harmony export */   "dateRangeTypes": () => (/* binding */ dateRangeTypes),
+/* harmony export */   "orders": () => (/* binding */ orders),
 /* harmony export */   "ERROR_DURATION": () => (/* binding */ ERROR_DURATION),
 /* harmony export */   "SERVER_ERROR": () => (/* binding */ SERVER_ERROR)
 /* harmony export */ });
@@ -16585,6 +16983,10 @@ var paymentStatus = [{
 var dateRangeTypes = {
   ALL_TIME: 'All Time',
   CUSTOM: 'Custom'
+};
+var orders = {
+  ASC: 'ASC',
+  DESC: 'DESC'
 }; // 3000 ms => 3s
 
 var ERROR_DURATION = 3000;
@@ -16610,8 +17012,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "stringStarts": () => (/* binding */ stringStarts),
 /* harmony export */   "stringIncludes": () => (/* binding */ stringIncludes),
 /* harmony export */   "toggleClass": () => (/* binding */ toggleClass),
-/* harmony export */   "sort": () => (/* binding */ sort)
+/* harmony export */   "sort": () => (/* binding */ sort),
+/* harmony export */   "getDate": () => (/* binding */ getDate)
 /* harmony export */ });
+/* harmony import */ var _util_structures__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util_structures */ "./resources/js/utils/util_structures.js");
+
 function getProfitMargin(purchasePrice, salePrice) {
   return (salePrice - purchasePrice) * 100 / purchasePrice;
 }
@@ -16649,17 +17054,25 @@ var sort = function sort(data, key, order) {
   var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
   limit = limit ? limit : data.length;
 
-  if (order === 'DESC') {
-    return data.slice(0, limit).sort(function (firstRecord, secondRecord) {
-      return firstRecord[key] >= secondRecord[key] ? -1 : 1;
-    });
+  if (order == _util_structures__WEBPACK_IMPORTED_MODULE_0__.orders.ASC) {
+    return data.slice(0, limit).sort(sortAsc);
   }
 
-  if (order == 'ASC') {
-    return data.slice(0, limit).sort(function (firstRecord, secondRecord) {
-      return firstRecord[key] <= secondRecord[key] ? -1 : 1;
-    });
+  if (order === _util_structures__WEBPACK_IMPORTED_MODULE_0__.orders.DESC) {
+    return data.slice(0, limit).sort(sortDesc);
   }
+
+  function sortAsc(firstRecord, secondRecord) {
+    return typeof firstRecord[key] === 'string' ? firstRecord[key].toLowerCase() <= secondRecord[key].toLowerCase() ? -1 : 1 : firstRecord[key] <= secondRecord[key] ? -1 : 1;
+  }
+
+  function sortDesc(firstRecord, secondRecord) {
+    return typeof firstRecord[key] === 'string' ? firstRecord[key].toLowerCase() >= secondRecord[key].toLowerCase() ? -1 : 1 : firstRecord[key] >= secondRecord[key] ? -1 : 1;
+  }
+};
+var getDate = function getDate(string) {
+  var date = new Date(string);
+  return [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-');
 };
 
 /***/ }),

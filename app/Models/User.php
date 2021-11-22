@@ -57,6 +57,7 @@ class User extends Authenticatable {
       'phone' => $this->phone,
       'status' => $this->active === 1 ? 'Active' : 'Blocked',
       'role' => $this->roles[0]->name ?? 'None',
+      'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '',
     ];
   }
 

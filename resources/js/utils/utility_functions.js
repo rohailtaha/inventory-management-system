@@ -1,3 +1,5 @@
+import { orders } from './util_structures';
+
 export function getProfitMargin(purchasePrice, salePrice) {
   return ((salePrice - purchasePrice) * 100) / purchasePrice;
 }
@@ -42,18 +44,36 @@ export const toggleClass = (element, oldClass, newClass) => {
 
 export const sort = (data, key, order, limit = null) => {
   limit = limit ? limit : data.length;
-  if (order === 'DESC') {
-    return data
-      .slice(0, limit)
-      .sort((firstRecord, secondRecord) =>
-        firstRecord[key] >= secondRecord[key] ? -1 : 1
-      );
+  if (order == orders.ASC) {
+    return data.slice(0, limit).sort(sortAsc);
   }
-  if (order == 'ASC') {
-    return data
-      .slice(0, limit)
-      .sort((firstRecord, secondRecord) =>
-        firstRecord[key] <= secondRecord[key] ? -1 : 1
-      );
+
+  if (order === orders.DESC) {
+    return data.slice(0, limit).sort(sortDesc);
   }
+
+  function sortAsc(firstRecord, secondRecord) {
+    return typeof firstRecord[key] === 'string'
+      ? firstRecord[key].toLowerCase() <= secondRecord[key].toLowerCase()
+        ? -1
+        : 1
+      : firstRecord[key] <= secondRecord[key]
+      ? -1
+      : 1;
+  }
+
+  function sortDesc(firstRecord, secondRecord) {
+    return typeof firstRecord[key] === 'string'
+      ? firstRecord[key].toLowerCase() >= secondRecord[key].toLowerCase()
+        ? -1
+        : 1
+      : firstRecord[key] >= secondRecord[key]
+      ? -1
+      : 1;
+  }
+};
+
+export const getDate = string => {
+  const date = new Date(string);
+  return [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-');
 };

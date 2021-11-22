@@ -14,7 +14,7 @@ import { userRoles } from '../../utils/util_structures';
 import NoResultsMsg from '../common/no-results-msg/NoResultsMsg';
 import Paginaton from '../common/pagination/Pagination';
 import FilterForm from './filter form/FilterForm';
-import InventoryTable from './table/InventoryTable';
+import ProductsTable from './table/ProductsTable';
 
 export default function Products() {
   const [
@@ -90,7 +90,7 @@ export default function Products() {
           <div className='card-body'>
             <div className='table-responsive'>
               {filteredProducts().length > 0 ? (
-                <InventoryTable products={filteredProducts()} />
+                <ProductsTable products={filteredProducts()} />
               ) : (
                 <NoResultsMsg />
               )}

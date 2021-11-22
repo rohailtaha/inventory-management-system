@@ -1,4 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  resort_categories,
+  sort_categories,
+} from '../../../actions/categories/categories-actions';
+import SortArrows from '../../common/sort-arrows/SortArrows';
 import Category from './Category';
 
 function CategoriesTable() {
@@ -6,6 +12,8 @@ function CategoriesTable() {
     state.categories.list,
     state.pagination,
   ]);
+
+  const dispatch = useDispatch();
 
   const itemsForCurrentPage = () =>
     categories.slice(
@@ -16,11 +24,20 @@ function CategoriesTable() {
   const initialItemIndexForCurrentPage = () =>
     (pagination.currentPage - 1) * pagination.itemsPerPage;
 
+  const sort = (key, order) => dispatch(sort_categories(key, order));
+
+  useEffect(() => cleanup, []);
+
+  const cleanup = () => dispatch(resort_categories());
+
   return (
     <table className='table'>
       <thead>
         <tr>
-          <th scope='col'>Name</th>
+          <th scope='col'>
+            Name
+            <SortArrows aKey='name' sort={sort} />
+          </th>
           <th scope='col'>Actions</th>
         </tr>
       </thead>

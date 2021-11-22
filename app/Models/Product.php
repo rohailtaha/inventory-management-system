@@ -23,7 +23,7 @@ class Product extends Model {
       'sale_price' => floatval($this->sale_price),
       'discount' => floatval($this->discount),
       'final_sale_price' => floatval($this->final_sale_price),
-    ];
+      'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : ''];
   }
 
   public function category() {

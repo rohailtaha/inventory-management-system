@@ -39,32 +39,25 @@ export default function SaleInvoice() {
           <div>
             <h3 className='mb-0'>My Store</h3>
             <div className='sale-invoice__contact'>
-              {' '}
-              <span className='fw-bold'>Phone: </span>{' '}
-              <span> {'03090877685'} </span>{' '}
+              <span className='fw-bold'>Phone: </span>
+              <span> {'03090877685'} </span>
             </div>
           </div>
         </div>
 
         <div className='sale-invoice__details'>
           <div>
-            {' '}
             <span className='fw-bold'>Invoice #</span>
-            <span>{sale.id}</span>{' '}
+            <span>{sale.id}</span>
           </div>
 
           <div>
-            {' '}
             <span className='fw-bold'>Date & Time: </span>{' '}
-            <span>
-              {' '}
-              {sale.date} {sale.time}{' '}
-            </span>{' '}
+            <span>{sale.created_at}</span>
           </div>
           <div>
-            {' '}
             <span className='fw-bold'>Customer: </span>{' '}
-            <span> {sale.customer} </span>{' '}
+            <span> {sale.customer} </span>
           </div>
         </div>
 

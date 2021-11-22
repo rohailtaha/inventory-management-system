@@ -24,8 +24,6 @@ class Purchase extends Model {
 
   public function requiredFields() {
     return [
-      'date' => $this->created_at->format('Y-m-d'),
-      'time' => $this->created_at->format('H:i:s'),
       'id' => $this->id,
       'purchase_status' => $this->purchase_status,
       'grand_total' => floatval($this->grand_total),
@@ -33,6 +31,8 @@ class Purchase extends Model {
       'payment_status' => $this->payment_status,
       'supplier' => $this->supplier->name ?? '',
       'products' => $this->formatProducts($this->products),
+      'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '',
+
     ];
 
   }

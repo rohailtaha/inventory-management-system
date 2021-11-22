@@ -114,6 +114,18 @@ function delete_category(id) {
   };
 }
 
+export const sort_categories = (key, order) => ({
+  type: actionTypes.SORT_CATEGRIES,
+  payload: {
+    key,
+    order,
+  },
+});
+
+export const resort_categories = () => ({
+  type: actionTypes.RESORT_CATEGRIES,
+});
+
 function show_error(msg) {
   return {
     type: actionTypes.SHOW_CATEGORY_ERROR,

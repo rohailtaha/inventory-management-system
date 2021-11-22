@@ -1,5 +1,6 @@
 import actionTypes from '../../actions/action-types';
-import { dateRangeTypes } from '../../utils/util_structures';
+import { sort } from '../../utils/utility_functions';
+import { dateRangeTypes, orders } from '../../utils/util_structures';
 
 const initialState = {
   list: [],
@@ -127,6 +128,18 @@ function salesReducer(state = initialState, action) {
           startDate: action.payload.startDate,
           endDate: action.payload.endDate,
         },
+      };
+
+    case actionTypes.SORT_SALES:
+      return {
+        ...state,
+        list: sort(state.list, action.payload.key, action.payload.order),
+      };
+
+    case actionTypes.RESORT_SALES:
+      return {
+        ...state,
+        list: sort(state.list, 'created_at', orders.DESC),
       };
 
     default:

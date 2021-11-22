@@ -197,6 +197,18 @@ export function set_sales_report(report) {
   };
 }
 
+export const sort_sales = (key, order) => ({
+  type: actionTypes.SORT_SALES,
+  payload: {
+    key,
+    order,
+  },
+});
+
+export const resort_sales = () => ({
+  type: actionTypes.RESORT_SALES,
+});
+
 export function show_error(msg) {
   return {
     type: actionTypes.SHOW_SALE_ERROR,

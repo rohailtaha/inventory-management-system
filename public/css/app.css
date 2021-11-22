@@ -11463,6 +11463,13 @@ input::placeholder {
 .main {
   padding-left: 200px;
 }
+.main #sort-arrow--up {
+  transform: rotateZ(180deg);
+}
+.main .sort-arrow {
+  line-height: 0.4;
+  display: block;
+}
 .main__content {
   width: 85%;
   margin: 0 auto;
@@ -11554,8 +11561,12 @@ input::placeholder {
   max-width: 500px;
 }
 
-.main__content--sales table .material-icons,
-.main__content--purchases table .material-icons {
+.main__content--sales .table,
+.main__content--purchases .table {
+  min-width: 750px;
+}
+.main__content--sales .table .material-icons,
+.main__content--purchases .table .material-icons {
   font-size: 22px;
 }
 
