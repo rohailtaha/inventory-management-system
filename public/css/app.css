@@ -11683,8 +11683,10 @@ input::placeholder {
   }
   .main__content--sales-report form,
 .main__content--sales-report .btn--print-report,
+.main__content--sales-report .report-h,
 .main__content--purchases-report form,
-.main__content--purchases-report .btn--print-report {
+.main__content--purchases-report .btn--print-report,
+.main__content--purchases-report .report-h {
     display: none !important;
   }
   .main__content--sales-report .report-header,
@@ -11695,10 +11697,6 @@ input::placeholder {
   .main__content--sales-report .table-container,
 .main__content--purchases-report .table-container {
     margin-top: 0 !important;
-  }
-  .main__content--sales-report .sales-h,
-.main__content--purchases-report .sales-h {
-    display: none;
   }
 
   .main__content--sale-invoice .header-buttons,

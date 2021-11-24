@@ -3,6 +3,7 @@ import { SERVER_ERROR } from '../../utils/util_structures';
 import actionTypes from '../action-types';
 import { hide_delete_confirmation } from '../delete-confirmation/delete-confirmation-actions';
 import { load, stopLoading } from '../load/load';
+import { request_fetch_some_sales } from '../sales/sales-actions';
 import { show_success_message } from '../success-message/success-message-actions';
 
 const SUCCESSFULL_CREATE_MSG = 'Customer added.';
@@ -94,6 +95,7 @@ export function request_delete_customer(id) {
       if (response.data.status === 'OK') {
         dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
         dispatch(delete_customer(response.data.id));
+        dispatch(request_fetch_some_sales(response.data.sales));
       } else {
         console.error(SERVER_ERROR);
       }
@@ -113,6 +115,18 @@ function delete_customer(id) {
     },
   };
 }
+
+export const sort_customers = (key, order) => ({
+  type: actionTypes.SORT_CUSTOMERS,
+  payload: {
+    key,
+    order,
+  },
+});
+
+export const resort_customers = () => ({
+  type: actionTypes.RESORT_CUSTOMERS,
+});
 
 function show_error(msg) {
   return {

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Purchase;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -12,7 +14,7 @@ class SupplierController extends Controller {
 
   public function __construct() {
     $this->middleware('admin')->except('index');
-    $this->middleware('shop.confirm:Supplier')->except('index', 'store');
+    $this->middleware('shop.confirm:Supplier')->only('update', 'destroy');
   }
 
   public function index() {
@@ -106,8 +108,16 @@ class SupplierController extends Controller {
   }
 
   public function destroy($id) {
-    Supplier::find($id)->delete();
-    return response(['id' => $id, 'status' => 'OK'], 200);
+    return DB::transaction(function () use ($id) {
+      $supplier = Supplier::findOrFail($id);
+      // get purchases for supplier
+      $purchases = Purchase::select('id')->where('supplier_id', $id)->get();
+      $purchases->transform(function ($purchase) {
+        return $purchase->id;
+      });
+      $supplier->delete();
+      return response(['id' => $id, 'purchases' => $purchases, 'status' => 'OK'], 200);
+    });
   }
 
   private function invalid($validator) {

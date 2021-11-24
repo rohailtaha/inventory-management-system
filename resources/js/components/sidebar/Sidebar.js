@@ -87,7 +87,7 @@ function Sidebar() {
           {user.role === userRoles.ADMIN && (
             <li className='list-group-item bg-transparent py-1'>
               <Link
-                to='/add-product'
+                to='/products/add'
                 className='bg-transparent text-decoration-none d-flex align-items-center'
               >
                 <span className='material-icons me-1 add-icon'>add</span>New

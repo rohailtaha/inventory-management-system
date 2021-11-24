@@ -31,6 +31,28 @@ function set_purchases(purchases) {
   };
 }
 
+export const request_fetch_some_purchases = purchaseIDs => {
+  return async dispatch => {
+    try {
+      const response = await axios.post(`/api/purchases/some`, {
+        ids: purchaseIDs,
+      });
+      if (response.data.status === 'OK') {
+        dispatch(set_some_purchases(response.data.purchases));
+      } else {
+        console.error(response.data.error.msg);
+      }
+    } catch (error) {
+      console.error(SERVER_ERROR);
+    }
+  };
+};
+
+export const set_some_purchases = purchases => ({
+  type: actionTypes.SET_SOME_PURCHASES,
+  payload: purchases,
+});
+
 export function request_create_purchase(purchase) {
   return async dispatch => {
     try {

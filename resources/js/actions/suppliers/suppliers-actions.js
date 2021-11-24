@@ -3,6 +3,7 @@ import { SERVER_ERROR } from '../../utils/util_structures';
 import actionTypes from '../action-types';
 import { hide_delete_confirmation } from '../delete-confirmation/delete-confirmation-actions';
 import { load, stopLoading } from '../load/load';
+import { request_fetch_some_purchases } from '../purchases/purchases-actions';
 import { show_success_message } from '../success-message/success-message-actions';
 
 const SUCCESSFULL_CREATE_MSG = 'Supplier added.';
@@ -94,6 +95,7 @@ export function request_delete_supplier(id) {
       if (response.data.status === 'OK') {
         dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
         dispatch(delete_supplier(response.data.id));
+        dispatch(request_fetch_some_purchases(response.data.purchases));
       } else {
         console.error(SERVER_ERROR);
       }
@@ -113,6 +115,18 @@ function delete_supplier(id) {
     },
   };
 }
+
+export const sort_suppliers = (key, order) => ({
+  type: actionTypes.SORT_SUPPLIERS,
+  payload: {
+    key,
+    order,
+  },
+});
+
+export const resort_suppliers = () => ({
+  type: actionTypes.RESORT_SUPPLIERS,
+});
 
 function show_error(msg) {
   return {

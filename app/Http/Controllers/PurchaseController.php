@@ -18,12 +18,23 @@ class PurchaseController extends Controller {
   private $paymentStatus = ['Paid', 'Unpaid', 'Partial'];
 
   public function __construct() {
-    $this->middleware('shop.confirm:Purchase')->except('index', 'store');
+    $this->middleware('shop.confirm:Purchase')->only('update', 'destroy');
   }
 
   public function index() {
 
     $purchases = auth()->user()->shop->purchases;
+
+    $purchases->transform(function ($purchase) {
+      return $purchase->requiredFields();
+    });
+
+    return response(['status' => 'OK', 'purchases' => $purchases], 200);
+  }
+
+  public function some(Request $request) {
+    $purchases = Purchase::where('shop_id', auth()->user()->shop_id)
+      ->whereIn('id', $request->ids)->get();
 
     $purchases->transform(function ($purchase) {
       return $purchase->requiredFields();
@@ -133,7 +144,7 @@ class PurchaseController extends Controller {
       $purchase = Purchase::findOrFail($id);
       $products = PurchasedProduct::select('product_id')->where('purchase_id', $id)->get();
       if ($products->isEmpty()) {
-        throw new Exception('No products found for this sale.');
+        throw new Exception('No products found for this purchase.');
       }
       $products->transform(function ($product) {
         return $product->product_id;

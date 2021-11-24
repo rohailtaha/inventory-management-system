@@ -29,8 +29,6 @@ function EditCategoryModal({ categoryID }) {
     if (successMessage.show) redirectToCategories();
   }, [successMessage.show]);
 
-  useEffect(() => cleanup, []);
-
   const handleChange = event =>
     setForm({
       ...form,
@@ -45,6 +43,8 @@ function EditCategoryModal({ categoryID }) {
   const dataWithCorrectFormat = () => ({
     name: removeExtraSpaces(form.name),
   });
+
+  useEffect(() => cleanup, []);
 
   const cleanup = () => {
     dispatch(hide_error());

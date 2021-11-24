@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Fragment } from 'react/cjs/react.development';
 import { reset_pagination } from '../../../actions/pagination/pagination-actions';
 import { request_fetch_sales } from '../../../actions/sales/sales-actions';
+import { getDate } from '../../../utils/utility_functions';
 import { dateRangeTypes } from '../../../utils/util_structures';
 import Paginaton from '../../common/pagination/Pagination';
 import SalesReportForm from './form/SalesReportForm';
@@ -21,7 +22,9 @@ function SalesReport() {
   const getSales = () => {
     if (report.dateRangeType === dateRangeTypes.ALL_TIME) return sales;
     return sales.filter(
-      sale => sale.date >= report.startDate && sale.date <= report.endDate
+      sale =>
+        getDate(sale.created_at) >= report.startDate &&
+        getDate(sale.created_at) <= report.endDate
     );
   };
 
@@ -50,15 +53,16 @@ function SalesReport() {
           <section className='mt-5 table-container'>
             <div className='card'>
               <div className='card-header fs-2 d-flex justify-content-between align-items-center'>
-                <span className='sales-h'> Sales Report </span>
+                <span className='report-h'> Sales Report </span>
                 <button
                   type='button'
                   onClick={handleClick}
-                  className='btn btn--print-report'
+                  className='btn btn--print-report d-flex align-items-center bg-primary text-white'
                   data-bs-toggle='tooltip'
                   data-bs-placement='top'
                   title='Print'
                 >
+                  <span className='me-2'> Print </span>
                   <span className='material-icons'>print</span>
                 </button>
               </div>

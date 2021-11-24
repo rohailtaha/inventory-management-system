@@ -1,6 +1,7 @@
 import PaymentStatusBadge from '../../../common/payment status badge/PaymentStatusBadge';
 
 function Purchase({
+  id,
   date,
   supplier,
   purchaseStatus,
@@ -11,6 +12,7 @@ function Purchase({
   return (
     <tr>
       <td>{date}</td>
+      <td>{id}</td>
       <td>{supplier}</td>
       <td>{purchaseStatus}</td>
       <td>{grandTotal}</td>

@@ -459,7 +459,8 @@ input::placeholder {
       padding: 0 !important;
     }
     form,
-    .btn--print-report {
+    .btn--print-report,
+    .report-h {
       display: none !important;
     }
     .report-header {
@@ -468,9 +469,6 @@ input::placeholder {
     }
     .table-container {
       margin-top: 0 !important;
-    }
-    .sales-h {
-      display: none;
     }
   }
 

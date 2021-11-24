@@ -31,6 +31,28 @@ function set_sales(sales) {
   };
 }
 
+export const request_fetch_some_sales = saleIDs => {
+  return async dispatch => {
+    try {
+      const response = await axios.post(`/api/sales/some`, {
+        ids: saleIDs,
+      });
+      if (response.data.status === 'OK') {
+        dispatch(set_some_sales(response.data.sales));
+      } else {
+        console.error(response.data.error.msg);
+      }
+    } catch (error) {
+      console.error(SERVER_ERROR);
+    }
+  };
+};
+
+export const set_some_sales = sales => ({
+  type: actionTypes.SET_SOME_SALES,
+  payload: sales,
+});
+
 export const request_highest_sales = () => {
   return async dispatch => {
     try {

@@ -32,6 +32,17 @@ function salesReducer(state = initialState, action) {
         highestSellingProducts: action.payload.highestSellingProducts,
       };
 
+    case actionTypes.SET_SOME_SALES:
+      return {
+        ...state,
+        list: state.list.map(sale => {
+          const updatedSale = action.payload.find(
+            updatedSale => sale.id === updatedSale.id
+          );
+          return updatedSale ? updatedSale : sale;
+        }),
+      };
+
     case actionTypes.SET_HIGHEST_SALES:
       return {
         ...state,

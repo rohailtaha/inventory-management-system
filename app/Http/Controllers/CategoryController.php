@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Rules\UniqueCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller {
@@ -51,15 +52,30 @@ class CategoryController extends Controller {
       return $this->errorResponse($validator);
     }
 
-    $category = Category::find($id);
+    $category = Category::findOrFail($id);
+
+    $products = $category->products;
+    $products->transform(function ($product) {
+      return $product->id;
+    });
+
     $category->update(['name' => $request->name]);
 
-    return response(['category' => $category->fresh()->requiredFields(), 'status' => 'OK'], 200);
+    return response(['category' => $category->fresh()->requiredFields(), 'products' => $products, 'status' => 'OK'], 200);
   }
 
   public function destroy($id) {
-    Category::find($id)->delete();
-    return response(['id' => $id, 'status' => 'OK'], 200);
+
+    return DB::transaction(function () use ($id) {
+      $category = Category::findOrFail($id);
+      // get purchases for supplier
+      $products = $category->products;
+      $products->transform(function ($product) {
+        return $product->id;
+      });
+      $category->delete();
+      return response(['id' => $id, 'products' => $products, 'status' => 'OK'], 200);
+    });
   }
 
   private function invalid($validator) {

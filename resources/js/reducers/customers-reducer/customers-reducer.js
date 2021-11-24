@@ -1,4 +1,6 @@
 import actionTypes from '../../actions/action-types';
+import { sort } from '../../utils/utility_functions';
+import { orders } from '../../utils/util_structures';
 
 const initialState = {
   list: [],
@@ -50,6 +52,19 @@ function customersReducer(state = initialState, action) {
           msg: '',
         },
       };
+
+    case actionTypes.SORT_CUSTOMERS:
+      return {
+        ...state,
+        list: sort(state.list, action.payload.key, action.payload.order),
+      };
+
+    case actionTypes.RESORT_CUSTOMERS:
+      return {
+        ...state,
+        list: sort(state.list, 'created_at', orders.DESC),
+      };
+
     default:
       return state;
   }

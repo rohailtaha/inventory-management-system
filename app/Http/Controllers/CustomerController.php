@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -12,7 +14,7 @@ class CustomerController extends Controller {
 
   public function __construct() {
     $this->middleware('admin')->except('index');
-    $this->middleware('shop.confirm:Customer')->except('index', 'store');
+    $this->middleware('shop.confirm:Customer')->only('update', 'destroy');
   }
 
   public function index() {
@@ -92,9 +94,22 @@ class CustomerController extends Controller {
     return response(['customer' => $customer->fresh()->requiredFields(), 'status' => 'OK'], 200);
   }
 
+  // public function destroy($id) {
+  //   Customer::find($id)->delete();
+  //   return response(['id' => $id, 'status' => 'OK'], 200);
+  // }
+
   public function destroy($id) {
-    Customer::find($id)->delete();
-    return response(['id' => $id, 'status' => 'OK'], 200);
+    return DB::transaction(function () use ($id) {
+      $customer = Customer::findOrFail($id);
+      // get purchases for supplier
+      $sales = Sale::select('id')->where('customer_id', $id)->get();
+      $sales->transform(function ($sale) {
+        return $sale->id;
+      });
+      $customer->delete();
+      return response(['id' => $id, 'sales' => $sales, 'status' => 'OK'], 200);
+    });
   }
 
   private function invalid($validator) {

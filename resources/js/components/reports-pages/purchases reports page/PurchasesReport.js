@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset_pagination } from '../../../actions/pagination/pagination-actions';
 import { request_fetch_purchases } from '../../../actions/purchases/purchases-actions';
+import { getDate } from '../../../utils/utility_functions';
 import { dateRangeTypes } from '../../../utils/util_structures';
 import Paginaton from '../../common/pagination/Pagination';
 import PurchasesReportForm from './form/PurchasesReportForm';
@@ -22,7 +23,8 @@ function PurchasesReport() {
     if (report.dateRangeType === dateRangeTypes.ALL_TIME) return purchases;
     return purchases.filter(
       purchase =>
-        purchase.date >= report.startDate && purchase.date <= report.endDate
+        getDate(purchase.created_at) >= report.startDate &&
+        getDate(purchase.created_at) <= report.endDate
     );
   };
 
@@ -47,15 +49,16 @@ function PurchasesReport() {
           <section className='mt-5 table-container'>
             <div className='card'>
               <div className='card-header fs-2 d-flex justify-content-between align-items-center'>
-                <span className='purchases-h'> Purchases Report </span>
+                <span className='report-h'> Purchases Report </span>
                 <button
                   type='button'
                   onClick={handleClick}
-                  className='btn btn--print-report'
+                  className='btn btn--print-report d-flex align-items-center bg-primary text-white'
                   data-bs-toggle='tooltip'
                   data-bs-placement='top'
                   title='Print'
                 >
+                  <span className='me-2'> Print </span>
                   <span className='material-icons'>print</span>
                 </button>
               </div>

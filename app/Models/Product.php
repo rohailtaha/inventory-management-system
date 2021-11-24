@@ -15,7 +15,7 @@ class Product extends Model {
       'id' => $this->id,
       'barcode' => $this->barcode,
       'name' => $this->name,
-      'category' => $this->category->name ?? 'Deleted',
+      'category' => $this->category->name ?? '',
       'description' => $this->description ?? '',
       'quantity' => intval($this->quantity),
       'alert_quantity' => intval($this->alert_quantity),

@@ -33,10 +33,10 @@ Route::middleware(['auth', 'active'])->group(function () {
   Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
   Route::get('/products', [ProductController::class, 'index']);
+  Route::post('/products/some', [ProductController::class, 'some']);
   Route::post('/products', [ProductController::class, 'store']);
   Route::put('/products/{id}', [ProductController::class, 'update']);
   Route::delete('/products/{id}', [ProductController::class, 'destroy']);
-  Route::post('/some-products', [ProductController::class, 'getProducts']);
 
   Route::get('/categories', [CategoryController::class, 'index']);
   Route::post('/categories', [CategoryController::class, 'store']);
@@ -54,12 +54,14 @@ Route::middleware(['auth', 'active'])->group(function () {
   Route::delete('/customers/{id}', [CustomerController::class, 'destroy']);
 
   Route::get('/sales', [SaleController::class, 'index']);
+  Route::post('/sales/some', [SaleController::class, 'some']);
   Route::get('/sales/highest', [SaleController::class, 'highestSales']);
   Route::post('/sales', [SaleController::class, 'store']);
   Route::put('/sales/{id}', [SaleController::class, 'update']);
   Route::delete('/sales/{id}', [SaleController::class, 'destroy']);
 
   Route::get('/purchases', [PurchaseController::class, 'index']);
+  Route::post('/purchases/some', [PurchaseController::class, 'some']);
   Route::post('/purchases', [PurchaseController::class, 'store']);
   Route::put('/purchases/{id}', [PurchaseController::class, 'update']);
   Route::delete('/purchases/{id}', [PurchaseController::class, 'destroy']);

@@ -37,6 +37,17 @@ class SaleController extends Controller {
     ], 200);
   }
 
+  public function some(Request $request) {
+    $sales = Sale::where('shop_id', auth()->user()->shop_id)
+      ->whereIn('id', $request->ids)->get();
+
+    $sales->transform(function ($sale) {
+      return $sale->requiredFields();
+    });
+
+    return response(['status' => 'OK', 'sales' => $sales], 200);
+  }
+
   public function store(Request $request) {
     $validator = Validator::make($request->all(), [
       'products.*.id' => ['required', 'numeric', 'integer', 'min:0', Rule::exists('products', 'id')

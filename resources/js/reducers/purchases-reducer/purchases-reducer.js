@@ -30,6 +30,17 @@ function purchasesReducer(state = initialState, action) {
         list: action.payload,
       };
 
+    case actionTypes.SET_SOME_PURCHASES:
+      return {
+        ...state,
+        list: state.list.map(purchase => {
+          const updatedPurchase = action.payload.find(
+            updatedPurchase => purchase.id === updatedPurchase.id
+          );
+          return updatedPurchase ? updatedPurchase : purchase;
+        }),
+      };
+
     case actionTypes.CREATE_PURCHASE:
       return {
         ...state,

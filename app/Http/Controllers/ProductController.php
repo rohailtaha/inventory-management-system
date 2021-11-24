@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Validator;
 class ProductController extends Controller {
 
   public function __construct() {
-    $this->middleware('admin')->except('index', 'getProducts');
-    $this->middleware('shop.confirm:Product')->except('index', 'store', 'getProducts');
+    $this->middleware('admin')->except('index', 'some');
+    $this->middleware('shop.confirm:Product')->only('update', 'destroy');
   }
 
   public function index() {
@@ -25,15 +25,13 @@ class ProductController extends Controller {
     return response(['status' => 'OK', 'products' => $products], 200);
   }
 
-  public function getProducts(Request $request) {
-    $products = [];
-    foreach ($request->products as $id) {
-      $products[] = Product::where(['shop_id' => auth()->user()->shop_id, 'id' => $id])->firstOrFail();
-    }
+  public function some(Request $request) {
+    $products = Product::where('shop_id', auth()->user()->shop_id)
+      ->whereIn('id', $request->ids)->get();
 
-    $products = array_map(function ($product) {
+    $products->transform(function ($product) {
       return $product->requiredFields();
-    }, $products);
+    });
 
     return response(['status' => 'OK', 'products' => $products], 200);
   }

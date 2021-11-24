@@ -28,11 +28,11 @@ export function fetch_products() {
   };
 }
 
-export function request_fetch_some_products(products) {
+export function request_fetch_some_products(productIDs) {
   return async dispatch => {
     try {
-      const response = await axios.post('/api/some-products', {
-        products: products,
+      const response = await axios.post(`/api/products/some`, {
+        ids: productIDs,
       });
       if (response.data.status === 'OK') {
         dispatch(set_some_products(response.data.products));

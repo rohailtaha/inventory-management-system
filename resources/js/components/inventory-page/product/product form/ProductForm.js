@@ -13,15 +13,13 @@ import FormError from '../../../common/form-error/FormError';
 import ProductCategoryOption from '../../../common/product-category-option/ProductCategoryOption';
 
 function ProductForm({ mode }) {
-  const [products, categories, error, loading, successMessage] = useSelector(
-    state => [
-      state.products.list,
-      state.categories.list,
-      state.products.error,
-      state.loading,
-      state.successMessage,
-    ]
-  );
+  const [products, categories, error, successMessage] = useSelector(state => [
+    state.products.list,
+    state.categories.list,
+    state.products.error,
+    state.loading,
+    state.successMessage,
+  ]);
 
   const [form, setForm] = useState({
     barcode: '',
@@ -44,7 +42,9 @@ function ProductForm({ mode }) {
       setForm({
         barcode: product.barcode,
         name: product.name,
-        category: product.category,
+        category: isEmpty(product.category)
+          ? categories[0].name
+          : product.category,
         description: product.description,
         quantity: product.quantity.toString(),
         alert_quantity: product.alert_quantity.toString(),
@@ -69,14 +69,11 @@ function ProductForm({ mode }) {
     return '';
   };
 
-  const handleChange = event => {
-    const { name, value } = event.target;
-
+  const handleChange = event =>
     setForm(form => ({
       ...form,
-      [name]: value,
+      [event.target.name]: event.target.value,
     }));
-  };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -85,26 +82,24 @@ function ProductForm({ mode }) {
       : dispatch(request_create_product(dataWithCorrectFormats()));
   };
 
-  const dataWithCorrectFormats = () => {
-    return {
-      barcode: form.barcode,
-      name: form.name,
-      category: form.category,
-      description: form.description,
-      quantity: parseInt(form.quantity),
-      alert_quantity: parseInt(form.alert_quantity),
-      purchase_price: parseFloat(parseFloat(form.purchase_price).toFixed(2)),
-      sale_price: parseFloat(parseFloat(form.sale_price).toFixed(2)),
-      discount: parseFloat(parseFloat(form.discount).toFixed(2)),
-      final_sale_price: parseFloat(parseFloat(finalSalePrice()).toFixed(2)),
-    };
-  };
+  const dataWithCorrectFormats = () => ({
+    barcode: form.barcode,
+    name: form.name,
+    category: form.category,
+    description: form.description,
+    quantity: parseInt(form.quantity),
+    alert_quantity: parseInt(form.alert_quantity),
+    purchase_price: parseFloat(parseFloat(form.purchase_price).toFixed(2)),
+    sale_price: parseFloat(parseFloat(form.sale_price).toFixed(2)),
+    discount: parseFloat(parseFloat(form.discount).toFixed(2)),
+    final_sale_price: parseFloat(parseFloat(finalSalePrice()).toFixed(2)),
+  });
 
   useEffect(() => {
     if (successMessage.show && !updateMode()) resetForm();
   }, [successMessage.show]);
 
-  const resetForm = () => {
+  const resetForm = () =>
     setForm({
       barcode: '',
       name: '',
@@ -116,7 +111,6 @@ function ProductForm({ mode }) {
       sale_price: '',
       discount: '0',
     });
-  };
 
   return (
     <form className='mt-4' onSubmit={handleSubmit}>

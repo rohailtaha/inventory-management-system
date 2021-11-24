@@ -12,7 +12,6 @@ import CategoriesTable from './table/CategoriesTable';
 
 function Categories() {
   const [deleteConfirmation, categories] = useSelector(state => [
-    state.categories.fetched,
     state.deleteConfirmation,
     state.categories.list,
   ]);

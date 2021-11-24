@@ -1,10 +1,19 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  resort_sales,
+  sort_sales,
+} from '../../../../actions/sales/sales-actions';
+import { getDate } from '../../../../utils/utility_functions';
+import SortArrows from '../../../common/sort-arrows/SortArrows';
 import Sale from './Sale';
 
 function SalesReportTable({ sales }) {
   const [{ currentPage, itemsPerPage }] = useSelector(state => [
     state.pagination,
   ]);
+
+  const dispatch = useDispatch();
 
   const itemsForCurrentPage = () =>
     sales.slice(
@@ -15,23 +24,47 @@ function SalesReportTable({ sales }) {
   const initialItemIndexForCurrentPage = () => (currentPage - 1) * itemsPerPage;
 
   const sumGrandTotal = () =>
-    sales.reduce((prev, current) => prev + current.grand_total, 0);
+    sales.reduce((prev, current) => prev + current.grand_total, 0).toFixed(2);
 
   const sumAmountPaid = () =>
-    sales.reduce((prev, current) => prev + current.net_payment, 0);
+    sales.reduce((prev, current) => prev + current.net_payment, 0).toFixed(2);
 
   const lastPage = () => Math.ceil(sales.length / itemsPerPage) === currentPage;
+
+  const sort = (key, order) => dispatch(sort_sales(key, order));
+
+  useEffect(() => cleanup, []);
+
+  const cleanup = () => dispatch(resort_sales());
 
   return (
     <table className='table'>
       <thead>
         <tr>
-          <th scope='col'>Date</th>
-          <th scope='col'>ID</th>
-          <th scope='col'>Customer</th>
-          <th scope='col'>Grand total (RS)</th>
-          <th scope='col'>Paid (RS)</th>
-          <th scope='col'>Payment status</th>
+          <th scope='col'>
+            Date
+            <SortArrows aKey='created_at' sort={sort} />
+          </th>
+          <th scope='col'>
+            ID
+            <SortArrows aKey='id' sort={sort} />
+          </th>
+          <th scope='col'>
+            Customer
+            <SortArrows aKey='customer' sort={sort} />
+          </th>
+          <th scope='col'>
+            Grand total (RS)
+            <SortArrows aKey='grand_total' sort={sort} />
+          </th>
+          <th scope='col'>
+            Paid (RS)
+            <SortArrows aKey='net_payment' sort={sort} />
+          </th>
+          <th scope='col'>
+            Payment status
+            <SortArrows aKey='payment_status' sort={sort} />
+          </th>
           <th scope='col'></th>
         </tr>
       </thead>
@@ -39,7 +72,7 @@ function SalesReportTable({ sales }) {
         {itemsForCurrentPage().map(sale => (
           <Sale
             key={sale.id}
-            date={sale.date}
+            date={getDate(sale.created_at)}
             id={sale.id}
             customer={sale.customer}
             grandTotal={sale.grand_total}
