@@ -3,31 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Rules\UniqueCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller {
 
   public function __construct() {
     $this->middleware('admin')->except('index');
-    $this->middleware('shop.confirm:Category')->except('index', 'store');
+    $this->middleware('shop.confirm:Category')->only('update', 'destroy');
   }
 
   public function index() {
     $categories = auth()->user()->shop->categories;
-    $categories->transform(function ($category) {
-      return $category->requiredFields();
-    });
-    return response(['status' => 'OK', 'categories' => $categories], 200);
+    return response(['status' => 'OK', 'categories' => Category::format($categories)], 200);
   }
 
   public function store(Request $request) {
 
     $validator = Validator::make($request->all(), [
-      'name' => ['required', new UniqueCategory],
+      'name' => ['required', Rule::unique('categories')->where('shop_id', auth()->user()->shop_id)],
     ]);
 
     if ($this->invalid($validator)) {
@@ -39,13 +36,13 @@ class CategoryController extends Controller {
       'name' => $request->name,
     ]);
 
-    return response(['category' => $category->requiredFields(), 'status' => 'OK'], 200);
+    return response(['category' => Category::formatOne($category), 'status' => 'OK'], 200);
   }
 
   public function update(Request $request, $id) {
 
     $validator = Validator::make($request->all(), [
-      'name' => 'required',
+      'name' => ['required', Rule::unique('categories')->where('shop_id', auth()->user()->shop_id)->ignore($id)],
     ]);
 
     if ($this->invalid($validator)) {
@@ -61,7 +58,7 @@ class CategoryController extends Controller {
 
     $category->update(['name' => $request->name]);
 
-    return response(['category' => $category->fresh()->requiredFields(), 'products' => $products, 'status' => 'OK'], 200);
+    return response(['category' => Category::formatOne($category->fresh()), 'products' => $products, 'status' => 'OK'], 200);
   }
 
   public function destroy($id) {

@@ -19,15 +19,13 @@ Route::post('/login', [AuthController::class, 'login'])->middleware('guest', 'ac
 
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
-Route::get('/login_status', function () {
-  if (auth()->user()) {
-    $user = User::find(auth()->user()->id);
-    return response([
-      'loggedin' => true,
-      'user' => $user->requiredFields(),
-    ], 200);
-  }
-  return response(['loggedin' => false], 200);
+Route::get('/login/status', function () {
+  return auth()->user() ?
+  response([
+    'user' => User::formatOne(User::findOrFail(auth()->user()->id)),
+    'status' => 'OK',
+  ], 200) :
+  response(['error' => ['msg' => 'The user is not authenticated.'], 'status' => 'ERROR'], 401);
 });
 
 Route::get('/', function () {

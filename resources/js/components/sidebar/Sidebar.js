@@ -1,19 +1,18 @@
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Fragment } from 'react/cjs/react.development';
-import { logout } from '../../actions/authentication/authentication';
+import { request_logout } from '../../actions/authentication/authentication-actions';
 import toggleSidebar from '../../actions/sidebar/toggle-sidebar';
-import { reset_user } from '../../actions/users/users-actions';
 import { toggleClass } from '../../utils/utility_functions';
 import { userRoles } from '../../utils/util_structures';
 
 function Sidebar() {
-  const dispatch = useDispatch();
   const [sidebarOpen, user] = useSelector(state => [
     state.sidebarOpen,
     state.users.user,
   ]);
+
+  const dispatch = useDispatch();
 
   const toggleReportTypes = () => {
     const reportTypes = document.querySelector('.report-types');
@@ -32,17 +31,6 @@ function Sidebar() {
         'report-arrow--down'
       );
     }
-  };
-
-  const handleLogout = event => {
-    event.preventDefault();
-    axios
-      .get('/logout')
-      .then(res => {
-        dispatch(logout());
-        dispatch(reset_user());
-      })
-      .catch(err => console.log(err));
   };
 
   return (
@@ -208,14 +196,13 @@ function Sidebar() {
             <span className='material-icons me-2'>settings</span>
             <span className='option-text'> Settings </span>
           </Link>
-          <a
-            onClick={handleLogout}
-            href='/logout'
+          <button
+            onClick={() => dispatch(request_logout())}
             className='list-group-item list-group-item-primary d-flex align-items-center'
           >
             <span className='material-icons me-2'>logout</span>
             <span className='option-text'> Logout </span>
-          </a>
+          </button>
         </div>
       </aside>
     </Fragment>

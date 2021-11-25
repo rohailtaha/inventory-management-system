@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Fragment } from 'react/cjs/react.development';
-import { attempt_login, login } from './actions/authentication/authentication';
+import { attempt_login } from './actions/authentication/authentication-actions';
 import Spinner from './components/common/spinner/Spinner';
 import LoginPage from './components/login-page/LoginPage';
 import MyApp from './MyApp';

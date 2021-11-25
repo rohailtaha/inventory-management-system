@@ -61,7 +61,7 @@ function productsReducer(state = initialState, action) {
         ...state,
         error: {
           show: true,
-          msg: action.payload.message,
+          msg: action.payload.msg,
         },
       };
 

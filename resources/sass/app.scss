@@ -208,12 +208,20 @@ input::placeholder {
     }
   }
 
-  .pages {
-    &__list > li {
-      margin: 0 0.15em;
+  .pagination {
+    font-size: 0.92rem;
+    .total-items-info,
+    .pages {
+      font-weight: 500;
+    }
 
-      .btn--change-page .material-icons {
-        font-size: 20.5px;
+    .pages {
+      &__list > li {
+        margin: 0 0.15em;
+
+        .btn--change-page .material-icons {
+          font-size: 20.2px;
+        }
       }
     }
   }

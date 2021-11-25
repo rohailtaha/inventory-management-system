@@ -21,22 +21,24 @@ class AuthController extends Controller {
       return $this->errorResponse($validator);
     }
 
-    if (!Auth::attempt($request->only(['email', 'password']), $request->remember)) {
-      return response(['error' => ['msg' => 'Invalid Login Credentials'], 'status' => 'ERROR'], 200);
+    if (!Auth::attempt($request->only('email', 'password'), $request->remember)) {
+      return response(['error' => ['msg' => 'Invalid Login Credentials'], 'status' => 'ERROR'], 401);
     }
 
-    $user = User::where('email', $request->email)->first();
+    $user = User::where('email', $request->email)->firstOrFail();
 
     return response([
-      'user' => $user->requiredFields(),
+      'user' => User::formatOne($user),
       'status' => 'OK',
     ], 200);
+
   }
 
   public function logout(Request $request) {
     Auth::logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
+    return response(['status' => 'OK'], 200);
   }
 
   private function invalid($validator) {

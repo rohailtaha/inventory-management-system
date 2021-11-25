@@ -10,29 +10,27 @@ const SUCCESSFULL_CREATE_MSG = 'Category added.';
 const SUCCESSFULL_UPDATE_MSG = 'Category updated.';
 const SUCCESSFULL_DELETE_MSG = 'Category deleted';
 
-export function fetch_categories() {
+export const fetch_categories = () => {
   return async dispatch => {
     try {
       const response = await axios.get('/api/categories');
       if (response.data.status === 'OK') {
         dispatch(set_categories(response.data.categories));
       } else {
-        dispatch(show_error(response.data.error.msg));
+        alert(response.data.error.msg);
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      alert(SERVER_ERROR);
     }
   };
-}
+};
 
-function set_categories(categories) {
-  return {
-    type: actionTypes.SET_CATEGORIES,
-    payload: categories,
-  };
-}
+const set_categories = categories => ({
+  type: actionTypes.SET_CATEGORIES,
+  payload: categories,
+});
 
-export function request_create_category(category) {
+export const request_create_category = category => {
   return async dispatch => {
     try {
       dispatch(load());
@@ -45,21 +43,21 @@ export function request_create_category(category) {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-function create_category(category) {
-  return {
-    type: actionTypes.CREATE_CATEGORY,
-    payload: category,
-  };
-}
+const create_category = category => ({
+  type: actionTypes.CREATE_CATEGORY,
+  payload: category,
+});
 
-export function request_update_category(category, id) {
+export const request_update_category = (category, id) => {
   return async dispatch => {
     try {
       dispatch(load());
@@ -73,21 +71,21 @@ export function request_update_category(category, id) {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-function update_category(category) {
-  return {
-    type: actionTypes.UPDATE_CATEGORY,
-    payload: category,
-  };
-}
+const update_category = category => ({
+  type: actionTypes.UPDATE_CATEGORY,
+  payload: category,
+});
 
-export function request_delete_category(id) {
+export const request_delete_category = id => {
   return async dispatch => {
     console.log('yes');
     dispatch(hide_delete_confirmation());
@@ -99,24 +97,22 @@ export function request_delete_category(id) {
         dispatch(delete_category(response.data.id));
         dispatch(request_fetch_some_products(response.data.products));
       } else {
-        console.error(SERVER_ERROR);
+        alert(SERVER_ERROR);
       }
     } catch (error) {
-      console.error(SERVER_ERROR);
+      alert(SERVER_ERROR);
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-function delete_category(id) {
-  return {
-    type: actionTypes.DELETE_CATEGORY,
-    payload: {
-      id,
-    },
-  };
-}
+const delete_category = id => ({
+  type: actionTypes.DELETE_CATEGORY,
+  payload: {
+    id,
+  },
+});
 
 export const sort_categories = (key, order) => ({
   type: actionTypes.SORT_CATEGRIES,
@@ -130,15 +126,13 @@ export const resort_categories = () => ({
   type: actionTypes.RESORT_CATEGRIES,
 });
 
-function show_error(msg) {
-  return {
-    type: actionTypes.SHOW_CATEGORY_ERROR,
-    payload: new Error(msg),
-  };
-}
+export const show_error = msg => ({
+  type: actionTypes.SHOW_CATEGORY_ERROR,
+  payload: {
+    msg,
+  },
+});
 
-export function hide_error() {
-  return {
-    type: actionTypes.HIDE_CATEGORY_ERROR,
-  };
-}
+export const hide_error = () => ({
+  type: actionTypes.HIDE_CATEGORY_ERROR,
+});

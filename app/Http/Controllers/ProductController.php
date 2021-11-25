@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
-use App\Rules\UniqueProductBarcode;
-use App\Rules\UniqueProductName;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller {
 
@@ -19,28 +18,22 @@ class ProductController extends Controller {
 
   public function index() {
     $products = Product::where('shop_id', auth()->user()->shop_id)->orderByDesc('created_at')->get();
-    $products->transform(function ($product) {
-      return $product->requiredFields();
-    });
-    return response(['status' => 'OK', 'products' => $products], 200);
+    return response(['status' => 'OK', 'products' => Product::format($products)], 200);
   }
 
   public function some(Request $request) {
+
     $products = Product::where('shop_id', auth()->user()->shop_id)
       ->whereIn('id', $request->ids)->get();
 
-    $products->transform(function ($product) {
-      return $product->requiredFields();
-    });
-
-    return response(['status' => 'OK', 'products' => $products], 200);
+    return response(['status' => 'OK', 'products' => Product::format($products)], 200);
   }
 
   public function store(Request $request) {
 
     $validator = Validator::make($request->all(), [
-      'barcode' => ['required', 'min:1', 'max:255', new UniqueProductBarcode],
-      'name' => ['required', 'min:1', 'max:255', new UniqueProductName],
+      'barcode' => ['required', 'min:1', 'max:255', Rule::unique('products')->where('shop_id', auth()->user()->shop_id)],
+      'name' => ['required', 'min:1', 'max:255', Rule::unique('products')->where('shop_id', auth()->user()->shop_id)],
       'category' => 'required|exists:categories,name',
       'description' => 'nullable|max:65535',
       'quantity' => 'required|integer|min:0|max:4294967295',
@@ -59,7 +52,7 @@ class ProductController extends Controller {
       'shop_id' => auth()->user()->shop_id,
       'barcode' => $request->barcode,
       'name' => $request->name,
-      'category_id' => Category::where('name', $request->category)->first()->id,
+      'category_id' => Category::where('name', $request->category)->firstOrFail()->id,
       'description' => $request->description,
       'quantity' => $request->quantity,
       'alert_quantity' => $request->alert_quantity,
@@ -69,13 +62,13 @@ class ProductController extends Controller {
       'final_sale_price' => $request->final_sale_price,
     ]);
 
-    return response(['product' => $product->requiredFields(), 'status' => 'OK'], 200);
+    return response(['product' => Product::formatOne($product), 'status' => 'OK'], 200);
   }
 
   public function update(Request $request, $id) {
     $validator = Validator::make($request->all(), [
-      'barcode' => ['required', 'min:1', 'max:255'],
-      'name' => ['required', 'min:1', 'max:255'],
+      'barcode' => ['required', 'min:1', 'max:255', Rule::unique('products')->where('shop_id', auth()->user()->shop_id)->ignore($id)],
+      'name' => ['required', 'min:1', 'max:255', Rule::unique('products')->where('shop_id', auth()->user()->shop_id)->ignore($id)],
       'category' => 'required|exists:categories,name',
       'description' => 'nullable|max:65535',
       'quantity' => 'required|integer|min:0|max:4294967295',
@@ -90,12 +83,11 @@ class ProductController extends Controller {
       return $this->errorResponse($validator);
     }
 
-    $product = Product::find($id);
+    $product = Product::findOrFail($id);
     $product->update([
-      'shop_id' => auth()->user()->shop_id,
       'barcode' => $request->barcode,
       'name' => $request->name,
-      'category_id' => Category::select('id')->where('name', $request->category)->first()->id,
+      'category_id' => Category::where('name', $request->category)->firstOrFail()->id,
       'description' => $request->description,
       'quantity' => $request->quantity,
       'alert_quantity' => $request->alert_quantity,
@@ -104,11 +96,11 @@ class ProductController extends Controller {
       'discount' => $request->discount,
       'final_sale_price' => $request->final_sale_price,
     ]);
-    return response(['product' => $product->fresh()->requiredFields(), 'status' => 'OK'], 200);
+    return response(['product' => Product::formatOne($product->fresh()), 'status' => 'OK'], 200);
   }
 
   public function destroy($id) {
-    Product::find($id)->delete();
+    Product::findOrFail($id)->delete();
     return response(['id' => $id, 'status' => 'OK'], 200);
   }
 
@@ -118,6 +110,10 @@ class ProductController extends Controller {
 
   private function errorResponse($validator) {
     $errorMsg = Arr::flatten($validator->errors()->messages())[0];
-    return response(['error' => ['msg' => $errorMsg], 'status' => 'ERROR'], 200);
+    return response(['error' => ['msg' => $errorMsg], 'status' => 'ERROR'], 400);
+  }
+
+  private function error($msg, $statusCode) {
+    return response(['error' => ['msg' => $msg], 'status' => 'ERROR'], $statusCode);
   }
 }

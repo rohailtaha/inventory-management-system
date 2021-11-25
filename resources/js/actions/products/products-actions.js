@@ -20,10 +20,10 @@ export function fetch_products() {
           payload: response.data.products,
         });
       } else {
-        dispatch(show_error(response.data.error.msg));
+        alert(response.data.error.msg);
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      alert(SERVER_ERROR);
     }
   };
 }
@@ -65,7 +65,9 @@ export function request_create_product(product) {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
     }
@@ -90,7 +92,9 @@ export function request_update_product(product, id) {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
     }
@@ -150,16 +154,13 @@ export const resort_products = () => ({
   type: actionTypes.RESORT_PRODUCTS,
 });
 
-export function show_error(msg) {
-  return {
-    type: actionTypes.SHOW_PRODUCTS_ERROR,
-    payload: new Error(msg),
-    error: true,
-  };
-}
+export const show_error = msg => ({
+  type: actionTypes.SHOW_PRODUCTS_ERROR,
+  payload: {
+    msg,
+  },
+});
 
-export function hide_error() {
-  return {
-    type: actionTypes.HIDE_PRODUCTS_ERROR,
-  };
-}
+export const hide_error = () => ({
+  type: actionTypes.HIDE_PRODUCTS_ERROR,
+});

@@ -41,7 +41,7 @@ function categoriesReducer(state = initialState, action) {
         ...state,
         error: {
           show: true,
-          msg: action.payload.message,
+          msg: action.payload.msg,
         },
       };
     case actionTypes.HIDE_CATEGORY_ERROR:

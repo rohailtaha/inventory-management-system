@@ -47,7 +47,6 @@ function UserForm({ mode }) {
     }
   }, []);
 
-  useEffect(() => cleanup, []);
   useEffect(() => {
     if (successMessage.show && !updateMode()) resetForm();
   }, [successMessage.show]);
@@ -78,6 +77,8 @@ function UserForm({ mode }) {
     active: parseInt(form.active),
     role: form.role,
   });
+
+  useEffect(() => cleanup, []);
 
   const cleanup = () => {
     dispatch(hide_error());

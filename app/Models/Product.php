@@ -10,7 +10,7 @@ class Product extends Model {
 
   protected $fillable = ['shop_id', 'barcode', 'name', 'category_id', 'description', 'quantity', 'alert_quantity', 'purchase_price', 'sale_price', 'discount', 'final_sale_price'];
 
-  public function requiredFields() {
+  private function requiredFields() {
     return [
       'id' => $this->id,
       'barcode' => $this->barcode,
@@ -24,6 +24,16 @@ class Product extends Model {
       'discount' => floatval($this->discount),
       'final_sale_price' => floatval($this->final_sale_price),
       'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : ''];
+  }
+
+  public static function format($models) {
+    return $models->map(function ($model) {
+      return $model->requiredFields();
+    });
+  }
+
+  public static function formatOne($model) {
+    return $model->requiredFields();
   }
 
   public function category() {

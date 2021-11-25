@@ -10,23 +10,22 @@ const SUCCESSFULL_UPDATE_MSG = 'User updated.';
 const SUCCESSFULL_DELETE_MSG = 'User deleted';
 const SUCCESSFULL_PASSWORD_UPDATE_MSG = 'Password updated.';
 
-export function fetch_users() {
+export const fetch_users = () => {
   return async dispatch => {
     try {
       const response = await axios.get('/api/users');
       if (response.data.status === 'OK') {
         dispatch(setUsers(response.data.users));
-        dispatch(setAreUsersFetched(true));
       } else {
-        show_error(response.data.error.msg);
+        alert(response.data.error.msg);
       }
     } catch (error) {
-      show_error(SERVER_ERROR);
+      alert(SERVER_ERROR);
     }
   };
-}
+};
 
-export function request_create_user(user) {
+export const request_create_user = user => {
   return async dispatch => {
     dispatch(load());
     try {
@@ -39,14 +38,16 @@ export function request_create_user(user) {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-export function request_update_user(user, id) {
+export const request_update_user = (user, id) => {
   return async dispatch => {
     dispatch(load());
     try {
@@ -59,21 +60,21 @@ export function request_update_user(user, id) {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-export function set_user(user) {
-  return {
-    type: actionTypes.SET_USER,
-    payload: user,
-  };
-}
+export const set_user = user => ({
+  type: actionTypes.SET_USER,
+  payload: user,
+});
 
-export function request_update_current_user(user) {
+export const request_update_current_user = user => {
   return async dispatch => {
     dispatch(load());
     try {
@@ -93,18 +94,18 @@ export function request_update_current_user(user) {
       dispatch(stopLoading());
     }
   };
-}
+};
 
 export const update_current_user = user => ({
   type: actionTypes.UPDATE_CURRENT_USER,
   payload: user,
 });
 
-export function request_update_password(data) {
+export const request_update_password = data => {
   return async dispatch => {
     dispatch(load());
     try {
-      const response = await axios.put(`/api/user/update-password`, data);
+      const response = await axios.put(`/api/user/password`, data);
       if (response.data.status === 'OK') {
         dispatch(hide_password_form_error());
         dispatch(show_success_message(SUCCESSFULL_PASSWORD_UPDATE_MSG));
@@ -119,36 +120,28 @@ export function request_update_password(data) {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-export function reset_user() {
-  return {
-    type: actionTypes.RESET_USER,
-  };
-}
+export const reset_user = () => ({
+  type: actionTypes.RESET_USER,
+});
 
-export function setUsers(users) {
-  return {
-    type: actionTypes.SET_USERS,
-    payload: users,
-  };
-}
+export const setUsers = users => ({
+  type: actionTypes.SET_USERS,
+  payload: users,
+});
 
-function create_user(user) {
-  return {
-    type: actionTypes.CREATE_USER,
-    payload: user,
-  };
-}
+const create_user = user => ({
+  type: actionTypes.CREATE_USER,
+  payload: user,
+});
 
-function update_user(user) {
-  return {
-    type: actionTypes.UPDATE_USER,
-    payload: user,
-  };
-}
+const update_user = user => ({
+  type: actionTypes.UPDATE_USER,
+  payload: user,
+});
 
-export function request_delete_user(id) {
+export const request_delete_user = id => {
   return async dispatch => {
     dispatch(hide_delete_confirmation());
     dispatch(load());
@@ -158,24 +151,22 @@ export function request_delete_user(id) {
         dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
         dispatch(delete_user(response.data.id));
       } else {
-        console.error(SERVER_ERROR);
+        alert(SERVER_ERROR);
       }
     } catch (error) {
-      console.error(SERVER_ERROR);
+      alert(SERVER_ERROR);
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-function delete_user(id) {
-  return {
-    type: actionTypes.DELETE_USER,
-    payload: {
-      id,
-    },
-  };
-}
+const delete_user = id => ({
+  type: actionTypes.DELETE_USER,
+  payload: {
+    id,
+  },
+});
 
 export const sort_users = (key, order) => ({
   type: actionTypes.SORT_USERS,
@@ -189,14 +180,12 @@ export const resort_users = () => ({
   type: actionTypes.RESORT_USERS,
 });
 
-export function show_error(msg) {
-  return {
-    type: actionTypes.SHOW_USERS_ERROR,
-    payload: {
-      msg,
-    },
-  };
-}
+export const show_error = msg => ({
+  type: actionTypes.SHOW_USERS_ERROR,
+  payload: {
+    msg,
+  },
+});
 
 export const show_password_form_error = msg => ({
   type: actionTypes.SHOW_PASSWORD_FORM_ERROR,

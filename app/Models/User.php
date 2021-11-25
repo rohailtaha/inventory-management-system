@@ -20,11 +20,6 @@ class User extends Authenticatable {
     'active',
   ];
 
-  /**
-   * The attributes that should be hidden for serialization.
-   *
-   * @var array
-   */
   protected $hidden = [
     'password',
     'remember_token',
@@ -49,7 +44,7 @@ class User extends Authenticatable {
     return false;
   }
 
-  public function requiredFields() {
+  private function requiredFields() {
     return [
       'id' => $this->id,
       'name' => $this->name,
@@ -59,6 +54,16 @@ class User extends Authenticatable {
       'role' => $this->roles[0]->name ?? 'None',
       'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '',
     ];
+  }
+
+  public static function format($models) {
+    return $models->map(function ($model) {
+      return $model->requiredFields();
+    });
+  }
+
+  public static function formatOne($model) {
+    return $model->requiredFields();
   }
 
   public function roles() {

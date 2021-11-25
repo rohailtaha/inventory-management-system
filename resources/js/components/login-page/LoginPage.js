@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react/cjs/react.development';
-import { request_login } from '../../actions/authentication/authentication';
+import { request_login } from '../../actions/authentication/authentication-actions';
 import { hide_error } from '../../actions/users/users-actions';
 import { removeExtraSpaces } from '../../utils/utility_functions';
 import FormError from '../common/form-error/FormError';
@@ -15,9 +15,9 @@ function LoginPage() {
   const rememberRef = useRef();
 
   const toggleRemember = () => {
-    if (rememberRef.current.hasAttribute('checked'))
-      rememberRef.current.removeAttribute('checked');
-    else rememberRef.current.setAttribute('checked', 'true');
+    rememberRef.current.hasAttribute('checked')
+      ? rememberRef.current.removeAttribute('checked')
+      : rememberRef.current.setAttribute('checked', 'true');
   };
 
   const [error] = useSelector(state => [state.users.error]);
@@ -31,10 +31,6 @@ function LoginPage() {
     }));
   };
 
-  useEffect(() => {
-    return cleanup;
-  }, []);
-
   const handleSubmit = event => {
     event.preventDefault();
     dispatch(request_login(dataWithCorrectFormat()));
@@ -46,6 +42,7 @@ function LoginPage() {
     remember: rememberRef.current.hasAttribute('checked'),
   });
 
+  useEffect(() => cleanup, []);
   const cleanup = () => dispatch(hide_error());
 
   return (

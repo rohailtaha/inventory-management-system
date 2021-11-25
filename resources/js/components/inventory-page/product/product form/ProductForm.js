@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useState } from 'react/cjs/react.development';
 import {
+  hide_error,
   request_create_product,
   request_update_product,
 } from '../../../../actions/products/products-actions';
 import { discount, isEmpty } from '../../../../utils/utility_functions';
 import FormError from '../../../common/form-error/FormError';
 import ProductCategoryOption from '../../../common/product-category-option/ProductCategoryOption';
+import { hide_success_message } from '../../../../actions/success-message/success-message-actions';
 
 function ProductForm({ mode }) {
   const [products, categories, error, successMessage] = useSelector(state => [
@@ -111,6 +113,13 @@ function ProductForm({ mode }) {
       sale_price: '',
       discount: '0',
     });
+
+  useEffect(() => cleanup, []);
+
+  const cleanup = () => {
+    dispatch(hide_error());
+    dispatch(hide_success_message());
+  };
 
   return (
     <form className='mt-4' onSubmit={handleSubmit}>

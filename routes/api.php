@@ -29,7 +29,7 @@ Route::middleware(['auth', 'active'])->group(function () {
   Route::post('/users', [UserController::class, 'store']);
   Route::put('/users/{id}', [UserController::class, 'update']);
   Route::put('/user', [UserController::class, 'updateCurrentUser']);
-  Route::put('/user/update-password', [UserController::class, 'updatePassword']);
+  Route::put('/user/password', [UserController::class, 'updatePassword']);
   Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
   Route::get('/products', [ProductController::class, 'index']);
