@@ -7,10 +7,12 @@ function CashFlowStats() {
   ]);
 
   const totalPurchases = () =>
-    purchases.reduce((total, purchase) => total + purchase.amount_paid, 0);
+    purchases
+      .reduce((total, purchase) => total + purchase.amount_paid, 0)
+      .toFixed(2);
 
   const totalSales = () =>
-    sales.reduce((total, sale) => total + sale.net_payment, 0);
+    sales.reduce((total, sale) => total + sale.net_payment, 0).toFixed(2);
 
   return (
     <section className='stats'>

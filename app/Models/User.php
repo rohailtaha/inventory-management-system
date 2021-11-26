@@ -23,13 +23,10 @@ class User extends Authenticatable {
   protected $hidden = [
     'password',
     'remember_token',
+    'shop_id',
+    'updated_at',
   ];
 
-  /**
-   * The attributes that should be cast.
-   *
-   * @var array
-   */
   protected $casts = [
     'email_verified_at' => 'datetime',
   ];
@@ -42,28 +39,6 @@ class User extends Authenticatable {
 
     }
     return false;
-  }
-
-  private function requiredFields() {
-    return [
-      'id' => $this->id,
-      'name' => $this->name,
-      'email' => $this->email,
-      'phone' => $this->phone,
-      'status' => $this->active === 1 ? 'Active' : 'Blocked',
-      'role' => $this->roles[0]->name ?? 'None',
-      'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '',
-    ];
-  }
-
-  public static function format($models) {
-    return $models->map(function ($model) {
-      return $model->requiredFields();
-    });
-  }
-
-  public static function formatOne($model) {
-    return $model->requiredFields();
   }
 
   public function roles() {

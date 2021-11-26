@@ -9,6 +9,8 @@ class Sale extends Model {
   use HasFactory;
   protected $fillable = ['shop_id', 'customer_id', 'grand_total', 'payment_received', 'payment_returned', 'net_payment', 'payment_status'];
 
+  protected $hidden = ['shop_id', 'updated_at'];
+
   protected static function booted() {
     static::deleting(function ($sale) {
       foreach ($sale->products as $soldProduct) {
@@ -16,35 +18,6 @@ class Sale extends Model {
         $product->quantity += $soldProduct->quantity;
         $product->save();
       }
-    });
-  }
-
-  public function requiredFields() {
-    return [
-      'id' => $this->id,
-      'customer' => $this->customer->name ?? '',
-      'grand_total' => floatval($this->grand_total),
-      'payment_received' => floatval($this->payment_received),
-      'payment_returned' => floatval($this->payment_returned),
-      'net_payment' => floatval($this->net_payment),
-      'payment_status' => $this->payment_status,
-      'products' => $this->formatProducts($this->products),
-      'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '',
-    ];
-
-  }
-
-  public function formatProducts($products) {
-    return $products->map(function ($product) {
-      return [
-        'id' => $product['id'],
-        'name' => $product['name'],
-        'per_item_price' => floatval($product['per_item_price']),
-        'discount' => floatval($product['discount']),
-        'final_sale_price' => floatval($product['final_sale_price']),
-        'quantity' => $product['quantity'],
-        'total_price' => floatval($product['total_price']),
-      ];
     });
   }
 
@@ -58,7 +31,7 @@ class Sale extends Model {
   }
 
   public function customer() {
-    return $this->belongsTo(Customer::class)->select('name');
+    return $this->belongsTo(Customer::class);
   }
 
 }

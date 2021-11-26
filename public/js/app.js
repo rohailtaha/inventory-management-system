@@ -2741,14 +2741,13 @@ var request_delete_category = function request_delete_category(id) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              console.log('yes');
               dispatch((0,_delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_4__.hide_delete_confirmation)());
               dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_5__.load)());
-              _context4.prev = 3;
-              _context4.next = 6;
+              _context4.prev = 2;
+              _context4.next = 5;
               return axios__WEBPACK_IMPORTED_MODULE_1___default()["delete"]("/api/categories/".concat(id));
 
-            case 6:
+            case 5:
               response = _context4.sent;
 
               if (response.data.status === 'OK') {
@@ -2759,25 +2758,25 @@ var request_delete_category = function request_delete_category(id) {
                 alert(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR);
               }
 
-              _context4.next = 13;
+              _context4.next = 12;
               break;
 
-            case 10:
-              _context4.prev = 10;
-              _context4.t0 = _context4["catch"](3);
+            case 9:
+              _context4.prev = 9;
+              _context4.t0 = _context4["catch"](2);
               alert(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR);
 
-            case 13:
-              _context4.prev = 13;
+            case 12:
+              _context4.prev = 12;
               dispatch((0,_load_load__WEBPACK_IMPORTED_MODULE_5__.stopLoading)());
-              return _context4.finish(13);
+              return _context4.finish(12);
 
-            case 16:
+            case 15:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, null, [[3, 10, 13, 16]]);
+      }, _callee4, null, [[2, 9, 12, 15]]);
     }));
 
     return function (_x4) {
@@ -2840,6 +2839,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "request_delete_customer": () => (/* binding */ request_delete_customer),
 /* harmony export */   "sort_customers": () => (/* binding */ sort_customers),
 /* harmony export */   "resort_customers": () => (/* binding */ resort_customers),
+/* harmony export */   "show_error": () => (/* binding */ show_error),
 /* harmony export */   "hide_error": () => (/* binding */ hide_error)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
@@ -2868,7 +2868,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var SUCCESSFULL_CREATE_MSG = 'Customer added.';
 var SUCCESSFULL_UPDATE_MSG = 'Customer updated.';
 var SUCCESSFULL_DELETE_MSG = 'Customer deleted.';
-function request_fetch_customers() {
+var request_fetch_customers = function request_fetch_customers() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
       var response;
@@ -2909,16 +2909,16 @@ function request_fetch_customers() {
       return _ref.apply(this, arguments);
     };
   }();
-}
+};
 
-function set_customers(customers) {
+var set_customers = function set_customers(customers) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].SET_CUSTOMERS,
     payload: customers
   };
-}
+};
 
-function request_create_customer(customer) {
+var request_create_customer = function request_create_customer(customer) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
       var response;
@@ -2948,7 +2948,7 @@ function request_create_customer(customer) {
             case 8:
               _context2.prev = 8;
               _context2.t0 = _context2["catch"](0);
-              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR));
+              _context2.t0.response.data.error ? dispatch(show_error(_context2.t0.response.data.error.msg)) : dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR));
 
             case 11:
               _context2.prev = 11;
@@ -2967,16 +2967,16 @@ function request_create_customer(customer) {
       return _ref2.apply(this, arguments);
     };
   }();
-}
+};
 
-function create_customer(customer) {
+var create_customer = function create_customer(customer) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].CREATE_CUSTOMER,
     payload: customer
   };
-}
+};
 
-function request_update_customer(customer, id) {
+var request_update_customer = function request_update_customer(customer, id) {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch) {
       var response;
@@ -3006,7 +3006,7 @@ function request_update_customer(customer, id) {
             case 8:
               _context3.prev = 8;
               _context3.t0 = _context3["catch"](0);
-              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR));
+              _context3.t0.response.data.error ? dispatch(show_error(_context3.t0.response.data.error.msg)) : dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR));
 
             case 11:
               _context3.prev = 11;
@@ -3025,16 +3025,16 @@ function request_update_customer(customer, id) {
       return _ref3.apply(this, arguments);
     };
   }();
-}
+};
 
-function update_customer(customer) {
+var update_customer = function update_customer(customer) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].UPDATE_CUSTOMER,
     payload: customer
   };
-}
+};
 
-function request_delete_customer(id) {
+var request_delete_customer = function request_delete_customer(id) {
   return /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch) {
       var response;
@@ -3084,16 +3084,16 @@ function request_delete_customer(id) {
       return _ref4.apply(this, arguments);
     };
   }();
-}
+};
 
-function delete_customer(id) {
+var delete_customer = function delete_customer(id) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].DELETE_CUSTOMER,
     payload: {
       id: id
     }
   };
-}
+};
 
 var sort_customers = function sort_customers(key, order) {
   return {
@@ -3109,19 +3109,17 @@ var resort_customers = function resort_customers() {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].RESORT_CUSTOMERS
   };
 };
-
-function show_error(msg) {
+var show_error = function show_error(msg) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].SHOW_CUSTOMER_ERROR,
     payload: new Error(msg)
   };
-}
-
-function hide_error() {
+};
+var hide_error = function hide_error() {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].HIDE_CUSTOMER_ERROR
   };
-}
+};
 
 /***/ }),
 
@@ -3252,12 +3250,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _action_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../action-types */ "./resources/js/actions/action-types.js");
 /* harmony import */ var _delete_confirmation_delete_confirmation_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../delete-confirmation/delete-confirmation-actions */ "./resources/js/actions/delete-confirmation/delete-confirmation-actions.js");
 /* harmony import */ var _load_load__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../load/load */ "./resources/js/actions/load/load.js");
-/* harmony import */ var _success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
+/* harmony import */ var _purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../purchases/purchases-actions */ "./resources/js/actions/purchases/purchases-actions.js");
+/* harmony import */ var _sales_sales_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../sales/sales-actions */ "./resources/js/actions/sales/sales-actions.js");
+/* harmony import */ var _success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
 
 
 
@@ -3385,7 +3387,7 @@ function request_create_product(product) {
               if (response.data.status === 'OK') {
                 dispatch(create_product(response.data.product));
                 dispatch(hide_error());
-                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_7__.show_success_message)(SUCCESSFULL_CREATE_MSG));
+                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_9__.show_success_message)(SUCCESSFULL_CREATE_MSG));
               } else {
                 dispatch(show_error(response.data.error.msg));
               }
@@ -3443,7 +3445,7 @@ function request_update_product(product, id) {
               if (response.data.status === 'OK') {
                 dispatch(update_product(response.data.product));
                 dispatch(hide_error());
-                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_7__.show_success_message)(SUCCESSFULL_UPDATE_MSG));
+                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_9__.show_success_message)(SUCCESSFULL_UPDATE_MSG));
               } else {
                 dispatch(show_error(response.data.error.msg));
               }
@@ -3498,8 +3500,10 @@ function request_delete_product(id) {
               response = _context5.sent;
 
               if (response.data.status === 'OK') {
-                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_7__.show_success_message)(SUCCESSFULL_DELETE_MSG));
+                dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_9__.show_success_message)(SUCCESSFULL_DELETE_MSG));
                 dispatch(delete_product(response.data.id));
+                dispatch((0,_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_7__.request_fetch_some_purchases)(response.data.purchases));
+                dispatch((0,_sales_sales_actions__WEBPACK_IMPORTED_MODULE_8__.request_fetch_some_sales)(response.data.sales));
               } else {
                 console.error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_3__.SERVER_ERROR);
               }
@@ -3591,11 +3595,14 @@ var hide_error = function hide_error() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "request_fetch_purchases": () => (/* binding */ request_fetch_purchases),
+/* harmony export */   "set_purchases": () => (/* binding */ set_purchases),
 /* harmony export */   "request_fetch_some_purchases": () => (/* binding */ request_fetch_some_purchases),
 /* harmony export */   "set_some_purchases": () => (/* binding */ set_some_purchases),
 /* harmony export */   "request_create_purchase": () => (/* binding */ request_create_purchase),
+/* harmony export */   "create_purchase": () => (/* binding */ create_purchase),
 /* harmony export */   "request_update_purchase": () => (/* binding */ request_update_purchase),
 /* harmony export */   "request_delete_purchase": () => (/* binding */ request_delete_purchase),
+/* harmony export */   "update_purchase": () => (/* binding */ update_purchase),
 /* harmony export */   "set_products_to_purchase": () => (/* binding */ set_products_to_purchase),
 /* harmony export */   "add_product_to_purchase": () => (/* binding */ add_product_to_purchase),
 /* harmony export */   "delete_product_from_purchase": () => (/* binding */ delete_product_from_purchase),
@@ -3631,7 +3638,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var SUCCESSFULL_CREATE_MSG = 'Purchase added.';
 var SUCCESSFULL_UPDATE_MSG = 'Purchase updated.';
 var SUCCESSFULL_DELETE_MSG = 'Purchase Deleted.';
-function request_fetch_purchases() {
+var request_fetch_purchases = function request_fetch_purchases() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
       var response;
@@ -3649,7 +3656,7 @@ function request_fetch_purchases() {
               if (response.data.status === 'OK') {
                 dispatch(set_purchases(response.data.purchases));
               } else {
-                dispatch(show_error(response.data.error.msg));
+                alert(response.data.error.msg);
               }
 
               _context.next = 10;
@@ -3658,7 +3665,7 @@ function request_fetch_purchases() {
             case 7:
               _context.prev = 7;
               _context.t0 = _context["catch"](0);
-              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
+              alert(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR);
 
             case 10:
             case "end":
@@ -3672,15 +3679,13 @@ function request_fetch_purchases() {
       return _ref.apply(this, arguments);
     };
   }();
-}
-
-function set_purchases(purchases) {
+};
+var set_purchases = function set_purchases(purchases) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SET_PURCHASES,
     payload: purchases
   };
-}
-
+};
 var request_fetch_some_purchases = function request_fetch_some_purchases(purchaseIDs) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
@@ -3764,7 +3769,7 @@ function request_create_purchase(purchase) {
             case 8:
               _context3.prev = 8;
               _context3.t0 = _context3["catch"](0);
-              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
+              _context3.t0.response.data.error ? dispatch(show_error(_context3.t0.response.data.error.msg)) : dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
 
             case 11:
               _context3.prev = 11;
@@ -3784,15 +3789,13 @@ function request_create_purchase(purchase) {
     };
   }();
 }
-
-function create_purchase(purchase) {
+var create_purchase = function create_purchase(purchase) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].CREATE_PURCHASE,
     payload: purchase
   };
-}
-
-function request_update_purchase(purchase, id) {
+};
+var request_update_purchase = function request_update_purchase(purchase, id) {
   return /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch) {
       var response;
@@ -3825,7 +3828,7 @@ function request_update_purchase(purchase, id) {
             case 8:
               _context4.prev = 8;
               _context4.t0 = _context4["catch"](0);
-              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
+              _context4.t0.response.data.error ? dispatch(show_error(_context4.t0.response.data.error.msg)) : dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
 
             case 11:
               _context4.prev = 11;
@@ -3844,8 +3847,8 @@ function request_update_purchase(purchase, id) {
       return _ref4.apply(this, arguments);
     };
   }();
-}
-function request_delete_purchase(id) {
+};
+var request_delete_purchase = function request_delete_purchase(id) {
   return /*#__PURE__*/function () {
     var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(dispatch) {
       var response;
@@ -3867,7 +3870,7 @@ function request_delete_purchase(id) {
                 dispatch(delete_purchase(response.data.id));
                 dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_6__.show_success_message)(SUCCESSFULL_DELETE_MSG));
               } else {
-                console.error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR);
+                alert(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR);
               }
 
               _context5.next = 12;
@@ -3876,7 +3879,7 @@ function request_delete_purchase(id) {
             case 9:
               _context5.prev = 9;
               _context5.t0 = _context5["catch"](2);
-              console.error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR);
+              alert(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR);
 
             case 12:
               _context5.prev = 12;
@@ -3895,66 +3898,65 @@ function request_delete_purchase(id) {
       return _ref5.apply(this, arguments);
     };
   }();
-}
+};
 
-function delete_purchase(id) {
+var delete_purchase = function delete_purchase(id) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].DELETE_PURCHASE,
     payload: {
       id: id
     }
   };
-}
+};
 
-function update_purchase(purchase) {
+var update_purchase = function update_purchase(purchase) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].UPDATE_PURCHASE,
     payload: purchase
   };
-}
-
-function set_products_to_purchase(products) {
+};
+var set_products_to_purchase = function set_products_to_purchase(products) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SET_PRODUCTS_TO_PURCHASE,
     payload: products
   };
-}
-function add_product_to_purchase(product) {
+};
+var add_product_to_purchase = function add_product_to_purchase(product) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].ADD_PRODUCT_TO_PURCHASE,
     payload: product
   };
-}
-function delete_product_from_purchase(id) {
+};
+var delete_product_from_purchase = function delete_product_from_purchase(id) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].DELETE_PRODUCT_FROM_PURCHASE,
     payload: {
       id: id
     }
   };
-}
-function clear_products_from_purchase() {
+};
+var clear_products_from_purchase = function clear_products_from_purchase() {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].CLEAR_PRODUCTS_FROM_PURCHASE
   };
-}
-function show_products_to_purchase_form_error(msg) {
+};
+var show_products_to_purchase_form_error = function show_products_to_purchase_form_error(msg) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR,
     payload: new Error(msg)
   };
-}
-function hide_products_to_purchase_form_error(msg) {
+};
+var hide_products_to_purchase_form_error = function hide_products_to_purchase_form_error(msg) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].HIDE_PRODUCTS_TO_PURCHASE_FORM_ERROR
   };
-}
-function set_purchases_report(report) {
+};
+var set_purchases_report = function set_purchases_report(report) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SET_PURCHASES_REPORT,
     payload: report
   };
-}
+};
 var sort_purchases = function sort_purchases(key, order) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SORT_PURCHASES,
@@ -3969,17 +3971,17 @@ var resort_purchases = function resort_purchases() {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].RESORT_PURCHASES
   };
 };
-function show_error(msg) {
+var show_error = function show_error(msg) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SHOW_PURCHASE_ERROR,
     payload: new Error(msg)
   };
-}
-function hide_error() {
+};
+var hide_error = function hide_error() {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].HIDE_PURCHASE_ERROR
   };
-}
+};
 
 /***/ }),
 
@@ -3993,13 +3995,17 @@ function hide_error() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "request_fetch_sales": () => (/* binding */ request_fetch_sales),
+/* harmony export */   "set_sales": () => (/* binding */ set_sales),
 /* harmony export */   "request_fetch_some_sales": () => (/* binding */ request_fetch_some_sales),
 /* harmony export */   "set_some_sales": () => (/* binding */ set_some_sales),
 /* harmony export */   "request_highest_sales": () => (/* binding */ request_highest_sales),
 /* harmony export */   "set_highest_sales": () => (/* binding */ set_highest_sales),
 /* harmony export */   "request_create_sale": () => (/* binding */ request_create_sale),
+/* harmony export */   "create_sale": () => (/* binding */ create_sale),
 /* harmony export */   "request_update_sale": () => (/* binding */ request_update_sale),
 /* harmony export */   "request_delete_sale": () => (/* binding */ request_delete_sale),
+/* harmony export */   "delete_sale": () => (/* binding */ delete_sale),
+/* harmony export */   "update_sale": () => (/* binding */ update_sale),
 /* harmony export */   "set_products_to_sale": () => (/* binding */ set_products_to_sale),
 /* harmony export */   "add_product_to_sale": () => (/* binding */ add_product_to_sale),
 /* harmony export */   "delete_product_from_sale": () => (/* binding */ delete_product_from_sale),
@@ -4035,7 +4041,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var SUCCESSFULL_CREATE_MSG = 'Sale added.';
 var SUCCESSFULL_UPDATE_MSG = 'Sale updated.';
 var SUCCESSFULL_DELETE_MSG = 'Sale Deleted.';
-function request_fetch_sales() {
+var request_fetch_sales = function request_fetch_sales() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
       var response;
@@ -4053,7 +4059,7 @@ function request_fetch_sales() {
               if (response.data.status === 'OK') {
                 dispatch(set_sales(response.data.sales));
               } else {
-                dispatch(show_error(response.data.error.msg));
+                alert(response.data.error.msg);
               }
 
               _context.next = 10;
@@ -4062,7 +4068,7 @@ function request_fetch_sales() {
             case 7:
               _context.prev = 7;
               _context.t0 = _context["catch"](0);
-              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
+              alert(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR);
 
             case 10:
             case "end":
@@ -4076,15 +4082,13 @@ function request_fetch_sales() {
       return _ref.apply(this, arguments);
     };
   }();
-}
-
-function set_sales(sales) {
+};
+var set_sales = function set_sales(sales) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SET_SALES,
     payload: sales
   };
-}
-
+};
 var request_fetch_some_sales = function request_fetch_some_sales(saleIDs) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
@@ -4153,7 +4157,7 @@ var request_highest_sales = function request_highest_sales() {
               if (response.data.status === 'OK') {
                 dispatch(set_highest_sales(response.data.highestSellingProducts));
               } else {
-                dispatch(show_error(response.data.error.msg));
+                console.error(response.data.error.msg);
               }
 
               _context3.next = 10;
@@ -4162,7 +4166,7 @@ var request_highest_sales = function request_highest_sales() {
             case 7:
               _context3.prev = 7;
               _context3.t0 = _context3["catch"](0);
-              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
+              console.error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR);
 
             case 10:
             case "end":
@@ -4183,7 +4187,7 @@ var set_highest_sales = function set_highest_sales(highestSellingProducts) {
     payload: highestSellingProducts
   };
 };
-function request_create_sale(sale) {
+var request_create_sale = function request_create_sale(sale) {
   return /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch) {
       var response;
@@ -4217,7 +4221,7 @@ function request_create_sale(sale) {
             case 8:
               _context4.prev = 8;
               _context4.t0 = _context4["catch"](0);
-              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
+              _context4.t0.response.data.error ? dispatch(show_error(_context4.t0.response.data.error.msg)) : dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
 
             case 11:
               _context4.prev = 11;
@@ -4236,16 +4240,14 @@ function request_create_sale(sale) {
       return _ref4.apply(this, arguments);
     };
   }();
-}
-
-function create_sale(sale) {
+};
+var create_sale = function create_sale(sale) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].CREATE_SALE,
     payload: sale
   };
-}
-
-function request_update_sale(sale, id) {
+};
+var request_update_sale = function request_update_sale(sale, id) {
   return /*#__PURE__*/function () {
     var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(dispatch) {
       var response;
@@ -4279,7 +4281,7 @@ function request_update_sale(sale, id) {
             case 8:
               _context5.prev = 8;
               _context5.t0 = _context5["catch"](0);
-              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
+              _context5.t0.response.data.error ? dispatch(show_error(_context5.t0.response.data.error.msg)) : dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR));
 
             case 11:
               _context5.prev = 11;
@@ -4298,8 +4300,8 @@ function request_update_sale(sale, id) {
       return _ref5.apply(this, arguments);
     };
   }();
-}
-function request_delete_sale(id) {
+};
+var request_delete_sale = function request_delete_sale(id) {
   return /*#__PURE__*/function () {
     var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(dispatch) {
       var response;
@@ -4322,7 +4324,7 @@ function request_delete_sale(id) {
                 dispatch(request_highest_sales());
                 dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_6__.show_success_message)(SUCCESSFULL_DELETE_MSG));
               } else {
-                console.error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR);
+                alert(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR);
               }
 
               _context6.next = 12;
@@ -4331,7 +4333,7 @@ function request_delete_sale(id) {
             case 9:
               _context6.prev = 9;
               _context6.t0 = _context6["catch"](2);
-              console.error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR);
+              alert(_utils_util_structures__WEBPACK_IMPORTED_MODULE_1__.SERVER_ERROR);
 
             case 12:
               _context6.prev = 12;
@@ -4350,24 +4352,21 @@ function request_delete_sale(id) {
       return _ref6.apply(this, arguments);
     };
   }();
-}
-
-function delete_sale(id) {
+};
+var delete_sale = function delete_sale(id) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].DELETE_SALE,
     payload: {
       id: id
     }
   };
-}
-
-function update_sale(sale) {
+};
+var update_sale = function update_sale(sale) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].UPDATE_SALE,
     payload: sale
   };
-}
-
+};
 function set_products_to_sale(products) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_2__["default"].SET_PRODUCTS_TO_SALE,
@@ -4665,6 +4664,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "request_delete_supplier": () => (/* binding */ request_delete_supplier),
 /* harmony export */   "sort_suppliers": () => (/* binding */ sort_suppliers),
 /* harmony export */   "resort_suppliers": () => (/* binding */ resort_suppliers),
+/* harmony export */   "show_error": () => (/* binding */ show_error),
 /* harmony export */   "hide_error": () => (/* binding */ hide_error)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
@@ -4693,7 +4693,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var SUCCESSFULL_CREATE_MSG = 'Supplier added.';
 var SUCCESSFULL_UPDATE_MSG = 'Supplier updated.';
 var SUCCESSFULL_DELETE_MSG = 'Supplier deleted.';
-function request_fetch_suppliers() {
+var request_fetch_suppliers = function request_fetch_suppliers() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(dispatch) {
       var response;
@@ -4716,7 +4716,7 @@ function request_fetch_suppliers() {
               return _context.abrupt("return", dispatch(set_suppliers(response.data.suppliers)));
 
             case 8:
-              dispatch(show_error(response.data.error.msg));
+              alert(response.data.error.msg);
 
             case 9:
               _context.next = 14;
@@ -4725,7 +4725,7 @@ function request_fetch_suppliers() {
             case 11:
               _context.prev = 11;
               _context.t0 = _context["catch"](0);
-              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR));
+              alert(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR);
 
             case 14:
             case "end":
@@ -4739,16 +4739,16 @@ function request_fetch_suppliers() {
       return _ref.apply(this, arguments);
     };
   }();
-}
+};
 
-function set_suppliers(suppliers) {
+var set_suppliers = function set_suppliers(suppliers) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].SET_SUPPLIERS,
     payload: suppliers
   };
-}
+};
 
-function request_create_supplier(supplier) {
+var request_create_supplier = function request_create_supplier(supplier) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch) {
       var response;
@@ -4778,7 +4778,7 @@ function request_create_supplier(supplier) {
             case 8:
               _context2.prev = 8;
               _context2.t0 = _context2["catch"](0);
-              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR));
+              _context2.t0.response.data.error ? dispatch(show_error(_context2.t0.response.data.error.msg)) : dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR));
 
             case 11:
               _context2.prev = 11;
@@ -4797,16 +4797,16 @@ function request_create_supplier(supplier) {
       return _ref2.apply(this, arguments);
     };
   }();
-}
+};
 
-function create_supplier(supplier) {
+var create_supplier = function create_supplier(supplier) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].CREATE_SUPPLIER,
     payload: supplier
   };
-}
+};
 
-function request_update_supplier(supplier, id) {
+var request_update_supplier = function request_update_supplier(supplier, id) {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch) {
       var response;
@@ -4836,7 +4836,7 @@ function request_update_supplier(supplier, id) {
             case 8:
               _context3.prev = 8;
               _context3.t0 = _context3["catch"](0);
-              dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR));
+              _context3.t0.response.data.error ? dispatch(show_error(_context3.t0.response.data.error.msg)) : dispatch(show_error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR));
 
             case 11:
               _context3.prev = 11;
@@ -4855,16 +4855,16 @@ function request_update_supplier(supplier, id) {
       return _ref3.apply(this, arguments);
     };
   }();
-}
+};
 
-function update_supplier(supplier) {
+var update_supplier = function update_supplier(supplier) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].UPDATE_SUPPLIER,
     payload: supplier
   };
-}
+};
 
-function request_delete_supplier(id) {
+var request_delete_supplier = function request_delete_supplier(id) {
   return /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch) {
       var response;
@@ -4886,7 +4886,7 @@ function request_delete_supplier(id) {
                 dispatch(delete_supplier(response.data.id));
                 dispatch((0,_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_6__.request_fetch_some_purchases)(response.data.purchases));
               } else {
-                console.error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR);
+                alert(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR);
               }
 
               _context4.next = 12;
@@ -4895,7 +4895,7 @@ function request_delete_supplier(id) {
             case 9:
               _context4.prev = 9;
               _context4.t0 = _context4["catch"](2);
-              console.error(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR);
+              alert(_utils_util_structures__WEBPACK_IMPORTED_MODULE_2__.SERVER_ERROR);
 
             case 12:
               _context4.prev = 12;
@@ -4914,16 +4914,16 @@ function request_delete_supplier(id) {
       return _ref4.apply(this, arguments);
     };
   }();
-}
+};
 
-function delete_supplier(id) {
+var delete_supplier = function delete_supplier(id) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].DELETE_SUPPLIER,
     payload: {
       id: id
     }
   };
-}
+};
 
 var sort_suppliers = function sort_suppliers(key, order) {
   return {
@@ -4939,19 +4939,17 @@ var resort_suppliers = function resort_suppliers() {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].RESORT_SUPPLIERS
   };
 };
-
-function show_error(msg) {
+var show_error = function show_error(msg) {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].SHOW_SUPPLIER_ERROR,
     payload: new Error(msg)
   };
-}
-
-function hide_error() {
+};
+var hide_error = function hide_error() {
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_3__["default"].HIDE_SUPPLIER_ERROR
   };
-}
+};
 
 /***/ }),
 
@@ -7377,13 +7375,13 @@ function CashFlowStats() {
   var totalPurchases = function totalPurchases() {
     return purchases.reduce(function (total, purchase) {
       return total + purchase.amount_paid;
-    }, 0);
+    }, 0).toFixed(2);
   };
 
   var totalSales = function totalSales() {
     return sales.reduce(function (total, sale) {
       return total + sale.net_payment;
-    }, 0);
+    }, 0).toFixed(2);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("section", {
@@ -9526,8 +9524,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ PurchaseDetailsForm)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _common_supplier_option_SupplierOption__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../common/supplier option/SupplierOption */ "./resources/js/components/common/supplier option/SupplierOption.js");
 /* harmony import */ var _PurchaseStatusOption__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PurchaseStatusOption */ "./resources/js/components/purchases-page/purchase/purchase form/purchase-details-form/PurchaseStatusOption.js");
 /* harmony import */ var _messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../messages/PaymentMismatchModal */ "./resources/js/components/purchases-page/purchase/purchase form/messages/PaymentMismatchModal.js");
@@ -9536,8 +9534,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_form_error_FormError__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../common/form-error/FormError */ "./resources/js/components/common/form-error/FormError.js");
 /* harmony import */ var _actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../actions/purchases/purchases-actions */ "./resources/js/actions/purchases/purchases-actions.js");
 /* harmony import */ var _utils_utility_functions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../utils/utility_functions */ "./resources/js/utils/utility_functions.js");
-/* harmony import */ var _actions_products_products_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../actions/products/products-actions */ "./resources/js/actions/products/products-actions.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -9555,7 +9552,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -9600,7 +9596,7 @@ function PurchaseDetailsForm(_ref) {
     return mode === 'UPDATE';
   };
 
-  var _useParams = (0,react_router__WEBPACK_IMPORTED_MODULE_11__.useParams)(),
+  var _useParams = (0,react_router__WEBPACK_IMPORTED_MODULE_10__.useParams)(),
       id = _useParams.id;
 
   var getPurchase = function getPurchase(id) {
@@ -9690,18 +9686,18 @@ function PurchaseDetailsForm(_ref) {
       dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_7__.clear_products_from_purchase)());
     }
   }, [successMessage.show]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("form", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("form", {
     onSubmit: handleSubmit,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("hr", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("hr", {
       className: "my-4"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
           htmlFor: "supplier",
           className: "form-label fw-bold",
           children: "Supplier"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("select", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("select", {
           className: "form-select form-select-sm",
           id: "supplier",
           onChange: handleChange,
@@ -9709,18 +9705,18 @@ function PurchaseDetailsForm(_ref) {
           value: form.supplier,
           required: true,
           children: suppliers.map(function (supplier) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_common_supplier_option_SupplierOption__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_common_supplier_option_SupplierOption__WEBPACK_IMPORTED_MODULE_1__["default"], {
               supplier: supplier.name
             }, supplier.id);
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
           htmlFor: "purchase-status",
           className: "form-label fw-bold",
           children: "Purchase Status"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("select", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("select", {
           className: "form-select form-select-sm",
           id: "purchase-status",
           onChange: handleChange,
@@ -9728,25 +9724,48 @@ function PurchaseDetailsForm(_ref) {
           value: form.purchase_status,
           required: true,
           children: _utils_util_structures__WEBPACK_IMPORTED_MODULE_5__.purchaseStatus.map(function (status) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PurchaseStatusOption__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_PurchaseStatusOption__WEBPACK_IMPORTED_MODULE_2__["default"], {
               status: status.value
             }, status.id);
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "mb-3 d-sm-flex align-items-center",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-          className: "flex-grow-1 mb-2 mb-sm-0 me-sm-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+          className: "flex-grow-1  mb-2 mb-sm-0 me-sm-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
+            htmlFor: "grand-total",
+            className: "form-label fw-bold text-nowrap",
+            children: "Grand Total"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+            className: "input-group input-group-sm",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+              className: "input-group-text",
+              children: "RS"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
+              type: "number",
+              className: "form-control",
+              id: "grand-total",
+              name: "grand_total",
+              value: updateMode() ? getPurchase(id).grand_total : grandTotal,
+              min: "0",
+              step: "0.01",
+              required: true,
+              readOnly: true
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+          className: "flex-grow-1",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
             htmlFor: "net-amount-paid",
             className: "form-label fw-bold text-nowrap",
             children: "Net Amount Paid"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
             className: "input-group input-group-sm",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: "input-group-text",
               children: "RS"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("input", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
               type: "number",
               className: "form-control",
               id: "net-amount-paid",
@@ -9758,38 +9777,14 @@ function PurchaseDetailsForm(_ref) {
               required: true
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-          className: "flex-grow-1",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("label", {
-            htmlFor: "grand-total",
-            className: "form-label fw-bold text-nowrap",
-            children: "Grand Total"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-            className: "input-group input-group-sm",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
-              className: "input-group-text",
-              children: "RS"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("input", {
-              type: "number",
-              className: "form-control",
-              id: "grand-total",
-              onChange: handleChange,
-              name: "grand_total",
-              value: grandTotal,
-              min: "0",
-              step: "0.01",
-              required: true,
-              readOnly: true
-            })]
-          })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "mb-4",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
           htmlFor: "payment-status",
           className: "form-label fw-bold",
           children: "Payment Status"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("select", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("select", {
           className: "form-select form-select-sm",
           id: "payment-status",
           onChange: handleChange,
@@ -9797,29 +9792,29 @@ function PurchaseDetailsForm(_ref) {
           value: form.payment_status,
           required: true,
           children: _utils_util_structures__WEBPACK_IMPORTED_MODULE_5__.paymentStatus.map(function (status) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("option", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("option", {
               value: status.value,
               children: status.value
             }, status.id);
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "d-sm-flex mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
           type: "submit",
           className: "btn btn-primary flex-grow-1 mb-2 mb-sm-0",
           children: updateMode() ? 'Save Changes' : 'Confirm Purchase'
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Link, {
           to: "/purchases",
           className: "btn btn-danger flex-grow-1 ms-sm-3",
           children: "Cancel"
         })]
-      }), error.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_common_form_error_FormError__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }), error.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_common_form_error_FormError__WEBPACK_IMPORTED_MODULE_6__["default"], {
         msg: error.msg
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("hr", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("hr", {
       className: "my-4"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_3__["default"], {
       grandTotal: 16600,
       payment: 15000
     })]
@@ -12486,7 +12481,8 @@ function SaleDetailsForm(_ref) {
             onChange: handleChange,
             name: "payment_returned",
             value: form.payment_returned,
-            step: "0.01"
+            step: "0.01",
+            required: true
           })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {

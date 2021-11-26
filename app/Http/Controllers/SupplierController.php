@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Purchase;
+use App\Http\Resources\SupplierResource;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -21,11 +20,7 @@ class SupplierController extends Controller {
 
     $suppliers = auth()->user()->shop->suppliers;
 
-    $suppliers->transform(function ($supplier) {
-      return $supplier->requiredFields();
-    });
-
-    return response(['status' => 'OK', 'suppliers' => $suppliers], 200);
+    return response(['status' => 'OK', 'suppliers' => SupplierResource::collection($suppliers)], 200);
   }
 
   public function store(Request $request) {
@@ -67,7 +62,7 @@ class SupplierController extends Controller {
     );
 
     return response(
-      ['supplier' => $supplier->requiredFields(), 'status' => 'OK'],
+      ['supplier' => new SupplierResource($supplier), 'status' => 'OK'],
       200
     );
   }
@@ -79,20 +74,17 @@ class SupplierController extends Controller {
         'max:255',
         Rule::unique('suppliers')
           ->where('shop_id', auth()->user()->shop_id)
-          ->ignore(Supplier::where('id', $id)->first()),
+          ->ignore($id),
       ],
       'contact' => [
-        'required', 'min:4', 'max:20', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)->ignore(Supplier::where(
-          'id',
-          $id
-        )->first()),
+        'required', 'min:4', 'max:20', Rule::unique('suppliers')->where('shop_id', auth()->user()->shop_id)->ignore($id),
       ],
       'email' => [
         'nullable',
         'max:255',
         Rule::unique('suppliers')
           ->where('shop_id', auth()->user()->shop_id)
-          ->ignore(Supplier::where('id', $id)->first()),
+          ->ignore($id),
       ],
       'address' => ['required', 'max:255'],
     ]);
@@ -101,23 +93,19 @@ class SupplierController extends Controller {
       return $this->errorResponse($validator);
     }
 
-    $supplier = Supplier::find($id);
+    $supplier = Supplier::findOrFail($id);
     $supplier->update($request->only('name', 'email', 'contact', 'address'));
 
-    return response(['supplier' => $supplier->fresh()->requiredFields(), 'status' => 'OK'], 200);
+    return response(['supplier' => new SupplierResource($supplier->fresh()), 'status' => 'OK'], 200);
   }
 
   public function destroy($id) {
-    return DB::transaction(function () use ($id) {
-      $supplier = Supplier::findOrFail($id);
-      // get purchases for supplier
-      $purchases = Purchase::select('id')->where('supplier_id', $id)->get();
-      $purchases->transform(function ($purchase) {
-        return $purchase->id;
-      });
-      $supplier->delete();
-      return response(['id' => $id, 'purchases' => $purchases, 'status' => 'OK'], 200);
+    $supplier = Supplier::findOrFail($id);
+    $purchases = $supplier->purchases->transform(function ($purchase) {
+      return $purchase->id;
     });
+    $supplier->delete();
+    return response(['id' => $id, 'purchases' => $purchases, 'status' => 'OK'], 200);
   }
 
   private function invalid($validator) {
@@ -126,6 +114,6 @@ class SupplierController extends Controller {
 
   private function errorResponse($validator) {
     $errorMsg = Arr::flatten($validator->errors()->messages())[0];
-    return response(['error' => ['msg' => $errorMsg], 'status' => 'ERROR'], 200);
+    return response(['error' => ['msg' => $errorMsg], 'status' => 'ERROR'], 400);
   }
 }

@@ -5,10 +5,9 @@ import { reset_user, set_user, show_error } from '../users/users-actions';
 
 export const request_login = user => {
   return async dispatch => {
-    let response;
     try {
       dispatch(load());
-      response = await axios.post('/login', user);
+      const response = await axios.post('/login', user);
       if (response.data.status === 'OK') {
         dispatch(login());
         dispatch(set_user(response.data.user));
@@ -27,10 +26,9 @@ export const request_login = user => {
 
 export const request_logout = user => {
   return async dispatch => {
-    let response;
     try {
       dispatch(load());
-      response = await axios.get('/logout', user);
+      const response = await axios.get('/logout', user);
       if (response.data.status === 'OK') {
         dispatch(logout());
         dispatch(reset_user());

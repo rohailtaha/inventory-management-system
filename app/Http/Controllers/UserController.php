@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class UserController extends Controller {
 
   public function index() {
     $users = User::where([['shop_id', auth()->user()->shop_id], ['id', '!=', auth()->user()->id]])->orderByDesc('created_at')->get();
-    return response(['users' => User::format($users), 'status' => 'OK'], 200);
+    return response(['users' => UserResource::collection($users), 'status' => 'OK'], 200);
   }
 
   public function store(Request $request) {
@@ -49,7 +50,7 @@ class UserController extends Controller {
       ]);
       $role = Role::where('name', $request->role)->firstOrFail();
       $user->roles()->attach($role);
-      return response(['user' => User::formatOne($user), 'status' => 'OK'], 200);
+      return response(['user' => new UserResource($user), 'status' => 'OK'], 200);
     });
   }
 
@@ -85,7 +86,7 @@ class UserController extends Controller {
       //add new roles of user.
       $role = Role::where('name', $request->role)->firstOrFail();
       $user->roles()->attach($role);
-      return response(['user' => User::formatOne($user->fresh()), 'status' => 'OK'], 200);
+      return response(['user' => new UserResource($user->fresh()), 'status' => 'OK'], 200);
     });
   }
 
@@ -103,7 +104,7 @@ class UserController extends Controller {
     $user = User::findOrFail(auth()->user()->id);
     $user->update($request->only('name', 'email', 'phone'));
 
-    return response(['user' => User::formatOne($user->fresh()), 'status' => 'OK'], 200);
+    return response(['user' => new UserResource($user->fresh()), 'status' => 'OK'], 200);
 
   }
 
@@ -138,6 +139,6 @@ class UserController extends Controller {
 
   private function errorResponse($validator) {
     $errorMsg = Arr::flatten($validator->errors()->messages())[0];
-    return response(['error' => ['msg' => $errorMsg], 'status' => 'ERROR'], 200);
+    return response(['error' => ['msg' => $errorMsg], 'status' => 'ERROR'], 400);
   }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,26 +14,13 @@ class Category extends Model {
     'shop_id',
     'name',
   ];
-
-  private function requiredFields() {
-    return [
-      'id' => $this->id,
-      'name' => $this->name,
-      'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '',
-    ];
-  }
-
-  public static function format($models) {
-    return $models->map(function ($model) {
-      return $model->requiredFields();
-    });
-  }
-
-  public static function formatOne($model) {
-    return $model->requiredFields();
-  }
+  protected $hidden = ['updated_at', 'shop_id'];
 
   public function products() {
     return $this->hasMany(Product::class);
+  }
+
+  protected function serializeDate(DateTimeInterface $date) {
+    return $date->format('Y-m-d H:i:s');
   }
 }

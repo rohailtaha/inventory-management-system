@@ -9,27 +9,25 @@ const SUCCESSFULL_CREATE_MSG = 'Purchase added.';
 const SUCCESSFULL_UPDATE_MSG = 'Purchase updated.';
 const SUCCESSFULL_DELETE_MSG = 'Purchase Deleted.';
 
-export function request_fetch_purchases() {
+export const request_fetch_purchases = () => {
   return async dispatch => {
     try {
       const response = await axios.get('/api/purchases');
       if (response.data.status === 'OK') {
         dispatch(set_purchases(response.data.purchases));
       } else {
-        dispatch(show_error(response.data.error.msg));
+        alert(response.data.error.msg);
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      alert(SERVER_ERROR);
     }
   };
-}
+};
 
-function set_purchases(purchases) {
-  return {
-    type: actionTypes.SET_PURCHASES,
-    payload: purchases,
-  };
-}
+export const set_purchases = purchases => ({
+  type: actionTypes.SET_PURCHASES,
+  payload: purchases,
+});
 
 export const request_fetch_some_purchases = purchaseIDs => {
   return async dispatch => {
@@ -71,21 +69,21 @@ export function request_create_purchase(purchase) {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
     }
   };
 }
 
-function create_purchase(purchase) {
-  return {
-    type: actionTypes.CREATE_PURCHASE,
-    payload: purchase,
-  };
-}
+export const create_purchase = purchase => ({
+  type: actionTypes.CREATE_PURCHASE,
+  payload: purchase,
+});
 
-export function request_update_purchase(purchase, id) {
+export const request_update_purchase = (purchase, id) => {
   return async dispatch => {
     try {
       dispatch(load());
@@ -103,14 +101,16 @@ export function request_update_purchase(purchase, id) {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-export function request_delete_purchase(id) {
+export const request_delete_purchase = id => {
   return async dispatch => {
     dispatch(hide_delete_confirmation());
     dispatch(load());
@@ -121,80 +121,62 @@ export function request_delete_purchase(id) {
         dispatch(delete_purchase(response.data.id));
         dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
       } else {
-        console.error(SERVER_ERROR);
+        alert(SERVER_ERROR);
       }
     } catch (error) {
-      console.error(SERVER_ERROR);
+      alert(SERVER_ERROR);
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-function delete_purchase(id) {
-  return {
-    type: actionTypes.DELETE_PURCHASE,
-    payload: {
-      id,
-    },
-  };
-}
+const delete_purchase = id => ({
+  type: actionTypes.DELETE_PURCHASE,
+  payload: {
+    id,
+  },
+});
 
-function update_purchase(purchase) {
-  return {
-    type: actionTypes.UPDATE_PURCHASE,
-    payload: purchase,
-  };
-}
+export const update_purchase = purchase => ({
+  type: actionTypes.UPDATE_PURCHASE,
+  payload: purchase,
+});
 
-export function set_products_to_purchase(products) {
-  return {
-    type: actionTypes.SET_PRODUCTS_TO_PURCHASE,
-    payload: products,
-  };
-}
+export const set_products_to_purchase = products => ({
+  type: actionTypes.SET_PRODUCTS_TO_PURCHASE,
+  payload: products,
+});
 
-export function add_product_to_purchase(product) {
-  return {
-    type: actionTypes.ADD_PRODUCT_TO_PURCHASE,
-    payload: product,
-  };
-}
+export const add_product_to_purchase = product => ({
+  type: actionTypes.ADD_PRODUCT_TO_PURCHASE,
+  payload: product,
+});
 
-export function delete_product_from_purchase(id) {
-  return {
-    type: actionTypes.DELETE_PRODUCT_FROM_PURCHASE,
-    payload: {
-      id,
-    },
-  };
-}
+export const delete_product_from_purchase = id => ({
+  type: actionTypes.DELETE_PRODUCT_FROM_PURCHASE,
+  payload: {
+    id,
+  },
+});
 
-export function clear_products_from_purchase() {
-  return {
-    type: actionTypes.CLEAR_PRODUCTS_FROM_PURCHASE,
-  };
-}
+export const clear_products_from_purchase = () => ({
+  type: actionTypes.CLEAR_PRODUCTS_FROM_PURCHASE,
+});
 
-export function show_products_to_purchase_form_error(msg) {
-  return {
-    type: actionTypes.SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR,
-    payload: new Error(msg),
-  };
-}
+export const show_products_to_purchase_form_error = msg => ({
+  type: actionTypes.SHOW_PRODUCTS_TO_PURCHASE_FORM_ERROR,
+  payload: new Error(msg),
+});
 
-export function hide_products_to_purchase_form_error(msg) {
-  return {
-    type: actionTypes.HIDE_PRODUCTS_TO_PURCHASE_FORM_ERROR,
-  };
-}
+export const hide_products_to_purchase_form_error = msg => ({
+  type: actionTypes.HIDE_PRODUCTS_TO_PURCHASE_FORM_ERROR,
+});
 
-export function set_purchases_report(report) {
-  return {
-    type: actionTypes.SET_PURCHASES_REPORT,
-    payload: report,
-  };
-}
+export const set_purchases_report = report => ({
+  type: actionTypes.SET_PURCHASES_REPORT,
+  payload: report,
+});
 
 export const sort_purchases = (key, order) => ({
   type: actionTypes.SORT_PURCHASES,
@@ -208,15 +190,11 @@ export const resort_purchases = () => ({
   type: actionTypes.RESORT_PURCHASES,
 });
 
-export function show_error(msg) {
-  return {
-    type: actionTypes.SHOW_PURCHASE_ERROR,
-    payload: new Error(msg),
-  };
-}
+export const show_error = msg => ({
+  type: actionTypes.SHOW_PURCHASE_ERROR,
+  payload: new Error(msg),
+});
 
-export function hide_error() {
-  return {
-    type: actionTypes.HIDE_PURCHASE_ERROR,
-  };
-}
+export const hide_error = () => ({
+  type: actionTypes.HIDE_PURCHASE_ERROR,
+});

@@ -9,27 +9,25 @@ const SUCCESSFULL_CREATE_MSG = 'Sale added.';
 const SUCCESSFULL_UPDATE_MSG = 'Sale updated.';
 const SUCCESSFULL_DELETE_MSG = 'Sale Deleted.';
 
-export function request_fetch_sales() {
+export const request_fetch_sales = () => {
   return async dispatch => {
     try {
       const response = await axios.get('/api/sales');
       if (response.data.status === 'OK') {
         dispatch(set_sales(response.data.sales));
       } else {
-        dispatch(show_error(response.data.error.msg));
+        alert(response.data.error.msg);
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      alert(SERVER_ERROR);
     }
   };
-}
+};
 
-function set_sales(sales) {
-  return {
-    type: actionTypes.SET_SALES,
-    payload: sales,
-  };
-}
+export const set_sales = sales => ({
+  type: actionTypes.SET_SALES,
+  payload: sales,
+});
 
 export const request_fetch_some_sales = saleIDs => {
   return async dispatch => {
@@ -60,10 +58,10 @@ export const request_highest_sales = () => {
       if (response.data.status === 'OK') {
         dispatch(set_highest_sales(response.data.highestSellingProducts));
       } else {
-        dispatch(show_error(response.data.error.msg));
+        console.error(response.data.error.msg);
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      console.error(SERVER_ERROR);
     }
   };
 };
@@ -73,7 +71,7 @@ export const set_highest_sales = highestSellingProducts => ({
   payload: highestSellingProducts,
 });
 
-export function request_create_sale(sale) {
+export const request_create_sale = sale => {
   return async dispatch => {
     try {
       dispatch(load());
@@ -92,21 +90,21 @@ export function request_create_sale(sale) {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-function create_sale(sale) {
-  return {
-    type: actionTypes.CREATE_SALE,
-    payload: sale,
-  };
-}
+export const create_sale = sale => ({
+  type: actionTypes.CREATE_SALE,
+  payload: sale,
+});
 
-export function request_update_sale(sale, id) {
+export const request_update_sale = (sale, id) => {
   return async dispatch => {
     try {
       dispatch(load());
@@ -125,14 +123,16 @@ export function request_update_sale(sale, id) {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-export function request_delete_sale(id) {
+export const request_delete_sale = id => {
   return async dispatch => {
     dispatch(hide_delete_confirmation());
     dispatch(load());
@@ -144,31 +144,27 @@ export function request_delete_sale(id) {
         dispatch(request_highest_sales());
         dispatch(show_success_message(SUCCESSFULL_DELETE_MSG));
       } else {
-        console.error(SERVER_ERROR);
+        alert(SERVER_ERROR);
       }
     } catch (error) {
-      console.error(SERVER_ERROR);
+      alert(SERVER_ERROR);
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-function delete_sale(id) {
-  return {
-    type: actionTypes.DELETE_SALE,
-    payload: {
-      id,
-    },
-  };
-}
+export const delete_sale = id => ({
+  type: actionTypes.DELETE_SALE,
+  payload: {
+    id,
+  },
+});
 
-function update_sale(sale) {
-  return {
-    type: actionTypes.UPDATE_SALE,
-    payload: sale,
-  };
-}
+export const update_sale = sale => ({
+  type: actionTypes.UPDATE_SALE,
+  payload: sale,
+});
 
 export function set_products_to_sale(products) {
   return {

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::get('/login/status', function () {
   return auth()->user() ?
   response([
-    'user' => User::formatOne(User::findOrFail(auth()->user()->id)),
+    'user' => new UserResource(User::findOrFail(auth()->user()->id)),
     'status' => 'OK',
   ], 200) :
   response(['error' => ['msg' => 'The user is not authenticated.'], 'status' => 'ERROR'], 401);

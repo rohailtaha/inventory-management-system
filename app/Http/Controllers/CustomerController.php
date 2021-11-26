@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
-use App\Models\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -20,12 +19,7 @@ class CustomerController extends Controller {
   public function index() {
 
     $customers = auth()->user()->shop->customers;
-
-    $customers->transform(function ($customer) {
-      return $customer->requiredFields();
-    });
-
-    return response(['status' => 'OK', 'customers' => $customers], 200);
+    return response(['status' => 'OK', 'customers' => CustomerResource::collection($customers)], 200);
   }
 
   public function store(Request $request) {
@@ -56,7 +50,7 @@ class CustomerController extends Controller {
       )
     );
 
-    return response(['customer' => $customer->requiredFields(), 'status' => 'OK'], 200);
+    return response(['customer' => new CustomerResource($customer), 'status' => 'OK'], 200);
   }
 
   public function update(Request $request, $id) {
@@ -66,20 +60,17 @@ class CustomerController extends Controller {
         'max:255',
         Rule::unique('customers')
           ->where('shop_id', auth()->user()->shop_id)
-          ->ignore(Customer::where('id', $id)->first()),
+          ->ignore($id),
       ],
       'phone' => [
-        'required', 'min:4', 'max:20', Rule::unique('customers')->where('shop_id', auth()->user()->shop_id)->ignore(Customer::where(
-          'id',
-          $id
-        )->first()),
+        'required', 'min:4', 'max:20', Rule::unique('customers')->where('shop_id', auth()->user()->shop_id)->ignore($id),
       ],
       'email' => [
         'nullable',
         'max:255',
         Rule::unique('customers')
           ->where('shop_id', auth()->user()->shop_id)
-          ->ignore(Customer::where('id', $id)->first()),
+          ->ignore($id),
       ],
       'address' => ['required', 'max:255'],
     ]);
@@ -91,25 +82,17 @@ class CustomerController extends Controller {
     $customer = Customer::find($id);
     $customer->update($request->only('name', 'email', 'phone', 'address'));
 
-    return response(['customer' => $customer->fresh()->requiredFields(), 'status' => 'OK'], 200);
+    return response(['customer' => new CustomerResource($customer->fresh()), 'status' => 'OK'], 200);
   }
 
-  // public function destroy($id) {
-  //   Customer::find($id)->delete();
-  //   return response(['id' => $id, 'status' => 'OK'], 200);
-  // }
-
   public function destroy($id) {
-    return DB::transaction(function () use ($id) {
-      $customer = Customer::findOrFail($id);
-      // get purchases for supplier
-      $sales = Sale::select('id')->where('customer_id', $id)->get();
-      $sales->transform(function ($sale) {
-        return $sale->id;
-      });
-      $customer->delete();
-      return response(['id' => $id, 'sales' => $sales, 'status' => 'OK'], 200);
+    $customer = Customer::findOrFail($id);
+    $sales = $customer->sales->transform(function ($sale) {
+      return $sale->id;
     });
+    $customer->delete();
+    return response(['id' => $id, 'sales' => $sales, 'status' => 'OK'], 200);
+
   }
 
   private function invalid($validator) {
@@ -120,7 +103,7 @@ class CustomerController extends Controller {
     $errorMsg = Arr::flatten($validator->errors()->messages())[0];
     return response(
       ['error' => ['msg' => $errorMsg], 'status' => 'ERROR'],
-      200
+      400
     );
   }
 }

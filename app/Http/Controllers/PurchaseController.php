@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PurchaseResource;
 use App\Models\Purchase;
 use App\Models\PurchasedProduct;
 use App\Rules\CorrectTotalCostForProducts;
@@ -22,25 +23,15 @@ class PurchaseController extends Controller {
   }
 
   public function index() {
-
     $purchases = auth()->user()->shop->purchases;
-
-    $purchases->transform(function ($purchase) {
-      return $purchase->requiredFields();
-    });
-
-    return response(['status' => 'OK', 'purchases' => $purchases], 200);
+    return response(['status' => 'OK', 'purchases' => PurchaseResource::collection($purchases)], 200);
   }
 
   public function some(Request $request) {
     $purchases = Purchase::where('shop_id', auth()->user()->shop_id)
       ->whereIn('id', $request->ids)->get();
 
-    $purchases->transform(function ($purchase) {
-      return $purchase->requiredFields();
-    });
-
-    return response(['status' => 'OK', 'purchases' => $purchases], 200);
+    return response(['status' => 'OK', 'purchases' => PurchaseResource::collection($purchases)], 200);
   }
 
   public function store(Request $request) {
@@ -64,10 +55,11 @@ class PurchaseController extends Controller {
     }
 
     return DB::transaction(function () use ($request) {
-      $purchase = Purchase::create(array_merge(
-        ['shop_id' => auth()->user()->shop_id],
-        $request->only('purchase_status', 'grand_total', 'amount_paid', 'payment_status', 'supplier_id')
-      ));
+      $purchase = Purchase::create(
+        array_merge(
+          ['shop_id' => auth()->user()->shop_id],
+          $request->only('purchase_status', 'grand_total', 'amount_paid', 'payment_status', 'supplier_id')
+        ));
 
       foreach ($request->products as $product) {
         PurchasedProduct::create([
@@ -79,7 +71,7 @@ class PurchaseController extends Controller {
         ]);
       }
 
-      return response(['purchase' => $purchase->requiredFields(), 'status' => 'OK'], 200);
+      return response(['purchase' => new PurchaseResource($purchase), 'status' => 'OK'], 200);
     });
 
   }
@@ -109,20 +101,16 @@ class PurchaseController extends Controller {
       $purchase = Purchase::findOrFail($id);
 
       // delete products for old purchase
-      $purchasedProducts = PurchasedProduct::where('purchase_id', $id)->get();
-      if ($purchasedProducts->isEmpty()) {
-        throw new Exception('No products found for this purchase.');
-      }
-
-      $purchasedProducts->each(function ($row) {
+      PurchasedProduct::where('purchase_id', $id)->get()->each(function ($row) {
         $row->delete();
       });
 
       // update purchase
-      $purchase->update((array_merge(
-        ['shop_id' => auth()->user()->shop_id],
-        $request->only('purchase_status', 'grand_total', 'amount_paid', 'payment_status', 'supplier_id')
-      )));
+      $purchase->update(
+        array_merge(
+          ['shop_id' => auth()->user()->shop_id],
+          $request->only('purchase_status', 'grand_total', 'amount_paid', 'payment_status', 'supplier_id')
+        ));
 
       // add products for new purchase
       foreach ($request->products as $product) {
@@ -134,24 +122,17 @@ class PurchaseController extends Controller {
           'total_cost' => $product['total_cost'],
         ]);
       }
-      return response(['purchase' => $purchase->fresh()->requiredFields(), 'status' => 'OK'], 200);
+      return response(['purchase' => new PurchaseResource($purchase->fresh()), 'status' => 'OK'], 200);
     });
-
   }
 
   public function destroy($id) {
-    return DB::transaction(function () use ($id) {
-      $purchase = Purchase::findOrFail($id);
-      $products = PurchasedProduct::select('product_id')->where('purchase_id', $id)->get();
-      if ($products->isEmpty()) {
-        throw new Exception('No products found for this purchase.');
-      }
-      $products->transform(function ($product) {
-        return $product->product_id;
-      });
-      $purchase->delete();
-      return response(['id' => $id, 'products' => $products, 'status' => 'OK'], 200);
+    $purchase = Purchase::findOrFail($id);
+    $products = $purchase->products->map(function ($product) {
+      return $product->id;
     });
+    $purchase->delete();
+    return response(['id' => $id, 'products' => $products, 'status' => 'OK'], 200);
   }
 
   private function invalid($validator) {
@@ -162,7 +143,7 @@ class PurchaseController extends Controller {
     $errorMsg = Arr::flatten($validator->errors()->messages())[0];
     return response(
       ['error' => ['msg' => $errorMsg], 'status' => 'ERROR'],
-      200
+      400
     );
   }
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
+use function PHPSTORM_META\map;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +20,7 @@ class ProductController extends Controller {
 
   public function index() {
     $products = Product::where('shop_id', auth()->user()->shop_id)->orderByDesc('created_at')->get();
-    return response(['status' => 'OK', 'products' => Product::format($products)], 200);
+    return response(['status' => 'OK', 'products' => ProductResource::collection($products)], 200);
   }
 
   public function some(Request $request) {
@@ -26,7 +28,7 @@ class ProductController extends Controller {
     $products = Product::where('shop_id', auth()->user()->shop_id)
       ->whereIn('id', $request->ids)->get();
 
-    return response(['status' => 'OK', 'products' => Product::format($products)], 200);
+    return response(['status' => 'OK', 'products' => ProductResource::collection($products)], 200);
   }
 
   public function store(Request $request) {
@@ -62,7 +64,7 @@ class ProductController extends Controller {
       'final_sale_price' => $request->final_sale_price,
     ]);
 
-    return response(['product' => Product::formatOne($product), 'status' => 'OK'], 200);
+    return response(['product' => new ProductResource($product), 'status' => 'OK'], 200);
   }
 
   public function update(Request $request, $id) {
@@ -96,12 +98,21 @@ class ProductController extends Controller {
       'discount' => $request->discount,
       'final_sale_price' => $request->final_sale_price,
     ]);
-    return response(['product' => Product::formatOne($product->fresh()), 'status' => 'OK'], 200);
+    return response(['product' => new ProductResource($product->fresh()), 'status' => 'OK'], 200);
   }
 
   public function destroy($id) {
-    Product::findOrFail($id)->delete();
-    return response(['id' => $id, 'status' => 'OK'], 200);
+    // PurchasedProduct::select('purchase_id');
+
+    $product = Product::findOrFail($id);
+    $purchases = $product->purchases->map(function ($purchase) {
+      return $purchase->id;
+    });
+    $sales = $product->sales->map(function ($sale) {
+      return $sale->id;
+    });
+    $product->delete();
+    return response(['id' => $id, 'status' => 'OK', 'purchases' => $purchases, 'sales' => $sales], 200);
   }
 
   private function invalid($validator) {

@@ -207,6 +207,7 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
               name='payment_returned'
               value={form.payment_returned}
               step='0.01'
+              required
             />
           </div>
         </div>

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SaleResource;
 use App\Models\Sale;
 use App\Models\SoldProduct;
 use App\Rules\CorrectNetPayment;
 use App\Rules\CorrectSaleQuantityForProduct;
 use App\Rules\CorrectTotalPriceForProducts;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -25,13 +25,9 @@ class SaleController extends Controller {
 
     $sales = auth()->user()->shop->sales;
 
-    $sales->transform(function ($sale) {
-      return $sale->requiredFields();
-    });
-
     return response(['status' => 'OK',
       'sales' => [
-        'list' => $sales,
+        'list' => SaleResource::collection($sales),
         'highestSellingProducts' => SoldProduct::highestSales(),
       ],
     ], 200);
@@ -41,11 +37,7 @@ class SaleController extends Controller {
     $sales = Sale::where('shop_id', auth()->user()->shop_id)
       ->whereIn('id', $request->ids)->get();
 
-    $sales->transform(function ($sale) {
-      return $sale->requiredFields();
-    });
-
-    return response(['status' => 'OK', 'sales' => $sales], 200);
+    return response(['status' => 'OK', 'sales' => SaleResource::collection($sales)], 200);
   }
 
   public function store(Request $request) {
@@ -89,7 +81,7 @@ class SaleController extends Controller {
           'total_price' => $product['total_price'],
         ]);
       }
-      return response(['sale' => $sale->requiredFields(), 'status' => 'OK'], 200);
+      return response(['sale' => new SaleResource($sale), 'status' => 'OK'], 200);
     });
 
   }
@@ -123,11 +115,7 @@ class SaleController extends Controller {
       $sale = Sale::findOrFail($id);
 
       // delete products for old sale
-      $soldProducts = SoldProduct::where('sale_id', $id)->get();
-      if ($soldProducts->isEmpty()) {
-        throw new Exception('No products found for this sale.');
-      }
-      $soldProducts->each(function ($row) {
+      SoldProduct::where('sale_id', $id)->get()->each(function ($row) {
         $row->delete();
       });
 
@@ -150,25 +138,17 @@ class SaleController extends Controller {
         ]);
       }
 
-      return response(['sale' => $sale->fresh()->requiredFields(), 'status' => 'OK'], 200);
+      return response(['sale' => new SaleResource($sale), 'status' => 'OK'], 200);
     });
   }
 
   public function destroy($id) {
-    return DB::transaction(function () use ($id) {
-      $sale = Sale::findOrFail($id);
-      // get products for sale
-      $products = SoldProduct::select('product_id')->where('sale_id', $id)->get();
-      if ($products->isEmpty()) {
-        throw new Exception('No products found for this sale.');
-      }
-      $products->transform(function ($product) {
-        return $product->product_id;
-      });
-      $sale->delete();
-      return response(['id' => $id, 'products' => $products, 'status' => 'OK'], 200);
+    $sale = Sale::findOrFail($id);
+    $products = $sale->products->transform(function ($product) {
+      return $product->product_id;
     });
-
+    $sale->delete();
+    return response(['id' => $id, 'products' => $products, 'status' => 'OK'], 200);
   }
 
   protected static function highestSales() {
@@ -183,7 +163,7 @@ class SaleController extends Controller {
     $errorMsg = Arr::flatten($validator->errors()->messages())[0];
     return response(
       ['error' => ['msg' => $errorMsg], 'status' => 'ERROR'],
-      200
+      400
     );
   }
 

@@ -10,29 +10,27 @@ const SUCCESSFULL_CREATE_MSG = 'Supplier added.';
 const SUCCESSFULL_UPDATE_MSG = 'Supplier updated.';
 const SUCCESSFULL_DELETE_MSG = 'Supplier deleted.';
 
-export function request_fetch_suppliers() {
+export const request_fetch_suppliers = () => {
   return async dispatch => {
     try {
       const response = await axios.get('/api/suppliers');
       if (response.data.status === 'OK') {
         return dispatch(set_suppliers(response.data.suppliers));
       } else {
-        dispatch(show_error(response.data.error.msg));
+        alert(response.data.error.msg);
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      alert(SERVER_ERROR);
     }
   };
-}
+};
 
-function set_suppliers(suppliers) {
-  return {
-    type: actionTypes.SET_SUPPLIERS,
-    payload: suppliers,
-  };
-}
+const set_suppliers = suppliers => ({
+  type: actionTypes.SET_SUPPLIERS,
+  payload: suppliers,
+});
 
-export function request_create_supplier(supplier) {
+export const request_create_supplier = supplier => {
   return async dispatch => {
     try {
       dispatch(load());
@@ -45,21 +43,21 @@ export function request_create_supplier(supplier) {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-function create_supplier(supplier) {
-  return {
-    type: actionTypes.CREATE_SUPPLIER,
-    payload: supplier,
-  };
-}
+const create_supplier = supplier => ({
+  type: actionTypes.CREATE_SUPPLIER,
+  payload: supplier,
+});
 
-export function request_update_supplier(supplier, id) {
+export const request_update_supplier = (supplier, id) => {
   return async dispatch => {
     try {
       dispatch(load());
@@ -72,21 +70,21 @@ export function request_update_supplier(supplier, id) {
         dispatch(show_error(response.data.error.msg));
       }
     } catch (error) {
-      dispatch(show_error(SERVER_ERROR));
+      error.response.data.error
+        ? dispatch(show_error(error.response.data.error.msg))
+        : dispatch(show_error(SERVER_ERROR));
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-function update_supplier(supplier) {
-  return {
-    type: actionTypes.UPDATE_SUPPLIER,
-    payload: supplier,
-  };
-}
+const update_supplier = supplier => ({
+  type: actionTypes.UPDATE_SUPPLIER,
+  payload: supplier,
+});
 
-export function request_delete_supplier(id) {
+export const request_delete_supplier = id => {
   return async dispatch => {
     dispatch(hide_delete_confirmation());
     dispatch(load());
@@ -97,24 +95,22 @@ export function request_delete_supplier(id) {
         dispatch(delete_supplier(response.data.id));
         dispatch(request_fetch_some_purchases(response.data.purchases));
       } else {
-        console.error(SERVER_ERROR);
+        alert(SERVER_ERROR);
       }
     } catch (error) {
-      console.error(SERVER_ERROR);
+      alert(SERVER_ERROR);
     } finally {
       dispatch(stopLoading());
     }
   };
-}
+};
 
-function delete_supplier(id) {
-  return {
-    type: actionTypes.DELETE_SUPPLIER,
-    payload: {
-      id,
-    },
-  };
-}
+const delete_supplier = id => ({
+  type: actionTypes.DELETE_SUPPLIER,
+  payload: {
+    id,
+  },
+});
 
 export const sort_suppliers = (key, order) => ({
   type: actionTypes.SORT_SUPPLIERS,
@@ -128,15 +124,11 @@ export const resort_suppliers = () => ({
   type: actionTypes.RESORT_SUPPLIERS,
 });
 
-function show_error(msg) {
-  return {
-    type: actionTypes.SHOW_SUPPLIER_ERROR,
-    payload: new Error(msg),
-  };
-}
+export const show_error = msg => ({
+  type: actionTypes.SHOW_SUPPLIER_ERROR,
+  payload: new Error(msg),
+});
 
-export function hide_error() {
-  return {
-    type: actionTypes.HIDE_SUPPLIER_ERROR,
-  };
-}
+export const hide_error = () => ({
+  type: actionTypes.HIDE_SUPPLIER_ERROR,
+});

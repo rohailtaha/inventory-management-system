@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -25,10 +26,8 @@ class AuthController extends Controller {
       return response(['error' => ['msg' => 'Invalid Login Credentials'], 'status' => 'ERROR'], 401);
     }
 
-    $user = User::where('email', $request->email)->firstOrFail();
-
     return response([
-      'user' => User::formatOne($user),
+      'user' => new UserResource(User::where('email', $request->email)->firstOrFail()),
       'status' => 'OK',
     ], 200);
 
@@ -49,7 +48,7 @@ class AuthController extends Controller {
     $errorMsg = Arr::flatten($validator->errors()->messages())[0];
     return response(
       ['error' => ['msg' => $errorMsg], 'status' => 'ERROR'],
-      200
+      401
     );
   }
 }

@@ -9,16 +9,10 @@ class Customer extends Model {
   use HasFactory;
 
   protected $fillable = ['shop_id', 'name', 'email', 'phone', 'address'];
+  protected $hidden = ['updated_at', 'shop_id'];
 
-  public function requiredFields() {
-    return [
-      'id' => $this->id,
-      'name' => $this->name,
-      'email' => $this->email ?? '',
-      'phone' => $this->phone,
-      'address' => $this->address,
-      'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '',
-    ];
+  public function sales() {
+    return $this->hasMany(Sale::class);
   }
 
   public function shop() {

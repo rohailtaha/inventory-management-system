@@ -20,15 +20,17 @@ class SoldProduct extends Pivot {
 
   protected static function booted() {
     static::created(function ($soldProduct) {
-      $product = Product::find($soldProduct->product_id);
+      $product = Product::findOrFail($soldProduct->product_id);
       $product->quantity -= $soldProduct->quantity;
       $product->save();
     });
 
     static::deleting(function ($soldProduct) {
-      $product = Product::find($soldProduct->product_id);
-      $product->quantity += $soldProduct->quantity;
-      $product->save();
+      if ($soldProduct->product_id) {
+        $product = Product::findOrFail($soldProduct->product_id);
+        $product->quantity += $soldProduct->quantity;
+        $product->save();
+      }
     });
   }
 
@@ -40,7 +42,8 @@ class SoldProduct extends Pivot {
       ->where('sales.shop_id', auth()->user()->shop_id)
       ->orderBy('total_sales', 'desc')
       ->orderBy('income', 'desc')
-      ->groupBy('product_id')->limit(10)
+      ->groupBy('product_id')
+      ->limit(3)
       ->get();
   }
 }

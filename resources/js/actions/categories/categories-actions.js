@@ -87,7 +87,6 @@ const update_category = category => ({
 
 export const request_delete_category = id => {
   return async dispatch => {
-    console.log('yes');
     dispatch(hide_delete_confirmation());
     dispatch(load());
     try {

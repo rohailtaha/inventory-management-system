@@ -18,7 +18,6 @@ import {
   show_error,
 } from '../../../../../actions/purchases/purchases-actions';
 import { isEmpty } from '../../../../../utils/utility_functions';
-import { request_fetch_some_products } from '../../../../../actions/products/products-actions';
 
 export default function PurchaseDetailsForm({ mode, grandTotal }) {
   const [purchases, productsToPurchase, suppliers, successMessage, error] =
@@ -163,7 +162,30 @@ export default function PurchaseDetailsForm({ mode, grandTotal }) {
         </div>
 
         <div className='mb-3 d-sm-flex align-items-center'>
-          <div className='flex-grow-1 mb-2 mb-sm-0 me-sm-2'>
+          <div className='flex-grow-1  mb-2 mb-sm-0 me-sm-2'>
+            <label
+              htmlFor='grand-total'
+              className='form-label fw-bold text-nowrap'
+            >
+              Grand Total
+            </label>
+            <div className='input-group input-group-sm'>
+              <span className='input-group-text'>RS</span>
+              <input
+                type='number'
+                className='form-control'
+                id='grand-total'
+                name='grand_total'
+                value={updateMode() ? getPurchase(id).grand_total : grandTotal}
+                min='0'
+                step='0.01'
+                required
+                readOnly
+              />
+            </div>
+          </div>
+
+          <div className='flex-grow-1'>
             <label
               htmlFor='net-amount-paid'
               className='form-label fw-bold text-nowrap'
@@ -182,30 +204,6 @@ export default function PurchaseDetailsForm({ mode, grandTotal }) {
                 min='0'
                 step='0.01'
                 required
-              />
-            </div>
-          </div>
-
-          <div className='flex-grow-1'>
-            <label
-              htmlFor='grand-total'
-              className='form-label fw-bold text-nowrap'
-            >
-              Grand Total
-            </label>
-            <div className='input-group input-group-sm'>
-              <span className='input-group-text'>RS</span>
-              <input
-                type='number'
-                className='form-control'
-                id='grand-total'
-                onChange={handleChange}
-                name='grand_total'
-                value={grandTotal}
-                min='0'
-                step='0.01'
-                required
-                readOnly
               />
             </div>
           </div>

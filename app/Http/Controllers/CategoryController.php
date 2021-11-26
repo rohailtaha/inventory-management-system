@@ -18,7 +18,7 @@ class CategoryController extends Controller {
 
   public function index() {
     $categories = auth()->user()->shop->categories;
-    return response(['status' => 'OK', 'categories' => Category::format($categories)], 200);
+    return response(['status' => 'OK', 'categories' => $categories], 200);
   }
 
   public function store(Request $request) {
@@ -36,7 +36,7 @@ class CategoryController extends Controller {
       'name' => $request->name,
     ]);
 
-    return response(['category' => Category::formatOne($category), 'status' => 'OK'], 200);
+    return response(['category' => $category, 'status' => 'OK'], 200);
   }
 
   public function update(Request $request, $id) {
@@ -58,7 +58,7 @@ class CategoryController extends Controller {
 
     $category->update(['name' => $request->name]);
 
-    return response(['category' => Category::formatOne($category->fresh()), 'products' => $products, 'status' => 'OK'], 200);
+    return response(['category' => $category->fresh(), 'products' => $products, 'status' => 'OK'], 200);
   }
 
   public function destroy($id) {
@@ -81,7 +81,7 @@ class CategoryController extends Controller {
 
   private function errorResponse($validator) {
     $errorMsg = Arr::flatten($validator->errors()->messages())[0];
-    return response(['error' => ['msg' => $errorMsg], 'status' => 'ERROR'], 200);
+    return response(['error' => ['msg' => $errorMsg], 'status' => 'ERROR'], 400);
   }
 
 }

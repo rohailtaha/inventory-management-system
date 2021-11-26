@@ -10,6 +10,8 @@ class Purchase extends Model {
 
   protected $fillable = ['shop_id', 'purchase_status', 'grand_total', 'amount_paid', 'payment_status', 'supplier_id'];
 
+  protected $hidden = ['shop_id', 'updated_at'];
+
   protected static function booted() {
     static::deleting(function ($purchase) {
       if ($purchase->purchase_status === 'Received') {
@@ -19,33 +21,6 @@ class Purchase extends Model {
           $product->save();
         }
       }
-    });
-  }
-
-  public function requiredFields() {
-    return [
-      'id' => $this->id,
-      'purchase_status' => $this->purchase_status,
-      'grand_total' => floatval($this->grand_total),
-      'amount_paid' => floatval($this->amount_paid),
-      'payment_status' => $this->payment_status,
-      'supplier' => $this->supplier->name ?? '',
-      'products' => $this->formatProducts($this->products),
-      'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '',
-
-    ];
-
-  }
-
-  public function formatProducts($products) {
-    return $products->map(function ($product) {
-      return [
-        'id' => $product['id'],
-        'name' => $product['name'],
-        'quantity' => $product['quantity'],
-        'per_item_cost' => floatval($product['per_item_cost']),
-        'total_cost' => floatval($product['total_cost']),
-      ];
     });
   }
 
@@ -59,7 +34,7 @@ class Purchase extends Model {
   }
 
   public function supplier() {
-    return $this->belongsTo(Supplier::class)->select('name');
+    return $this->belongsTo(Supplier::class);
   }
 
 }
