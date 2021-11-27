@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
-use function PHPSTORM_META\map;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
