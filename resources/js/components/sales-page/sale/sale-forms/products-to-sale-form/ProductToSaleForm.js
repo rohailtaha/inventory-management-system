@@ -7,7 +7,9 @@ import {
 } from '../../../../../actions/sales/sales-actions';
 import {
   discount,
+  float,
   isEmpty,
+  numericString,
   removeExtraSpaces,
 } from '../../../../../utils/utility_functions';
 import { ERROR_DURATION } from '../../../../../utils/util_structures';
@@ -20,22 +22,22 @@ const errorMsgs = {
     'Stock quantity of this product is less than quantity ordered.',
 };
 
-const defaultForm = {
-  id: '',
-  barcode: '',
-  name: '',
-  per_item_price: '',
-  discount: '',
-  quantity: '',
-  quantityInStock: '',
-};
-
 export default function ProductToSaleForm() {
   const [products, productsToSale, error] = useSelector(state => [
     state.products.list,
     state.sales.productsToSale,
     state.sales.productsToSaleFormError,
   ]);
+
+  const defaultForm = {
+    id: '',
+    barcode: '',
+    name: '',
+    per_item_price: '',
+    discount: '',
+    quantity: '',
+    quantityInStock: '',
+  };
 
   const [form, setForm] = useState(defaultForm);
 
@@ -44,11 +46,12 @@ export default function ProductToSaleForm() {
   const dispatch = useDispatch();
 
   const finalSalePrice = () => {
-    return parseFloat(
-      (
-        form.per_item_price - discount(form.per_item_price, form.discount)
-      ).toFixed(2)
-    );
+    if (!isEmpty(form.per_item_price) && !isEmpty(form.discount)) {
+      const perItemPrice = float(form.per_item_price);
+      const disc = float(form.discount);
+      return float(perItemPrice - discount(perItemPrice, disc));
+    }
+    return '';
   };
 
   const getProduct = barcode =>
@@ -57,12 +60,10 @@ export default function ProductToSaleForm() {
   const totalPrice = () => {
     if (
       !isEmpty(form.quantity) &&
-      !isEmpty(form.discount) &&
-      !isEmpty(form.per_item_price)
+      !isEmpty(form.per_item_price) &&
+      !isEmpty(form.discount)
     )
-      return parseFloat(
-        (parseInt(form.quantity) * finalSalePrice()).toFixed(2)
-      );
+      return float(parseInt(form.quantity) * finalSalePrice());
     return '';
   };
 
@@ -75,22 +76,21 @@ export default function ProductToSaleForm() {
       setForm(form => ({
         ...form,
         barcode: product.barcode,
-        id: product.id.toString(),
+        id: product.id,
         name: product.name,
-        per_item_price: product.sale_price.toString(),
-        discount: product.discount.toString(),
+        per_item_price: product.sale_price,
+        discount: product.discount,
         quantity: '1',
-        quantityInStock: product.quantity.toString(),
+        quantityInStock: product.quantity,
       }));
     }
   };
 
-  const handleChange = event => {
+  const handleChange = event =>
     setForm(form => ({
       ...form,
       [event.target.name]: event.target.value,
     }));
-  };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -107,11 +107,11 @@ export default function ProductToSaleForm() {
   const dataWithCorrectFormat = () => ({
     id: parseInt(form.id),
     name: removeExtraSpaces(form.name),
-    per_item_price: parseFloat(form.per_item_price),
-    discount: parseFloat(form.discount),
+    per_item_price: numericString(form.per_item_price),
+    discount: numericString(form.discount),
+    final_sale_price: numericString(finalSalePrice()),
     quantity: parseInt(form.quantity),
-    final_sale_price: finalSalePrice(),
-    total_price: totalPrice(),
+    total_price: numericString(totalPrice()),
   });
 
   const validate = () => {
@@ -241,7 +241,7 @@ export default function ProductToSaleForm() {
               className='form-control'
               id='final-sale-price'
               name='final_sale_price'
-              value={finalSalePrice()}
+              value={finalSalePrice() ? numericString(finalSalePrice()) : ''}
               step='0.01'
               min='0'
               readOnly
@@ -293,7 +293,7 @@ export default function ProductToSaleForm() {
             className='form-control'
             id='total-price'
             name='total_price'
-            value={totalPrice()}
+            value={totalPrice() ? numericString(totalPrice()) : ''}
             step='0.01'
             min='0'
             readOnly

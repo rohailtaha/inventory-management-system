@@ -15,7 +15,7 @@ class CorrectNetPayment implements Rule {
   }
 
   public function passes($attribute, $value) {
-    return $value === $this->payment_received - $this->payment_returned;
+    return floatVal($value) === $this->payment_received - $this->payment_returned;
   }
 
   public function message() {

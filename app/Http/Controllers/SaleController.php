@@ -114,8 +114,10 @@ class SaleController extends Controller {
 
       $sale = Sale::findOrFail($id);
 
+      $updatedProducts = [];
       // delete products for old sale
-      SoldProduct::where('sale_id', $id)->get()->each(function ($row) {
+      SoldProduct::where('sale_id', $id)->get()->each(function ($row) use (&$updatedProducts) {
+        $updatedProducts[] = $row->product_id;
         $row->delete();
       });
 
@@ -127,6 +129,7 @@ class SaleController extends Controller {
 
       // add products for new sale
       foreach ($request->products as $product) {
+        $updatedProducts[] = $product['id'];
         SoldProduct::create([
           'sale_id' => $id,
           'product_id' => $product['id'],
@@ -138,14 +141,14 @@ class SaleController extends Controller {
         ]);
       }
 
-      return response(['sale' => new SaleResource($sale), 'status' => 'OK'], 200);
+      return response(['sale' => new SaleResource($sale), 'products' => array_unique($updatedProducts), 'status' => 'OK'], 200);
     });
   }
 
   public function destroy($id) {
     $sale = Sale::findOrFail($id);
-    $products = $sale->products->transform(function ($product) {
-      return $product->product_id;
+    $products = $sale->products->map(function ($product) {
+      return $product->id;
     });
     $sale->delete();
     return response(['id' => $id, 'products' => $products, 'status' => 'OK'], 200);

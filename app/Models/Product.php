@@ -17,7 +17,7 @@ class Product extends Model {
   }
 
   public function sales() {
-    return $this->belongsToMany(Purchase::class, 'purchased_products')->using(PurchasedProduct::class);
+    return $this->belongsToMany(Sale::class, 'sold_products')->using(SoldProduct::class);
   }
 
   public function category() {

@@ -1,31 +1,31 @@
 import { orders } from './util_structures';
 
-export function getProfitMargin(purchasePrice, salePrice) {
-  return ((salePrice - purchasePrice) * 100) / purchasePrice;
-}
+export const getProfitMargin = (purchasePrice, salePrice) =>
+  ((salePrice - purchasePrice) * 100) / purchasePrice;
 
-export function getSalePrice(purchasePrice, profitMargin) {
-  return purchasePrice + (profitMargin / 100) * purchasePrice;
-}
+export const getSalePrice = (purchasePrice, profitMargin) =>
+  purchasePrice + (profitMargin / 100) * purchasePrice;
 
-export function discount(amount, discountPercent) {
-  return parseFloat(((discountPercent / 100) * amount).toFixed(2));
-}
+export const discount = (amount, discountPercent) =>
+  float((discountPercent / 100) * amount);
 
-export function isEmpty(string) {
-  return removeExtraSpaces(string) === '';
-}
+// Converts a "numeric string"|number to a float of max "length" digits in the fractional part.
+export const float = (number, length = 2) =>
+  parseFloat(parseFloat(number).toFixed(length));
 
-export function areEmpty(values = []) {
-  return values.every(value => isEmpty(value));
-}
+// Converts a "numeric string"|number to a numeric string of max "length" digits in the fractional part.
+export const numericString = (number, length = 2) =>
+  parseFloat(number).toFixed(length);
 
-export function removeExtraSpaces(string) {
-  return string
+export const isEmpty = string => removeExtraSpaces(string) === '';
+
+export const areEmpty = (values = []) => values.every(value => isEmpty(value));
+
+export const removeExtraSpaces = string =>
+  string
     .split(' ')
     .filter(s => s)
     .join(' ');
-}
 
 export const stringStarts = (parentString, childString) =>
   removeExtraSpaces(parentString)

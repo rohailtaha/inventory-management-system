@@ -90,11 +90,7 @@ export const request_update_purchase = (purchase, id) => {
       const response = await axios.put(`/api/purchases/${id}`, purchase);
       if (response.data.status === 'OK') {
         dispatch(update_purchase(response.data.purchase));
-        dispatch(
-          request_fetch_some_products(
-            response.data.purchase.products.map(product => product.id)
-          )
-        );
+        dispatch(request_fetch_some_products(response.data.products));
         dispatch(hide_error());
         dispatch(show_success_message(SUCCESSFULL_UPDATE_MSG));
       } else {

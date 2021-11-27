@@ -3813,9 +3813,7 @@ var request_update_purchase = function request_update_purchase(purchase, id) {
 
               if (response.data.status === 'OK') {
                 dispatch(update_purchase(response.data.purchase));
-                dispatch((0,_products_products_actions__WEBPACK_IMPORTED_MODULE_5__.request_fetch_some_products)(response.data.purchase.products.map(function (product) {
-                  return product.id;
-                })));
+                dispatch((0,_products_products_actions__WEBPACK_IMPORTED_MODULE_5__.request_fetch_some_products)(response.data.products));
                 dispatch(hide_error());
                 dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_6__.show_success_message)(SUCCESSFULL_UPDATE_MSG));
               } else {
@@ -4265,9 +4263,7 @@ var request_update_sale = function request_update_sale(sale, id) {
 
               if (response.data.status === 'OK') {
                 dispatch(update_sale(response.data.sale));
-                dispatch((0,_products_products_actions__WEBPACK_IMPORTED_MODULE_5__.request_fetch_some_products)(response.data.sale.products.map(function (product) {
-                  return product.id;
-                })));
+                dispatch((0,_products_products_actions__WEBPACK_IMPORTED_MODULE_5__.request_fetch_some_products)(response.data.products));
                 dispatch(request_highest_sales());
                 dispatch(hide_error());
                 dispatch((0,_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_6__.show_success_message)(SUCCESSFULL_UPDATE_MSG));
@@ -7374,13 +7370,13 @@ function CashFlowStats() {
 
   var totalPurchases = function totalPurchases() {
     return purchases.reduce(function (total, purchase) {
-      return total + purchase.amount_paid;
+      return total + parseFloat(purchase.amount_paid);
     }, 0).toFixed(2);
   };
 
   var totalSales = function totalSales() {
     return sales.reduce(function (total, sale) {
-      return total + sale.net_payment;
+      return total + parseFloat(sale.net_payment);
     }, 0).toFixed(2);
   };
 
@@ -8068,7 +8064,7 @@ function ProductForm(_ref) {
       error = _useSelector2[2],
       successMessage = _useSelector2[3];
 
-  var _useState = (0,react_cjs_react_development__WEBPACK_IMPORTED_MODULE_2__.useState)({
+  var defautForm = {
     barcode: '',
     name: '',
     category: categories[0].name,
@@ -8078,7 +8074,9 @@ function ProductForm(_ref) {
     purchase_price: '',
     sale_price: '',
     discount: '0'
-  }),
+  };
+
+  var _useState = (0,react_cjs_react_development__WEBPACK_IMPORTED_MODULE_2__.useState)(defautForm),
       _useState2 = _slicedToArray(_useState, 2),
       form = _useState2[0],
       setForm = _useState2[1];
@@ -8097,9 +8095,9 @@ function ProductForm(_ref) {
         description: product.description,
         quantity: product.quantity.toString(),
         alert_quantity: product.alert_quantity.toString(),
-        purchase_price: product.purchase_price.toString(),
-        sale_price: product.sale_price.toString(),
-        discount: product.discount.toString()
+        purchase_price: product.purchase_price,
+        sale_price: product.sale_price,
+        discount: product.discount
       });
     }
   }, []);
@@ -8116,9 +8114,11 @@ function ProductForm(_ref) {
 
   var finalSalePrice = function finalSalePrice() {
     if (!(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.isEmpty)(form.sale_price) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.isEmpty)(form.discount)) {
-      var _finalSalePrice = parseFloat(form.sale_price).toFixed(2) - (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.discount)(form.sale_price, form.discount);
+      var salePrice = (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.float)(form.sale_price);
 
-      return parseFloat(_finalSalePrice.toFixed(2));
+      var disc = (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.float)(form.discount);
+
+      return (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.float)(salePrice - (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.discount)(salePrice, disc));
     }
 
     return '';
@@ -8132,21 +8132,21 @@ function ProductForm(_ref) {
 
   var handleSubmit = function handleSubmit(event) {
     event.preventDefault();
-    updateMode() ? dispatch((0,_actions_products_products_actions__WEBPACK_IMPORTED_MODULE_3__.request_update_product)(dataWithCorrectFormats(), id)) : dispatch((0,_actions_products_products_actions__WEBPACK_IMPORTED_MODULE_3__.request_create_product)(dataWithCorrectFormats()));
+    updateMode() ? dispatch((0,_actions_products_products_actions__WEBPACK_IMPORTED_MODULE_3__.request_update_product)(dataWithCorrectFormat(), id)) : dispatch((0,_actions_products_products_actions__WEBPACK_IMPORTED_MODULE_3__.request_create_product)(dataWithCorrectFormat()));
   };
 
-  var dataWithCorrectFormats = function dataWithCorrectFormats() {
+  var dataWithCorrectFormat = function dataWithCorrectFormat() {
     return {
       barcode: form.barcode,
-      name: form.name,
+      name: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.removeExtraSpaces)(form.name),
       category: form.category,
-      description: form.description,
+      description: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.removeExtraSpaces)(form.description),
       quantity: parseInt(form.quantity),
       alert_quantity: parseInt(form.alert_quantity),
-      purchase_price: parseFloat(parseFloat(form.purchase_price).toFixed(2)),
-      sale_price: parseFloat(parseFloat(form.sale_price).toFixed(2)),
-      discount: parseFloat(parseFloat(form.discount).toFixed(2)),
-      final_sale_price: parseFloat(parseFloat(finalSalePrice()).toFixed(2))
+      purchase_price: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.numericString)(form.purchase_price),
+      sale_price: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.numericString)(form.sale_price),
+      discount: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.numericString)(form.discount),
+      final_sale_price: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.numericString)(finalSalePrice())
     };
   };
 
@@ -8155,17 +8155,7 @@ function ProductForm(_ref) {
   }, [successMessage.show]);
 
   var resetForm = function resetForm() {
-    return setForm({
-      barcode: '',
-      name: '',
-      category: categories[0].name,
-      description: '',
-      quantity: '0',
-      alert_quantity: '',
-      purchase_price: '',
-      sale_price: '',
-      discount: '0'
-    });
+    return setForm(defautForm);
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -8314,7 +8304,7 @@ function ProductForm(_ref) {
               type: "number",
               className: "form-control form-control-sm",
               id: "final-sale-price",
-              value: finalSalePrice(),
+              value: finalSalePrice() ? (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_4__.numericString)(finalSalePrice()) : '',
               step: "0.01",
               readOnly: true,
               required: true
@@ -9124,7 +9114,7 @@ function PurchaseForm(_ref) {
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return [state.purchases.productsToPurchase.reduce(function (previous, current) {
-      return previous + current.total_cost;
+      return previous + parseFloat(current.total_cost);
     }, 0)];
   }),
       _useSelector2 = _slicedToArray(_useSelector, 1),
@@ -9275,13 +9265,15 @@ function ProductToPurchaseForm() {
       productsToPurchase = _useSelector2[1],
       error = _useSelector2[2];
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  var defaultForm = {
     id: '',
     barcode: '',
     name: '',
     per_item_cost: '',
     quantity: ''
-  }),
+  };
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultForm),
       _useState2 = _slicedToArray(_useState, 2),
       form = _useState2[0],
       setForm = _useState2[1];
@@ -9295,7 +9287,10 @@ function ProductToPurchaseForm() {
   };
 
   var totalCost = function totalCost() {
-    if (!(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_2__.isEmpty)(form.quantity) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_2__.isEmpty)(form.per_item_cost)) return parseFloat((parseInt(form.quantity) * parseFloat(form.per_item_cost)).toFixed(2));
+    if (!(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_2__.isEmpty)(form.quantity) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_2__.isEmpty)(form.per_item_cost)) {
+      return (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_2__.float)(parseInt(form.quantity) * (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_2__.float)(form.per_item_cost));
+    }
+
     return '';
   };
 
@@ -9307,7 +9302,7 @@ function ProductToPurchaseForm() {
         return _objectSpread(_objectSpread({}, form), {}, {
           id: product.id,
           name: product.name,
-          per_item_cost: product.purchase_price.toString(),
+          per_item_cost: product.purchase_price,
           quantity: '1'
         });
       });
@@ -9327,11 +9322,8 @@ function ProductToPurchaseForm() {
   };
 
   var handleChange = function handleChange(event) {
-    var _event$target = event.target,
-        name = _event$target.name,
-        value = _event$target.value;
-    setForm(function (form) {
-      return _objectSpread(_objectSpread({}, form), {}, _defineProperty({}, name, value));
+    return setForm(function (form) {
+      return _objectSpread(_objectSpread({}, form), {}, _defineProperty({}, event.target.name, event.target.value));
     });
   };
 
@@ -9352,9 +9344,9 @@ function ProductToPurchaseForm() {
     return {
       id: parseInt(form.id),
       name: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_2__.removeExtraSpaces)(form.name),
-      per_item_cost: parseFloat(form.per_item_cost),
+      per_item_cost: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_2__.numericString)(form.per_item_cost),
       quantity: parseInt(form.quantity),
-      total_cost: totalCost()
+      total_cost: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_2__.numericString)(totalCost())
     };
   };
 
@@ -9380,13 +9372,7 @@ function ProductToPurchaseForm() {
   };
 
   var resetForm = function resetForm() {
-    return setForm({
-      id: '',
-      barcode: '',
-      name: '',
-      per_item_cost: '',
-      quantity: ''
-    });
+    return setForm(defaultForm);
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -9492,7 +9478,7 @@ function ProductToPurchaseForm() {
             className: "form-control",
             id: "totalCost",
             name: "totalCost",
-            value: totalCost(),
+            value: totalCost() ? (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_2__.numericString)(totalCost()) : '',
             step: "0.01",
             min: "0",
             required: true,
@@ -9581,13 +9567,14 @@ function PurchaseDetailsForm(_ref) {
       error = _useSelector2[4];
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_4__.useDispatch)();
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  var defaultForm = {
     supplier: suppliers[0].name,
     purchase_status: _utils_util_structures__WEBPACK_IMPORTED_MODULE_5__.purchaseStatus[0].value,
     payment_status: _utils_util_structures__WEBPACK_IMPORTED_MODULE_5__.paymentStatus[0].value,
     amount_paid: ''
-  }),
+  };
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultForm),
       _useState2 = _slicedToArray(_useState, 2),
       form = _useState2[0],
       setForm = _useState2[1];
@@ -9666,18 +9653,13 @@ function PurchaseDetailsForm(_ref) {
       }).id,
       purchase_status: form.purchase_status,
       payment_status: form.payment_status,
-      amount_paid: parseFloat(parseFloat(form.amount_paid).toFixed(2)),
-      grand_total: grandTotal
+      amount_paid: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_8__.numericString)(form.amount_paid),
+      grand_total: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_8__.numericString)(grandTotal)
     };
   };
 
   var resetForm = function resetForm() {
-    return setForm({
-      supplier: suppliers[0].name,
-      purchase_status: _utils_util_structures__WEBPACK_IMPORTED_MODULE_5__.purchaseStatus[0].value,
-      payment_status: _utils_util_structures__WEBPACK_IMPORTED_MODULE_5__.paymentStatus[0].value,
-      amount_paid: ''
-    });
+    return setForm(defaultForm);
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -9747,7 +9729,7 @@ function PurchaseDetailsForm(_ref) {
               className: "form-control",
               id: "grand-total",
               name: "grand_total",
-              value: updateMode() ? getPurchase(id).grand_total : grandTotal,
+              value: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_8__.numericString)(grandTotal),
               min: "0",
               step: "0.01",
               required: true,
@@ -11716,10 +11698,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../actions/sales/sales-actions */ "./resources/js/actions/sales/sales-actions.js");
 /* harmony import */ var _actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../actions/success-message/success-message-actions */ "./resources/js/actions/success-message/success-message-actions.js");
-/* harmony import */ var _messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./messages/PaymentMismatchModal */ "./resources/js/components/sales-page/sale/sale-forms/messages/PaymentMismatchModal.js");
-/* harmony import */ var _products_to_sale_form_ProductToSaleForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./products-to-sale-form/ProductToSaleForm */ "./resources/js/components/sales-page/sale/sale-forms/products-to-sale-form/ProductToSaleForm.js");
-/* harmony import */ var _sale_details_form_SaleDetailsForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./sale-details-form/SaleDetailsForm */ "./resources/js/components/sales-page/sale/sale-forms/sale-details-form/SaleDetailsForm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _products_to_sale_form_ProductToSaleForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./products-to-sale-form/ProductToSaleForm */ "./resources/js/components/sales-page/sale/sale-forms/products-to-sale-form/ProductToSaleForm.js");
+/* harmony import */ var _sale_details_form_SaleDetailsForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./sale-details-form/SaleDetailsForm */ "./resources/js/components/sales-page/sale/sale-forms/sale-details-form/SaleDetailsForm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -11741,13 +11722,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function SaleForm(_ref) {
   var mode = _ref.mode;
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return [state.sales.productsToSale.reduce(function (previous, current) {
-      return previous + current.total_price;
+      return previous + parseFloat(current.total_price);
     }, 0)];
   }),
       _useSelector2 = _slicedToArray(_useSelector, 1),
@@ -11764,85 +11744,15 @@ function SaleForm(_ref) {
     dispatch((0,_actions_success_message_success_message_actions__WEBPACK_IMPORTED_MODULE_3__.hide_success_message)());
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_products_to_sale_form_ProductToSaleForm__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_sale_details_form_SaleDetailsForm__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_products_to_sale_form_ProductToSaleForm__WEBPACK_IMPORTED_MODULE_4__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_sale_details_form_SaleDetailsForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
       mode: mode,
       grandTotal: grandTotal
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_messages_PaymentMismatchModal__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      grandTotal: grandTotal,
-      netPayment: 1100
-    })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("hr", {})]
   });
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SaleForm);
-
-/***/ }),
-
-/***/ "./resources/js/components/sales-page/sale/sale-forms/messages/PaymentMismatchModal.js":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/components/sales-page/sale/sale-forms/messages/PaymentMismatchModal.js ***!
-  \*********************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-
-function PaymentMismatchModal(_ref) {
-  var grandTotal = _ref.grandTotal,
-      netPayment = _ref.netPayment;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-    className: "modal",
-    tabIndex: "-1",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-      className: "modal-dialog modal-dialog-centered",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-        className: "modal-content",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-          className: "modal-header bg-warning",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h5", {
-            className: "modal-title",
-            children: "Warning"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-            type: "button",
-            className: "btn-close",
-            "data-bs-dismiss": "modal",
-            "aria-label": "Close"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-          className: "modal-body",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
-            children: ["The ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("b", {
-              children: ["grand total (RS ", grandTotal, ")"]
-            }), " does not match the", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("b", {
-              children: ["net payment (RS ", netPayment, ")"]
-            }), ". Do you want to accept payment anyways?"]
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-          className: "modal-footer",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-            type: "button",
-            className: "btn btn-primary",
-            children: "Accept Payment"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-            type: "button",
-            className: "btn btn-secondary",
-            "data-bs-dismiss": "modal",
-            children: "Close"
-          })]
-        })]
-      })
-    })
-  });
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PaymentMismatchModal);
 
 /***/ }),
 
@@ -11895,15 +11805,6 @@ var errorMsgs = {
   PRODUCT_DOES_NOT_EXIST: 'The product does not exist.',
   NOT_ENOUGH_STOCK: 'Stock quantity of this product is less than quantity ordered.'
 };
-var defaultForm = {
-  id: '',
-  barcode: '',
-  name: '',
-  per_item_price: '',
-  discount: '',
-  quantity: '',
-  quantityInStock: ''
-};
 function ProductToSaleForm() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return [state.products.list, state.sales.productsToSale, state.sales.productsToSaleFormError];
@@ -11912,6 +11813,16 @@ function ProductToSaleForm() {
       products = _useSelector2[0],
       productsToSale = _useSelector2[1],
       error = _useSelector2[2];
+
+  var defaultForm = {
+    id: '',
+    barcode: '',
+    name: '',
+    per_item_price: '',
+    discount: '',
+    quantity: '',
+    quantityInStock: ''
+  };
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultForm),
       _useState2 = _slicedToArray(_useState, 2),
@@ -11922,7 +11833,15 @@ function ProductToSaleForm() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var finalSalePrice = function finalSalePrice() {
-    return parseFloat((form.per_item_price - (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.discount)(form.per_item_price, form.discount)).toFixed(2));
+    if (!(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.per_item_price) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.discount)) {
+      var perItemPrice = (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.float)(form.per_item_price);
+
+      var disc = (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.float)(form.discount);
+
+      return (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.float)(perItemPrice - (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.discount)(perItemPrice, disc));
+    }
+
+    return '';
   };
 
   var getProduct = function getProduct(barcode) {
@@ -11932,7 +11851,7 @@ function ProductToSaleForm() {
   };
 
   var totalPrice = function totalPrice() {
-    if (!(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.quantity) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.discount) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.per_item_price)) return parseFloat((parseInt(form.quantity) * finalSalePrice()).toFixed(2));
+    if (!(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.quantity) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.per_item_price) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.discount)) return (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.float)(parseInt(form.quantity) * finalSalePrice());
     return '';
   };
 
@@ -11949,19 +11868,19 @@ function ProductToSaleForm() {
       setForm(function (form) {
         return _objectSpread(_objectSpread({}, form), {}, {
           barcode: product.barcode,
-          id: product.id.toString(),
+          id: product.id,
           name: product.name,
-          per_item_price: product.sale_price.toString(),
-          discount: product.discount.toString(),
+          per_item_price: product.sale_price,
+          discount: product.discount,
           quantity: '1',
-          quantityInStock: product.quantity.toString()
+          quantityInStock: product.quantity
         });
       });
     }
   };
 
   var handleChange = function handleChange(event) {
-    setForm(function (form) {
+    return setForm(function (form) {
       return _objectSpread(_objectSpread({}, form), {}, _defineProperty({}, event.target.name, event.target.value));
     });
   };
@@ -11983,11 +11902,11 @@ function ProductToSaleForm() {
     return {
       id: parseInt(form.id),
       name: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.removeExtraSpaces)(form.name),
-      per_item_price: parseFloat(form.per_item_price),
-      discount: parseFloat(form.discount),
+      per_item_price: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(form.per_item_price),
+      discount: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(form.discount),
+      final_sale_price: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(finalSalePrice()),
       quantity: parseInt(form.quantity),
-      final_sale_price: finalSalePrice(),
-      total_price: totalPrice()
+      total_price: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(totalPrice())
     };
   };
 
@@ -12135,7 +12054,7 @@ function ProductToSaleForm() {
             className: "form-control",
             id: "final-sale-price",
             name: "final_sale_price",
-            value: finalSalePrice(),
+            value: finalSalePrice() ? (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(finalSalePrice()) : '',
             step: "0.01",
             min: "0",
             readOnly: true,
@@ -12193,7 +12112,7 @@ function ProductToSaleForm() {
           className: "form-control",
           id: "total-price",
           name: "total_price",
-          value: totalPrice(),
+          value: totalPrice() ? (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(totalPrice()) : '',
           step: "0.01",
           min: "0",
           readOnly: true,
@@ -12277,13 +12196,14 @@ function SaleDetailsForm(_ref) {
       error = _useSelector2[4];
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  var defaultForm = {
     customer: customers[0].name,
     payment_received: '',
     payment_returned: '',
     payment_status: _utils_util_structures__WEBPACK_IMPORTED_MODULE_4__.paymentStatus[0].value
-  }),
+  };
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultForm),
       _useState2 = _slicedToArray(_useState, 2),
       form = _useState2[0],
       setForm = _useState2[1];
@@ -12294,9 +12214,9 @@ function SaleDetailsForm(_ref) {
 
   var netPayment = function netPayment() {
     if (!(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.payment_received) && !(0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(form.payment_returned)) {
-      var _netPayment = parseFloat(parseFloat(form.payment_received).toFixed(2)) - parseFloat(parseFloat(form.payment_returned).toFixed(2));
+      var _netPayment = (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.float)(form.payment_received) - (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.float)(form.payment_returned);
 
-      return parseFloat(_netPayment.toFixed(2));
+      return (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.float)(_netPayment);
     }
 
     return '';
@@ -12316,8 +12236,8 @@ function SaleDetailsForm(_ref) {
       var sale = getSale(id);
       setForm({
         customer: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.isEmpty)(sale.customer) ? customers[0].name : sale.customer,
-        payment_received: sale.payment_received.toString(),
-        payment_returned: sale.payment_returned.toString(),
+        payment_received: sale.payment_received,
+        payment_returned: sale.payment_returned,
         payment_status: sale.payment_status
       });
       dispatch((0,_actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_2__.set_products_to_sale)(sale.products));
@@ -12372,21 +12292,16 @@ function SaleDetailsForm(_ref) {
       customer_id: customers.find(function (customer) {
         return customer.name === form.customer;
       }).id,
-      grand_total: grandTotal,
-      payment_received: parseFloat(parseFloat(form.payment_received).toFixed(2)),
-      payment_returned: parseFloat(parseFloat(form.payment_returned).toFixed(2)),
-      net_payment: netPayment(),
+      grand_total: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(grandTotal),
+      payment_received: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(form.payment_received),
+      payment_returned: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(form.payment_returned),
+      net_payment: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(netPayment()),
       payment_status: form.payment_status
     };
   };
 
   var resetForm = function resetForm() {
-    return setForm({
-      customer: customers[0].name,
-      payment_received: '',
-      payment_returned: '',
-      payment_status: _utils_util_structures__WEBPACK_IMPORTED_MODULE_4__.paymentStatus[0].value
-    });
+    return setForm(defaultForm);
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -12433,7 +12348,7 @@ function SaleDetailsForm(_ref) {
           id: "grand-total",
           onChange: handleChange,
           name: "grandTotal",
-          value: grandTotal,
+          value: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(grandTotal),
           step: "0.01",
           readOnly: true,
           required: true
@@ -12500,7 +12415,7 @@ function SaleDetailsForm(_ref) {
             className: "form-control",
             id: "net-payment",
             name: "net_payment",
-            value: netPayment(),
+            value: netPayment() ? (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(netPayment()) : '',
             step: "0.01",
             readOnly: true,
             required: true
@@ -17426,6 +17341,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getProfitMargin": () => (/* binding */ getProfitMargin),
 /* harmony export */   "getSalePrice": () => (/* binding */ getSalePrice),
 /* harmony export */   "discount": () => (/* binding */ discount),
+/* harmony export */   "float": () => (/* binding */ _float),
+/* harmony export */   "numericString": () => (/* binding */ numericString),
 /* harmony export */   "isEmpty": () => (/* binding */ isEmpty),
 /* harmony export */   "areEmpty": () => (/* binding */ areEmpty),
 /* harmony export */   "removeExtraSpaces": () => (/* binding */ removeExtraSpaces),
@@ -17437,29 +17354,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _util_structures__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util_structures */ "./resources/js/utils/util_structures.js");
 
-function getProfitMargin(purchasePrice, salePrice) {
+var getProfitMargin = function getProfitMargin(purchasePrice, salePrice) {
   return (salePrice - purchasePrice) * 100 / purchasePrice;
-}
-function getSalePrice(purchasePrice, profitMargin) {
+};
+var getSalePrice = function getSalePrice(purchasePrice, profitMargin) {
   return purchasePrice + profitMargin / 100 * purchasePrice;
-}
-function discount(amount, discountPercent) {
-  return parseFloat((discountPercent / 100 * amount).toFixed(2));
-}
-function isEmpty(string) {
+};
+var discount = function discount(amount, discountPercent) {
+  return _float(discountPercent / 100 * amount);
+}; // Converts a "numeric string"|number to a float of max "length" digits in the fractional part.
+
+var _float = function _float(number) {
+  var length = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+  return parseFloat(parseFloat(number).toFixed(length));
+}; // Converts a "numeric string"|number to a numeric string of max "length" digits in the fractional part.
+
+
+
+var numericString = function numericString(number) {
+  var length = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+  return parseFloat(number).toFixed(length);
+};
+var isEmpty = function isEmpty(string) {
   return removeExtraSpaces(string) === '';
-}
-function areEmpty() {
+};
+var areEmpty = function areEmpty() {
   var values = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   return values.every(function (value) {
     return isEmpty(value);
   });
-}
-function removeExtraSpaces(string) {
+};
+var removeExtraSpaces = function removeExtraSpaces(string) {
   return string.split(' ').filter(function (s) {
     return s;
   }).join(' ');
-}
+};
 var stringStarts = function stringStarts(parentString, childString) {
   return removeExtraSpaces(parentString).toLowerCase().startsWith(removeExtraSpaces(childString).toLowerCase());
 };

@@ -12,12 +12,12 @@ class ProductResource extends JsonResource {
       'name' => $this->name,
       'category' => $this->category->name ?? '',
       'description' => $this->description ?? '',
-      'quantity' => intval($this->quantity),
-      'alert_quantity' => intval($this->alert_quantity),
-      'purchase_price' => floatval($this->purchase_price),
-      'sale_price' => floatval($this->sale_price),
-      'discount' => floatval($this->discount),
-      'final_sale_price' => floatval($this->final_sale_price),
+      'quantity' => $this->quantity,
+      'alert_quantity' => $this->alert_quantity ?? '',
+      'purchase_price' => $this->purchase_price,
+      'sale_price' => $this->sale_price,
+      'discount' => $this->discount,
+      'final_sale_price' => $this->final_sale_price,
       'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '',
     ];
   }

@@ -111,11 +111,7 @@ export const request_update_sale = (sale, id) => {
       const response = await axios.put(`/api/sales/${id}`, sale);
       if (response.data.status === 'OK') {
         dispatch(update_sale(response.data.sale));
-        dispatch(
-          request_fetch_some_products(
-            response.data.sale.products.map(product => product.id)
-          )
-        );
+        dispatch(request_fetch_some_products(response.data.products));
         dispatch(request_highest_sales());
         dispatch(hide_error());
         dispatch(show_success_message(SUCCESSFULL_UPDATE_MSG));

@@ -11467,7 +11467,7 @@ input::placeholder {
   transform: rotateZ(180deg);
 }
 .main .sort-arrow {
-  line-height: 0.4;
+  line-height: 0.3;
   display: block;
 }
 .main__content {

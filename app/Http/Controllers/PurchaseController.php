@@ -6,7 +6,6 @@ use App\Http\Resources\PurchaseResource;
 use App\Models\Purchase;
 use App\Models\PurchasedProduct;
 use App\Rules\CorrectTotalCostForProducts;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -99,9 +98,10 @@ class PurchaseController extends Controller {
 
     return DB::transaction(function () use ($request, $id) {
       $purchase = Purchase::findOrFail($id);
-
+      $updatedProducts = [];
       // delete products for old purchase
-      PurchasedProduct::where('purchase_id', $id)->get()->each(function ($row) {
+      PurchasedProduct::where('purchase_id', $id)->get()->each(function ($row) use (&$updatedProducts) {
+        $updatedProducts[] = $row->product_id;
         $row->delete();
       });
 
@@ -114,6 +114,7 @@ class PurchaseController extends Controller {
 
       // add products for new purchase
       foreach ($request->products as $product) {
+        $updatedProducts[] = $product['id'];
         PurchasedProduct::create([
           'purchase_id' => $id,
           'product_id' => $product['id'],
@@ -122,7 +123,11 @@ class PurchaseController extends Controller {
           'total_cost' => $product['total_cost'],
         ]);
       }
-      return response(['purchase' => new PurchaseResource($purchase->fresh()), 'status' => 'OK'], 200);
+
+      return response([
+        'purchase' => new PurchaseResource($purchase->fresh()),
+        'products' => array_unique($updatedProducts), 'status' => 'OK',
+      ], 200);
     });
   }
 

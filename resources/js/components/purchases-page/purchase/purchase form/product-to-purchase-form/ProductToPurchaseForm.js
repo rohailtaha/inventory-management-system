@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  float,
   isEmpty,
+  numericString,
   removeExtraSpaces,
 } from '../../../../../utils/utility_functions';
 import {
@@ -18,13 +20,15 @@ export default function ProductToPurchaseForm() {
     state.purchases.productsToPurchaseFormError,
   ]);
 
-  const [form, setForm] = useState({
+  const defaultForm = {
     id: '',
     barcode: '',
     name: '',
     per_item_cost: '',
     quantity: '',
-  });
+  };
+
+  const [form, setForm] = useState(defaultForm);
 
   const dispatch = useDispatch();
 
@@ -32,10 +36,9 @@ export default function ProductToPurchaseForm() {
     products.find(product => product.barcode === barcode);
 
   const totalCost = () => {
-    if (!isEmpty(form.quantity) && !isEmpty(form.per_item_cost))
-      return parseFloat(
-        (parseInt(form.quantity) * parseFloat(form.per_item_cost)).toFixed(2)
-      );
+    if (!isEmpty(form.quantity) && !isEmpty(form.per_item_cost)) {
+      return float(parseInt(form.quantity) * float(form.per_item_cost));
+    }
     return '';
   };
 
@@ -46,7 +49,7 @@ export default function ProductToPurchaseForm() {
         ...form,
         id: product.id,
         name: product.name,
-        per_item_cost: product.purchase_price.toString(),
+        per_item_cost: product.purchase_price,
         quantity: '1',
       }));
     }
@@ -56,13 +59,11 @@ export default function ProductToPurchaseForm() {
   const productAlreadyAdded = () =>
     productsToPurchase.some(product => product.id === form.id);
 
-  const handleChange = event => {
-    const { name, value } = event.target;
+  const handleChange = event =>
     setForm(form => ({
       ...form,
-      [name]: value,
+      [event.target.name]: event.target.value,
     }));
-  };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -79,9 +80,9 @@ export default function ProductToPurchaseForm() {
   const dataWithCorrectFormat = () => ({
     id: parseInt(form.id),
     name: removeExtraSpaces(form.name),
-    per_item_cost: parseFloat(form.per_item_cost),
+    per_item_cost: numericString(form.per_item_cost),
     quantity: parseInt(form.quantity),
-    total_cost: totalCost(),
+    total_cost: numericString(totalCost()),
   });
 
   const validate = () => {
@@ -104,14 +105,7 @@ export default function ProductToPurchaseForm() {
     };
   };
 
-  const resetForm = () =>
-    setForm({
-      id: '',
-      barcode: '',
-      name: '',
-      per_item_cost: '',
-      quantity: '',
-    });
+  const resetForm = () => setForm(defaultForm);
 
   useEffect(() => cleanup, []);
 
@@ -200,7 +194,7 @@ export default function ProductToPurchaseForm() {
               className='form-control'
               id='totalCost'
               name='totalCost'
-              value={totalCost()}
+              value={totalCost() ? numericString(totalCost()) : ''}
               step='0.01'
               min='0'
               required

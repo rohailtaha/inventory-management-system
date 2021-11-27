@@ -12,7 +12,7 @@ import PurchaseDetailsForm from './purchase-details-form/PurchaseDetailsForm';
 function PurchaseForm({ mode }) {
   const [grandTotal] = useSelector(state => [
     state.purchases.productsToPurchase.reduce(
-      (previous, current) => previous + current.total_cost,
+      (previous, current) => previous + parseFloat(current.total_cost),
       0
     ),
   ]);

@@ -9,7 +9,13 @@ import {
   request_create_product,
   request_update_product,
 } from '../../../../actions/products/products-actions';
-import { discount, isEmpty } from '../../../../utils/utility_functions';
+import {
+  discount,
+  float,
+  isEmpty,
+  numericString,
+  removeExtraSpaces,
+} from '../../../../utils/utility_functions';
 import FormError from '../../../common/form-error/FormError';
 import ProductCategoryOption from '../../../common/product-category-option/ProductCategoryOption';
 import { hide_success_message } from '../../../../actions/success-message/success-message-actions';
@@ -23,7 +29,7 @@ function ProductForm({ mode }) {
     state.successMessage,
   ]);
 
-  const [form, setForm] = useState({
+  const defautForm = {
     barcode: '',
     name: '',
     category: categories[0].name,
@@ -33,9 +39,11 @@ function ProductForm({ mode }) {
     purchase_price: '',
     sale_price: '',
     discount: '0',
-  });
-  const { id } = useParams();
+  };
 
+  const [form, setForm] = useState(defautForm);
+
+  const { id } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -50,9 +58,9 @@ function ProductForm({ mode }) {
         description: product.description,
         quantity: product.quantity.toString(),
         alert_quantity: product.alert_quantity.toString(),
-        purchase_price: product.purchase_price.toString(),
-        sale_price: product.sale_price.toString(),
-        discount: product.discount.toString(),
+        purchase_price: product.purchase_price,
+        sale_price: product.sale_price,
+        discount: product.discount,
       });
     }
   }, []);
@@ -63,10 +71,9 @@ function ProductForm({ mode }) {
 
   const finalSalePrice = () => {
     if (!isEmpty(form.sale_price) && !isEmpty(form.discount)) {
-      const finalSalePrice =
-        parseFloat(form.sale_price).toFixed(2) -
-        discount(form.sale_price, form.discount);
-      return parseFloat(finalSalePrice.toFixed(2));
+      const salePrice = float(form.sale_price);
+      const disc = float(form.discount);
+      return float(salePrice - discount(salePrice, disc));
     }
     return '';
   };
@@ -80,39 +87,28 @@ function ProductForm({ mode }) {
   const handleSubmit = event => {
     event.preventDefault();
     updateMode()
-      ? dispatch(request_update_product(dataWithCorrectFormats(), id))
-      : dispatch(request_create_product(dataWithCorrectFormats()));
+      ? dispatch(request_update_product(dataWithCorrectFormat(), id))
+      : dispatch(request_create_product(dataWithCorrectFormat()));
   };
 
-  const dataWithCorrectFormats = () => ({
+  const dataWithCorrectFormat = () => ({
     barcode: form.barcode,
-    name: form.name,
+    name: removeExtraSpaces(form.name),
     category: form.category,
-    description: form.description,
+    description: removeExtraSpaces(form.description),
     quantity: parseInt(form.quantity),
     alert_quantity: parseInt(form.alert_quantity),
-    purchase_price: parseFloat(parseFloat(form.purchase_price).toFixed(2)),
-    sale_price: parseFloat(parseFloat(form.sale_price).toFixed(2)),
-    discount: parseFloat(parseFloat(form.discount).toFixed(2)),
-    final_sale_price: parseFloat(parseFloat(finalSalePrice()).toFixed(2)),
+    purchase_price: numericString(form.purchase_price),
+    sale_price: numericString(form.sale_price),
+    discount: numericString(form.discount),
+    final_sale_price: numericString(finalSalePrice()),
   });
 
   useEffect(() => {
     if (successMessage.show && !updateMode()) resetForm();
   }, [successMessage.show]);
 
-  const resetForm = () =>
-    setForm({
-      barcode: '',
-      name: '',
-      category: categories[0].name,
-      description: '',
-      quantity: '0',
-      alert_quantity: '',
-      purchase_price: '',
-      sale_price: '',
-      discount: '0',
-    });
+  const resetForm = () => setForm(defautForm);
 
   useEffect(() => cleanup, []);
 
@@ -236,7 +232,7 @@ function ProductForm({ mode }) {
                 type='number'
                 className='form-control form-control-sm'
                 id='final-sale-price'
-                value={finalSalePrice()}
+                value={finalSalePrice() ? numericString(finalSalePrice()) : ''}
                 step='0.01'
                 readOnly
                 required

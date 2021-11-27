@@ -17,7 +17,7 @@ import {
   set_products_to_purchase,
   show_error,
 } from '../../../../../actions/purchases/purchases-actions';
-import { isEmpty } from '../../../../../utils/utility_functions';
+import { isEmpty, numericString } from '../../../../../utils/utility_functions';
 
 export default function PurchaseDetailsForm({ mode, grandTotal }) {
   const [purchases, productsToPurchase, suppliers, successMessage, error] =
@@ -31,12 +31,14 @@ export default function PurchaseDetailsForm({ mode, grandTotal }) {
 
   const dispatch = useDispatch();
 
-  const [form, setForm] = useState({
+  const defaultForm = {
     supplier: suppliers[0].name,
     purchase_status: purchaseStatus[0].value,
     payment_status: paymentStatus[0].value,
     amount_paid: '',
-  });
+  };
+
+  const [form, setForm] = useState(defaultForm);
 
   const updateMode = () => mode === 'UPDATE';
 
@@ -102,17 +104,11 @@ export default function PurchaseDetailsForm({ mode, grandTotal }) {
     supplier_id: suppliers.find(supplier => supplier.name === form.supplier).id,
     purchase_status: form.purchase_status,
     payment_status: form.payment_status,
-    amount_paid: parseFloat(parseFloat(form.amount_paid).toFixed(2)),
-    grand_total: grandTotal,
+    amount_paid: numericString(form.amount_paid),
+    grand_total: numericString(grandTotal),
   });
 
-  const resetForm = () =>
-    setForm({
-      supplier: suppliers[0].name,
-      purchase_status: purchaseStatus[0].value,
-      payment_status: paymentStatus[0].value,
-      amount_paid: '',
-    });
+  const resetForm = () => setForm(defaultForm);
 
   useEffect(() => {
     if (successMessage.show && !updateMode()) {
@@ -176,7 +172,7 @@ export default function PurchaseDetailsForm({ mode, grandTotal }) {
                 className='form-control'
                 id='grand-total'
                 name='grand_total'
-                value={updateMode() ? getPurchase(id).grand_total : grandTotal}
+                value={numericString(grandTotal)}
                 min='0'
                 step='0.01'
                 required

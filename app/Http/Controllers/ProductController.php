@@ -102,8 +102,6 @@ class ProductController extends Controller {
   }
 
   public function destroy($id) {
-    // PurchasedProduct::select('purchase_id');
-
     $product = Product::findOrFail($id);
     $purchases = $product->purchases->map(function ($purchase) {
       return $purchase->id;

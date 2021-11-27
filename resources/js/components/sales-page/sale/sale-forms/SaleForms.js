@@ -5,14 +5,13 @@ import {
   hide_error,
 } from '../../../../actions/sales/sales-actions';
 import { hide_success_message } from '../../../../actions/success-message/success-message-actions';
-import PaymentMismatchModal from './messages/PaymentMismatchModal';
 import ProductToSaleForm from './products-to-sale-form/ProductToSaleForm';
 import SaleDetailsForm from './sale-details-form/SaleDetailsForm';
 
 function SaleForm({ mode }) {
   const [grandTotal] = useSelector(state => [
     state.sales.productsToSale.reduce(
-      (previous, current) => previous + current.total_price,
+      (previous, current) => previous + parseFloat(current.total_price),
       0
     ),
   ]);
@@ -33,7 +32,6 @@ function SaleForm({ mode }) {
       <hr />
       <SaleDetailsForm mode={mode} grandTotal={grandTotal} />
       <hr />
-      <PaymentMismatchModal grandTotal={grandTotal} netPayment={1100} />
     </Fragment>
   );
 }

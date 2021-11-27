@@ -8,7 +8,11 @@ import {
   request_update_sale,
   set_products_to_sale,
 } from '../../../../../actions/sales/sales-actions';
-import { isEmpty } from '../../../../../utils/utility_functions';
+import {
+  float,
+  isEmpty,
+  numericString,
+} from '../../../../../utils/utility_functions';
 import { paymentStatus } from '../../../../../utils/util_structures';
 import CustomerOption from '../../../../common/customer-option/CustomerOption';
 import FormError from '../../../../common/form-error/FormError';
@@ -26,21 +30,22 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
 
   const dispatch = useDispatch();
 
-  const [form, setForm] = useState({
+  const defaultForm = {
     customer: customers[0].name,
     payment_received: '',
     payment_returned: '',
     payment_status: paymentStatus[0].value,
-  });
+  };
+
+  const [form, setForm] = useState(defaultForm);
 
   const updateMode = () => mode === 'UPDATE';
 
   const netPayment = () => {
     if (!isEmpty(form.payment_received) && !isEmpty(form.payment_returned)) {
       const netPayment =
-        parseFloat(parseFloat(form.payment_received).toFixed(2)) -
-        parseFloat(parseFloat(form.payment_returned).toFixed(2));
-      return parseFloat(netPayment.toFixed(2));
+        float(form.payment_received) - float(form.payment_returned);
+      return float(netPayment);
     }
     return '';
   };
@@ -54,8 +59,8 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
       const sale = getSale(id);
       setForm({
         customer: isEmpty(sale.customer) ? customers[0].name : sale.customer,
-        payment_received: sale.payment_received.toString(),
-        payment_returned: sale.payment_returned.toString(),
+        payment_received: sale.payment_received,
+        payment_returned: sale.payment_returned,
         payment_status: sale.payment_status,
       });
       dispatch(set_products_to_sale(sale.products));
@@ -104,20 +109,14 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
       total_price: product.total_price,
     })),
     customer_id: customers.find(customer => customer.name === form.customer).id,
-    grand_total: grandTotal,
-    payment_received: parseFloat(parseFloat(form.payment_received).toFixed(2)),
-    payment_returned: parseFloat(parseFloat(form.payment_returned).toFixed(2)),
-    net_payment: netPayment(),
+    grand_total: numericString(grandTotal),
+    payment_received: numericString(form.payment_received),
+    payment_returned: numericString(form.payment_returned),
+    net_payment: numericString(netPayment()),
     payment_status: form.payment_status,
   });
 
-  const resetForm = () =>
-    setForm({
-      customer: customers[0].name,
-      payment_received: '',
-      payment_returned: '',
-      payment_status: paymentStatus[0].value,
-    });
+  const resetForm = () => setForm(defaultForm);
 
   useEffect(() => {
     if (successMessage.show && !updateMode()) {
@@ -160,7 +159,7 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
             id='grand-total'
             onChange={handleChange}
             name='grandTotal'
-            value={grandTotal}
+            value={numericString(grandTotal)}
             step='0.01'
             readOnly
             required
@@ -225,7 +224,7 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
               className='form-control'
               id='net-payment'
               name='net_payment'
-              value={netPayment()}
+              value={netPayment() ? numericString(netPayment()) : ''}
               step='0.01'
               readOnly
               required

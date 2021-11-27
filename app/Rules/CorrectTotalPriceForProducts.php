@@ -8,7 +8,7 @@ class CorrectTotalPriceForProducts implements Rule {
 
   public function passes($attribute, $products) {
     foreach ($products as $product) {
-      if ($product['final_sale_price'] * $product['quantity'] != $product['total_price']) {
+      if ($product['final_sale_price'] * $product['quantity'] !== floatVal($product['total_price'])) {
         return false;
       }
     }
