@@ -12,7 +12,10 @@ export default function SortArrows({ sort, aKey }) {
   };
 
   return (
-    <button className='p-0 bg-transparent border-0' onClick={handleClick}>
+    <button
+      className='sort-arrows p-0 bg-transparent border-0'
+      onClick={handleClick}
+    >
       <div className='material-icons sort-arrow' id='sort-arrow--up'>
         arrow_drop_down
       </div>{' '}

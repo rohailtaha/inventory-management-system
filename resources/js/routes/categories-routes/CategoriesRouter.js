@@ -19,14 +19,14 @@ function CategoriesRouter() {
   return (
     <Fragment>
       {fetchedRequiredResources() && (
-        <Switch>
+        <Fragment>
           <Route path='/categories' exact>
             <Categories />
           </Route>
           <Route path='/categories/:id/edit' exact>
             <Categories />
           </Route>
-        </Switch>
+        </Fragment>
       )}
     </Fragment>
   );

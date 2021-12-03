@@ -29,6 +29,9 @@ export const orders = {
   DESC: 'DESC',
 };
 
+export const rowsPerPage = [10, 25, 50, 100];
+export const defaultRowsCountPerPage = rowsPerPage[1];
+
 // 3000 ms => 3s
 export const ERROR_DURATION = 3000;
 

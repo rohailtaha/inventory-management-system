@@ -1,7 +1,8 @@
 import actionTypes from '../../actions/action-types';
+import { defaultRowsCountPerPage } from '../../utils/util_structures';
 
 const initialState = {
-  itemsPerPage: 25,
+  itemsPerPage: defaultRowsCountPerPage,
   currentPage: 1,
 };
 
@@ -11,6 +12,12 @@ export default function paginationReducer(state = initialState, action) {
       return {
         ...state,
         currentPage: action.payload,
+      };
+
+    case actionTypes.SET_ITEMS_PER_PAGE:
+      return {
+        ...state,
+        itemsPerPage: action.payload,
       };
 
     case actionTypes.RESET_PAGINATION:

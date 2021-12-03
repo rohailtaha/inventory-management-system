@@ -21,7 +21,7 @@ function SuppliersRouter() {
   return (
     <Fragment>
       {fetchedRequiredResources() && (
-        <Switch>
+        <Fragment>
           <Route path='/suppliers' exact>
             <Suppliers />
           </Route>
@@ -31,7 +31,7 @@ function SuppliersRouter() {
           <Route path='/suppliers/:id/edit' exact>
             <EditSupplier />
           </Route>
-        </Switch>
+        </Fragment>
       )}
     </Fragment>
   );

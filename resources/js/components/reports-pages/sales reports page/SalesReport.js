@@ -5,6 +5,7 @@ import { reset_pagination } from '../../../actions/pagination/pagination-actions
 import { request_fetch_sales } from '../../../actions/sales/sales-actions';
 import { getDate } from '../../../utils/utility_functions';
 import { dateRangeTypes } from '../../../utils/util_structures';
+import RowsPerPage from '../../common/rows-per-page/RowsPerPage';
 import Paginaton from '../../common/pagination/Pagination';
 import SalesReportForm from './form/SalesReportForm';
 import SalesReportHeader from './report header/SalesReportHeader';
@@ -52,8 +53,8 @@ function SalesReport() {
           <SalesReportForm />
           <section className='mt-5 table-container'>
             <div className='card'>
-              <div className='card-header fs-2 d-flex justify-content-between align-items-center'>
-                <span className='report-h'> Sales Report </span>
+              <div className='card-header d-flex justify-content-between align-items-center'>
+                <RowsPerPage />
                 <button
                   type='button'
                   onClick={handleClick}

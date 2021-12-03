@@ -5,6 +5,11 @@ export const set_current_page = pageNumber => ({
   payload: pageNumber,
 });
 
+export const set_items_per_page = itemsPerPage => ({
+  type: actionTypes.SET_ITEMS_PER_PAGE,
+  payload: itemsPerPage,
+});
+
 export const reset_pagination = () => ({
   type: actionTypes.RESET_PAGINATION,
 });

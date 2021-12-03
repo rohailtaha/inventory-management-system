@@ -60,6 +60,24 @@ export const attempt_login = () => {
   };
 };
 
+export const request_forgot_password = email => {
+  return async dispatch => {
+    dispatch(load());
+    try {
+      const response = await axios.post('/forgot-password', {
+        email,
+      });
+      if (response.data.status === 'OK') {
+
+      }
+    } catch (error) {
+      if (!error.response.data.error) alert(SERVER_ERROR);
+    } finally {
+      dispatch(stopLoading());
+    }
+  };
+};
+
 export const logout = () => ({
   type: actionTypes.LOGOUT,
 });

@@ -11,7 +11,7 @@ function Purchase({
 }) {
   return (
     <tr>
-      <td>{date}</td>
+      <td className='text-nowrap'>{date}</td>
       <td>{id}</td>
       <td>{supplier}</td>
       <td>{purchaseStatus}</td>

@@ -11299,6 +11299,9 @@ form label {
   z-index: 1000;
 }
 
+.table {
+  margin-bottom: 0;
+}
 .table .action-icon {
   font-size: 1rem;
 }
@@ -11463,6 +11466,9 @@ input::placeholder {
 .main {
   padding-left: 200px;
 }
+.main .rows-per-page label {
+  font-size: 14px;
+}
 .main #sort-arrow--up {
   transform: rotateZ(180deg);
 }
@@ -11537,6 +11543,9 @@ input::placeholder {
 
 .main__content--categories .table-container {
   max-width: 650px;
+}
+.main__content--categories .table-container .table {
+  min-width: 350px;
 }
 
 .edit-category-modal {
@@ -11667,7 +11676,9 @@ input::placeholder {
   .sidebar,
 .sidebar-bg,
 .header.no-print,
-.pages {
+.pagination,
+.rows-per-page,
+.sort-arrows {
     display: none !important;
   }
 
@@ -11678,6 +11689,13 @@ input::placeholder {
   .main__content {
     width: initial !important;
     margin: 0 !important;
+  }
+
+  .table tr th {
+    font-size: 1rem !important;
+  }
+  .table tr td {
+    font-size: 0.92rem !important;
   }
 
   .main__content--sales-report,

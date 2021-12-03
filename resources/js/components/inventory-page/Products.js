@@ -13,25 +13,19 @@ import { stringStarts } from '../../utils/utility_functions';
 import { userRoles } from '../../utils/util_structures';
 import NoResultsMsg from '../common/no-results-msg/NoResultsMsg';
 import Paginaton from '../common/pagination/Pagination';
+import RowsPerPage from '../common/rows-per-page/RowsPerPage';
 import FilterForm from './filter form/FilterForm';
 import ProductsTable from './table/ProductsTable';
 
 export default function Products() {
-  const [
-    fetched,
-    fetchedCategories,
-    deleteConfirmation,
-    products,
-    searchForm,
-    userRole,
-  ] = useSelector(state => [
-    state.products.fetched,
-    state.categories.fetched,
-    state.deleteConfirmation,
-    state.products.list,
-    state.products.searchForm,
-    state.users.user.role,
-  ]);
+  const [deleteConfirmation, products, searchForm, userRole] = useSelector(
+    state => [
+      state.deleteConfirmation,
+      state.products.list,
+      state.products.searchForm,
+      state.users.user.role,
+    ]
+  );
 
   const filteredProducts = () => {
     if (searchForm.category === 'All') {
@@ -50,11 +44,6 @@ export default function Products() {
   };
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!fetchedCategories) dispatch(fetch_categories());
-    if (!fetched) dispatch(fetch_products());
-  }, []);
 
   useEffect(() => {
     if (deleteConfirmation.confirm)
@@ -84,21 +73,17 @@ export default function Products() {
         <FilterForm />
       </div>
 
-      <section className='mt-3'>
-        <div className='card'>
-          <div className='card-header fs-2'>Products</div>
-          <div className='card-body'>
-            <div className='table-responsive'>
-              {filteredProducts().length > 0 ? (
-                <ProductsTable products={filteredProducts()} />
-              ) : (
-                <NoResultsMsg />
-              )}
-            </div>
-          </div>
+      <section className='mt-3 border'>
+        <div className='d-flex mb-2 justify-content-between bg-light py-2 px-3'>
+          <h2 className='fw-normal'> Products </h2> <RowsPerPage />
         </div>
-        {fetched && <Paginaton totalItems={filteredProducts().length} />}
+        {filteredProducts().length > 0 ? (
+          <ProductsTable products={filteredProducts()} />
+        ) : (
+          <NoResultsMsg />
+        )}
       </section>
+      <Paginaton totalItems={filteredProducts().length} />
     </div>
   );
 }

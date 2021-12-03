@@ -9,6 +9,7 @@ import {
   request_delete_user,
 } from '../../actions/users/users-actions';
 import Paginaton from '../common/pagination/Pagination';
+import RowsPerPage from '../common/rows-per-page/RowsPerPage';
 import UsersTable from './table/UsersTable';
 
 function Users() {
@@ -41,17 +42,13 @@ function Users() {
         <span> New User </span>
       </Link>
 
-      <section className='mt-5'>
-        <div className='card'>
-          <div className='card-header fs-2'>Users</div>
-          <div className='card-body'>
-            <div className='table-responsive'>
-              <UsersTable />
-            </div>
-          </div>
+      <section className='mt-4 border'>
+        <div className='d-flex mb-2 justify-content-between bg-light py-2 px-3'>
+          <h2 className='fw-normal'> Users </h2> <RowsPerPage />
         </div>
-        <Paginaton totalItems={users.length} />
+        <UsersTable />
       </section>
+      <Paginaton totalItems={users.length} />
     </div>
   );
 }

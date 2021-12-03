@@ -6,14 +6,12 @@ import SalesReport from '../../components/reports-pages/sales reports page/Sales
 function ReportsRouter() {
   return (
     <Fragment>
-      <Switch>
-        <Route path='/reports/purchases' exact>
-          <PurchasesReport />
-        </Route>
-        <Route path='/reports/sales' exact>
-          <SalesReport />
-        </Route>
-      </Switch>
+      <Route path='/reports/purchases' exact>
+        <PurchasesReport />
+      </Route>
+      <Route path='/reports/sales' exact>
+        <SalesReport />
+      </Route>
     </Fragment>
   );
 }

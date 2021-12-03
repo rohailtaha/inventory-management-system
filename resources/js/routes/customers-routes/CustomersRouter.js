@@ -20,7 +20,7 @@ function CustomersRouter() {
   return (
     <Fragment>
       {fetchedRequiredResources() && (
-        <Switch>
+        <Fragment>
           <Route path='/customers' exact>
             <Customers />
           </Route>
@@ -30,7 +30,7 @@ function CustomersRouter() {
           <Route path='/customers/:id/edit' exact>
             <EditCustomer />
           </Route>
-        </Switch>
+        </Fragment>
       )}
     </Fragment>
   );

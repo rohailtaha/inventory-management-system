@@ -1,5 +1,6 @@
 import Sidebar from './components/sidebar/Sidebar';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch } from 'react-router';
 import AppRouter from './routes/AppRouter';
 import Header from './components/header/Header';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +8,7 @@ import { useEffect } from 'react';
 import DeleteConfirmationModal from './components/common/delete-confirmation-modal/DeleteConfirmationModal';
 import SuccessModal from './components/common/success-modal/SuccessModal';
 import { request_fetch_shop } from './actions/shop/shop-actions';
+import NotFound from './components/common/not-found/NotFound';
 
 function MyApp() {
   const [sidebarOpen, deleteConfirmation, successMessage] = useSelector(

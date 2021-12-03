@@ -4,7 +4,7 @@ import {
   resort_sales,
   sort_sales,
 } from '../../../../actions/sales/sales-actions';
-import { getDate } from '../../../../utils/utility_functions';
+import { getDate, numericString } from '../../../../utils/utility_functions';
 import SortArrows from '../../../common/sort-arrows/SortArrows';
 import Sale from './Sale';
 
@@ -24,10 +24,10 @@ function SalesReportTable({ sales }) {
   const initialItemIndexForCurrentPage = () => (currentPage - 1) * itemsPerPage;
 
   const sumGrandTotal = () =>
-    sales.reduce((prev, current) => prev + current.grand_total, 0).toFixed(2);
+    sales.reduce((prev, current) => prev + parseFloat(current.grand_total), 0);
 
   const sumAmountPaid = () =>
-    sales.reduce((prev, current) => prev + current.net_payment, 0).toFixed(2);
+    sales.reduce((prev, current) => prev + parseFloat(current.net_payment), 0);
 
   const lastPage = () => Math.ceil(sales.length / itemsPerPage) === currentPage;
 
@@ -89,10 +89,10 @@ function SalesReportTable({ sales }) {
             <td></td>
             <td></td>
             <td>
-              <b> {sumGrandTotal()}</b>
+              <b> {numericString(sumGrandTotal())}</b>
             </td>
             <td>
-              <b> {sumAmountPaid()}</b>
+              <b> {numericString(sumAmountPaid())}</b>
             </td>
             <td></td>
           </tr>

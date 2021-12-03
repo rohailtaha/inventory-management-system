@@ -4,7 +4,7 @@ import {
   resort_purchases,
   sort_purchases,
 } from '../../../../actions/purchases/purchases-actions';
-import { getDate } from '../../../../utils/utility_functions';
+import { getDate, numericString } from '../../../../utils/utility_functions';
 import SortArrows from '../../../common/sort-arrows/SortArrows';
 import Purchase from './Purchase';
 
@@ -24,14 +24,15 @@ export default function PurchasesReportTable({ purchases }) {
   const initialItemIndexForCurrentPage = () => (currentPage - 1) * itemsPerPage;
 
   const sumGrandTotal = () =>
-    purchases
-      .reduce((prev, current) => prev + current.grand_total, 0)
-      .toFixed(2);
-
+    purchases.reduce(
+      (prev, current) => prev + parseFloat(current.grand_total),
+      0
+    );
   const sumAmountPaid = () =>
-    purchases
-      .reduce((prev, current) => prev + current.amount_paid, 0)
-      .toFixed(2);
+    purchases.reduce(
+      (prev, current) => prev + parseFloat(current.amount_paid),
+      0
+    );
 
   const lastPage = () =>
     Math.ceil(purchases.length / itemsPerPage) === currentPage;
@@ -99,10 +100,10 @@ export default function PurchasesReportTable({ purchases }) {
             <td></td>
             <td></td>
             <td>
-              <b> {sumGrandTotal()}</b>
+              <b> {numericString(sumGrandTotal())}</b>
             </td>
             <td>
-              <b> {sumAmountPaid()}</b>
+              <b> {numericString(sumAmountPaid())}</b>
             </td>
             <td></td>
           </tr>

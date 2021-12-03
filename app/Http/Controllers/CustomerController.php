@@ -101,8 +101,9 @@ class CustomerController extends Controller {
 
   private function errorResponse($validator) {
     $errorMsg = Arr::flatten($validator->errors()->messages())[0];
-    return response(
-      ['error' => ['msg' => $errorMsg], 'status' => 'ERROR'],
+    return response([
+      'error' => ['msg' => $errorMsg],
+      'status' => 'ERROR'],
       400
     );
   }

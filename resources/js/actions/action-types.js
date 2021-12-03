@@ -10,6 +10,7 @@ const actionTypes = {
   // Pagination Actions
   SET_CURRENT_PAGE: 'SET_CURRENT_PAGE',
   RESET_PAGINATION: 'RESET_PAGINATION',
+  SET_ITEMS_PER_PAGE: 'SET_ITEMS_PER_PAGE',
 
   // Shop Actions
   SET_SHOP: 'SET_SHOP',

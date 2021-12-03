@@ -31,22 +31,24 @@ function CategoriesTable() {
   const cleanup = () => dispatch(resort_categories());
 
   return (
-    <table className='table'>
-      <thead>
-        <tr>
-          <th scope='col'>
-            Name
-            <SortArrows aKey='name' sort={sort} />
-          </th>
-          <th scope='col'>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {itemsForCurrentPage().map(category => (
-          <Category key={category.id} id={category.id} name={category.name} />
-        ))}
-      </tbody>
-    </table>
+    <div className='table-responsive'>
+      <table className='table'>
+        <thead>
+          <tr>
+            <th scope='col'>
+              Name
+              <SortArrows aKey='name' sort={sort} />
+            </th>
+            <th scope='col'>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {itemsForCurrentPage().map(category => (
+            <Category key={category.id} id={category.id} name={category.name} />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

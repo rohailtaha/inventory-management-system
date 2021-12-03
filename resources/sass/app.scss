@@ -32,6 +32,8 @@ form label {
 }
 
 .table {
+  margin-bottom: 0;
+
   .action-icon {
     font-size: 1rem;
   }
@@ -190,6 +192,12 @@ input::placeholder {
 .main {
   padding-left: 200px;
 
+  .rows-per-page {
+    label {
+      font-size: 14px;
+    }
+  }
+
   #sort-arrow--up {
     transform: rotateZ(180deg);
   }
@@ -279,6 +287,9 @@ input::placeholder {
 .main__content--categories {
   .table-container {
     max-width: 650px;
+    .table {
+      min-width: 350px;
+    }
   }
 }
 
@@ -447,7 +458,9 @@ input::placeholder {
   .sidebar,
   .sidebar-bg,
   .header.no-print,
-  .pages {
+  .pagination,
+  .rows-per-page,
+  .sort-arrows {
     display: none !important;
   }
 
@@ -458,6 +471,15 @@ input::placeholder {
   .main__content {
     width: initial !important;
     margin: 0 !important;
+  }
+
+  .table {
+    tr th {
+      font-size: 1rem !important;
+    }
+    tr td {
+      font-size: 0.92rem !important;
+    }
   }
 
   .main__content--sales-report,

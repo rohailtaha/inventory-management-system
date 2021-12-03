@@ -21,7 +21,7 @@ function UsersRouter() {
   return (
     <Fragment>
       {fetchedRequiredResources() && (
-        <Switch>
+        <Fragment>
           <Route path='/users' exact>
             <Users />
           </Route>
@@ -31,7 +31,7 @@ function UsersRouter() {
           <Route path='/users/:id/edit' exact>
             <EditUser />
           </Route>
-        </Switch>
+        </Fragment>
       )}
     </Fragment>
   );

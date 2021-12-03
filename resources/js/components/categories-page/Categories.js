@@ -6,6 +6,7 @@ import { hide_delete_confirmation } from '../../actions/delete-confirmation/dele
 import { reset_pagination } from '../../actions/pagination/pagination-actions';
 import { hide_success_message } from '../../actions/success-message/success-message-actions';
 import Paginaton from '../common/pagination/Pagination';
+import RowsPerPage from '../common/rows-per-page/RowsPerPage';
 import AddCategoryForm from './add category form/AddCategoryForm';
 import EditCategoryModal from './edit category modal/EditCategoryModal';
 import CategoriesTable from './table/CategoriesTable';
@@ -43,17 +44,15 @@ function Categories() {
             <AddCategoryForm />
           </div>
 
-          <section className='mt-5 table-container'>
-            <div className='card'>
-              <div className='card-header fs-2'>Categories</div>
-              <div className='card-body'>
-                <div className='table-responsive'>
-                  <CategoriesTable />
-                </div>
+          <div className='table-container'>
+            <section className='mt-5 border'>
+              <div className='d-flex mb-2 justify-content-between bg-light py-2 px-3'>
+                <h2 className='fw-normal'> Categories </h2> <RowsPerPage />
               </div>
-            </div>
+              <CategoriesTable />
+            </section>
             <Paginaton totalItems={categories.length} />
-          </section>
+          </div>
         </div>
       )}
     </Fragment>

@@ -3,7 +3,7 @@ import PaymentStatusBadge from '../../../common/payment status badge/PaymentStat
 function Sale({ date, id, customer, grandTotal, amountPaid, paymentStatus }) {
   return (
     <tr>
-      <td>{date}</td>
+      <td className='text-nowrap'>{date}</td>
       <td>{id}</td>
       <td>{customer}</td>
       <td>{grandTotal}</td>

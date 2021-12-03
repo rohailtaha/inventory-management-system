@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Passwords\CanResetPassword as PasswordsCanResetPassword;
+use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable {
-  use HasApiTokens, HasFactory, Notifiable;
+class User extends Authenticatable implements CanResetPassword {
+  use HasApiTokens, HasFactory, Notifiable, PasswordsCanResetPassword;
 
   protected $fillable = [
     'name',
