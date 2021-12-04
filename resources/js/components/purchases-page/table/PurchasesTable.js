@@ -34,14 +34,14 @@ function PurchasesTable() {
   return (
     <div className='table-responsive'>
       <table className='table'>
-        <thead>
+        <thead className='table-light'>
           <tr>
             <th scope='col'>
               Date <SortArrows aKey='created_at' sort={sort} />{' '}
             </th>
             <th scope='col'>
-              Purchase ID
-              <SortArrows aKey='id' sort={sort} />
+              Invoice Id
+              <SortArrows aKey='invoice_id' sort={sort} />
             </th>
             <th scope='col'>
               Purchase Status
@@ -70,8 +70,9 @@ function PurchasesTable() {
           {itemsForCurrentPage().map(purchase => (
             <Purchase
               key={purchase.id}
-              date={getDate(purchase.created_at)}
               id={purchase.id}
+              date={getDate(purchase.created_at)}
+              invoice_id={purchase.invoice_id}
               purchaseStatus={purchase.purchase_status}
               grandTotal={purchase.grand_total}
               amountPaid={purchase.amount_paid}

@@ -31,13 +31,13 @@ function SalesTable() {
   return (
     <div className='table-responsive'>
       <table className='table'>
-        <thead>
+        <thead className='table-light'>
           <tr>
             <th scope='col'>
               Date <SortArrows aKey='created_at' sort={sort} />
             </th>
             <th scope='col'>
-              Sale ID <SortArrows aKey='id' sort={sort} />
+              Invoice Id <SortArrows aKey='invoice_id' sort={sort} />
             </th>
             <th scope='col'>
               Customer
@@ -62,8 +62,9 @@ function SalesTable() {
           {itemsForCurrentPage().map(sale => (
             <Sale
               key={sale.id}
-              date={getDate(sale.created_at)}
               id={sale.id}
+              date={getDate(sale.created_at)}
+              invoice_id={sale.invoice_id}
               customer={sale.customer}
               grandTotal={sale.grand_total}
               netPayment={sale.net_payment}

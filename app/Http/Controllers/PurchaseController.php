@@ -54,11 +54,15 @@ class PurchaseController extends Controller {
     }
 
     return DB::transaction(function () use ($request) {
-      $purchase = Purchase::create(
-        array_merge(
-          ['shop_id' => auth()->user()->shop_id],
-          $request->only('purchase_status', 'grand_total', 'amount_paid', 'payment_status', 'supplier_id')
-        ));
+      $purchase = Purchase::create([
+        'shop_id' => auth()->user()->shop_id,
+        'invoice_id' => Purchase::maxInvoiceId() + 1,
+        'purchase_status' => $request->purchase_status,
+        'grand_total' => $request->grand_total,
+        'amount_paid' => $request->amount_paid,
+        'payment_status' => $request->payment_status,
+        'supplier_id' => $request->supplier_id,
+      ]);
 
       foreach ($request->products as $product) {
         PurchasedProduct::create([

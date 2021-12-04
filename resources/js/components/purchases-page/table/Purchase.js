@@ -5,8 +5,9 @@ import { numericString } from '../../../utils/utility_functions';
 import PaymentStatusBadge from '../../common/payment status badge/PaymentStatusBadge';
 
 function Purchase({
-  date,
   id,
+  date,
+  invoice_id,
   purchaseStatus,
   grandTotal,
   amountPaid,
@@ -18,7 +19,7 @@ function Purchase({
   return (
     <tr>
       <td>{date}</td>
-      <td>{id}</td>
+      <td className='text-nowrap'>{invoice_id}</td>
       <td>{purchaseStatus}</td>
       <td>{numericString(grandTotal)}</td>
       <td>{numericString(amountPaid)}</td>

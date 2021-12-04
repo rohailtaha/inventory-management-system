@@ -74,7 +74,7 @@ export default function Products() {
       </div>
 
       <section className='mt-3 border'>
-        <div className='d-flex mb-2 justify-content-between bg-light py-2 px-3'>
+        <div className='d-flex justify-content-between bg-light py-2 px-3 border-bottom'>
           <h3 className='fw-normal'> Products </h3> <RowsPerPage />
         </div>
         {filteredProducts().length > 0 ? (

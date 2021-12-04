@@ -2,7 +2,7 @@ import { float, numericString } from '../../../../utils/utility_functions';
 import PaymentStatusBadge from '../../../common/payment status badge/PaymentStatusBadge';
 
 function Purchase({
-  id,
+  invoice_id,
   date,
   supplier,
   purchaseStatus,
@@ -13,7 +13,7 @@ function Purchase({
   return (
     <tr>
       <td className='text-nowrap'>{date}</td>
-      <td>{id}</td>
+      <td className='text-nowrap'>{invoice_id}</td>
       <td>{supplier}</td>
       <td>{purchaseStatus}</td>
       <td>{numericString(grandTotal)}</td>

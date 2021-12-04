@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model {
   use HasFactory;
 
-  protected $fillable = ['shop_id', 'purchase_status', 'grand_total', 'amount_paid', 'payment_status', 'supplier_id'];
+  protected $fillable = ['shop_id', 'invoice_id', 'purchase_status', 'grand_total', 'amount_paid', 'payment_status', 'supplier_id'];
 
   protected $hidden = ['shop_id', 'updated_at'];
 
@@ -22,6 +22,13 @@ class Purchase extends Model {
         }
       }
     });
+  }
+
+  public static function maxInvoiceId() {
+    if (Purchase::where('shop_id', auth()->user()->shop_id)->count()) {
+      return Purchase::where('shop_id', auth()->user()->shop_id)->max('invoice_id');
+    }
+    return 0;
   }
 
   public function shop() {

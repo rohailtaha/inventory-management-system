@@ -54,7 +54,7 @@ export default function PurchaseInvoice() {
           </div>
           <div>
             <span className='fw-bold'>Invoice #</span>
-            <span>{purchase.id}</span>
+            <span> {purchase.invoice_id}</span>
           </div>
 
           <div>

@@ -33,7 +33,7 @@ function SuppliersTable() {
   return (
     <div className='table-responsive'>
       <table className='table'>
-        <thead>
+        <thead className='table-light'>
           <tr>
             <th scope='col'>
               Name <SortArrows aKey='name' sort={sort} />

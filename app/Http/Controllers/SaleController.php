@@ -67,6 +67,7 @@ class SaleController extends Controller {
     return DB::transaction(function () use ($request) {
       $sale = Sale::create(array_merge(
         ['shop_id' => auth()->user()->shop_id],
+        ['invoice_id' => Sale::maxInvoiceId() + 1],
         $request->only('customer_id', 'grand_total', 'payment_received', 'payment_returned', 'net_payment', 'payment_status')
       ));
 

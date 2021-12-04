@@ -102,11 +102,11 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
   const dataWithCorrectFormat = () => ({
     products: productsToSale.map(product => ({
       id: product.id,
-      per_item_price: product.per_item_price,
-      discount: product.discount,
-      final_sale_price: product.final_sale_price,
+      per_item_price: numericString(product.per_item_price),
+      discount: numericString(product.discount),
+      final_sale_price: numericString(product.final_sale_price),
       quantity: product.quantity,
-      total_price: product.total_price,
+      total_price: numericString(product.total_price),
     })),
     customer_id: customers.find(customer => customer.name === form.customer).id,
     grand_total: numericString(grandTotal),

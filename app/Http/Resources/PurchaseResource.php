@@ -9,6 +9,7 @@ class PurchaseResource extends JsonResource {
   public function toArray($request) {
     return [
       'id' => $this->id,
+      'invoice_id' => $this->invoiceId($this->invoice_id),
       'purchase_status' => $this->purchase_status,
       'grand_total' => floatval($this->grand_total),
       'amount_paid' => floatval($this->amount_paid),
@@ -29,5 +30,20 @@ class PurchaseResource extends JsonResource {
         'total_cost' => floatval($product->total_cost),
       ];
     });
+  }
+
+  private function invoiceId($invoiceNumber) {
+    $shop_id = strval(auth()->user()->shop_id);
+    // get padded shop_id
+    if (strlen($shop_id) <= 1) {
+      $shop_id = str_pad($shop_id, 2, '0', STR_PAD_LEFT);
+    }
+
+    // get padded invoice number
+    if (strlen(strval($invoiceNumber)) <= 4) {
+      $invoiceNumber = str_pad(strval($invoiceNumber), 4, '0', STR_PAD_LEFT);
+    }
+
+    return 'P'.$shop_id.'-'.$invoiceNumber;
   }
 }

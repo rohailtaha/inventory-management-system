@@ -47,8 +47,8 @@ export default function PurchasesReportTable({ purchases }) {
               <SortArrows aKey='created_at' sort={sort} />
             </th>
             <th scope='col'>
-              ID
-              <SortArrows aKey='id' sort={sort} />
+              Invoice Id
+              <SortArrows aKey='invoice_id' sort={sort} />
             </th>
             <th scope='col'>
               Supplier
@@ -76,8 +76,8 @@ export default function PurchasesReportTable({ purchases }) {
           {itemsForCurrentPage().map(purchase => (
             <Purchase
               key={purchase.id}
+              invoice_id={purchase.invoice_id}
               date={getDate(purchase.created_at)}
-              id={purchase.id}
               supplier={purchase.supplier}
               purchaseStatus={purchase.purchase_status}
               grandTotal={purchase.grand_total}

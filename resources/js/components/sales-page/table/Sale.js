@@ -4,13 +4,21 @@ import { show_delete_confirmation } from '../../../actions/delete-confirmation/d
 import { numericString } from '../../../utils/utility_functions';
 import PaymentStatusBadge from '../../common/payment status badge/PaymentStatusBadge';
 
-function Sale({ date, id, customer, grandTotal, netPayment, paymentStatus }) {
+function Sale({
+  id,
+  date,
+  invoice_id,
+  customer,
+  grandTotal,
+  netPayment,
+  paymentStatus,
+}) {
   const dispatch = useDispatch();
 
   return (
     <tr>
       <td>{date}</td>
-      <td>{id}</td>
+      <td className='text-nowrap'>{invoice_id}</td>
       <td>{customer}</td>
       <td>{numericString(grandTotal)}</td>
       <td>{numericString(netPayment)}</td>

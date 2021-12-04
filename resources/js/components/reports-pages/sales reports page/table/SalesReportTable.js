@@ -47,8 +47,8 @@ function SalesReportTable({ sales }) {
               <SortArrows aKey='created_at' sort={sort} />
             </th>
             <th scope='col'>
-              ID
-              <SortArrows aKey='id' sort={sort} />
+              Invoice Id
+              <SortArrows aKey='invoice_id' sort={sort} />
             </th>
             <th scope='col'>
               Customer
@@ -74,7 +74,7 @@ function SalesReportTable({ sales }) {
             <Sale
               key={sale.id}
               date={getDate(sale.created_at)}
-              id={sale.id}
+              invoice_id={sale.invoice_id}
               customer={sale.customer}
               grandTotal={sale.grand_total}
               amountPaid={sale.net_payment}

@@ -34,7 +34,7 @@ export default function ProductsTable({ products }) {
   return (
     <div className='table-responsive'>
       <table className='table'>
-        <thead>
+        <thead className='table-light'>
           <tr>
             <th scope='col'>
               Barcode

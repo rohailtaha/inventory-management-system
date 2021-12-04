@@ -5620,7 +5620,7 @@ function Categories() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("section", {
           className: "mt-5 border",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
-            className: "d-flex mb-2 justify-content-between bg-light py-2 px-3",
+            className: "d-flex justify-content-between bg-light py-2 px-3 border-bottom",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h3", {
               className: "fw-normal",
               children: " Categories "
@@ -5985,6 +5985,7 @@ function CategoriesTable() {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
       className: "table",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+        className: "table-light",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
             scope: "col",
@@ -6959,7 +6960,7 @@ function Customers() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("section", {
       className: "mt-5 border",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "d-flex mb-2 justify-content-between bg-light py-2 px-3",
+        className: "d-flex justify-content-between bg-light py-2 px-3 border-bottom",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
           className: "fw-normal",
           children: " Customers "
@@ -7415,6 +7416,7 @@ function CustomersTable() {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
       className: "table",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+        className: "table-light",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
             scope: "col",
@@ -7524,21 +7526,15 @@ function Dashboard() {
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "main__content main__content--dashboard",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_inventory_stats_InventoryStats__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_cash_flow_stats_CashFlowStats__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("section", {
-      className: "mt-5",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "card",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-          className: "card-header bg-secondary text-white fw-bold",
-          children: "Highest Selling Products"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-          className: "card-body",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-            className: "table-responsive",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_tables_highest_selling_products_HighestSellingProductsTable__WEBPACK_IMPORTED_MODULE_7__["default"], {})
-          })
-        })]
-      })
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_inventory_stats_InventoryStats__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_cash_flow_stats_CashFlowStats__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("section", {
+      className: "mt-5 border",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        className: "bg-light py-2 px-3 border-bottom",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h4", {
+          className: "fw-normal",
+          children: " Highest Selling Products "
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_tables_highest_selling_products_HighestSellingProductsTable__WEBPACK_IMPORTED_MODULE_7__["default"], {})]
     })]
   });
 }
@@ -7559,7 +7555,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/utility_functions */ "./resources/js/utils/utility_functions.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7576,6 +7573,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function CashFlowStats() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
     return [state.purchases.list, state.sales.list];
@@ -7586,57 +7584,57 @@ function CashFlowStats() {
 
   var totalPurchases = function totalPurchases() {
     return purchases.reduce(function (total, purchase) {
-      return total + parseFloat(purchase.amount_paid);
-    }, 0).toFixed(2);
+      return total + purchase.amount_paid;
+    }, 0);
   };
 
   var totalSales = function totalSales() {
     return sales.reduce(function (total, sale) {
-      return total + parseFloat(sale.net_payment);
-    }, 0).toFixed(2);
+      return total + sale.net_payment;
+    }, 0);
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("section", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("section", {
     className: "stats",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
       className: "mt-5 fw-bold",
       children: "Cash Flow"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "grid",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "card border-0",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
           className: "card-body ps-0",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
             className: "card-title",
             children: "Total Purchases"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
             className: "card-text",
-            children: ["Rs ", totalPurchases()]
+            children: ["Rs ", (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__.numericString)(totalPurchases())]
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "card border-0",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
           className: "card-body ps-0",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
             className: "card-title",
             children: "Total Sales"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
             className: "card-text",
-            children: [" Rs ", totalSales()]
+            children: [" Rs ", (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__.numericString)(totalSales())]
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "card border-0",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
           className: "card-body ps-0",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
             className: "card-title",
             children: "Sales Profit"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
             className: "card-text",
-            children: ["Rs ", (totalSales() - totalPurchases()).toFixed(2)]
+            children: ["Rs ", (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_1__.numericString)(totalSales() - totalPurchases())]
           })]
         })
       })]
@@ -7803,30 +7801,34 @@ function HighestSellingProductsTable() {
       _useSelector2 = _slicedToArray(_useSelector, 1),
       highestSellingProducts = _useSelector2[0];
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
-    className: "table table-sm",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-          scope: "col",
-          children: "Name"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-          scope: "col",
-          children: "Total Sales"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
-          scope: "col",
-          children: "Income (RS)"
-        })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
-      children: highestSellingProducts.slice(0, RECORDS_LIMIT).map(function (product) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_HighestSellingProduct__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          name: product.name,
-          totalSales: product.total_sales,
-          income: product.income
-        }, product.id);
-      })
-    })]
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    className: "table-responsive",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
+      className: "table table-sm",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
+        className: "table-light",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+            scope: "col",
+            children: "Name"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+            scope: "col",
+            children: "Total Sales"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+            scope: "col",
+            children: "Income (RS)"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+        children: highestSellingProducts.slice(0, RECORDS_LIMIT).map(function (product) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_HighestSellingProduct__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            name: product.name,
+            totalSales: product.total_sales,
+            income: product.income
+          }, product.id);
+        })
+      })]
+    })
   });
 }
 
@@ -8311,7 +8313,7 @@ function Products() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("section", {
       className: "mt-3 border",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-        className: "d-flex mb-2 justify-content-between bg-light py-2 px-3",
+        className: "d-flex justify-content-between bg-light py-2 px-3 border-bottom",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h3", {
           className: "fw-normal",
           children: " Products "
@@ -9044,6 +9046,7 @@ function ProductsTable(_ref) {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("table", {
       className: "table",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("thead", {
+        className: "table-light",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
             scope: "col",
@@ -9190,7 +9193,7 @@ function Purchases() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("section", {
       className: "mt-5 border",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "d-flex mb-2 justify-content-between bg-light py-2 px-3",
+        className: "d-flex justify-content-between bg-light py-2 px-3 border-bottom",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
           className: "fw-normal",
           children: " Purchases "
@@ -9980,9 +9983,9 @@ function PurchaseDetailsForm(_ref) {
       products: productsToPurchase.map(function (product) {
         return {
           id: product.id,
-          per_item_cost: product.per_item_cost,
+          per_item_cost: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_8__.numericString)(product.per_item_cost),
           quantity: product.quantity,
-          total_cost: product.total_cost
+          total_cost: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_8__.numericString)(product.total_cost)
         };
       }),
       supplier_id: suppliers.find(function (supplier) {
@@ -10374,8 +10377,8 @@ function PurchaseInvoice() {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "fw-bold",
             children: "Invoice #"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            children: purchase.id
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+            children: [" ", purchase.invoice_id]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
@@ -10458,8 +10461,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Purchase(_ref) {
-  var date = _ref.date,
-      id = _ref.id,
+  var id = _ref.id,
+      date = _ref.date,
+      invoice_id = _ref.invoice_id,
       purchaseStatus = _ref.purchaseStatus,
       grandTotal = _ref.grandTotal,
       amountPaid = _ref.amountPaid,
@@ -10470,7 +10474,8 @@ function Purchase(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
       children: date
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-      children: id
+      className: "text-nowrap",
+      children: invoice_id
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
       children: purchaseStatus
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
@@ -10599,6 +10604,7 @@ function PurchasesTable() {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("table", {
       className: "table",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("thead", {
+        className: "table-light",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
             scope: "col",
@@ -10608,8 +10614,8 @@ function PurchasesTable() {
             }), ' ']
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
             scope: "col",
-            children: ["Purchase ID", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              aKey: "id",
+            children: ["Invoice Id", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              aKey: "invoice_id",
               sort: sort
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
@@ -10650,8 +10656,9 @@ function PurchasesTable() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tbody", {
         children: itemsForCurrentPage().map(function (purchase) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Purchase__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            date: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.getDate)(purchase.created_at),
             id: purchase.id,
+            date: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.getDate)(purchase.created_at),
+            invoice_id: purchase.invoice_id,
             purchaseStatus: purchase.purchase_status,
             grandTotal: purchase.grand_total,
             amountPaid: purchase.amount_paid,
@@ -11016,7 +11023,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Purchase(_ref) {
-  var id = _ref.id,
+  var invoice_id = _ref.invoice_id,
       date = _ref.date,
       supplier = _ref.supplier,
       purchaseStatus = _ref.purchaseStatus,
@@ -11028,7 +11035,8 @@ function Purchase(_ref) {
       className: "text-nowrap",
       children: date
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-      children: id
+      className: "text-nowrap",
+      children: invoice_id
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
       children: supplier
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
@@ -11151,8 +11159,8 @@ function PurchasesReportTable(_ref) {
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
             scope: "col",
-            children: ["ID", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              aKey: "id",
+            children: ["Invoice Id", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              aKey: "invoice_id",
               sort: sort
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
@@ -11190,8 +11198,8 @@ function PurchasesReportTable(_ref) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tbody", {
         children: [itemsForCurrentPage().map(function (purchase) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Purchase__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            invoice_id: purchase.invoice_id,
             date: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.getDate)(purchase.created_at),
-            id: purchase.id,
             supplier: purchase.supplier,
             purchaseStatus: purchase.purchase_status,
             grandTotal: purchase.grand_total,
@@ -11572,7 +11580,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Sale(_ref) {
   var date = _ref.date,
-      id = _ref.id,
+      invoice_id = _ref.invoice_id,
       customer = _ref.customer,
       grandTotal = _ref.grandTotal,
       amountPaid = _ref.amountPaid,
@@ -11582,7 +11590,8 @@ function Sale(_ref) {
       className: "text-nowrap",
       children: date
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
-      children: id
+      className: "text-nowrap",
+      children: invoice_id
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
       children: customer
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
@@ -11704,8 +11713,8 @@ function SalesReportTable(_ref) {
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
             scope: "col",
-            children: ["ID", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              aKey: "id",
+            children: ["Invoice Id", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              aKey: "invoice_id",
               sort: sort
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
@@ -11740,7 +11749,7 @@ function SalesReportTable(_ref) {
         children: [itemsForCurrentPage().map(function (sale) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Sale__WEBPACK_IMPORTED_MODULE_5__["default"], {
             date: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.getDate)(sale.created_at),
-            id: sale.id,
+            invoice_id: sale.invoice_id,
             customer: sale.customer,
             grandTotal: sale.grand_total,
             amountPaid: sale.net_payment,
@@ -11856,7 +11865,7 @@ function Sales() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("section", {
       className: "mt-5 border",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "d-flex mb-2 justify-content-between bg-light py-2 px-3",
+        className: "d-flex justify-content-between bg-light py-2 px-3 border-bottom",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
           className: "fw-normal",
           children: " Sales "
@@ -12685,11 +12694,11 @@ function SaleDetailsForm(_ref) {
       products: productsToSale.map(function (product) {
         return {
           id: product.id,
-          per_item_price: product.per_item_price,
-          discount: product.discount,
-          final_sale_price: product.final_sale_price,
+          per_item_price: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(product.per_item_price),
+          discount: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(product.discount),
+          final_sale_price: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(product.final_sale_price),
           quantity: product.quantity,
-          total_price: product.total_price
+          total_price: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.numericString)(product.total_price)
         };
       }),
       customer_id: customers.find(function (customer) {
@@ -13085,8 +13094,8 @@ function SaleInvoice() {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "fw-bold",
             children: "Invoice #"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            children: sale.id
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+            children: [" ", sale.invoice_id]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
@@ -13179,8 +13188,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Sale(_ref) {
-  var date = _ref.date,
-      id = _ref.id,
+  var id = _ref.id,
+      date = _ref.date,
+      invoice_id = _ref.invoice_id,
       customer = _ref.customer,
       grandTotal = _ref.grandTotal,
       netPayment = _ref.netPayment,
@@ -13190,7 +13200,8 @@ function Sale(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
       children: date
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-      children: id
+      className: "text-nowrap",
+      children: invoice_id
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
       children: customer
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
@@ -13317,6 +13328,7 @@ function SalesTable() {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("table", {
       className: "table",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("thead", {
+        className: "table-light",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
             scope: "col",
@@ -13326,8 +13338,8 @@ function SalesTable() {
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
             scope: "col",
-            children: ["Sale ID ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              aKey: "id",
+            children: ["Invoice Id ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_sort_arrows_SortArrows__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              aKey: "invoice_id",
               sort: sort
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("th", {
@@ -13362,8 +13374,9 @@ function SalesTable() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tbody", {
         children: itemsForCurrentPage().map(function (sale) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Sale__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            date: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.getDate)(sale.created_at),
             id: sale.id,
+            date: (0,_utils_utility_functions__WEBPACK_IMPORTED_MODULE_3__.getDate)(sale.created_at),
+            invoice_id: sale.invoice_id,
             customer: sale.customer,
             grandTotal: sale.grand_total,
             netPayment: sale.net_payment,
@@ -14368,7 +14381,7 @@ function Suppliers() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("section", {
       className: "mt-5 border",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "d-flex mb-2 justify-content-between bg-light py-2 px-3",
+        className: "d-flex justify-content-between bg-light py-2 px-3 border-bottom",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
           className: "fw-normal",
           children: " Suppliers "
@@ -14827,6 +14840,7 @@ function SuppliersTable() {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
       className: "table",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+        className: "table-light",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
             scope: "col",
@@ -14960,7 +14974,7 @@ function Users() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("section", {
       className: "mt-4 border",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "d-flex mb-2 justify-content-between bg-light py-2 px-3",
+        className: "d-flex justify-content-between bg-light py-2 px-3 border-bottom",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
           className: "fw-normal",
           children: " Users "
@@ -15124,6 +15138,7 @@ function UsersTable() {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
       className: "table",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+        className: "table-light",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("th", {
             scope: "col",

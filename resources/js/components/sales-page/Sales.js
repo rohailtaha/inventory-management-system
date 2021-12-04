@@ -41,7 +41,7 @@ function Sales() {
       </div>
 
       <section className='mt-5 border'>
-        <div className='d-flex mb-2 justify-content-between bg-light py-2 px-3'>
+        <div className='d-flex justify-content-between bg-light py-2 px-3 border-bottom'>
           <h3 className='fw-normal'> Sales </h3> <RowsPerPage />
         </div>
         <SalesTable />

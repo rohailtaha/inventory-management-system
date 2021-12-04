@@ -48,7 +48,7 @@ export default function SaleInvoice() {
         <div className='sale-invoice__details'>
           <div>
             <span className='fw-bold'>Invoice #</span>
-            <span>{sale.id}</span>
+            <span> {sale.invoice_id}</span>
           </div>
 
           <div>

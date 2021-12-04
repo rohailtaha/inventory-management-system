@@ -97,9 +97,9 @@ export default function PurchaseDetailsForm({ mode, grandTotal }) {
   const dataWithCorrectFormat = () => ({
     products: productsToPurchase.map(product => ({
       id: product.id,
-      per_item_cost: product.per_item_cost,
+      per_item_cost: numericString(product.per_item_cost),
       quantity: product.quantity,
-      total_cost: product.total_cost,
+      total_cost: numericString(product.total_cost),
     })),
     supplier_id: suppliers.find(supplier => supplier.name === form.supplier).id,
     purchase_status: form.purchase_status,
