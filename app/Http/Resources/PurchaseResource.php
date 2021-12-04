@@ -10,8 +10,8 @@ class PurchaseResource extends JsonResource {
     return [
       'id' => $this->id,
       'purchase_status' => $this->purchase_status,
-      'grand_total' => $this->grand_total,
-      'amount_paid' => $this->amount_paid,
+      'grand_total' => floatval($this->grand_total),
+      'amount_paid' => floatval($this->amount_paid),
       'payment_status' => $this->payment_status,
       'supplier' => $this->supplier->name ?? '',
       'products' => $this->formatProducts($this->products),
@@ -25,8 +25,8 @@ class PurchaseResource extends JsonResource {
         'id' => $product->id,
         'name' => $product->name,
         'quantity' => $product->quantity,
-        'per_item_cost' => $product->per_item_cost,
-        'total_cost' => $product->total_cost,
+        'per_item_cost' => floatval($product->per_item_cost),
+        'total_cost' => floatval($product->total_cost),
       ];
     });
   }

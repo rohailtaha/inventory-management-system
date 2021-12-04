@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { delete_product_from_purchase } from '../../../../actions/purchases/purchases-actions';
+import { numericString } from '../../../../utils/utility_functions';
 
 function AddedProduct({ id, name, quantity, purchasePrice, totalCost }) {
   const dispatch = useDispatch();
@@ -9,9 +10,9 @@ function AddedProduct({ id, name, quantity, purchasePrice, totalCost }) {
   return (
     <tr>
       <td>{name}</td>
-      <td>{purchasePrice}</td>
+      <td>{numericString(purchasePrice)}</td>
       <td>{quantity}</td>
-      <td>{totalCost}</td>
+      <td>{numericString(totalCost)}</td>
       <td>
         <button
           className='btn text-danger p-0'

@@ -49,7 +49,7 @@ export default function ProductToPurchaseForm() {
         ...form,
         id: product.id,
         name: product.name,
-        per_item_cost: product.purchase_price,
+        per_item_cost: numericString(product.purchase_price),
         quantity: '1',
       }));
     }

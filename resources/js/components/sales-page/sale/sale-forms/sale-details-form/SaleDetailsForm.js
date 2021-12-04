@@ -59,8 +59,8 @@ export default function SaleDetailsForm({ mode, grandTotal }) {
       const sale = getSale(id);
       setForm({
         customer: isEmpty(sale.customer) ? customers[0].name : sale.customer,
-        payment_received: sale.payment_received,
-        payment_returned: sale.payment_returned,
+        payment_received: numericString(sale.payment_received),
+        payment_returned: numericString(sale.payment_returned),
         payment_status: sale.payment_status,
       });
       dispatch(set_products_to_sale(sale.products));

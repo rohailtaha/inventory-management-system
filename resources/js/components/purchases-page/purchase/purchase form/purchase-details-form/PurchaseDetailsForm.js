@@ -56,7 +56,7 @@ export default function PurchaseDetailsForm({ mode, grandTotal }) {
           : purchase.supplier,
         purchase_status: purchase.purchase_status,
         payment_status: purchase.payment_status,
-        amount_paid: purchase.amount_paid,
+        amount_paid: numericString(purchase.amount_paid),
       });
       dispatch(set_products_to_purchase(purchase.products));
     }

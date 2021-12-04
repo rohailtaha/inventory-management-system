@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { delete_product_from_sale } from '../../../../actions/sales/sales-actions';
+import { numericString } from '../../../../utils/utility_functions';
 
 export default function AddedProduct({
   id,
@@ -17,11 +18,11 @@ export default function AddedProduct({
   return (
     <tr>
       <td>{name}</td>
-      <td>{perItemPrice}</td>
-      <td>{discount}</td>
-      <td>{finalSalePrice}</td>
+      <td>{numericString(perItemPrice)}</td>
+      <td>{numericString(discount)}</td>
+      <td>{numericString(finalSalePrice)}</td>
       <td>{quantity}</td>
-      <td>{totalPrice}</td>
+      <td>{numericString(totalPrice)}</td>
       <td>
         <button
           className='btn text-danger p-0'

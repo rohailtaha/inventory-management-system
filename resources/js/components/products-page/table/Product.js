@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { show_delete_confirmation } from '../../../actions/delete-confirmation/delete-confirmation-actions';
+import { numericString } from '../../../utils/utility_functions';
 import { userRoles } from '../../../utils/util_structures';
 
 function Product({
@@ -21,8 +22,8 @@ function Product({
       <td>{name}</td>
       <td>{category}</td>
       <td>{quantity}</td>
-      <td>{purchasePrice}</td>
-      <td>{finalSalePrice}</td>
+      <td>{numericString(purchasePrice)}</td>
+      <td>{numericString(finalSalePrice)}</td>
       {userRole === userRoles.ADMIN && (
         <td>
           <Link

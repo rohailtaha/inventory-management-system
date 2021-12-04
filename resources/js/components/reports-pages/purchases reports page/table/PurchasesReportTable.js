@@ -24,15 +24,9 @@ export default function PurchasesReportTable({ purchases }) {
   const initialItemIndexForCurrentPage = () => (currentPage - 1) * itemsPerPage;
 
   const sumGrandTotal = () =>
-    purchases.reduce(
-      (prev, current) => prev + parseFloat(current.grand_total),
-      0
-    );
+    purchases.reduce((prev, current) => prev + current.grand_total, 0);
   const sumAmountPaid = () =>
-    purchases.reduce(
-      (prev, current) => prev + parseFloat(current.amount_paid),
-      0
-    );
+    purchases.reduce((prev, current) => prev + current.amount_paid, 0);
 
   const lastPage = () =>
     Math.ceil(purchases.length / itemsPerPage) === currentPage;
@@ -44,71 +38,73 @@ export default function PurchasesReportTable({ purchases }) {
   const cleanup = () => dispatch(resort_purchases());
 
   return (
-    <table className='table'>
-      <thead>
-        <tr>
-          <th scope='col'>
-            Date
-            <SortArrows aKey='created_at' sort={sort} />
-          </th>
-          <th scope='col'>
-            ID
-            <SortArrows aKey='id' sort={sort} />
-          </th>
-          <th scope='col'>
-            Supplier
-            <SortArrows aKey='supplier' sort={sort} />
-          </th>
-          <th scope='col'>
-            Status
-            <SortArrows aKey='purchase_status' sort={sort} />
-          </th>
-          <th scope='col'>
-            Grand total (RS)
-            <SortArrows aKey='grand_total' sort={sort} />
-          </th>
-          <th scope='col'>
-            Paid (RS)
-            <SortArrows aKey='amount_paid' sort={sort} />
-          </th>
-          <th scope='col'>
-            Payment status
-            <SortArrows aKey='payment_status' sort={sort} />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {itemsForCurrentPage().map(purchase => (
-          <Purchase
-            key={purchase.id}
-            date={getDate(purchase.created_at)}
-            id={purchase.id}
-            supplier={purchase.supplier}
-            purchaseStatus={purchase.purchase_status}
-            grandTotal={purchase.grand_total}
-            amountPaid={purchase.amount_paid}
-            paymentStatus={purchase.payment_status}
-          />
-        ))}
-        {lastPage() && (
+    <div className='table-responsive'>
+      <table className='table'>
+        <thead className='table-light'>
           <tr>
-            <td>
-              {' '}
-              <b> Total: </b>{' '}
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <b> {numericString(sumGrandTotal())}</b>
-            </td>
-            <td>
-              <b> {numericString(sumAmountPaid())}</b>
-            </td>
-            <td></td>
+            <th scope='col'>
+              Date
+              <SortArrows aKey='created_at' sort={sort} />
+            </th>
+            <th scope='col'>
+              ID
+              <SortArrows aKey='id' sort={sort} />
+            </th>
+            <th scope='col'>
+              Supplier
+              <SortArrows aKey='supplier' sort={sort} />
+            </th>
+            <th scope='col'>
+              Status
+              <SortArrows aKey='purchase_status' sort={sort} />
+            </th>
+            <th scope='col'>
+              Grand total (RS)
+              <SortArrows aKey='grand_total' sort={sort} />
+            </th>
+            <th scope='col'>
+              Paid (RS)
+              <SortArrows aKey='amount_paid' sort={sort} />
+            </th>
+            <th scope='col'>
+              Payment status
+              <SortArrows aKey='payment_status' sort={sort} />
+            </th>
           </tr>
-        )}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {itemsForCurrentPage().map(purchase => (
+            <Purchase
+              key={purchase.id}
+              date={getDate(purchase.created_at)}
+              id={purchase.id}
+              supplier={purchase.supplier}
+              purchaseStatus={purchase.purchase_status}
+              grandTotal={purchase.grand_total}
+              amountPaid={purchase.amount_paid}
+              paymentStatus={purchase.payment_status}
+            />
+          ))}
+          {lastPage() && (
+            <tr className='table-light'>
+              <td>
+                {' '}
+                <b> Total: </b>{' '}
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <b> {numericString(sumGrandTotal())}</b>
+              </td>
+              <td>
+                <b> {numericString(sumAmountPaid())}</b>
+              </td>
+              <td></td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 }

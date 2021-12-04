@@ -1,10 +1,17 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Fragment } from 'react/cjs/react.development';
-import { reset_pagination } from '../../../actions/pagination/pagination-actions';
+import {
+  display_all_items_on_single_page,
+  reset_pagination,
+  set_items_per_page,
+} from '../../../actions/pagination/pagination-actions';
 import { request_fetch_sales } from '../../../actions/sales/sales-actions';
 import { getDate } from '../../../utils/utility_functions';
-import { dateRangeTypes } from '../../../utils/util_structures';
+import {
+  dateRangeTypes,
+  defaultRowsCountPerPage,
+} from '../../../utils/util_structures';
 import RowsPerPage from '../../common/rows-per-page/RowsPerPage';
 import Paginaton from '../../common/pagination/Pagination';
 import SalesReportForm from './form/SalesReportForm';
@@ -33,16 +40,16 @@ function SalesReport() {
     if (!fetched) dispatch(request_fetch_sales());
   }, []);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     document.querySelector('.header').classList.remove('no-print');
+    await dispatch(display_all_items_on_single_page(getSales().length));
     window.print();
+    dispatch(set_items_per_page(defaultRowsCountPerPage));
   };
 
   useEffect(() => cleanup, []);
 
-  const cleanup = () => {
-    dispatch(reset_pagination());
-  };
+  const cleanup = () => dispatch(reset_pagination());
 
   return (
     <Fragment>
@@ -51,30 +58,24 @@ function SalesReport() {
           <SalesReportHeader />
 
           <SalesReportForm />
-          <section className='mt-5 table-container'>
-            <div className='card'>
-              <div className='card-header d-flex justify-content-between align-items-center'>
-                <RowsPerPage />
-                <button
-                  type='button'
-                  onClick={handleClick}
-                  className='btn btn--print-report d-flex align-items-center bg-primary text-white'
-                  data-bs-toggle='tooltip'
-                  data-bs-placement='top'
-                  title='Print'
-                >
-                  <span className='me-2'> Print </span>
-                  <span className='material-icons'>print</span>
-                </button>
-              </div>
-              <div className='card-body'>
-                <div className='table-responsive'>
-                  <SalesReportTable sales={getSales()} />
-                </div>
-              </div>
+          <section className='mt-5 border'>
+            <div className='d-flex justify-content-between bg-light py-2 px-3 border-bottom'>
+              <button
+                type='button'
+                onClick={handleClick}
+                className='btn btn-sm btn--print-report d-flex align-items-center bg-primary text-white'
+                data-bs-toggle='tooltip'
+                data-bs-placement='top'
+                title='Print'
+              >
+                <span className='me-2'> Print </span>
+                <span className='material-icons'>print</span>
+              </button>
+              <RowsPerPage />
             </div>
-            {fetched && <Paginaton totalItems={getSales().length} />}
+            <SalesReportTable sales={getSales()} />
           </section>
+          {fetched && <Paginaton totalItems={getSales().length} />}
         </div>
       )}
     </Fragment>

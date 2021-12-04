@@ -31,37 +31,39 @@ function SuppliersTable() {
   const cleanup = () => dispatch(resort_suppliers());
 
   return (
-    <table className='table'>
-      <thead>
-        <tr>
-          <th scope='col'>
-            Name <SortArrows aKey='name' sort={sort} />
-          </th>
-          <th scope='col'>
-            Email <SortArrows aKey='email' sort={sort} />
-          </th>
-          <th scope='col'>
-            Contact <SortArrows aKey='contact' sort={sort} />
-          </th>
-          <th scope='col'>
-            Address <SortArrows aKey='address' sort={sort} />
-          </th>
-          <th scope='col'>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {itemsForCurrentPage().map(supplier => (
-          <Supplier
-            key={supplier.id}
-            id={supplier.id}
-            name={supplier.name}
-            email={supplier.email}
-            contact={supplier.contact}
-            address={supplier.address}
-          />
-        ))}
-      </tbody>
-    </table>
+    <div className='table-responsive'>
+      <table className='table'>
+        <thead>
+          <tr>
+            <th scope='col'>
+              Name <SortArrows aKey='name' sort={sort} />
+            </th>
+            <th scope='col'>
+              Email <SortArrows aKey='email' sort={sort} />
+            </th>
+            <th scope='col'>
+              Contact <SortArrows aKey='contact' sort={sort} />
+            </th>
+            <th scope='col'>
+              Address <SortArrows aKey='address' sort={sort} />
+            </th>
+            <th scope='col'>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {itemsForCurrentPage().map(supplier => (
+            <Supplier
+              key={supplier.id}
+              id={supplier.id}
+              name={supplier.name}
+              email={supplier.email}
+              contact={supplier.contact}
+              address={supplier.address}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

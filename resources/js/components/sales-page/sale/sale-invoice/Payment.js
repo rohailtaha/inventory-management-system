@@ -1,3 +1,5 @@
+import { numericString } from '../../../../utils/utility_functions';
+
 export default function Payment({
   status,
   grandTotal,
@@ -17,19 +19,19 @@ export default function Payment({
         <tbody>
           <tr>
             <th scope='col'>Grand Total (RS)</th>
-            <td className='fw-bold'> {grandTotal} </td>
+            <td className='fw-bold'> {numericString(grandTotal)} </td>
           </tr>
           <tr>
             <th scope='col'>Received (RS)</th>
-            <td> {paymentReceived} </td>
+            <td> {numericString(paymentReceived)} </td>
           </tr>
           <tr>
             <th scope='col'>Returned (RS)</th>
-            <td> {paymentReturned} </td>
+            <td> {numericString(paymentReturned)} </td>
           </tr>
           <tr>
             <th scope='col'>Net Payment (RS)</th>
-            <td className='fw-bold'> {netPayment} </td>
+            <td className='fw-bold'> {numericString(netPayment)} </td>
           </tr>
         </tbody>
       </table>

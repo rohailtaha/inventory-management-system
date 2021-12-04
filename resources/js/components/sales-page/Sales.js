@@ -6,6 +6,7 @@ import { reset_pagination } from '../../actions/pagination/pagination-actions';
 import { request_delete_sale } from '../../actions/sales/sales-actions';
 import { hide_success_message } from '../../actions/success-message/success-message-actions';
 import Paginaton from '../common/pagination/Pagination';
+import RowsPerPage from '../common/rows-per-page/RowsPerPage';
 import SalesTable from './table/SalesTable';
 
 function Sales() {
@@ -39,17 +40,13 @@ function Sales() {
         </Link>
       </div>
 
-      <section className='mt-5 table-container'>
-        <div className='card'>
-          <div className='card-header fs-2'>Sales</div>
-          <div className='card-body'>
-            <div className='table-responsive'>
-              <SalesTable />
-            </div>
-          </div>
+      <section className='mt-5 border'>
+        <div className='d-flex mb-2 justify-content-between bg-light py-2 px-3'>
+          <h3 className='fw-normal'> Sales </h3> <RowsPerPage />
         </div>
-        <Paginaton totalItems={sales.length} />
+        <SalesTable />
       </section>
+      <Paginaton totalItems={sales.length} />
     </div>
   );
 }

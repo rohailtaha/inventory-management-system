@@ -78,8 +78,8 @@ export default function ProductToSaleForm() {
         barcode: product.barcode,
         id: product.id,
         name: product.name,
-        per_item_price: product.sale_price,
-        discount: product.discount,
+        per_item_price: numericString(product.sale_price),
+        discount: numericString(product.discount),
         quantity: '1',
         quantityInStock: product.quantity,
       }));

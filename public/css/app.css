@@ -11632,6 +11632,14 @@ input::placeholder {
 .main__content--purchases-report .report-header {
   display: none;
 }
+.main__content--sales-report .btn--print-report,
+.main__content--purchases-report .btn--print-report {
+  font-size: 1rem;
+}
+.main__content--sales-report .btn--print-report .material-icons,
+.main__content--purchases-report .btn--print-report .material-icons {
+  font-size: 1.12rem;
+}
 .main__content--sales-report .table,
 .main__content--purchases-report .table {
   min-width: 700px;
@@ -11700,10 +11708,6 @@ input::placeholder {
 
   .main__content--sales-report,
 .main__content--purchases-report {
-    padding: 0 !important;
-  }
-  .main__content--sales-report .card-body,
-.main__content--purchases-report .card-body {
     padding: 0 !important;
   }
   .main__content--sales-report form,

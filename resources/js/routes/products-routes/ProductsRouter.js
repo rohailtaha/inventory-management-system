@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch } from 'react-router';
-import Products from '../../components/inventory-page/Products';
-import AddProduct from '../../components/inventory-page/product/add product/AddProduct';
-import EditProduct from '../../components/inventory-page/product/edit product/EditProduct';
+import { Route } from 'react-router';
+import Products from '../../components/products-page/Products';
+import AddProduct from '../../components/products-page/product/add product/AddProduct';
+import EditProduct from '../../components/products-page/product/edit product/EditProduct';
 import { userRoles } from '../../utils/util_structures';
 import { useEffect } from 'react';
 import { fetch_categories } from '../../actions/categories/categories-actions';

@@ -75,7 +75,7 @@ export default function Products() {
 
       <section className='mt-3 border'>
         <div className='d-flex mb-2 justify-content-between bg-light py-2 px-3'>
-          <h2 className='fw-normal'> Products </h2> <RowsPerPage />
+          <h3 className='fw-normal'> Products </h3> <RowsPerPage />
         </div>
         {filteredProducts().length > 0 ? (
           <ProductsTable products={filteredProducts()} />

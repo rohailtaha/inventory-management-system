@@ -1,3 +1,5 @@
+import { numericString } from '../../../../utils/utility_functions';
+
 export default function Payment({ status, grandTotal, amountPaid }) {
   return (
     <section className='purchase-invoice__payment mt-4'>
@@ -11,11 +13,11 @@ export default function Payment({ status, grandTotal, amountPaid }) {
         <tbody>
           <tr>
             <th scope='col'>Grand Total (RS)</th>
-            <td className='fw-bold'> {grandTotal} </td>
+            <td className='fw-bold'> {numericString(grandTotal)} </td>
           </tr>
           <tr>
             <th scope='col'>Amount Paid (RS)</th>
-            <td className='fw-bold'> {amountPaid} </td>
+            <td className='fw-bold'> {numericString(amountPaid)} </td>
           </tr>
         </tbody>
       </table>

@@ -47,7 +47,7 @@ function Categories() {
           <div className='table-container'>
             <section className='mt-5 border'>
               <div className='d-flex mb-2 justify-content-between bg-light py-2 px-3'>
-                <h2 className='fw-normal'> Categories </h2> <RowsPerPage />
+                <h3 className='fw-normal'> Categories </h3> <RowsPerPage />
               </div>
               <CategoriesTable />
             </section>

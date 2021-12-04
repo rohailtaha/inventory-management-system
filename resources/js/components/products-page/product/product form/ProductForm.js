@@ -58,9 +58,9 @@ function ProductForm({ mode }) {
         description: product.description,
         quantity: product.quantity.toString(),
         alert_quantity: product.alert_quantity.toString(),
-        purchase_price: product.purchase_price,
-        sale_price: product.sale_price,
-        discount: product.discount,
+        purchase_price: numericString(product.purchase_price),
+        sale_price: numericString(product.sale_price),
+        discount: numericString(product.discount),
       });
     }
   }, []);

@@ -31,41 +31,43 @@ function CustomersTable() {
   const cleanup = () => dispatch(resort_customers());
 
   return (
-    <table className='table'>
-      <thead>
-        <tr>
-          <th scope='col'>
-            Name
-            <SortArrows aKey='name' sort={sort} />{' '}
-          </th>
-          <th scope='col'>
-            Email
-            <SortArrows aKey='email' sort={sort} />{' '}
-          </th>
-          <th scope='col'>
-            Phone
-            <SortArrows aKey='phone' sort={sort} />{' '}
-          </th>
-          <th scope='col'>
-            Address
-            <SortArrows aKey='address' sort={sort} />{' '}
-          </th>
-          <th scope='col'>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {itemsForCurrentPage().map(customer => (
-          <Customer
-            id={customer.id}
-            name={customer.name}
-            email={customer.email}
-            phone={customer.phone}
-            address={customer.address}
-            key={customer.id}
-          />
-        ))}
-      </tbody>
-    </table>
+    <div className='table-responsive'>
+      <table className='table'>
+        <thead>
+          <tr>
+            <th scope='col'>
+              Name
+              <SortArrows aKey='name' sort={sort} />{' '}
+            </th>
+            <th scope='col'>
+              Email
+              <SortArrows aKey='email' sort={sort} />{' '}
+            </th>
+            <th scope='col'>
+              Phone
+              <SortArrows aKey='phone' sort={sort} />{' '}
+            </th>
+            <th scope='col'>
+              Address
+              <SortArrows aKey='address' sort={sort} />{' '}
+            </th>
+            <th scope='col'>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {itemsForCurrentPage().map(customer => (
+            <Customer
+              id={customer.id}
+              name={customer.name}
+              email={customer.email}
+              phone={customer.phone}
+              address={customer.address}
+              key={customer.id}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

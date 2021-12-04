@@ -16,6 +16,6 @@ class CorrectTotalPriceForProducts implements Rule {
   }
 
   public function message() {
-    return 'Total Cost of product must be a multiple of Quantity and Per Item Price.';
+    return 'Total Price of product must be a multiple of Quantity and Final Price.';
   }
 }

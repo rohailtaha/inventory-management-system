@@ -408,6 +408,14 @@ input::placeholder {
     display: none;
   }
 
+  .btn--print-report {
+    font-size: 1rem;
+
+    .material-icons {
+      font-size: 1.12rem;
+    }
+  }
+
   .table {
     min-width: 700px;
   }
@@ -485,9 +493,7 @@ input::placeholder {
   .main__content--sales-report,
   .main__content--purchases-report {
     padding: 0 !important;
-    .card-body {
-      padding: 0 !important;
-    }
+
     form,
     .btn--print-report,
     .report-h {

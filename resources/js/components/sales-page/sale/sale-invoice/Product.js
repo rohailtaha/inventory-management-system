@@ -1,3 +1,5 @@
+import { numericString } from '../../../../utils/utility_functions';
+
 export default function Product({
   name,
   perItemPrice,
@@ -9,11 +11,11 @@ export default function Product({
   return (
     <tr>
       <td>{name}</td>
-      <td>{perItemPrice}</td>
-      <td>{discount}</td>
-      <td>{finalSalePrice}</td>
+      <td>{numericString(perItemPrice)}</td>
+      <td>{numericString(discount)}</td>
+      <td>{numericString(finalSalePrice)}</td>
       <td>{quantity}</td>
-      <td>{totalPrice}</td>
+      <td>{numericString(totalPrice)}</td>
     </tr>
   );
 }

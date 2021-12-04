@@ -6,6 +6,7 @@ import { reset_pagination } from '../../actions/pagination/pagination-actions';
 import { hide_success_message } from '../../actions/success-message/success-message-actions';
 import { request_delete_supplier } from '../../actions/suppliers/suppliers-actions';
 import Paginaton from '../common/pagination/Pagination';
+import RowsPerPage from '../common/rows-per-page/RowsPerPage';
 import SuppliersTable from './table/SuppliersTable';
 
 function Suppliers() {
@@ -39,17 +40,13 @@ function Suppliers() {
         </Link>
       </div>
 
-      <section className='mt-5 table-container'>
-        <div className='card'>
-          <div className='card-header fs-2'>Suppliers</div>
-          <div className='card-body'>
-            <div className='table-responsive'>
-              <SuppliersTable />
-            </div>
-          </div>
+      <section className='mt-5 border'>
+        <div className='d-flex mb-2 justify-content-between bg-light py-2 px-3'>
+          <h3 className='fw-normal'> Suppliers </h3> <RowsPerPage />
         </div>
-        <Paginaton totalItems={suppliers.length} />
+        <SuppliersTable />
       </section>
+      <Paginaton totalItems={suppliers.length} />
     </div>
   );
 }

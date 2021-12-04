@@ -1,3 +1,4 @@
+import { float, numericString } from '../../../../utils/utility_functions';
 import PaymentStatusBadge from '../../../common/payment status badge/PaymentStatusBadge';
 
 function Purchase({
@@ -15,8 +16,8 @@ function Purchase({
       <td>{id}</td>
       <td>{supplier}</td>
       <td>{purchaseStatus}</td>
-      <td>{grandTotal}</td>
-      <td>{amountPaid}</td>
+      <td>{numericString(grandTotal)}</td>
+      <td>{numericString(amountPaid)}</td>
       <td>
         <PaymentStatusBadge status={paymentStatus} />
       </td>

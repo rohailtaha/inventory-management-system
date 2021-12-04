@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { show_delete_confirmation } from '../../../actions/delete-confirmation/delete-confirmation-actions';
+import { numericString } from '../../../utils/utility_functions';
 import PaymentStatusBadge from '../../common/payment status badge/PaymentStatusBadge';
 
 function Sale({ date, id, customer, grandTotal, netPayment, paymentStatus }) {
@@ -11,8 +12,8 @@ function Sale({ date, id, customer, grandTotal, netPayment, paymentStatus }) {
       <td>{date}</td>
       <td>{id}</td>
       <td>{customer}</td>
-      <td>{grandTotal}</td>
-      <td>{netPayment}</td>
+      <td>{numericString(grandTotal)}</td>
+      <td>{numericString(netPayment)}</td>
       <td>
         <PaymentStatusBadge status={paymentStatus} />
       </td>
