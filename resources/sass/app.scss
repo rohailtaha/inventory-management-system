@@ -239,6 +239,15 @@ input::placeholder {
   padding-left: 50px;
 }
 
+.main--login {
+  form {
+    .forgot-password {
+      font-size: 0.9rem;
+      width: max-content;
+    }
+  }
+}
+
 .main--login,
 .main--forgot-password,
 .main--reset-password {

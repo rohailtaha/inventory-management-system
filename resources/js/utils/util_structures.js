@@ -1,3 +1,5 @@
+export const APP_NAME = 'StockPort';
+
 export const userRoles = {
   ADMIN: 'Admin',
   EMPLOYEE: 'Employee',

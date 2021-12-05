@@ -35,12 +35,12 @@ Route::get('/reset-password/{token}', function ($token) {
   return view('auth.reset-password', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
 
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->middleware('guest');
+
 Route::get('/', function () {
-  // return view('index');
-  return view('auth.reset-password');
+  return view('index');
 })->name('root');
 
 Route::get('/{path}', function () {
   return view('index');
-  // return redirect()->route('root');
 })->where('path', '.*');

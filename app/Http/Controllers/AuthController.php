@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 
@@ -49,7 +50,28 @@ class AuthController extends Controller {
 
     return $status === Password::RESET_LINK_SENT ?
     response(['status' => 'OK'], 200) :
-    response(['error' => ['msg' => 'We could not send you the verification email. Kindly contact the administrator to reset your password.'], 'status' => 'ERROR'], 500);
+    response(['error' => ['msg' => 'Looks like the reset email is already sent, kindly check your inbox. If not, then wait for one minute and try again. If nothing works, then kindly contact the administrator to reset your password.'], 'status' => 'ERROR'], 500);
+  }
+
+  public function resetPassword(Request $request) {
+
+    $request->validate([
+      'email' => 'required|email',
+      'token' => 'required',
+      'password' => 'required|max:50|min:5|confirmed',
+    ]);
+
+    $status = Password::reset(
+      $request->only('email', 'password', 'password_confirmation', 'token'),
+      function ($user, $password) {
+        $user->password = Hash::make($password);
+        $user->save();
+      }
+    );
+
+    return $status === Password::PASSWORD_RESET
+      ? redirect()->route('root')
+      : back()->withErrors(['email' => [__($status)]]);
   }
 
   public function logout(Request $request) {

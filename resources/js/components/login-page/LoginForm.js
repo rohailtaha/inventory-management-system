@@ -93,12 +93,12 @@ export default function LoginForm() {
           Remember
         </label>
       </div>
-      <button type='submit' className='btn btn-primary px-4 mb-3'>
+      <button type='submit' className='btn btn-primary px-4'>
         Login
       </button>
       <Link
         to='/forgot-password'
-        className='text-danger mb-3 d-block text-decoration-underline fw-bold'
+        className='forgot-password ms-auto text-secondary mb-3 d-block text-decoration-underline fw-bold'
       >
         {' '}
         Forgot Password?{' '}

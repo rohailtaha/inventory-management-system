@@ -11503,6 +11503,13 @@ input::placeholder {
   padding-left: 50px;
 }
 
+.main--login form .forgot-password {
+  font-size: 0.9rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
 .main--login .main__content,
 .main--forgot-password .main__content,
 .main--reset-password .main__content {

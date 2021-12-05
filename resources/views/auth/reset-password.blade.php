@@ -13,6 +13,7 @@
     <h1 class='mb-4'> Reset Password</h1>
 
       <form action="/reset-password" method="POST">
+        @csrf
         <div class='mb-3'>
           <label for='email' class='form-label fw-bold'>
             Email
@@ -24,7 +25,11 @@
             name='email'
             required
             maxlength='255'
+            value="{{old('email')}}"
           />
+          @error('email')
+            <p class="text-danger fs-6 fw-bold my-2"> {{$message}} </p>
+          @enderror
         </div>
         <div class='mb-2'>
           <label for='password' class='form-label fw-bold'>
@@ -40,25 +45,31 @@
             maxlength='50'
             placeholder='Minimum 5 characters long'
           />
+          @error('password')
+            <p class="text-danger fw-bold fs-6 my-2"> {{$message}} </p>
+          @enderror
         </div>
         <div class='mb-3'>
-          <label for='password' class='form-label fw-bold'>
+          <label for='password_confirmation' class='form-label fw-bold'>
             Confirm Password
           </label>
           <input
-            id='confirm_password'
+            id='password_confirmation'
             type='password'
             class='form-control form-control-sm'
-            name='confirm_password'
+            name='password_confirmation'
             required
             placeholder='Re-enter password'
           />
+          @error('confirm_password')
+            <p class="text-danger fw-bold fs-6 my-2"> {{$message}} </p>
+          @enderror
         </div>
         <button type='submit' class='btn btn-primary px-4 mb-3'>
           Submit
         </button>
 
-        <input type="text" name='token' value= "ahsdjahk2131" hidden/>
+        <input type="text" name='token' value= {{ $token }} hidden />
       </form>
     </div>
   </div>
