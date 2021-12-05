@@ -17,7 +17,7 @@ import shopReducer from './shop-reducer/shop-reducer';
 
 const allReducers = combineReducers({
   sidebarOpen: sidebarReducer,
-  loggedin: authenticationReducer,
+  auth: authenticationReducer,
   pagination: paginationReducer,
   successMessage: successMessageReducer,
   error: errorsReducer,

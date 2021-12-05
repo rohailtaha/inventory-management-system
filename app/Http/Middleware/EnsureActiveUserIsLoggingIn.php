@@ -17,6 +17,6 @@ class EnsureActiveUserIsLoggingIn {
     if ($user) {
       return $user->active === 1 ? $next($request) : $this->errorResponse();
     }
-    $next($request);
+    return $next($request);
   }
 }

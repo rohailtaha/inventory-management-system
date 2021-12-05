@@ -2,10 +2,10 @@ import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react/cjs/react.development';
-import { request_login } from '../../../../actions/authentication/authentication-actions';
-import { hide_error } from '../../../../actions/users/users-actions';
-import { removeExtraSpaces } from '../../../../utils/utility_functions';
-import FormError from '../../../common/form-error/FormError';
+import { request_login } from '../../actions/authentication/authentication-actions';
+import { hide_error } from '../../actions/authentication/authentication-actions';
+import { removeExtraSpaces } from '../../utils/utility_functions';
+import FormError from '../common/form-error/FormError';
 
 export default function LoginForm() {
   const [form, setForm] = useState({
@@ -21,7 +21,7 @@ export default function LoginForm() {
       : rememberRef.current.setAttribute('checked', 'true');
   };
 
-  const [error] = useSelector(state => [state.users.error]);
+  const [error] = useSelector(state => [state.auth.error]);
   const dispatch = useDispatch();
 
   const handleChange = event => {
@@ -97,7 +97,7 @@ export default function LoginForm() {
         Login
       </button>
       <Link
-        to='/'
+        to='/forgot-password'
         className='text-danger mb-3 d-block text-decoration-underline fw-bold'
       >
         {' '}

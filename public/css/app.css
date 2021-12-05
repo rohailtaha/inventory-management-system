@@ -11503,7 +11503,9 @@ input::placeholder {
   padding-left: 50px;
 }
 
-.main--login .main__content {
+.main--login .main__content,
+.main--forgot-password .main__content,
+.main--reset-password .main__content {
   width: 60%;
   max-width: 500px;
   position: absolute;

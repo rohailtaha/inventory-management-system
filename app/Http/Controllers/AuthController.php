@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller {
@@ -31,6 +32,24 @@ class AuthController extends Controller {
       'status' => 'OK',
     ], 200);
 
+  }
+
+  public function sendPasswordResetEmail(Request $request) {
+    $validator = Validator::make($request->all(), [
+      'email' => 'required|email',
+    ]);
+
+    if ($this->invalid($validator)) {
+      return $this->errorResponse($validator);
+    }
+
+    $status = Password::sendResetLink(
+      $request->only('email')
+    );
+
+    return $status === Password::RESET_LINK_SENT ?
+    response(['status' => 'OK'], 200) :
+    response(['error' => ['msg' => 'We could not send you the verification email. Kindly contact the administrator to reset your password.'], 'status' => 'ERROR'], 500);
   }
 
   public function logout(Request $request) {

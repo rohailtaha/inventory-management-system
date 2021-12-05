@@ -239,7 +239,9 @@ input::placeholder {
   padding-left: 50px;
 }
 
-.main--login {
+.main--login,
+.main--forgot-password,
+.main--reset-password {
   .main__content {
     width: 60%;
     max-width: 500px;

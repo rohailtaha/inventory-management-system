@@ -187,6 +187,10 @@ export const show_error = msg => ({
   },
 });
 
+export const hide_error = () => ({
+  type: actionTypes.HIDE_USERS_ERROR,
+});
+
 export const show_password_form_error = msg => ({
   type: actionTypes.SHOW_PASSWORD_FORM_ERROR,
   payload: {
@@ -196,8 +200,4 @@ export const show_password_form_error = msg => ({
 
 export const hide_password_form_error = () => ({
   type: actionTypes.HIDE_PASSWORD_FORM_ERROR,
-});
-
-export const hide_error = () => ({
-  type: actionTypes.HIDE_USERS_ERROR,
 });
