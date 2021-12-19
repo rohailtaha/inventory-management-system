@@ -17,6 +17,7 @@ import Paginaton from '../../common/pagination/Pagination';
 import SalesReportForm from './form/SalesReportForm';
 import SalesReportHeader from './report header/SalesReportHeader';
 import SalesReportTable from './table/SalesReportTable';
+import withCleaner from '../../hocs/withCleaner';
 
 function SalesReport() {
   const [fetched, report, sales] = useSelector(state => [
@@ -46,10 +47,6 @@ function SalesReport() {
     window.print();
     dispatch(set_items_per_page(defaultRowsCountPerPage));
   };
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => dispatch(reset_pagination());
 
   return (
     <Fragment>
@@ -82,4 +79,4 @@ function SalesReport() {
   );
 }
 
-export default SalesReport;
+export default withCleaner(SalesReport, [reset_pagination]);
