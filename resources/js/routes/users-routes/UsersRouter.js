@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import Users from '../../components/users-page/Users';
 import AddUser from '../../components/users-page/user/add user/AddUser';
 import EditUser from '../../components/users-page/user/edit user/EditUser';
-import { Route, Switch } from 'react-router';
+import { Route } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetch_users } from '../../actions/users/users-actions';
