@@ -3,27 +3,18 @@ import {
   resort_products,
   sort_products,
 } from '../../../actions/products/products-actions';
+import useItemsForCurrentPage from '../../../hooks/useItemsForCurrentPage';
 import { userRoles } from '../../../utils/util_structures';
 import SortArrows from '../../common/sort-arrows/SortArrows';
 import withCleaner from '../../hocs/withCleaner';
 import Product from './Product';
 
 function ProductsTable({ products }) {
-  const [pagination, userRole] = useSelector(state => [
-    state.pagination,
-    state.users.user.role,
-  ]);
+  const [userRole] = useSelector(state => [state.users.user.role]);
 
   const dispatch = useDispatch();
 
-  const itemsForCurrentPage = () =>
-    products.slice(
-      initialItemIndexForCurrentPage(),
-      initialItemIndexForCurrentPage() + pagination.itemsPerPage
-    );
-
-  const initialItemIndexForCurrentPage = () =>
-    (pagination.currentPage - 1) * pagination.itemsPerPage;
+  const itemsForCurrentPage = useItemsForCurrentPage(products);
 
   const sort = (key, order) => dispatch(sort_products(key, order));
 
@@ -60,7 +51,7 @@ function ProductsTable({ products }) {
           </tr>
         </thead>
         <tbody>
-          {itemsForCurrentPage().map(product => (
+          {itemsForCurrentPage.map(product => (
             <Product
               key={product.id}
               id={product.id}

@@ -1,26 +1,16 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resort_users, sort_users } from '../../../actions/users/users-actions';
+import useItemsForCurrentPage from '../../../hooks/useItemsForCurrentPage';
 import SortArrows from '../../common/sort-arrows/SortArrows';
 import withCleaner from '../../hocs/withCleaner';
 import User from './User';
 
 function UsersTable() {
-  const [users, pagination] = useSelector(state => [
-    state.users.list,
-    state.pagination,
-  ]);
+  const [users] = useSelector(state => [state.users.list]);
 
   const dispatch = useDispatch();
 
-  const itemsForCurrentPage = () =>
-    users.slice(
-      initialItemIndexForCurrentPage(),
-      initialItemIndexForCurrentPage() + pagination.itemsPerPage
-    );
-
-  const initialItemIndexForCurrentPage = () =>
-    (pagination.currentPage - 1) * pagination.itemsPerPage;
+  const itemsForCurrentPage = useItemsForCurrentPage(users);
 
   const sort = (key, order) => dispatch(sort_users(key, order));
 
@@ -49,7 +39,7 @@ function UsersTable() {
           </tr>
         </thead>
         <tbody>
-          {itemsForCurrentPage().map(user => (
+          {itemsForCurrentPage.map(user => (
             <User
               id={user.id}
               role={user.role}
