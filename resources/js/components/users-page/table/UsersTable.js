@@ -66,4 +66,4 @@ function UsersTable() {
   );
 }
 
-export default withCleaner(UsersTable, resort_users);
+export default withCleaner(UsersTable, [resort_users]);

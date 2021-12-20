@@ -1,21 +1,12 @@
 import { Fragment } from 'react';
-import { Route, Switch } from 'react-router';
+import { Route } from 'react-router';
 import Suppliers from '../../components/suppliers-page/Suppliers';
 import AddSupplier from '../../components/suppliers-page/supplier/add supplier/AddSupplier';
 import EditSupplier from '../../components/suppliers-page/supplier/edit supplier/EditSupplier';
-import { useDispatch, useSelector } from 'react-redux';
-import { request_fetch_suppliers } from '../../actions/suppliers/suppliers-actions';
-import { useEffect } from 'react';
+import useSuppliers from '../../hooks/useSuppliers';
 
 function SuppliersRouter() {
-  const [fetched] = useSelector(state => [state.suppliers.fetched]);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!fetched) dispatch(request_fetch_suppliers());
-  }, []);
-
+  const [, fetched] = useSuppliers();
   const fetchedRequiredResources = () => fetched;
 
   return (
