@@ -10,7 +10,6 @@ import useCategories from '../../hooks/useCategories';
 
 function ProductsRouter() {
   const [userRole] = useSelector(state => [state.users.user.role]);
-
   const [, fetched] = useProducts();
   const [, fetchedCategories] = useCategories();
 

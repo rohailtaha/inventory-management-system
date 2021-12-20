@@ -9,9 +9,9 @@ import usePurchases from '../../hooks/usePurchases';
 import useProducts from '../../hooks/useProducts';
 
 function PurchasesRouter() {
+  const [, fetched] = usePurchases();
   const [, fetchedProducts] = useProducts();
   const [, fetchedSuppliers] = useSuppliers();
-  const [, fetched] = usePurchases();
 
   const fetchedRequiredResources = () =>
     fetched && fetchedProducts && fetchedSuppliers;

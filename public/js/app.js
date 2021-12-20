@@ -7422,27 +7422,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_products_products_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/products/products-actions */ "./resources/js/actions/products/products-actions.js");
-/* harmony import */ var _actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/purchases/purchases-actions */ "./resources/js/actions/purchases/purchases-actions.js");
-/* harmony import */ var _actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/sales/sales-actions */ "./resources/js/actions/sales/sales-actions.js");
-/* harmony import */ var _cash_flow_stats_CashFlowStats__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./cash flow stats/CashFlowStats */ "./resources/js/components/dashboard-page/cash flow stats/CashFlowStats.js");
-/* harmony import */ var _inventory_stats_InventoryStats__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./inventory stats/InventoryStats */ "./resources/js/components/dashboard-page/inventory stats/InventoryStats.js");
-/* harmony import */ var _tables_highest_selling_products_HighestSellingProductsTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tables/highest selling products/HighestSellingProductsTable */ "./resources/js/components/dashboard-page/tables/highest selling products/HighestSellingProductsTable.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
+/* harmony import */ var _hooks_useProducts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../hooks/useProducts */ "./resources/js/hooks/useProducts.js");
+/* harmony import */ var _hooks_usePurchases__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hooks/usePurchases */ "./resources/js/hooks/usePurchases.js");
+/* harmony import */ var _hooks_useSales__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../hooks/useSales */ "./resources/js/hooks/useSales.js");
+/* harmony import */ var _cash_flow_stats_CashFlowStats__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./cash flow stats/CashFlowStats */ "./resources/js/components/dashboard-page/cash flow stats/CashFlowStats.js");
+/* harmony import */ var _inventory_stats_InventoryStats__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./inventory stats/InventoryStats */ "./resources/js/components/dashboard-page/inventory stats/InventoryStats.js");
+/* harmony import */ var _tables_highest_selling_products_HighestSellingProductsTable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tables/highest selling products/HighestSellingProductsTable */ "./resources/js/components/dashboard-page/tables/highest selling products/HighestSellingProductsTable.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -7454,31 +7440,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Dashboard() {
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return [state.products.fetched, state.sales.fetched, state.purchases.fetched];
-  }),
-      _useSelector2 = _slicedToArray(_useSelector, 3),
-      fetchedProducts = _useSelector2[0],
-      fetchedSales = _useSelector2[1],
-      fetchedPurchases = _useSelector2[2];
-
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!fetchedProducts) dispatch((0,_actions_products_products_actions__WEBPACK_IMPORTED_MODULE_2__.fetch_products)());
-    if (!fetchedSales) dispatch((0,_actions_sales_sales_actions__WEBPACK_IMPORTED_MODULE_4__.request_fetch_sales)());
-    if (!fetchedPurchases) dispatch((0,_actions_purchases_purchases_actions__WEBPACK_IMPORTED_MODULE_3__.request_fetch_purchases)());
-  }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+  (0,_hooks_useProducts__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  (0,_hooks_useSales__WEBPACK_IMPORTED_MODULE_3__["default"])();
+  (0,_hooks_usePurchases__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     className: "main__content main__content--dashboard",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_inventory_stats_InventoryStats__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_cash_flow_stats_CashFlowStats__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("section", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_inventory_stats_InventoryStats__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_cash_flow_stats_CashFlowStats__WEBPACK_IMPORTED_MODULE_4__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("section", {
       className: "mt-5 border",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "bg-light py-2 px-3 border-bottom",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h4", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
           className: "fw-normal",
           children: " Highest Selling Products "
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_tables_highest_selling_products_HighestSellingProductsTable__WEBPACK_IMPORTED_MODULE_7__["default"], {})]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_tables_highest_selling_products_HighestSellingProductsTable__WEBPACK_IMPORTED_MODULE_6__["default"], {})]
     })]
   });
 }
@@ -17347,11 +17322,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _actions_categories_categories_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/categories/categories-actions */ "./resources/js/actions/categories/categories-actions.js");
-/* harmony import */ var _components_categories_page_Categories__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/categories-page/Categories */ "./resources/js/components/categories-page/Categories.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _components_categories_page_Categories__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/categories-page/Categories */ "./resources/js/components/categories-page/Categories.js");
+/* harmony import */ var _hooks_useCategories__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hooks/useCategories */ "./resources/js/hooks/useCategories.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -17371,34 +17345,25 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-
 function CategoriesRouter() {
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return [state.categories.fetched];
-  }),
-      _useSelector2 = _slicedToArray(_useSelector, 1),
-      fetched = _useSelector2[0];
-
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!fetched) dispatch((0,_actions_categories_categories_actions__WEBPACK_IMPORTED_MODULE_2__.fetch_categories)());
-  }, []);
+  var _useCategories = (0,_hooks_useCategories__WEBPACK_IMPORTED_MODULE_2__["default"])(),
+      _useCategories2 = _slicedToArray(_useCategories, 2),
+      fetched = _useCategories2[1];
 
   var fetchedRequiredResources = function fetchedRequiredResources() {
     return fetched;
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: fetchedRequiredResources() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_5__.Route, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: fetchedRequiredResources() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_4__.Route, {
         path: "/categories",
         exact: true,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_categories_page_Categories__WEBPACK_IMPORTED_MODULE_3__["default"], {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_5__.Route, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_categories_page_Categories__WEBPACK_IMPORTED_MODULE_1__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_4__.Route, {
         path: "/categories/:id/edit",
         exact: true,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_categories_page_Categories__WEBPACK_IMPORTED_MODULE_3__["default"], {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_categories_page_Categories__WEBPACK_IMPORTED_MODULE_1__["default"], {})
       })]
     })
   });
@@ -17420,13 +17385,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _components_customers_page_Customers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/customers-page/Customers */ "./resources/js/components/customers-page/Customers.js");
 /* harmony import */ var _components_customers_page_customer_add_customer_AddCustomer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/customers-page/customer/add customer/AddCustomer */ "./resources/js/components/customers-page/customer/add customer/AddCustomer.js");
 /* harmony import */ var _components_customers_page_customer_edit_customer_EditCustomer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/customers-page/customer/edit customer/EditCustomer */ "./resources/js/components/customers-page/customer/edit customer/EditCustomer.js");
-/* harmony import */ var _actions_customers_customers_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/customers/customers-actions */ "./resources/js/actions/customers/customers-actions.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _hooks_useCustomers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../hooks/useCustomers */ "./resources/js/hooks/useCustomers.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -17448,38 +17412,29 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-
 function CustomersRouter() {
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__.useSelector)(function (state) {
-    return [state.customers.fetched];
-  }),
-      _useSelector2 = _slicedToArray(_useSelector, 1),
-      fetched = _useSelector2[0];
-
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__.useDispatch)();
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!fetched) dispatch((0,_actions_customers_customers_actions__WEBPACK_IMPORTED_MODULE_4__.request_fetch_customers)());
-  }, []);
+  var _useCustomers = (0,_hooks_useCustomers__WEBPACK_IMPORTED_MODULE_4__["default"])(),
+      _useCustomers2 = _slicedToArray(_useCustomers, 2),
+      fetched = _useCustomers2[1];
 
   var fetchedRequiredResources = function fetchedRequiredResources() {
     return fetched;
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: fetchedRequiredResources() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_7__.Route, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: fetchedRequiredResources() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_6__.Route, {
         path: "/customers",
         exact: true,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_customers_page_Customers__WEBPACK_IMPORTED_MODULE_1__["default"], {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_7__.Route, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_customers_page_Customers__WEBPACK_IMPORTED_MODULE_1__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_6__.Route, {
         path: "/customers/add",
         exact: true,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_customers_page_customer_add_customer_AddCustomer__WEBPACK_IMPORTED_MODULE_2__["default"], {})
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_7__.Route, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_customers_page_customer_add_customer_AddCustomer__WEBPACK_IMPORTED_MODULE_2__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_6__.Route, {
         path: "/customers/:id/edit",
         exact: true,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_customers_page_customer_edit_customer_EditCustomer__WEBPACK_IMPORTED_MODULE_3__["default"], {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_customers_page_customer_edit_customer_EditCustomer__WEBPACK_IMPORTED_MODULE_3__["default"], {})
       })]
     })
   });
@@ -17624,6 +17579,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function PurchasesRouter() {
+  var _usePurchases = (0,_hooks_usePurchases__WEBPACK_IMPORTED_MODULE_6__["default"])(),
+      _usePurchases2 = _slicedToArray(_usePurchases, 2),
+      fetched = _usePurchases2[1];
+
   var _useProducts = (0,_hooks_useProducts__WEBPACK_IMPORTED_MODULE_7__["default"])(),
       _useProducts2 = _slicedToArray(_useProducts, 2),
       fetchedProducts = _useProducts2[1];
@@ -17631,10 +17590,6 @@ function PurchasesRouter() {
   var _useSuppliers = (0,_hooks_useSuppliers__WEBPACK_IMPORTED_MODULE_5__["default"])(),
       _useSuppliers2 = _slicedToArray(_useSuppliers, 2),
       fetchedSuppliers = _useSuppliers2[1];
-
-  var _usePurchases = (0,_hooks_usePurchases__WEBPACK_IMPORTED_MODULE_6__["default"])(),
-      _usePurchases2 = _slicedToArray(_usePurchases, 2),
-      fetched = _usePurchases2[1];
 
   var fetchedRequiredResources = function fetchedRequiredResources() {
     return fetched && fetchedProducts && fetchedSuppliers;
