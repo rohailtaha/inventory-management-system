@@ -3,27 +3,18 @@ import {
   resort_purchases,
   sort_purchases,
 } from '../../../actions/purchases/purchases-actions';
+import useItemsForCurrentPage from '../../../hooks/useItemsForCurrentPage';
 import { getDate } from '../../../utils/utility_functions';
 import SortArrows from '../../common/sort-arrows/SortArrows';
 import withCleaner from '../../hocs/withCleaner';
 import Purchase from './Purchase';
 
 function PurchasesTable() {
-  const [purchases, pagination] = useSelector(state => [
-    state.purchases.list,
-    state.pagination,
-  ]);
+  const [purchases] = useSelector(state => [state.purchases.list]);
 
   const dispatch = useDispatch();
 
-  const itemsForCurrentPage = () =>
-    purchases.slice(
-      initialItemIndexForCurrentPage(),
-      initialItemIndexForCurrentPage() + pagination.itemsPerPage
-    );
-
-  const initialItemIndexForCurrentPage = () =>
-    (pagination.currentPage - 1) * pagination.itemsPerPage;
+  const itemsForCurrentPage = useItemsForCurrentPage(purchases);
 
   const sort = (key, order) => dispatch(sort_purchases(key, order));
 
@@ -63,7 +54,7 @@ function PurchasesTable() {
           </tr>
         </thead>
         <tbody>
-          {itemsForCurrentPage().map(purchase => (
+          {itemsForCurrentPage.map(purchase => (
             <Purchase
               key={purchase.id}
               id={purchase.id}
