@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { resort_sales, sort_sales } from '../../../actions/sales/sales-actions';
 import { getDate } from '../../../utils/utility_functions';
 import SortArrows from '../../common/sort-arrows/SortArrows';
+import withCleaner from '../../hocs/withCleaner';
 import Sale from './Sale';
 
 function SalesTable() {
@@ -23,10 +24,6 @@ function SalesTable() {
     (pagination.currentPage - 1) * pagination.itemsPerPage;
 
   const sort = (key, order) => dispatch(sort_sales(key, order));
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => dispatch(resort_sales());
 
   return (
     <div className='table-responsive'>
@@ -77,4 +74,4 @@ function SalesTable() {
   );
 }
 
-export default SalesTable;
+export default withCleaner(SalesTable, [resort_sales]);

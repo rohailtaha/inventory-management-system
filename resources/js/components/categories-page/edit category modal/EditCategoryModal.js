@@ -9,6 +9,7 @@ import {
 import { removeExtraSpaces } from '../../../utils/utility_functions';
 import FormError from '../../common/form-error/FormError';
 import { hide_success_message } from '../../../actions/success-message/success-message-actions';
+import withCleaner from '../../hocs/withCleaner';
 
 function EditCategoryModal({ categoryID }) {
   const [categories, successMessage, error] = useSelector(state => [
@@ -43,13 +44,6 @@ function EditCategoryModal({ categoryID }) {
   const dataWithCorrectFormat = () => ({
     name: removeExtraSpaces(form.name),
   });
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => {
-    dispatch(hide_error());
-    dispatch(hide_success_message());
-  };
 
   return (
     <div className='modal edit-category-modal d-block' tabIndex='-1'>
@@ -86,4 +80,7 @@ function EditCategoryModal({ categoryID }) {
   );
 }
 
-export default EditCategoryModal;
+export default withCleaner(EditCategoryModal, [
+  hide_error,
+  hide_success_message,
+]);

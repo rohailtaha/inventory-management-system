@@ -12,6 +12,7 @@ import FormError from '../../../common/form-error/FormError';
 import { removeExtraSpaces } from '../../../../utils/utility_functions';
 import { userRoles, userStatus } from '../../../../utils/util_structures';
 import UserRoleOption from './UserRoleOption';
+import withCleaner from '../../../hocs/withCleaner';
 
 const defaultForm = {
   name: '',
@@ -77,13 +78,6 @@ function UserForm({ mode }) {
     active: parseInt(form.active),
     role: form.role,
   });
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => {
-    dispatch(hide_error());
-    dispatch(hide_success_message());
-  };
 
   return (
     <Fragment>
@@ -202,4 +196,4 @@ function UserForm({ mode }) {
   );
 }
 
-export default UserForm;
+export default withCleaner(UserForm, [hide_error, hide_success_message]);

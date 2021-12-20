@@ -11,6 +11,7 @@ import {
 } from '../../../../actions/suppliers/suppliers-actions';
 import { removeExtraSpaces } from '../../../../utils/utility_functions';
 import FormError from '../../../common/form-error/FormError';
+import withCleaner from '../../../hocs/withCleaner';
 
 function SupplierForm({ mode }) {
   const [form, setForm] = useState({
@@ -76,13 +77,6 @@ function SupplierForm({ mode }) {
       contact: '',
       address: '',
     });
-  };
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => {
-    dispatch(hide_error());
-    dispatch(hide_success_message());
   };
 
   useEffect(() => {
@@ -167,4 +161,4 @@ function SupplierForm({ mode }) {
   );
 }
 
-export default SupplierForm;
+export default withCleaner(SupplierForm, [hide_error, hide_success_message]);

@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   resort_categories,
   sort_categories,
 } from '../../../actions/categories/categories-actions';
 import SortArrows from '../../common/sort-arrows/SortArrows';
+import withCleaner from '../../hocs/withCleaner';
 import Category from './Category';
 
 function CategoriesTable() {
@@ -25,10 +25,6 @@ function CategoriesTable() {
     (pagination.currentPage - 1) * pagination.itemsPerPage;
 
   const sort = (key, order) => dispatch(sort_categories(key, order));
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => dispatch(resort_categories());
 
   return (
     <div className='table-responsive'>
@@ -52,4 +48,4 @@ function CategoriesTable() {
   );
 }
 
-export default CategoriesTable;
+export default withCleaner(CategoriesTable, [resort_categories]);

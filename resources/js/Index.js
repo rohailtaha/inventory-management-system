@@ -6,7 +6,7 @@ import store from './store';
 
 ReactDOM.render(
   <Provider store={store}>
-    <Gateway />{' '}
+    <Gateway />
   </Provider>,
   document.getElementById('root')
 );

@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   resort_suppliers,
   sort_suppliers,
 } from '../../../actions/suppliers/suppliers-actions';
 import SortArrows from '../../common/sort-arrows/SortArrows';
+import withCleaner from '../../hocs/withCleaner';
 import Supplier from './Supplier';
 
 function SuppliersTable() {
@@ -25,10 +25,6 @@ function SuppliersTable() {
     (pagination.currentPage - 1) * pagination.itemsPerPage;
 
   const sort = (key, order) => dispatch(sort_suppliers(key, order));
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => dispatch(resort_suppliers());
 
   return (
     <div className='table-responsive'>
@@ -67,4 +63,4 @@ function SuppliersTable() {
   );
 }
 
-export default SuppliersTable;
+export default withCleaner(SuppliersTable, [resort_suppliers]);

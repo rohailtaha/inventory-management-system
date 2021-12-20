@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   resort_purchases,
@@ -6,6 +5,7 @@ import {
 } from '../../../actions/purchases/purchases-actions';
 import { getDate } from '../../../utils/utility_functions';
 import SortArrows from '../../common/sort-arrows/SortArrows';
+import withCleaner from '../../hocs/withCleaner';
 import Purchase from './Purchase';
 
 function PurchasesTable() {
@@ -26,10 +26,6 @@ function PurchasesTable() {
     (pagination.currentPage - 1) * pagination.itemsPerPage;
 
   const sort = (key, order) => dispatch(sort_purchases(key, order));
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => dispatch(resort_purchases());
 
   return (
     <div className='table-responsive'>
@@ -86,4 +82,4 @@ function PurchasesTable() {
   );
 }
 
-export default PurchasesTable;
+export default withCleaner(PurchasesTable, [resort_purchases]);

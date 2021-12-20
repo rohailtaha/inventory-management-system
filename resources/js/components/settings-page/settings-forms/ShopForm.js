@@ -1,6 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   hide_error,
   request_update_shop,
@@ -8,8 +7,9 @@ import {
 import { hide_success_message } from '../../../actions/success-message/success-message-actions';
 import { removeExtraSpaces } from '../../../utils/utility_functions';
 import FormError from '../../common/form-error/FormError';
+import withCleaner from '../../hocs/withCleaner';
 
-export default function ShopForm() {
+function ShopForm() {
   const [shop, error, successMessage] = useSelector(state => [
     state.shop,
     state.shop.error,
@@ -34,6 +34,8 @@ export default function ShopForm() {
       defaultFormState();
     }
   }, [editable]);
+
+  useEffect(defaultFormState, [shop]);
 
   const enableEdit = () => {
     [nameRef, contactRef, addressRef].forEach(ref =>
@@ -63,12 +65,6 @@ export default function ShopForm() {
   useEffect(() => {
     if (successMessage.show) disableEdit();
   }, [successMessage.show]);
-
-  useEffect(() => cleanup, []);
-  const cleanup = () => {
-    dispatch(hide_error());
-    dispatch(hide_success_message());
-  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -143,3 +139,5 @@ export default function ShopForm() {
     </form>
   );
 }
+
+export default withCleaner(ShopForm, [hide_error, hide_success_message]);

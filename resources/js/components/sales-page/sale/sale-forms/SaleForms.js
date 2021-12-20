@@ -5,6 +5,7 @@ import {
   hide_error,
 } from '../../../../actions/sales/sales-actions';
 import { hide_success_message } from '../../../../actions/success-message/success-message-actions';
+import withCleaner from '../../../hocs/withCleaner';
 import ProductToSaleForm from './products-to-sale-form/ProductToSaleForm';
 import SaleDetailsForm from './sale-details-form/SaleDetailsForm';
 
@@ -36,4 +37,8 @@ function SaleForm({ mode }) {
   );
 }
 
-export default SaleForm;
+export default withCleaner(SaleForm, [
+  clear_products_from_sale,
+  hide_error,
+  hide_success_message,
+]);

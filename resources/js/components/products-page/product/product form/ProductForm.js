@@ -19,6 +19,7 @@ import {
 import FormError from '../../../common/form-error/FormError';
 import ProductCategoryOption from '../../../common/product-category-option/ProductCategoryOption';
 import { hide_success_message } from '../../../../actions/success-message/success-message-actions';
+import withCleaner from '../../../hocs/withCleaner';
 
 function ProductForm({ mode }) {
   const [products, categories, error, successMessage] = useSelector(state => [
@@ -109,13 +110,6 @@ function ProductForm({ mode }) {
   }, [successMessage.show]);
 
   const resetForm = () => setForm(defautForm);
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => {
-    dispatch(hide_error());
-    dispatch(hide_success_message());
-  };
 
   return (
     <form className='mt-4' onSubmit={handleSubmit}>
@@ -303,4 +297,4 @@ function ProductForm({ mode }) {
   );
 }
 
-export default ProductForm;
+export default withCleaner(ProductForm, [hide_error, hide_success_message]);

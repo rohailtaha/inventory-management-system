@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   resort_products,
@@ -6,9 +5,10 @@ import {
 } from '../../../actions/products/products-actions';
 import { userRoles } from '../../../utils/util_structures';
 import SortArrows from '../../common/sort-arrows/SortArrows';
+import withCleaner from '../../hocs/withCleaner';
 import Product from './Product';
 
-export default function ProductsTable({ products }) {
+function ProductsTable({ products }) {
   const [pagination, userRole] = useSelector(state => [
     state.pagination,
     state.users.user.role,
@@ -26,10 +26,6 @@ export default function ProductsTable({ products }) {
     (pagination.currentPage - 1) * pagination.itemsPerPage;
 
   const sort = (key, order) => dispatch(sort_products(key, order));
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => dispatch(resort_products());
 
   return (
     <div className='table-responsive'>
@@ -81,3 +77,5 @@ export default function ProductsTable({ products }) {
     </div>
   );
 }
+
+export default withCleaner(ProductsTable, [resort_products]);

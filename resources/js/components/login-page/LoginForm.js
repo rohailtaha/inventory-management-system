@@ -1,13 +1,13 @@
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react/cjs/react.development';
 import { request_login } from '../../actions/authentication/authentication-actions';
 import { hide_error } from '../../actions/authentication/authentication-actions';
 import { removeExtraSpaces } from '../../utils/utility_functions';
 import FormError from '../common/form-error/FormError';
+import withCleaner from '../hocs/withCleaner';
 
-export default function LoginForm() {
+function LoginForm() {
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -42,9 +42,6 @@ export default function LoginForm() {
     password: form.password,
     remember: rememberRef.current.hasAttribute('checked'),
   });
-
-  useEffect(() => cleanup, []);
-  const cleanup = () => dispatch(hide_error());
 
   return (
     <form onSubmit={handleSubmit}>
@@ -107,3 +104,5 @@ export default function LoginForm() {
     </form>
   );
 }
+
+export default withCleaner(LoginForm, [hide_error]);

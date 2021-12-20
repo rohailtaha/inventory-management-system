@@ -5,6 +5,7 @@ import {
   sort_customers,
 } from '../../../actions/customers/customers-actions';
 import SortArrows from '../../common/sort-arrows/SortArrows';
+import withCleaner from '../../hocs/withCleaner';
 import Customer from './Customer';
 
 function CustomersTable() {
@@ -25,10 +26,6 @@ function CustomersTable() {
     (pagination.currentPage - 1) * pagination.itemsPerPage;
 
   const sort = (key, order) => dispatch(sort_customers(key, order));
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => dispatch(resort_customers());
 
   return (
     <div className='table-responsive'>
@@ -71,4 +68,4 @@ function CustomersTable() {
   );
 }
 
-export default CustomersTable;
+export default withCleaner(CustomersTable, [resort_customers]);
