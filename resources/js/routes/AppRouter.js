@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router';
+import { Route } from 'react-router';
 
 import Dashboard from '../components/dashboard-page/Dashboard';
 import SuppliersRouter from './suppliers-routes/SuppliersRouter';
@@ -16,7 +16,6 @@ import Settings from '../components/settings-page/Settings';
 
 function AppRouter() {
   const userRole = useSelector(state => state.users.user.role);
-  const [loggedin] = useSelector(state => [state.loggedin]);
 
   return (
     <Fragment>
