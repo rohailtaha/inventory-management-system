@@ -15502,7 +15502,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
 function useItemsForCurrentPage(items) {
-  console.log('inside useItemsForCurrentPage');
   var pagination = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
     return state.pagination;
   });
