@@ -64,11 +64,14 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 ## Issues
-When a sale with a deleted customer is updated, it will always get a new customer even if not desired!
-Similarly,
-When a purchase with a deleted supplier is updated, it will always get a new supplier even if not desired!
 
-When a product is deleted all it's details in the past sales and purchases are also gone from the frontend. 
-The details remain in the database though.
+- When a sale with a deleted customer is updated, it will always get a new customer even if not desired!
+  Similarly,
+- When a purchase with a deleted supplier is updated, it will always get a new supplier even if not desired!
 
-"Updating" product will not synchronize with frontend sales and purchases. 
+- When a product is deleted all it's details in the past sales and purchases are also gone from the frontend.
+  The details remain in the database though.
+
+- "Updating" product will not synchronize with frontend sales and purchases.
+
+- Wrong feedback message displayed when incorrect email is provided for reseting password.

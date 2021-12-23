@@ -1,10 +1,6 @@
-import { defaults } from 'lodash';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  reset_search_form,
-  set_search_form,
-} from '../../../actions/products/products-actions';
+import { set_search_form } from '../../../actions/products/products-actions';
 import ProductCategoryOption from '../../common/product-category-option/ProductCategoryOption';
 
 function FilterForm() {

@@ -1,3 +1,7 @@
+import { hide_delete_confirmation } from '../actions/delete-confirmation/delete-confirmation-actions';
+import { reset_pagination } from '../actions/pagination/pagination-actions';
+import { hide_success_message } from '../actions/success-message/success-message-actions';
+
 export const APP_NAME = 'StockPort';
 
 export const userRoles = {
@@ -38,3 +42,9 @@ export const defaultRowsCountPerPage = rowsPerPage[1];
 export const ERROR_DURATION = 3000;
 
 export const SERVER_ERROR = 'Server Error';
+
+export const defaultCleanupFunctions = [
+  hide_success_message,
+  hide_delete_confirmation,
+  reset_pagination,
+];

@@ -1,34 +1,21 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   resort_suppliers,
   sort_suppliers,
 } from '../../../actions/suppliers/suppliers-actions';
+import useItemsForCurrentPage from '../../../hooks/useItemsForCurrentPage';
 import SortArrows from '../../common/sort-arrows/SortArrows';
+import withCleaner from '../../hocs/withCleaner';
 import Supplier from './Supplier';
 
 function SuppliersTable() {
-  const [suppliers, pagination] = useSelector(state => [
-    state.suppliers.list,
-    state.pagination,
-  ]);
+  const [suppliers] = useSelector(state => [state.suppliers.list]);
 
   const dispatch = useDispatch();
 
-  const itemsForCurrentPage = () =>
-    suppliers.slice(
-      initialItemIndexForCurrentPage(),
-      initialItemIndexForCurrentPage() + pagination.itemsPerPage
-    );
-
-  const initialItemIndexForCurrentPage = () =>
-    (pagination.currentPage - 1) * pagination.itemsPerPage;
+  const itemsForCurrentPage = useItemsForCurrentPage(suppliers);
 
   const sort = (key, order) => dispatch(sort_suppliers(key, order));
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => dispatch(resort_suppliers());
 
   return (
     <div className='table-responsive'>
@@ -51,7 +38,7 @@ function SuppliersTable() {
           </tr>
         </thead>
         <tbody>
-          {itemsForCurrentPage().map(supplier => (
+          {itemsForCurrentPage.map(supplier => (
             <Supplier
               key={supplier.id}
               id={supplier.id}
@@ -67,4 +54,4 @@ function SuppliersTable() {
   );
 }
 
-export default SuppliersTable;
+export default withCleaner(SuppliersTable, [resort_suppliers]);

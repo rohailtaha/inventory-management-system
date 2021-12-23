@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Fragment } from 'react/cjs/react.development';
 import { request_logout } from '../../actions/authentication/authentication-actions';
 import toggleSidebar from '../../actions/sidebar/toggle-sidebar';
@@ -13,6 +13,7 @@ function Sidebar() {
   ]);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const toggleReportTypes = () => {
     const reportTypes = document.querySelector('.report-types');

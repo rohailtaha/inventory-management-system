@@ -6,6 +6,7 @@ import {
 } from '../../../actions/categories/categories-actions';
 import FormError from '../../common/form-error/FormError';
 import { removeExtraSpaces } from '../../../utils/utility_functions';
+import withCleaner from '../../hocs/withCleaner';
 
 function AddCategoryForm() {
   const [form, setForm] = useState({ name: '' });
@@ -20,8 +21,6 @@ function AddCategoryForm() {
     if (successMessage.show) reset();
   }, [successMessage.show]);
 
-  useEffect(() => cleanup, []);
-
   const reset = () => setForm({ name: '' });
 
   const handleChange = event => {
@@ -33,10 +32,6 @@ function AddCategoryForm() {
   const handleSubmit = event => {
     event.preventDefault();
     dispatch(request_create_category(dataWithCorrectFormat()));
-  };
-
-  const cleanup = () => {
-    dispatch(hide_error());
   };
 
   const dataWithCorrectFormat = () => ({
@@ -67,4 +62,4 @@ function AddCategoryForm() {
   );
 }
 
-export default AddCategoryForm;
+export default withCleaner(AddCategoryForm, [hide_error]);

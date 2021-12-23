@@ -4,31 +4,19 @@ import {
   resort_customers,
   sort_customers,
 } from '../../../actions/customers/customers-actions';
+import useItemsForCurrentPage from '../../../hooks/useItemsForCurrentPage';
 import SortArrows from '../../common/sort-arrows/SortArrows';
+import withCleaner from '../../hocs/withCleaner';
 import Customer from './Customer';
 
 function CustomersTable() {
-  const [customers, pagination] = useSelector(state => [
-    state.customers.list,
-    state.pagination,
-  ]);
+  const [customers] = useSelector(state => [state.customers.list]);
 
   const dispatch = useDispatch();
 
-  const itemsForCurrentPage = () =>
-    customers.slice(
-      initialItemIndexForCurrentPage(),
-      initialItemIndexForCurrentPage() + pagination.itemsPerPage
-    );
-
-  const initialItemIndexForCurrentPage = () =>
-    (pagination.currentPage - 1) * pagination.itemsPerPage;
+  const itemsForCurrentPage = useItemsForCurrentPage(customers);
 
   const sort = (key, order) => dispatch(sort_customers(key, order));
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => dispatch(resort_customers());
 
   return (
     <div className='table-responsive'>
@@ -55,7 +43,7 @@ function CustomersTable() {
           </tr>
         </thead>
         <tbody>
-          {itemsForCurrentPage().map(customer => (
+          {itemsForCurrentPage.map(customer => (
             <Customer
               id={customer.id}
               name={customer.name}
@@ -71,4 +59,4 @@ function CustomersTable() {
   );
 }
 
-export default CustomersTable;
+export default withCleaner(CustomersTable, [resort_customers]);

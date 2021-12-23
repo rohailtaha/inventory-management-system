@@ -17,6 +17,7 @@ import Paginaton from '../../common/pagination/Pagination';
 import PurchasesReportForm from './form/PurchasesReportForm';
 import PurchasesReportHeader from './report header/PurchasesReportHeader';
 import PurchasesReportTable from './table/PurchasesReportTable';
+import withCleaner from '../../hocs/withCleaner';
 
 function PurchasesReport() {
   const [fetched, report, purchases] = useSelector(state => [
@@ -46,10 +47,6 @@ function PurchasesReport() {
   useEffect(() => {
     if (!fetched) dispatch(request_fetch_purchases());
   }, []);
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => dispatch(reset_pagination());
 
   return (
     <Fragment>
@@ -82,4 +79,4 @@ function PurchasesReport() {
   );
 }
 
-export default PurchasesReport;
+export default withCleaner(PurchasesReport, [reset_pagination]);

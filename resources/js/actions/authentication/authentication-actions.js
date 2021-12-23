@@ -34,8 +34,8 @@ export const request_logout = user => {
       dispatch(load());
       const response = await axios.get('/logout', user);
       if (response.data.status === 'OK') {
-        dispatch(logout());
-        dispatch(reset_user());
+        await dispatch(logout());
+        await dispatch(reset_user());
       } else {
         alert(SERVER_ERROR);
       }

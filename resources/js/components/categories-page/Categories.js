@@ -2,14 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Fragment, useEffect } from 'react/cjs/react.development';
 import { request_delete_category } from '../../actions/categories/categories-actions';
-import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
-import { reset_pagination } from '../../actions/pagination/pagination-actions';
-import { hide_success_message } from '../../actions/success-message/success-message-actions';
+import { defaultCleanupFunctions } from '../../utils/util_structures';
 import Paginaton from '../common/pagination/Pagination';
 import RowsPerPage from '../common/rows-per-page/RowsPerPage';
 import AddCategoryForm from './add category form/AddCategoryForm';
 import EditCategoryModal from './edit category modal/EditCategoryModal';
 import CategoriesTable from './table/CategoriesTable';
+import withCleaner from '../hocs/withCleaner';
 
 function Categories() {
   const [deleteConfirmation, categories] = useSelector(state => [
@@ -25,14 +24,6 @@ function Categories() {
     if (deleteConfirmation.confirm)
       dispatch(request_delete_category(deleteConfirmation.deleteID));
   }, [deleteConfirmation.confirm]);
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => {
-    dispatch(hide_success_message());
-    dispatch(hide_delete_confirmation());
-    dispatch(reset_pagination());
-  };
 
   return (
     <Fragment>
@@ -59,4 +50,4 @@ function Categories() {
   );
 }
 
-export default Categories;
+export default withCleaner(Categories, defaultCleanupFunctions);

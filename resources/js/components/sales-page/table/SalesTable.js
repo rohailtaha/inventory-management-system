@@ -1,32 +1,19 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resort_sales, sort_sales } from '../../../actions/sales/sales-actions';
+import useItemsForCurrentPage from '../../../hooks/useItemsForCurrentPage';
 import { getDate } from '../../../utils/utility_functions';
 import SortArrows from '../../common/sort-arrows/SortArrows';
+import withCleaner from '../../hocs/withCleaner';
 import Sale from './Sale';
 
 function SalesTable() {
-  const [sales, pagination] = useSelector(state => [
-    state.sales.list,
-    state.pagination,
-  ]);
+  const [sales] = useSelector(state => [state.sales.list]);
 
   const dispatch = useDispatch();
 
-  const itemsForCurrentPage = () =>
-    sales.slice(
-      initialItemIndexForCurrentPage(),
-      initialItemIndexForCurrentPage() + pagination.itemsPerPage
-    );
-
-  const initialItemIndexForCurrentPage = () =>
-    (pagination.currentPage - 1) * pagination.itemsPerPage;
+  const itemsForCurrentPage = useItemsForCurrentPage(sales);
 
   const sort = (key, order) => dispatch(sort_sales(key, order));
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => dispatch(resort_sales());
 
   return (
     <div className='table-responsive'>
@@ -59,7 +46,7 @@ function SalesTable() {
           </tr>
         </thead>
         <tbody>
-          {itemsForCurrentPage().map(sale => (
+          {itemsForCurrentPage.map(sale => (
             <Sale
               key={sale.id}
               id={sale.id}
@@ -77,4 +64,4 @@ function SalesTable() {
   );
 }
 
-export default SalesTable;
+export default withCleaner(SalesTable, [resort_sales]);

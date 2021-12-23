@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { hide_delete_confirmation } from '../../actions/delete-confirmation/delete-confirmation-actions';
-import { reset_pagination } from '../../actions/pagination/pagination-actions';
 import { request_delete_sale } from '../../actions/sales/sales-actions';
-import { hide_success_message } from '../../actions/success-message/success-message-actions';
 import Paginaton from '../common/pagination/Pagination';
 import RowsPerPage from '../common/rows-per-page/RowsPerPage';
 import SalesTable from './table/SalesTable';
+import withCleaner from '../hocs/withCleaner';
+import { defaultCleanupFunctions } from '../../utils/util_structures';
 
 function Sales() {
   const dispatch = useDispatch();
@@ -20,14 +19,6 @@ function Sales() {
     if (deleteConfirmation.confirm)
       dispatch(request_delete_sale(deleteConfirmation.deleteID));
   }, [deleteConfirmation.confirm]);
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => {
-    dispatch(hide_success_message());
-    dispatch(hide_delete_confirmation());
-    dispatch(reset_pagination());
-  };
 
   return (
     <div className='main__content main__content--sales'>
@@ -51,4 +42,4 @@ function Sales() {
   );
 }
 
-export default Sales;
+export default withCleaner(Sales, defaultCleanupFunctions);

@@ -11,6 +11,7 @@ import {
 import { hide_success_message } from '../../../../actions/success-message/success-message-actions';
 import { removeExtraSpaces } from '../../../../utils/utility_functions';
 import FormError from '../../../common/form-error/FormError';
+import withCleaner from '../../../hocs/withCleaner';
 
 function CustomerForm({ mode }) {
   const [form, setForm] = useState({
@@ -39,7 +40,6 @@ function CustomerForm({ mode }) {
     }
   }, []);
 
-  useEffect(() => cleanup, []);
   useEffect(() => {
     if (successMessage.show && !updateMode()) resetForm();
   }, [successMessage.show]);
@@ -63,11 +63,6 @@ function CustomerForm({ mode }) {
     updateMode()
       ? dispatch(request_update_customer(dataWithCorrectFormat(), id))
       : dispatch(request_create_customer(dataWithCorrectFormat()));
-  };
-
-  const cleanup = () => {
-    dispatch(hide_error());
-    dispatch(hide_success_message());
   };
 
   const dataWithCorrectFormat = () => {
@@ -166,4 +161,4 @@ function CustomerForm({ mode }) {
   );
 }
 
-export default CustomerForm;
+export default withCleaner(CustomerForm, [hide_error, hide_success_message]);

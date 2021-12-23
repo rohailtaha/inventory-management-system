@@ -7,8 +7,9 @@ import {
 } from '../../../actions/users/users-actions';
 import { removeExtraSpaces } from '../../../utils/utility_functions';
 import FormError from '../../common/form-error/FormError';
+import withCleaner from '../../hocs/withCleaner';
 
-export default function AccountForm() {
+function AccountForm() {
   const [user, error, successMessage] = useSelector(state => [
     state.users.user,
     state.users.error,
@@ -59,12 +60,6 @@ export default function AccountForm() {
   useEffect(() => {
     if (successMessage.show) disableEdit();
   }, [successMessage.show]);
-
-  useEffect(() => cleanup, []);
-  const cleanup = () => {
-    dispatch(hide_error());
-    dispatch(hide_success_message());
-  };
 
   return (
     <form className='mb-5' onSubmit={handleSubmit}>
@@ -136,3 +131,5 @@ export default function AccountForm() {
     </form>
   );
 }
+
+export default withCleaner(AccountForm, [hide_error, hide_success_message]);

@@ -7,8 +7,9 @@ import {
   request_forgot_password,
 } from '../../actions/authentication/authentication-actions';
 import FormError from '../common/form-error/FormError';
+import withCleaner from '../hocs/withCleaner';
 
-export default function EmailForm() {
+function EmailForm() {
   const [error, successMessage] = useSelector(state => [
     state.auth.error,
     state.successMessage,
@@ -44,9 +45,6 @@ export default function EmailForm() {
       email: '',
     });
 
-  useEffect(() => cleanup, []);
-  const cleanup = () => dispatch(hide_error());
-
   return (
     <form onSubmit={handleSubmit}>
       <div className='mb-3'>
@@ -76,3 +74,5 @@ export default function EmailForm() {
     </form>
   );
 }
+
+export default withCleaner(EmailForm, [hide_error]);

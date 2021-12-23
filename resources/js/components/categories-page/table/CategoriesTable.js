@@ -1,34 +1,21 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   resort_categories,
   sort_categories,
 } from '../../../actions/categories/categories-actions';
+import useItemsForCurrentPage from '../../../hooks/useItemsForCurrentPage';
 import SortArrows from '../../common/sort-arrows/SortArrows';
+import withCleaner from '../../hocs/withCleaner';
 import Category from './Category';
 
 function CategoriesTable() {
-  const [categories, pagination] = useSelector(state => [
-    state.categories.list,
-    state.pagination,
-  ]);
+  const [categories] = useSelector(state => [state.categories.list]);
 
   const dispatch = useDispatch();
 
-  const itemsForCurrentPage = () =>
-    categories.slice(
-      initialItemIndexForCurrentPage(),
-      initialItemIndexForCurrentPage() + pagination.itemsPerPage
-    );
-
-  const initialItemIndexForCurrentPage = () =>
-    (pagination.currentPage - 1) * pagination.itemsPerPage;
+  const itemsForCurrentPage = useItemsForCurrentPage(categories);
 
   const sort = (key, order) => dispatch(sort_categories(key, order));
-
-  useEffect(() => cleanup, []);
-
-  const cleanup = () => dispatch(resort_categories());
 
   return (
     <div className='table-responsive'>
@@ -43,7 +30,7 @@ function CategoriesTable() {
           </tr>
         </thead>
         <tbody>
-          {itemsForCurrentPage().map(category => (
+          {itemsForCurrentPage.map(category => (
             <Category key={category.id} id={category.id} name={category.name} />
           ))}
         </tbody>
@@ -52,4 +39,4 @@ function CategoriesTable() {
   );
 }
 
-export default CategoriesTable;
+export default withCleaner(CategoriesTable, [resort_categories]);

@@ -7,11 +7,12 @@ import {
   show_password_form_error,
 } from '../../../actions/users/users-actions';
 import FormError from '../../common/form-error/FormError';
+import withCleaner from '../../hocs/withCleaner';
 
 const PASSWORD_MISMATCH_ERROR =
   'Confirmed password does not match with new password.';
 
-export default function PasswordForm() {
+function PasswordForm() {
   const [error, successMessage] = useSelector(state => [
     state.users.passwordFormError,
     state.successMessage,
@@ -28,13 +29,9 @@ export default function PasswordForm() {
 
   const dispatch = useDispatch();
 
-  const enableEdit = () => {
-    setEditable(true);
-  };
+  const enableEdit = () => setEditable(true);
 
-  const disableEdit = () => {
-    setEditable(false);
-  };
+  const disableEdit = () => setEditable(false);
 
   const confirmPasswordMatch = () =>
     newPasswordRef.current.value === newPasswordConfirmationRef.current.value;
@@ -61,12 +58,6 @@ export default function PasswordForm() {
   useEffect(() => {
     if (successMessage.show) disableEdit();
   }, [successMessage.show]);
-
-  useEffect(() => cleanup, []);
-  const cleanup = () => {
-    dispatch(hide_password_form_error());
-    dispatch(hide_success_message());
-  };
 
   return (
     <form className='mb-5' onSubmit={handleSubmit}>
@@ -160,3 +151,8 @@ export default function PasswordForm() {
     </form>
   );
 }
+
+export default withCleaner(PasswordForm, [
+  hide_password_form_error,
+  hide_success_message,
+]);

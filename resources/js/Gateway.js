@@ -18,7 +18,6 @@ function Gateway() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // setTimeout(() => document.body.removeAttribute('class'), 1000);
     dispatch(attempt_login()).then(() => {
       setAuthInfoFetched(true);
     });
